@@ -24,6 +24,9 @@ app.set('view engine', 'ejs');
 //setup public folder
 app.use(express.static(path.join(__dirname,'public')));
 
+//parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}))
+
 //parse application/json
 app.use(bodyParser.json())
 
@@ -46,3 +49,7 @@ var port=process.env.PORT || 3000;
 server.listen(port,function(){
     console.log('connected to port ' + port);
 });
+
+var auth = require('./routes/auth');
+
+app.use('/auth',auth);
