@@ -40,7 +40,7 @@
             </div>
             <div class="col-5 side-login">
                 <div class="login-form">
-                    <img src="/img/logo.gif" alt="logo">
+                    <a href="/index.js"><img src="/img/logo.gif" alt="logo"></a>
                     <h2 class="login-h1">Đăng nhập</h2>
                     <form action="/auth/login" method="post">
                         <div class="login-input">
@@ -54,14 +54,18 @@
                                     <%=value%>
                                 <%} %>
                                 >
+                                <span class="error">thông báo lỗi</span>
                         </div>
                         <div class="login-input">
                             <i class="fa-solid fa-lock"></i>
                             <input type="password" name="password" class="form-control email-input" id="exampleInputPassword1">
+                            <span class="error">thông báo lỗi</span>
                         </div>
                         <button type="submit" class="btn-login">
                             Đăng nhập
                         </button>
+                        <i><a href="forgetPass.html">Quên mật khẩu?</a></i>
+                        <span style="color: #f0c673">Chưa có tài khoản? <i><a href="/login/register.html">Đăng ký ngay!</a></i></span>
                     </form>
                 </div>
             </div>
