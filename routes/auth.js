@@ -59,10 +59,10 @@ router.post('/register',(req,res) => {
                     if (err) return console.log(err); 
                     res.render('auth/register',{
                         mes:'Đăng ký thành công',
-                        // email:'',
-                        // fullname:'',
-                        // phone:'',
-                        // birthday:'',
+                        email:'',
+                        fullname:'',
+                        phone:'',
+                        birthday:'',
                     })
                 })
             })    
@@ -71,6 +71,10 @@ router.post('/register',(req,res) => {
     
 })
 
+//confirm register
+router.get('/confirm-register/:token',(req,res) => {
+
+})
 //get login
 router.get('/login',(req,res) => {
     res.render('auth/login');
@@ -142,7 +146,10 @@ router.post('/forget',(req,res) => {
             }
             transporter.sendMail(data, function(err, info){
                 if (err) {
-                    console.log(err);                                      
+                    console.log(err);
+                    res.render('auth/forgetPass',{
+                        mes:'Gửi thất bại'
+                    });                                              
                 } else {
                     console.log('Message sent: ' +  info.response);        
                     res.render('auth/forgetPass',{
