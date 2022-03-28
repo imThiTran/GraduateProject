@@ -853,9 +853,10 @@ a:hover{
 
 .side-img{
     height: 100%;
-    padding-right: 50px;
+    padding-right: 70px;
     padding-left: 0px;
-    width: 690px;
+    width: 100%;
+    max-width: 690px;
    
 }
 
@@ -950,4 +951,10 @@ a:hover{
 
 .register-form{
     padding-top: 20px;
+}
+.register-slide{
+    width: 650px !important;
+    height: 830px;
+    object-fit: cover;
+    object-position: 50% 50%;
 }
