@@ -41,18 +41,22 @@
             <div class="col-5 side-login">
                 <div class="login-form">
                     <a href="/Index.html"><img src="/img/logo.gif" alt="logo"></a>
-                    <h2 class="login-h1">Quên mật khẩu?</h2>
-                    <form action="/auth/forget" method="post" class="form-signin">
+                    <h2 class="login-h1">Lấy lại mật khẩu</h2>
+                    <form method="post" class="form-signin">
                         <div class="login-input">
-                            <i class="fa-solid fa-circle-user"></i>
-                            <input type="email" name="email" placeholder="Email" class="form-control email-input" id="exampleInputEmail1"
-                                aria-describedby="emailHelp">
-                                <span class="error">thông báo lỗi</span>
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" name="newpass" placeholder="Mật khẩu mới" class="form-control email-input" id="exampleInputPassword1">
+                            <span class="error">thông báo lỗi</span>
+                        </div>
+                        <div class="login-input">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="form-control email-input" id="exampleInputPassword1">
+                            <span class="error">thông báo lỗi</span>
                         </div>
                         <button type="submit" class="btn-login">
-                            Gửi
+                            Đổi mật khẩu
                         </button>
-                        <i><a href="login">Quay lại trang Đăng nhập!</a></i>
+                        <i><a href="login.html">Quay lại trang Đăng nhập!</a></i>
                     </form>
                 </div>
             </div>

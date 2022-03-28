@@ -9,8 +9,7 @@ var UserSchema = mongoose.Schema({
         type: String
     },
     fullname:{
-        type: String,
-        required : true
+        type: String
     },
     birthday:{
         type: String,
@@ -35,6 +34,10 @@ var UserSchema = mongoose.Schema({
             dateto:"",
             realdate:"",
         },
+    },
+    resetLink: {
+        type: String,
+        default:''
     }
 })
 
