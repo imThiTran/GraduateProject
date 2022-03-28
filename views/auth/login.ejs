@@ -17,12 +17,13 @@
                 <div class="login-form">
                     <a href="/index.js"><img src="/img/logo.gif" alt="logo"></a>
                     <h2 class="login-h1">Đăng nhập</h2>
-                    <form action="/auth/login" method="post">
+                    <form action="/auth/login" method="post" class="form-signin">
                         <div class="login-input">
-                            <i class="fa-solid fa-circle-user"></i>
+                            
                             <%  if (typeof mes!="undefined"){%>
-                              <p style="color: red;"><%=mes%></p>  
+                                <div class="alert alert-danger error-alert" role="alert"><%=mes%></div>
                             <%} %>
+                            <i class="fa-solid fa-circle-user"></i>
                             <input type="email" name="email" placeholder="Email" class="form-control email-input" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" value=
                                 <% if (typeof value!="undefined"){%>
