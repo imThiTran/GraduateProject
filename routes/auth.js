@@ -47,5 +47,8 @@ router.post('/login',function(req,res){
    
 })
 
-
+//get forgetPassword
+router.get('/forget',function(req,res){
+    res.render('auth/forgetPass');
+})
 module.exports = router;
