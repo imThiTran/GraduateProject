@@ -16,6 +16,7 @@ var UserSchema = mongoose.Schema({
     },
     admin:{
         type: Number,
+        default:0
     },
     gender:{
         type: String,
@@ -35,10 +36,6 @@ var UserSchema = mongoose.Schema({
             realdate:"",
         },
     },
-    resetLink: {
-        type: String,
-        default:''
-    }
 })
 
 var User = module.exports = mongoose.model('User',UserSchema);

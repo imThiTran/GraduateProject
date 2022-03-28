@@ -1,0 +1,104 @@
+<%- include ('../layouts/header')%>
+
+<body>
+
+    <div class="">
+        <div class="login-section">
+            <div class="side-img">
+                <div class="poster-index login-poster">
+                    <div id="owl-demo" class="owl-carousel owl-theme">
+                        <a href="#"><img class="poster-slide login-slide" src="/img/P1.jpg" alt="Owl Image"></a>
+                        <a href="#"><img class="poster-slide login-slide" src="/img/P2.jpg" alt="Owl Image"></a>
+                        <a href="#"><img class="poster-slide login-slide" src="/img/P3.jpg" alt="Owl Image"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 side-login">
+                <div class="login-form register-form">
+                    <a href="/Index.html"><img src="/img/logo.gif" alt="logo"></a>
+                    <h2 class="login-h1">Đăng ký</h2>
+                    <form action="/auth/register" method="post" class="form-signin">
+                        <p style="color: red;"><%=mes%></p>
+                        <div class="login-input">
+                            <i class="fa-solid fa-circle-user"></i>
+                            <input type="text" name="fullname" value="<%=fullname%>" placeholder="Họ tên" class="form-control email-input">
+                            <span class="error">thông báo lỗi</span>
+                        </div>
+                        <div class="login-input">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" name="email" placeholder="Email" value="<%=email%>" class="form-control email-input"
+                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <span class="error">thông báo lỗi</span>
+                        </div>
+                        <div class="login-input">
+                            <i class="fa-solid fa-circle-user"></i>
+                            <input type="text" name="phone" placeholder="Số điện thoại" value="<%=phone%>" class="form-control email-input">
+                            <span class="error">thông báo lỗi</span>
+                        </div>
+                        <div class="login-input">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <input type="date" name="birthday" placeholder="Ngày sinh" value="<%=birthday%>" class="form-control email-input">
+                            <span class="error">thông báo lỗi</span>
+                        </div>
+                        <div class="login-input">
+                            <i class="fa-solid fa-venus-mars"></i>
+                            <select name="gender" class="form-select email-input" aria-label="Default select example">
+                                <option class="gender" value="male">Nam</option>
+                                <option class="gender" value="female">Nữ</option>
+                                <option class="gender" value="other">Khác</option>
+                              </select>
+                            <span class="error">thông báo lỗi</span>
+                        </div>
+
+                        <div class="login-input">
+                            <i class="fa-solid fa-lock"></i>
+                            <input name="password" type="password" placeholder="Mật khẩu" class="form-control email-input"
+                                id="exampleInputPassword1">
+                            <span class="error">thông báo lỗi</span>
+                        </div>
+                        <div class="login-input">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="form-control email-input"
+                                id="exampleInputPassword1">
+                            <span class="error">thông báo lỗi</span>
+                        </div>
+                        <button type="submit" class="btn-login">
+                            Đăng ký
+                        </button>
+                        <span style="color: #f0c673">Đã có tài khoản? <i><a href="/auth/login">Đăng nhập
+                                    ngay!</a></i></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/owl.carousel.js"></script>
+    <link rel="stylesheet" href="/css/owl.carousel.css">
+    <link rel="stylesheet" href="/css/owl.theme.css">
+
+    <script>
+        $("#owl-demo").owlCarousel({
+            animateOut: 'fadeOut',
+            dots: false,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            items: 1,
+            itemsDesktop: [1199, 3],
+            itemsDesktopSmall: [979, 3]
+
+        });
+
+    </script>
+
+</body>
+
+</html>
