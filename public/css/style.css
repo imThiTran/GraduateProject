@@ -3,18 +3,19 @@
 ::-webkit-scrollbar-track
 {
 	border-radius: 10px;
-	background-color: #F5F5F5;
+	background-color: #333;
 }
 ::-webkit-scrollbar
 {
-	width: 12px;
-	background-color: #F5F5F5;
+	width: 9px;
+	background-color: #333;
 }
 ::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
 	background-color: #f0c673;
 }
+
 nav.sticky {
     padding-bottom: 0px;
     position: sticky;
@@ -674,6 +675,28 @@ a:hover{
 }
 .flex-img{
     padding-bottom: 20px;
+}
+  .dropdown1 {
+    min-width: 100px;
+    position: relative;
+    display: inline-block;
+  }
+ 
+  .dropdown1:hover .drop-menu {
+    display: block;
+    position: absolute;
+    list-style: none;
+    background: #eee;
+    padding: 10px;
+    z-index: 99;
+    font-size: 16px;
+    box-shadow: 0 3px 3px rgb(49 49 49 / 20%)
+  }
+.user-login{
+    color: #eee !important;
+}
+.user-drop{
+    border-bottom: 1px solid #333;
 }
 
 /*user*/
