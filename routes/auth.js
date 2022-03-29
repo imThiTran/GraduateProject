@@ -34,7 +34,7 @@ router.post('/register', (req, res) => {
             const token = jwt.sign(req.body, process.env.RESET_PASSWORD_KEY, { expiresIn: '15m' });
             const data = {                
                 to: email,
-                subject: 'Mã xác nhận',
+                subject: 'XÁC NHẬN ĐĂNG KÝ',
                 html: `
                 <div style="
                 width: 100%;
@@ -101,7 +101,7 @@ router.get('/confirm-register/:token',(req,res) => {
             const { email, fullname, phone, birthday, gender, password } = decodedData;
             User.findOne({email:email},(err,us) => {
                 if (us) {
-                    res.render('error', {
+                    res.status(404).render('error', {
                         mes: 'Page Not Found'
                     });
                 } else {
@@ -125,7 +125,7 @@ router.get('/confirm-register/:token',(req,res) => {
                 }
             })
         } else {
-            res.render('error', {
+            res.status(404).render('error', {
                 mes: 'Page Not Found'
             });
         }
@@ -192,7 +192,7 @@ router.post('/forget', (req, res) => {
             const token = jwt.sign({ _id: user._id }, process.env.RESET_PASSWORD_KEY + user.password, { expiresIn: '15m' });
             const data = {                
                 to: email,
-                subject: 'Quên mật khẩu',
+                subject: 'QUÊN MẬT KHẨU',
                 html: `
                 <div style="
                 width: 100%;
@@ -258,7 +258,7 @@ router.get('/reset/:id/:token', (req, res) => {
                     mes: ''
                 });
             } else {
-                res.render('error', {
+                res.status(404).render('error', {
                     mes: 'Page Not Found'
                 });
             }
@@ -284,7 +284,7 @@ router.post('/reset/:id/:token', (req, res) => {
                     })
                 }
             } else {
-                res.render('error', {
+                res.status(404).render('error', {
                     mes: 'Page Not Found'
                 });
             }
