@@ -1,6 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&family=Nunito:wght@300;500&family=Rubik:wght@300&family=Saira+Semi+Condensed:wght@100;400;500;600;800&display=swap');
 
-
+::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #f0c673;
+}
 nav.sticky {
     padding-bottom: 0px;
     position: sticky;
@@ -245,30 +259,60 @@ a:hover{
     box-shadow: none !important;
 }
 
-.form-control {
+.search-input {
     height: 44px;
     font-size: 14px;
-    position: relative;
+    /* position: relative; */
 }
 .dropdown-menu{
-    position: absolute;
     display: none;
-    top: 68%;
-    float: right;
+    top: 95%;
+    width: 100%;
 }
-.form-control:focus-visible .drop-menu{
-    display: block;
-}
-/* .form-control:focus + ul.drop-menu,
-.form-control.focus ul.drop-menu{
-    display: block;
-} */
-
-.form-control:focus {
+.search-input:focus {
     outline: none !important;
     box-shadow: none !important;
 }
-
+.search-part{
+    width: 100%;
+    margin-right: 10px;
+    position: relative;
+}
+.search-part:focus-within .dropdown-menu{
+    display: block !important;
+    position: absolute;
+}
+.search-part .dropdown-menu{
+    max-height: 300px; 
+    overflow-y: scroll;
+}
+.search-option{
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+.img-option{
+    width: 50px;
+    margin-right: 20px;
+}
+.img-option img{
+    width: 100%;
+}
+.title-option h5{
+    font-weight: 600;
+    line-height: .7;
+    font-size: 18px;
+}
+.title-option h6{
+    font-size: 16px;
+}
+.rating-flex{
+    display: flex;
+}
+.rating-flex img{
+    width: 30px;
+    margin-top: -6px;
+}
 .work .index-text-slide {
     position: absolute;
     opacity: 0;
