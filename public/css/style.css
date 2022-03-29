@@ -173,6 +173,9 @@ a:hover{
     padding: .3rem .5rem;
     color: #eee;
 }
+.index-sign:focus{
+    color: #f0c673 !important;
+}
 
 .index-span-sign {
     background-color: rgb(156, 156, 156);
@@ -204,6 +207,7 @@ a:hover{
     width: 100px;
     margin: 0 25px !important;
     font-size: 20px;    
+    height: 60px;
 }
 
 .index-navbar:hover {
@@ -492,7 +496,7 @@ a:hover{
 
 .poster-movie-div {
     padding-bottom: 40px;
-    padding-top: 20px;
+    padding-top: 10px;
     border-bottom: 3px solid #fdc85b;
 }
 
@@ -615,6 +619,18 @@ a:hover{
 .row-coming{
     padding: 30px 0px 70px 0px;
 }
+.checked {
+    color: orange;
+}
+.fa-star{
+    font-size: 20px;
+}
+.a-coming:hover{
+    color: #eee !important;
+}
+.flex-img{
+    padding-bottom: 20px;
+}
 
 /*user*/
 
@@ -709,9 +725,10 @@ a:hover{
     color: #eee;
     background: #fdc85b;
 }
-.nav-link:focus, .nav-link:hover{
+/* .nav-link:focus, .nav-link:hover{
     color: #f0c673 !important;
-}
+} */
+
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     color: #333;
     background-color: rgb(254 199 88);

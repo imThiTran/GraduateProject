@@ -1,574 +1,598 @@
 <%- include ('./layouts/header') %>
 
-<body>
+    <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark index-nav-dark" id="navbar">
-        <ul class="nav justify-content-end index-sign-nav">
-            <li class="nav-item">
-                <a class="nav-link index-sign" aria-current="page" href="#">Đăng nhập</a>
-            </li>
-            <span class="index-span-sign"></span>
-            <li class="nav-item">
-                <a class="nav-link index-sign" href="#">Đăng ký</a>
-            </li>
-        </ul>
-        <div class="container-fluid">
-            <a class="navbar-brand index-brand" href="Index.html">
-                <img class="index-img-logo" src="/img/logo.gif" alt="Megas Cinema">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll index-scroll"
-                    style="--bs-scroll-height: 100px;">
-                    <li class="nav-item drop index-dropdown">
-                        <a class="nav-link index-navbar">
-                            Thể loại
-                        </a>
-                        <ul class="drop-menu">
-                            <li><a class="dropdown-item" href="#">Phim đang chiếu</a></li>
-                            <li><a class="dropdown-item" href="#">Phim sắp chiếu</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Tình cảm</a></li>
-                            <li><a class="dropdown-item" href="#">Hành động</a></li>
-                            <li><a class="dropdown-item" href="#">Kinh dị</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link index-navbar" href="#">Vé</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link index-navbar" href="#">Sự kiện</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link index-navbar">Liên hệ</a>
-                    </li>
-                </ul>
-                <form class="d-flex index-flex">
-                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm tên phim" aria-label="Search">
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                    <button class="btn btn-outline-success index-search" type="submit">
-                        <img src="/img/search-icon.png" alt="search">
-                    </button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-    <div class="poster-index">
-        <div id="owl-demo" class="owl-carousel owl-theme">
-            <a href="#"><img class="poster-slide" src="/img/sukien1.jpg" alt="Owl Image"></a>
-            <a href="#"><img class="poster-slide" src="/img/sukien2.jpg" alt="Owl Image"></a>
-            <a href="#"><img class="poster-slide" src="/img/sukien3.jpg" alt="Owl Image"></a>
-        </div>
-    </div>
-
-    <div class="zalo-chat-widget" data-oaid="2023301482249874214" data-welcome-message="Rất vui khi được hỗ trợ bạn!"
-        data-autopopup="0" data-width="" data-height=""></div>
-
-    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
-
-    <div">
-        <div class="container" style="padding-top: 70px;">
-            <ul class="nav nav-tabs tab-phim" id="myTab" role="tablist">
-                <li class="nav-item " role="presentation">
-                    <button class="nav-link tab-movie tab-show active" id="home-tab" data-bs-toggle="tab"
-                        data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
-                        PHIM ĐANG CHIẾU
-                    </button>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark index-nav-dark" id="navbar">
+            <ul class="nav justify-content-end index-sign-nav">
+                <li class="nav-item">
+                    <a class="nav-link index-sign" aria-current="page" href="#">Đăng nhập</a>
                 </li>
-                <li class="nav-item " role="presentation">
-                    <button class="nav-link tab-movie tab-show" id="profile-tab" data-bs-toggle="tab"
-                        data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
-                        aria-selected="false">
-                        PHIM SẮP CHIẾU
-                    </button>
+                <span class="index-span-sign"></span>
+                <li class="nav-item">
+                    <a class="nav-link index-sign" href="#">Đăng ký</a>
                 </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="time-section">
-                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            <div class="owl-time owl-carousel owl-theme slide-time">      
-                                <%
-                                    var date=today.getDate();
-                                    var day=today.getDay();
-                                    var month=today.getMonth()+1;
-                                %>
-                                <% for(var i=0; i<7; i++) {%>                                                                                  
-                                    <%if (date > dayinmonth) { %>
-                                        <% date = 1; %> 
-                                        <% month = month+1; %>                                       
-                                    <% } %>
-                                    <%if (day >= 7) { %>
-                                        <% day = 0; %>                                                                              
-                                    <% } %>
-                                    <% switch (day) {
-                                        case 0: %>
-                                        <div class="item btn btn-outline-dark btn-time-index"
-                                            onclick="openCity(event, 'sunday')">
-                                            <div>SUNDAY</div>
-                                            <span><%= date %>/<%= month %></span>
-                                        </div>
-                                      <% break;
-                                        case 1: %>
-                                        <div class="item btn btn-outline-dark btn-time-index"
-                                            onclick="openCity(event, 'monday')">
-                                            <div>MONDAY</div>
-                                            <span><%= date %>/<%= month %></span>
-                                        </div>
-                                      <% break;
-                                        case 2: %>
-                                        <div class="item btn btn-outline-dark btn-time-index"
-                                            onclick="openCity(event, 'tuesday')">
-                                            <div>TUESDAY</div>
-                                            <span><%= date %>/<%= month %></span>
-                                        </div>
-                                      <% break;
-                                        case 3: %>
-                                        <div class="item btn btn-outline-dark btn-time-index"
-                                            onclick="openCity(event, 'wednesday')">
-                                            <div>WEDNESDAY</div>
-                                            <span><%= date %>/<%= month %></span>
-                                        </div>
-                                      <% break;
-                                        case 4: %>
-                                        <div class="item btn btn-outline-dark btn-time-index"
-                                            onclick="openCity(event, 'thursday')">
-                                            <div>THURSDAY</div>
-                                            <span><%= date %>/<%= month %></span>
-                                        </div>
-                                      <% break;
-                                        case 5: %>
-                                        <div class="item btn btn-outline-dark btn-time-index"
-                                            onclick="openCity(event, 'friday')">
-                                            <div>FRIDAY</div>
-                                            <span><%= date %>/<%= month %></span>
-                                        </div>
-                                      <% break;
-                                        case 6: %>
-                                        <div class="item btn btn-outline-dark btn-time-index"
-                                            onclick="openCity(event, 'saturday')">
-                                            <div>SATURDAY</div>
-                                            <span><%= date %>/<%= month %></span>
-                                        </div>
-                                      <% break;
-                                        default:
-                                    } %>
-                                    <% date=date+1; %>
-                                    <% day=day+1; %>
-                                 <% } %>
-                            </div>
+            <div class="container-fluid">
+                <a class="navbar-brand index-brand" href="Index.html">
+                    <img class="index-img-logo" src="/img/logo.gif" alt="Megas Cinema">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll index-scroll"
+                        style="--bs-scroll-height: 100px;">
+                        <li class="nav-item drop index-dropdown">
+                            <a class="nav-link index-navbar">
+                                Thể loại
+                            </a>
+                            <ul class="drop-menu">
+                                <li><a class="dropdown-item" href="#">Tình cảm</a></li>
+                                <li><a class="dropdown-item" href="#">Hành động</a></li>
+                                <li><a class="dropdown-item" href="#">Kinh dị</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link index-navbar" href="#">Vé</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link index-navbar" href="#">Sự kiện</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link index-navbar">Liên hệ</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex index-flex">
+                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm tên phim"
+                            aria-label="Search">
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                        <div class="tab-content">
-                            <div class="tab-list" id="monday">
-                                <div class="movie-section">
-                                    <div class="poster-movie-div">
-                                        <div class="flex-title">
-                                            <a href="#">
-                                                <div class="flex-cs">
-                                                    <div class="english-title">
-                                                        <div class="h6-poster">
-                                                            ETERNAL
-                                                        </div>
-                                                        <div class="cs">
-                                                            <img class="img-cs" src="/img/cs13.png">
-                                                        </div>
-                                                    </div>
-                                                    <div class="side-poster">
-                                                        CHỦNG TỘC BẤT TỬ
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="flex-time">
-                                            <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
-                                            <div class="flex-time-detail">
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        09:30 AM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="poster-movie-div">
-                                        <div class="flex-title">
-                                            <a href="#">
-                                                <div class="flex-cs">
-                                                    <div class="english-title">
-                                                        <div class="h6-poster">
-                                                            ETERNAL
-                                                        </div>
-                                                        <div class="cs">
-                                                            <img class="img-cs" src="/img/cs13.png">
-                                                        </div>
-                                                    </div>
-                                                    <div class="side-poster">
-                                                        CHỦNG TỘC BẤT TỬ
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="flex-time">
-                                            <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
-                                            <div class="flex-time-detail">
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        09:30 AM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                                <div class="time-btn">
-                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                        13:45 PM
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-list" id="tuesday">b</div>
-                            <div class="tab-list" id="wednesday">c</div>
-                            <div class="tab-list" id="thursday">d</div>
-                            <div class="tab-list" id="friday">e</div>
-                            <div class="tab-list" id="saturday">f</div>
-                            <div class="tab-list" id="sunday">g</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="container">
-                        <div class="row row-coming">
-                            <div class="coming-side">
-                                <div class="coming-movie">
-                                    <a href="#">
-                                        <div class="flex-img">
-                                            <img class="poster-movie" src="/img/P1.jpg">
-                                        </div>
-                                        <div class="flex-cs">
-                                            <div class="english-title">
-                                                <div class="h6-poster">
-                                                    ETERNAL
-                                                </div>
-                                                <div class="cs">
-                                                    <img class="img-cs" src="/img/cs13.png">
-                                                </div>
-                                            </div>
-                                            <div class="side-poster">
-                                                CHỦNG TỘC BẤT TỬ
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="coming-movie">
-                                    <a href="#">
-                                        <div class="flex-img">
-                                            <img class="poster-movie" src="/img/P1.jpg">
-                                        </div>
-                                        <div class="flex-cs">
-                                            <div class="english-title">
-                                                <div class="h6-poster">
-                                                    ETERNAL
-                                                </div>
-                                                <div class="cs">
-                                                    <img class="img-cs" src="/img/cs13.png">
-                                                </div>
-                                            </div>
-                                            <div class="side-poster">
-                                                CHỦNG TỘC BẤT TỬ
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="coming-movie">
-                                    <a href="#">
-                                        <div class="flex-img">
-                                            <img class="poster-movie" src="/img/P1.jpg">
-                                        </div>
-                                        <div class="flex-cs">
-                                            <div class="english-title">
-                                                <div class="h6-poster">
-                                                    ETERNAL
-                                                </div>
-                                                <div class="cs">
-                                                    <img class="img-cs" src="/img/cs13.png">
-                                                </div>
-                                            </div>
-                                            <div class="side-poster">
-                                                CHỦNG TỘC BẤT TỬ
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="coming-movie">
-                                    <a href="#">
-                                        <div class="flex-img">
-                                            <img class="poster-movie" src="/img/P1.jpg">
-                                        </div>
-                                        <div class="flex-cs">
-                                            <div class="english-title">
-                                                <div class="h6-poster">
-                                                    ETERNAL
-                                                </div>
-                                                <div class="cs">
-                                                    <img class="img-cs" src="/img/cs13.png">
-                                                </div>
-                                            </div>
-                                            <div class="side-poster">
-                                                CHỦNG TỘC BẤT TỬ
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <button class="btn btn-outline-success index-search" type="submit">
+                            <img src="/img/search-icon.png" alt="search">
+                        </button>
+                    </form>
                 </div>
             </div>
+        </nav>
 
-
-
+        <div class="poster-index">
+            <div id="owl-demo" class="owl-carousel owl-theme">
+                <a href="#"><img class="poster-slide" src="/img/sukien1.jpg" alt="Owl Image"></a>
+                <a href="#"><img class="poster-slide" src="/img/sukien2.jpg" alt="Owl Image"></a>
+                <a href="#"><img class="poster-slide" src="/img/sukien3.jpg" alt="Owl Image"></a>
+            </div>
         </div>
-        </div>
-        <div class="event-section">
-            <div class="container">
-                <h1 class="title-event">SỰ KIỆN</h1>
-                <div class="featured-carousel owl-carousel owl-time">
 
-                    <div class="item">
-                        <div class="work">
-                            <a href="#">
+        <div class="zalo-chat-widget" data-oaid="2023301482249874214"
+            data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
+
+        <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+
+        <div">
+            <div class="container" style="padding-top: 70px;">
+                <ul class="nav nav-tabs tab-phim" id="myTab" role="tablist">
+                    <li class="nav-item " role="presentation">
+                        <button class="nav-link tab-movie tab-show active" id="home-tab" data-bs-toggle="tab"
+                            data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                            PHIM ĐANG CHIẾU
+                        </button>
+                    </li>
+                    <li class="nav-item " role="presentation">
+                        <button class="nav-link tab-movie tab-show" id="profile-tab" data-bs-toggle="tab"
+                            data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                            aria-selected="false">
+                            PHIM SẮP CHIẾU
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="time-section">
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <div class="owl-time owl-carousel owl-theme slide-time">
+                                    <% var date=today.getDate(); var day=today.getDay(); var month=today.getMonth()+1;
+                                        %>
+                                        <% for(var i=0; i<7; i++) {%>
+                                            <%if (date> dayinmonth) { %>
+                                                <% date=1; %>
+                                                    <% month=month+1; %>
+                                                        <% } %>
+                                                            <%if (day>= 7) { %>
+                                                                <% day=0; %>
+                                                                    <% } %>
+                                                                        <% switch (day) { case 0: %>
+                                                                            <div class="item btn btn-outline-dark btn-time-index"
+                                                                                onclick="openCity(event, 'sunday')">
+                                                                                <div>SUNDAY</div>
+                                                                                <span>
+                                                                                    <%= date %>/<%= month %>
+                                                                                </span>
+                                                                            </div>
+                                                                            <% break; case 1: %>
+                                                                                <div class="item btn btn-outline-dark btn-time-index"
+                                                                                    onclick="openCity(event, 'monday')">
+                                                                                    <div>MONDAY</div>
+                                                                                    <span>
+                                                                                        <%= date %>/<%= month %>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <% break; case 2: %>
+                                                                                    <div class="item btn btn-outline-dark btn-time-index"
+                                                                                        onclick="openCity(event, 'tuesday')">
+                                                                                        <div>TUESDAY</div>
+                                                                                        <span>
+                                                                                            <%= date %>/<%= month %>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <% break; case 3: %>
+                                                                                        <div class="item btn btn-outline-dark btn-time-index"
+                                                                                            onclick="openCity(event, 'wednesday')">
+                                                                                            <div>WEDNESDAY</div>
+                                                                                            <span>
+                                                                                                <%= date %>/<%= month %>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        <% break; case 4: %>
+                                                                                            <div class="item btn btn-outline-dark btn-time-index"
+                                                                                                onclick="openCity(event, 'thursday')">
+                                                                                                <div>THURSDAY</div>
+                                                                                                <span>
+                                                                                                    <%= date %>/<%=
+                                                                                                            month %>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                            <% break; case 5: %>
+                                                                                                <div class="item btn btn-outline-dark btn-time-index"
+                                                                                                    onclick="openCity(event, 'friday')">
+                                                                                                    <div>FRIDAY</div>
+                                                                                                    <span>
+                                                                                                        <%= date %>/<%=
+                                                                                                                month %>
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                                <% break; case 6: %>
+                                                                                                    <div class="item btn btn-outline-dark btn-time-index"
+                                                                                                        onclick="openCity(event, 'saturday')">
+                                                                                                        <div>SATURDAY
+                                                                                                        </div>
+                                                                                                        <span>
+                                                                                                            <%= date %>/
+                                                                                                                <%= month
+                                                                                                                    %>
+                                                                                                        </span>
+                                                                                                    </div>
+                                                                                                    <% break; default: }
+                                                                                                        %>
+                                                                                                        <% date=date+1;
+                                                                                                            %>
+                                                                                                            <% day=day+1;
+                                                                                                                %>
+                                                                                                                <% } %>
+                                </div>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-list" id="monday">
+                                    <div class="movie-section">
+                                        <div class="poster-movie-div">
+                                            <div class="flex-title">
+                                                <div class="star-rating">
+                                                    <form action="">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span class="fa fa-star"></span>
+                                                        <span class="fa fa-star"></span>
+                                                    </form>
+                                                </div>
+                                                <a href="#">
+                                                    <div class="flex-cs">
+                                                        <div class="english-title">
+                                                            <div class="h6-poster">
+                                                                ETERNAL
+                                                            </div>
+                                                            <div class="cs">
+                                                                <img class="img-cs" src="/img/cs13.png">
+                                                            </div>
+                                                        </div>
+                                                        <div class="side-poster">
+                                                            CHỦNG TỘC BẤT TỬ
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="flex-time">
+                                                <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
+                                                <div class="flex-time-detail">
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            09:30 AM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="poster-movie-div">
+                                            <div class="flex-title">
+                                                <a href="#">
+                                                    <div class="flex-cs">
+                                                        <div class="english-title">
+                                                            <div class="h6-poster">
+                                                                ETERNAL
+                                                            </div>
+                                                            <div class="cs">
+                                                                <img class="img-cs" src="/img/cs13.png">
+                                                            </div>
+                                                        </div>
+                                                        <div class="side-poster">
+                                                            CHỦNG TỘC BẤT TỬ
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="flex-time">
+                                                <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
+                                                <div class="flex-time-detail">
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            09:30 AM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                    <div class="time-btn">
+                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                            13:45 PM
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-list" id="tuesday">b</div>
+                                <div class="tab-list" id="wednesday">c</div>
+                                <div class="tab-list" id="thursday">d</div>
+                                <div class="tab-list" id="friday">e</div>
+                                <div class="tab-list" id="saturday">f</div>
+                                <div class="tab-list" id="sunday">g</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="container">
+                            <div class="row row-coming">
+                                <div class="coming-side">
+                                    <div class="coming-movie">
+                                        <a class="a-coming" href="#">
+                                            <div class="flex-img">
+                                                <img class="poster-movie" src="/img/P1.jpg">
+                                            </div>
+                                            <div class="star-rating">
+                                                <form action="">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                </form>
+                                            </div>
+                                            <div class="flex-cs">
+                                                <div class="english-title">
+                                                    <div class="h6-poster">
+                                                        ETERNAL
+                                                    </div>
+                                                    <div class="cs">
+                                                        <img class="img-cs" src="/img/cs13.png">
+                                                    </div>
+                                                </div>
+                                                <div class="side-poster">
+                                                    CHỦNG TỘC BẤT TỬ
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="coming-movie">
+                                        <a href="#">
+                                            <div class="flex-img">
+                                                <img class="poster-movie" src="/img/P1.jpg">
+                                            </div>
+                                            <div class="flex-cs">
+                                                <div class="english-title">
+                                                    <div class="h6-poster">
+                                                        ETERNAL
+                                                    </div>
+                                                    <div class="cs">
+                                                        <img class="img-cs" src="/img/cs13.png">
+                                                    </div>
+                                                </div>
+                                                <div class="side-poster">
+                                                    CHỦNG TỘC BẤT TỬ
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="coming-movie">
+                                        <a href="#">
+                                            <div class="flex-img">
+                                                <img class="poster-movie" src="/img/P1.jpg">
+                                            </div>
+                                            <div class="flex-cs">
+                                                <div class="english-title">
+                                                    <div class="h6-poster">
+                                                        ETERNAL
+                                                    </div>
+                                                    <div class="cs">
+                                                        <img class="img-cs" src="/img/cs13.png">
+                                                    </div>
+                                                </div>
+                                                <div class="side-poster">
+                                                    CHỦNG TỘC BẤT TỬ
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="coming-movie">
+                                        <a href="#">
+                                            <div class="flex-img">
+                                                <img class="poster-movie" src="/img/P1.jpg">
+                                            </div>
+                                            <div class="flex-cs">
+                                                <div class="english-title">
+                                                    <div class="h6-poster">
+                                                        ETERNAL
+                                                    </div>
+                                                    <div class="cs">
+                                                        <img class="img-cs" src="/img/cs13.png">
+                                                    </div>
+                                                </div>
+                                                <div class="side-poster">
+                                                    CHỦNG TỘC BẤT TỬ
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            </div>
+            <div class="event-section">
+                <div class="container">
+                    <h1 class="title-event">SỰ KIỆN</h1>
+                    <div class="featured-carousel owl-carousel owl-time">
+
+                        <div class="item">
+                            <div class="work">
+                                <a href="#">
+                                    <div class="img d-flex align-items-end justify-content-center index-img-slide"
+                                        style="background-image: url(img/sukien1.jpg);">
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-end justify-content-center index-img-slide"
+                                    style="background-image: url(img/sukien2.jpg);">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-end justify-content-center index-img-slide"
+                                    style="background-image: url(img/sukien3.jpg);">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="work">
                                 <div class="img d-flex align-items-end justify-content-center index-img-slide"
                                     style="background-image: url(img/sukien1.jpg);">
 
                                 </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="work">
-                            <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                style="background-image: url(img/sukien2.jpg);">
-
                             </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="work">
-                            <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                style="background-image: url(img/sukien3.jpg);">
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-end justify-content-center index-img-slide"
+                                    style="background-image: url(img/sukien2.jpg);">
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="work">
-                            <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                style="background-image: url(img/sukien1.jpg);">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="work">
-                            <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                style="background-image: url(img/sukien2.jpg);">
-
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-</body>
-<footer class="footer-index">
-    <div class="flex-footer">
+    </body>
+    <footer class="footer-index">
+        <div class="flex-footer">
 
-        <div class="text-footer">
-            <div class="text-side">
-                <p>Tên Doanh Nghiệp: CÔNG TY TNHH MEGAS VIETNAM</p>
-                <p>Giấy CNĐKDN: 0303675393, đăng ký lần đầu ngày 01/11/2021</p>
-                <p>Cơ quan cấp: Phòng Đăng ký kinh doanh - Sở kế hoạch và đầu tư Thành phố Đà Nẵng</p>
-                <p>Địa chỉ kinh doanh: Tầng 2, Rivera Park - Số 28 Trần Hưng Đạo, Quận Sơn Trà, TP.Đà Nẵng.
-                </p>
+            <div class="text-footer">
+                <div class="text-side">
+                    <p>Tên Doanh Nghiệp: CÔNG TY TNHH MEGAS VIETNAM</p>
+                    <p>Giấy CNĐKDN: 0303675393, đăng ký lần đầu ngày 01/11/2021</p>
+                    <p>Cơ quan cấp: Phòng Đăng ký kinh doanh - Sở kế hoạch và đầu tư Thành phố Đà Nẵng</p>
+                    <p>Địa chỉ kinh doanh: Tầng 2, Rivera Park - Số 28 Trần Hưng Đạo, Quận Sơn Trà, TP.Đà Nẵng.
+                    </p>
+                </div>
+                <div class="icon-side">
+                    <img src="/img/icon-notify.png" alt="logo-noti" width="200px">
+                </div>
             </div>
-            <div class="icon-side">
-                <img src="/img/icon-notify.png" alt="logo-noti" width="200px">
+            <div class="footer-logo">
+                <div style="color: rgba(238, 238, 238, 0.733); flex: 1">COPYRIGHT 2022 MEGAS. All RIGHTS RESERVED
+                </div>
+                <img class="img-logo-footer" src="/img/logo.gif" alt="logo">
+                <div class="icon-footer">
+                    <a href="https://www.facebook.com/nanast519/" target="_blank">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fa-solid fa-globe"></i>
+                    </a>
+                    <a href="tel:19000978">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="footer-logo">
-            <div style="color: rgba(238, 238, 238, 0.733); flex: 1">COPYRIGHT 2022 MEGAS. All RIGHTS RESERVED
-            </div>
-            <img class="img-logo-footer" src="/img/logo.gif" alt="logo">
-            <div class="icon-footer">
-                <a href="https://www.facebook.com/nanast519/" target="_blank">
-                    <i class="fa-brands fa-facebook"></i>
-                </a>
-                <a href="#">
-                    <i class="fa-solid fa-globe"></i>
-                </a>
-                <a href="tel:19000978">
-                    <i class="fa-solid fa-phone"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</footer>
-<script>
-    $(document).ready(function () {
-        $(window).scroll(function () {
-            if ($(this).scrollTop()) {
-                $('nav').addClass('sticky');
-            } else {
-                $('nav').removeClass('sticky');
-            }
+    </footer>
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop()) {
+                    $('nav').addClass('sticky');
+                } else {
+                    $('nav').removeClass('sticky');
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/popper.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/main.js"></script>
-<!-- <script src="js/owl.carousel.js"></script> 
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
+    <!-- <script src="js/owl.carousel.js"></script> 
         <link rel="stylesheet" href="css/owl.carousel.css">
         <link rel="stylesheet" href="css/owl.theme.css"> -->
 
 
 
-<script>
-    $('.owl-time').owlCarousel({
-        loop: false,
-        margin: 10,
-        nav: false,
-        dots: false,
-        responsive: {
-            0: {
-                items: 1
-            },
-            300: {
-                items: 2
-            },
-            500: {
-                items: 3
-            },
-            800: {
-                items: 4
-            },
-            1000: {
-                items: 5
-            },
-            1200: {
-                items: 7
+    <script>
+        $('.owl-time').owlCarousel({
+            loop: false,
+            margin: 10,
+            nav: false,
+            dots: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                300: {
+                    items: 2
+                },
+                500: {
+                    items: 3
+                },
+                800: {
+                    items: 4
+                },
+                1000: {
+                    items: 5
+                },
+                1200: {
+                    items: 7
+                }
             }
+        })
+    </script>
+
+    <script>
+        var activeitem = document.getElementsByClassName("btn-outline-dark");
+        activeitem[0].classList.add("active");
+        var contentitem = document.getElementById(activeitem[0].children[0].innerHTML.toLowerCase())
+        contentitem.classList.add("active");
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-list");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("btn-time-index");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
-    })
-</script>
+    </script>
 
-<script>
-    var activeitem=document.getElementsByClassName("btn-outline-dark");
-    activeitem[0].classList.add("active");
-    var contentitem=document.getElementById(activeitem[0].children[0].innerHTML.toLowerCase())
-    contentitem.classList.add("active");
-    function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-list");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("btn-time-index");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-</script>
+    <script>
+        $("#owl-demo").owlCarousel({
+            animateOut: 'fadeOut',
+            dots: true,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            items: 1,
+            itemsDesktop: [1199, 3],
+            itemsDesktopSmall: [979, 3]
 
-<script>
-    $("#owl-demo").owlCarousel({
-        animateOut: 'fadeOut',
-        dots: true,
-        loop: true,
-        autoplay: true,
-        autoplayTimeout: 4000,
-        items: 1,
-        itemsDesktop: [1199, 3],
-        itemsDesktopSmall: [979, 3]
+        });
 
-    });
-
-</script>
+    </script>
 
 
 
 
-</html>
+    </html>
