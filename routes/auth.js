@@ -128,9 +128,6 @@ router.get('/confirm-register/:token',(req,res) => {
                             res.render('auth/auth-notify',{
                                 mes:'Đăng ký thành công',
                             })
-                            setTimeout(() => {
-                                res.redirect('/');
-                            }, 3000);  
                         })
                     })
                 }
