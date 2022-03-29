@@ -79,12 +79,20 @@ router.post('/register', (req, res) => {
                 if (err) {
                     console.log(err);
                     res.render('auth/register',{
-                        mes:'Đăng ký thất bại'
+                        mes:'Đăng ký thất bại',
+                        email: '',
+                        fullname: '',
+                        phone: '',
+                        birthday: '',
                     });                                              
                 } else {
                     console.log('Message sent: ' + info.response);
-                    res.render('auth/auth-notify',{
-                        mes: 'Vui lòng đăng nhập vào mail để xác nhận đăng ký'
+                    res.render('auth/register',{
+                        mes:'Vui lòng đăng nhập vào gmail để xác nhận đăng ký',
+                        email: '',
+                        fullname: '',
+                        phone: '',
+                        birthday: '',
                     });
                 }
             });
@@ -120,6 +128,9 @@ router.get('/confirm-register/:token',(req,res) => {
                             res.render('auth/auth-notify',{
                                 mes:'Đăng ký thành công',
                             })
+                            setTimeout(() => {
+                                res.redirect('/');
+                            }, 3000);  
                         })
                     })
                 }
