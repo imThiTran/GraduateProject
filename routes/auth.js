@@ -31,27 +31,63 @@ router.post('/register', (req, res) => {
             })
         }
         else {
-            bcrypt.hash(password, 10, function (err, hash) {
-                if (err) return console.log(err);
-                var user = new User({
-                    email: email,
-                    password: hash,
-                    fullname: fullname,
-                    phone: phone,
-                    birthday: birthday,
-                    gender: gender
-                });
-                user.save(function(err){
-                    if (err) return console.log(err); 
+            const token = jwt.sign(req.body, process.env.RESET_PASSWORD_KEY, { expiresIn: '15m' });
+            const data = {                
+                to: email,
+                subject: 'Mã xác nhận',
+                html: `
+                <div style="
+                width: 100%;
+                border-color: #fdbc3b;
+                background-color: #333;
+                align-items: center;
+                color: #eee;
+                padding: 50px 230px;
+                ">
+                    <img src="https://res.cloudinary.com/dhoovijbu/image/upload/v1648484867/logo_gdjebv.gif"
+                    style="width: 100%; max-width: 300px;margin-left: 30px;">
+                    <div class="card-body" style="
+                    box-shadow: 15px 10px #fdbc3b;
+                    width: 18rem;
+                    border: 2px solid #fdbc3b;
+                    margin-top: 30px;
+                    border-radius: 10px;
+                    padding: 30px;
+                    
+                    ">
+                        <h4 style="color: #fdbc3b;">Xác nhận đăng ký</h4>
+                        <p style="
+                            color: #eee;
+                            padding-bottom: 20px;
+                        ">Đường dẫn này chỉ có thời hạn trong 15 phút</p>
+                         <a href="${process.env.CLIENT_URL}/auth/confirm-register/${token}" 
+                         style="
+                            background-color:#fdbc3b;
+                            padding: 10px;
+                            border-radius: 5px;
+                            border-color: #fdbc3b;
+                            color: #333;
+                            text-decoration: none;
+                            font-weight: 600;
+                         ">Xác nhận đăng ký</a>
+                    </div>
+                </div>
+                    
+                `
+            }
+            transporter.sendMail(data, function (err, info) {
+                if (err) {
+                    console.log(err);
                     res.render('auth/register',{
-                        mes:'Đăng ký thành công',
-                        email:'',
-                        fullname:'',
-                        phone:'',
-                        birthday:'',
-                    })
-                })
-            })
+                        mes:'Đăng ký thất bại'
+                    });                                              
+                } else {
+                    console.log('Message sent: ' + info.response);
+                    res.render('auth/auth-notify',{
+                        mes: 'Vui lòng đăng nhập vào mail để xác nhận đăng ký'
+                    });
+                }
+            });
         }
     })
 
@@ -59,8 +95,43 @@ router.post('/register', (req, res) => {
 
 //confirm register
 router.get('/confirm-register/:token',(req,res) => {
-
+    var token = req.params.token;
+    jwt.verify(token, process.env.RESET_PASSWORD_KEY, function (err, decodedData) {
+        if (decodedData) {
+            const { email, fullname, phone, birthday, gender, password } = decodedData;
+            User.findOne({email:email},(err,us) => {
+                if (us) {
+                    res.render('error', {
+                        mes: 'Page Not Found'
+                    });
+                } else {
+                        bcrypt.hash(password, 10, function (err, hash) {
+                        if (err) return console.log(err);
+                        var user = new User({
+                            email: email,
+                            password: hash,
+                            fullname: fullname,
+                            phone: phone,
+                            birthday: birthday,
+                            gender: gender
+                        });
+                        user.save(function(err){
+                            if (err) return console.log(err); 
+                            res.render('auth/auth-notify',{
+                                mes:'Đăng ký thành công',
+                            })
+                        })
+                    })
+                }
+            })
+        } else {
+            res.render('error', {
+                mes: 'Page Not Found'
+            });
+        }
+    })
 })
+
 //get login
 router.get('/login', (req, res) => {
     res.render('auth/login');
@@ -188,7 +259,7 @@ router.get('/reset/:id/:token', (req, res) => {
                 });
             } else {
                 res.render('error', {
-                    mes: 'Bạn không có quyền truy cập'
+                    mes: 'Page Not Found'
                 });
             }
         })
@@ -214,7 +285,7 @@ router.post('/reset/:id/:token', (req, res) => {
                 }
             } else {
                 res.render('error', {
-                    mes: 'Bạn không có quyền truy cập'
+                    mes: 'Page Not Found'
                 });
             }
         })
