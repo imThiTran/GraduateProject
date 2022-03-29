@@ -1,0 +1,124 @@
+<%- include('../layouts/header') %>
+
+<body>
+    <%- include('../layouts/sub-header') %>
+    <section class="container userInfo-background">
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <%- include('../layouts/info-header') %>
+                <div class="col-8">
+                    <div class="userInfo-col">
+                        <div class="User-title">
+                            <h5><i class="fa fa-address-card-o" aria-hidden="true"></i> THAY ĐỔI THÔNG TIN</h5>
+                            <div>Để bảo mật tài khoản, vui lòng không chia sẻ thông tin cho người khác</div>
+                        </div>
+                        <div class="userEdit">
+                            <ul style="margin: 10px 20px" class="nav nav-tabs menu-status">
+                                <li class="nav-item">
+                                    <a class="nav-link link1 active optionEdit" href="#change1" data-bs-toggle="tab"
+                                        data-bs-target="#change1" role="tab" aria-controls="status"
+                                        aria-selected="true">Thay
+                                        đổi thông
+                                        tin</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color: #eee;" class="nav-link link1 optionEdit" href="#change2" data-bs-toggle="tab"
+                                        data-bs-target="#change2" role="tab" aria-controls="status"
+                                        aria-selected="true">Thay đổi mật khẩu</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active infor-change" id="change1" role="tabpanel">
+                                    <form action="/user/change-info" method="post" class="userInfo-details" enctype="multipart/form-data">
+                                        <div class="userInfo-left">
+                                            <div class="info-element">
+                                                <label style="width: 120px;">Họ tên:</label>
+                                                <input type="text" name="fullname" id="" value="<%=us.fullname%>">
+                                            </div>
+                                            <div class="info-element">
+                                                <label style="width: 120px;">Số điện thoại:</label>
+                                                <input type="tel" name="phone" id="" value="<%=us.phone%>">
+                                            </div>
+                                            <div style="margin-bottom: 0.5rem;">
+                                                <% var checkgender= (us.gender=='female') %>
+                                                <label style="width: 120px;">Giới tính:</label>
+                                                <input type="radio" id="male" name="gender" value="male" checked>
+                                                <label for="male">Nam</label>
+                                                <input type="radio" id="female" name="gender" value="female" <% if (checkgender){%>checked<%}%>>
+                                                <label for="female">Nữ</label>
+                                            </div>
+                                            <div class="info-element">
+                                                <label style="width: 120px;">Ngày sinh:</label>
+                                                <input type="date" name="birthday" id="" value="<%=us.birthday%>">
+                                            </div>
+                                        </div>
+                                        <div class="userInfo-right">
+                                            <%if (us.photo!=""){%>
+                                            <img src="<%=us.photo%>" class="user-img user-img-preview" alt="Your avatar">
+                                            <%} else {%>
+                                            <img src="../img/no_img.png" class="user-img user-img-preview" alt="Your avatar">
+                                            <%}%>
+                                            <input onchange="loadImg()" type="file" class="" name="image" id="imgUser"
+                                                accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                                            <label class="btn-img" id="" for="imgUser" style=" width: 100px;">Chọn ảnh</label>
+                                            <input type="hidden" name="pimage" value="<%=us.photodrop%>" id="">
+                                        </div>
+                                        <button type="submit">Lưu thay đổi</button>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="change2" role="tabpanel">
+                                    <form action="" method="post" style="margin:40px">
+                                        <div class="info-element">
+                                            <label style="width: 180px;">Mật khẩu hiện tại:</label>
+                                            <input type="password" name="" id="" value="">
+                                            <a href="">
+                                                <span style="margin-left: 10px; color: #fdc85b; font-size: 0.8rem;">Quên mật khẩu?</span>
+                                            </a>
+                                        </div>
+                                        <div class="info-element">
+                                            <label style="width: 180px;">Mật khẩu mới:</label>
+                                            <input type="password" name="" id="" value="">
+                                        </div>
+                                        <div class="info-element">
+                                            <label style="width: 180px;">Xác nhận mật khẩu:</label>
+                                            <input type="password" name="" id="" value="">
+                                        </div>
+                                        <div class="info-element"  style="text-align: center;">
+                                            <button type="submit" class="btn-img">Lưu thay đổi</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</body>
+<%- include('../layouts/footer') %>
+<script>
+    // function readURL(input) {
+    //             if (input.files && input.files[0]) {
+    //                 var reader = new FileReader();
+
+    //                 reader.onload = function (e) {
+    //                     $(".user-img-preview").attr('src', e.target.result).width(100).height(100);
+    //                 }
+    //                 reader.readAsDataURL(input.files[0]);
+    //             }
+    //         }
+
+    // $("#imgUser").change(function () {
+    //     readURL(this);
+    // })
+    var imdPrv = document.querySelector('.user-img-preview');
+        function loadImg(){
+            if (event.target.files.length > 0) {
+                let src = URL.createObjectURL(event.target.files[0]);
+                imdPrv.src=src;
+            }
+        }
+</script>
+</html>

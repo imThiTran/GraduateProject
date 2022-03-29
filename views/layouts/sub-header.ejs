@@ -1,0 +1,124 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark index-nav-dark" id="navbar">
+    <ul class="nav justify-content-end index-sign-nav">
+        <% if (user!="") { %>
+        <div class="dropdown1">
+                <li class="nav-item">
+                    <a class="nav-link user-login">Chào <%=user.fullname%></a>
+                    <ul class="drop-menu">
+                        <li><a class="dropdown-item user-drop" href="/user/info">Hồ sơ</a></li>
+                        <li><a class="dropdown-item user-drop" href="#">Vé đã đặt</a></li>
+                        <li><a class="dropdown-item" href="/auth/logout">Đăng xuất</a></li>
+                    </ul>
+                </li>
+        </div>
+        <%} else {%>
+            <li class="nav-item">
+                <a class="nav-link index-sign" aria-current="page" href="/auth/login">Đăng nhập</a>
+            </li>
+            <span class="index-span-sign"></span>
+            <li class="nav-item">
+                <a class="nav-link index-sign" href="/auth/register">Đăng ký</a>
+            </li>
+        <%}%> 
+    </ul>
+    <div class="container-fluid">
+        <a class="navbar-brand index-brand" href="/">
+            <img class="index-img-logo" src="/img/logo.gif" alt="Megas Cinema">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll index-scroll"
+                style="--bs-scroll-height: 100px;">
+                <li class="nav-item drop index-dropdown">
+                    <a class="nav-link index-navbar">
+                        Thể loại
+                    </a>
+                    <ul class="drop-menu">
+                        <li><a class="dropdown-item" href="#">Tình cảm</a></li>
+                        <li><a class="dropdown-item" href="#">Hành động</a></li>
+                        <li><a class="dropdown-item" href="#">Kinh dị</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link index-navbar" href="#">Vé</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link index-navbar" href="#">Sự kiện</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link index-navbar">Liên hệ</a>
+                </li>
+            </ul>
+            <form class="d-flex index-flex">
+                <div class="search-part">
+                    <input class="form-control me-2 search-input" type="search" placeholder="Tìm kiếm tên phim"
+                        aria-label="Search">
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">
+                                <div class="search-option">
+                                    <div class="img-option">
+                                        <img src="/img/P1.jpg" alt="phim1">
+                                    </div>
+                                    <div class="title-option">
+                                        <div class="rating-flex">
+                                            <h5>ETERNAL</h5>
+                                            <img src="/img/cs13.png" alt="">
+                                        </div>
+                                        <h6>Chủng tộc bất tử</h6>
+                                    </div>
+                                </div>
+                            </a></li>
+                        <li><a class="dropdown-item" href="#">
+                                <div class="search-option">
+                                    <div class="img-option">
+                                        <img src="/img/P1.jpg" alt="phim1">
+                                    </div>
+                                    <div class="title-option">
+                                        <div class="rating-flex">
+                                            <h5>ETERNAL</h5>
+                                            <img src="/img/cs13.png" alt="">
+                                        </div>
+                                        <h6>Chủng tộc bất tử</h6>
+                                    </div>
+                                </div>
+                            </a></li>
+                        <li><a class="dropdown-item" href="#">
+                                <div class="search-option">
+                                    <div class="img-option">
+                                        <img src="/img/P1.jpg" alt="phim1">
+                                    </div>
+                                    <div class="title-option">
+                                        <div class="rating-flex">
+                                            <h5>ETERNAL</h5>
+                                            <img src="/img/cs13.png" alt="">
+                                        </div>
+                                        <h6>Chủng tộc bất tử</h6>
+                                    </div>
+                                </div>
+                            </a></li>
+                        <li><a class="dropdown-item" href="#">
+                                <div class="search-option">
+                                    <div class="img-option">
+                                        <img src="/img/P1.jpg" alt="phim1">
+                                    </div>
+                                    <div class="title-option">
+                                        <div class="rating-flex">
+                                            <h5>ETERNAL</h5>
+                                            <img src="/img/cs13.png" alt="">
+                                        </div>
+                                        <h6>Chủng tộc bất tử</h6>
+                                    </div>
+                                </div>
+                            </a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-outline-success index-search" type="submit">
+                    <img src="/img/search-icon.png" alt="search">
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>

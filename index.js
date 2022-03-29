@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 require('dotenv').config()
 var mongoose = require('mongoose');
+var fileUpload = require('express-fileupload');
+var cloudinary = require('cloudinary').v2;
 
 //connect mongo
 mongoose.connect(process.env.DATABASE);
@@ -23,6 +25,19 @@ app.set('view engine', 'ejs');
 
 //setup public folder
 app.use(express.static(path.join(__dirname,'public')));
+
+//setup cloudinary
+cloudinary.config({ 
+  cloud_name: 'thi', 
+  api_key: '415314185911635', 
+  api_secret: 'rle4Hc_E1Oe8dGx099O5xb7rASY',
+  secure: true
+});
+
+//express fileupload middleware
+app.use(fileUpload({
+  useTempFiles:true
+}));
 
 //parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
@@ -45,14 +60,7 @@ function daysInMonth(month, year){
     return new Date(year,month,0).getDate();
 }
 const today = new Date();
-const dayinmonth = daysInMonth(today.getMonth()+1,today.getFullYear());                                    
-                                
-app.get("/",function(req,res){
-    res.render('index',{
-      dayinmonth:dayinmonth,      
-      today:today
-    });
-})
+const dayinmonth = daysInMonth(today.getMonth()+1,today.getFullYear());                                                                
 
 var port=process.env.PORT || 3000;
 server.listen(port,function(){
@@ -61,8 +69,18 @@ server.listen(port,function(){
 
 var auth = require('./routes/auth');
 var user = require('./routes/user');
+
+var checkUser = require('./middelwares/checkUser.middleware');
+
 app.use('/auth',auth);
-app.use('/user',user);
+app.use('/user',checkUser,user);
+
+app.get("/",checkUser,function(req,res){
+  res.render('index',{
+    dayinmonth:dayinmonth,      
+    today:today
+  });
+})
 
 app.use((req, res, next) => {
   res.status(404).render('error',{

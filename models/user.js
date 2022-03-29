@@ -28,6 +28,10 @@ var UserSchema = mongoose.Schema({
         type:String,
         default:"",
     },
+    photodrop:{
+        type:String,
+        default:"",
+    },
     block:{
         type: Object,
         default: {
