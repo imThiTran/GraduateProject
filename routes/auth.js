@@ -3,21 +3,7 @@ var router = express.Router();
 var jwt = require('jsonwebtoken')
 var User = require('../models/user');
 var bcrypt = require('bcrypt');
-
-var nodemailer = require('nodemailer');
-//server gmail
-var transporter = nodemailer.createTransport({ // config mail server
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: process.env.GMAIL, //Tài khoản gmail
-        pass: process.env.PASS_GMAIL //Mật khẩu tài khoản gmail
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
-});
+var transporter = require('../config/nodemailer')
 
 //get register
 router.get('/register', (req, res) => {
@@ -133,8 +119,7 @@ router.post('/forget', (req, res) => {
         if (user) {
             //Sign token và set token sống 20 phút
             const token = jwt.sign({ _id: user._id }, process.env.RESET_PASSWORD_KEY + user.password, { expiresIn: '15m' });
-            const data = {
-                from: 'testdoan124@gmail.com',
+            const data = {                
                 to: email,
                 subject: 'Quên mật khẩu',
                 html: `

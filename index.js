@@ -41,8 +41,17 @@ app.use(session({
     }
   }));
 
+function daysInMonth(month, year){
+    return new Date(year,month,0).getDate();
+}
+const today = new Date();
+const dayinmonth = daysInMonth(today.getMonth()+1,today.getFullYear());                                    
+                                
 app.get("/",function(req,res){
-    res.render('index');
+    res.render('index',{
+      dayinmonth:dayinmonth,      
+      today:today
+    });
 })
 
 var port=process.env.PORT || 3000;
@@ -51,5 +60,12 @@ server.listen(port,function(){
 });
 
 var auth = require('./routes/auth');
-
+var user = require('./routes/user');
 app.use('/auth',auth);
+app.use('/user',user);
+
+app.use((req, res, next) => {
+  res.status(404).render('error',{
+    mes:"Page Not Found"
+  });
+});
