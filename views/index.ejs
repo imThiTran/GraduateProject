@@ -39,84 +39,33 @@
                         <div class="time-section">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                 <div class="owl-time owl-carousel owl-theme slide-time">
-                                    <% var date=today.getDate(); var day=today.getDay(); var month=today.getMonth()+1;
-                                        %>
-                                        <% for(var i=0; i<7; i++) {%>
-                                            <%if (date> dayinmonth) { %>
-                                                <% date=1; %>
-                                                    <% month=month+1; %>
-                                                        <% } %>
-                                                            <%if (day>= 7) { %>
-                                                                <% day=0; %>
-                                                                    <% } %>
-                                                                        <% switch (day) { case 0: %>
-                                                                            <div class="item btn btn-outline-dark btn-time-index"
-                                                                                onclick="openCity(event, 'sunday')">
-                                                                                <div>SUNDAY</div>
-                                                                                <span>
-                                                                                    <%= date %>/<%= month %>
-                                                                                </span>
-                                                                            </div>
-                                                                            <% break; case 1: %>
-                                                                                <div class="item btn btn-outline-dark btn-time-index"
-                                                                                    onclick="openCity(event, 'monday')">
-                                                                                    <div>MONDAY</div>
-                                                                                    <span>
-                                                                                        <%= date %>/<%= month %>
-                                                                                    </span>
-                                                                                </div>
-                                                                                <% break; case 2: %>
-                                                                                    <div class="item btn btn-outline-dark btn-time-index"
-                                                                                        onclick="openCity(event, 'tuesday')">
-                                                                                        <div>TUESDAY</div>
-                                                                                        <span>
-                                                                                            <%= date %>/<%= month %>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <% break; case 3: %>
-                                                                                        <div class="item btn btn-outline-dark btn-time-index"
-                                                                                            onclick="openCity(event, 'wednesday')">
-                                                                                            <div>WEDNESDAY</div>
-                                                                                            <span>
-                                                                                                <%= date %>/<%= month %>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                        <% break; case 4: %>
-                                                                                            <div class="item btn btn-outline-dark btn-time-index"
-                                                                                                onclick="openCity(event, 'thursday')">
-                                                                                                <div>THURSDAY</div>
-                                                                                                <span>
-                                                                                                    <%= date %>/<%=
-                                                                                                            month %>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <% break; case 5: %>
-                                                                                                <div class="item btn btn-outline-dark btn-time-index"
-                                                                                                    onclick="openCity(event, 'friday')">
-                                                                                                    <div>FRIDAY</div>
-                                                                                                    <span>
-                                                                                                        <%= date %>/<%=
-                                                                                                                month %>
-                                                                                                    </span>
-                                                                                                </div>
-                                                                                                <% break; case 6: %>
-                                                                                                    <div class="item btn btn-outline-dark btn-time-index"
-                                                                                                        onclick="openCity(event, 'saturday')">
-                                                                                                        <div>SATURDAY
-                                                                                                        </div>
-                                                                                                        <span>
-                                                                                                            <%= date %>/
-                                                                                                                <%= month
-                                                                                                                    %>
-                                                                                                        </span>
-                                                                                                    </div>
-                                                                                                    <% break; default: }
-                                                                                                        %>
-                                                                                                        <% date=date+1;
-                                                                                                            %>
-                                                                                                            <% day=day+1;
-                                                                                                                %>
-                                                                                                                <% } %>
+                                    <%dayArrs.forEach(function(dayArr){%>
+                                        <%var date=(dayArr.getDate()<10)?('0'+dayArr.getDate()):(dayArr.getDate())%>
+                                        <%  var month=((dayArr.getMonth()+1)<10)?('0'+(dayArr.getMonth()+1)):(dayArr.getMonth()+1) %>
+                                        <%  var day=dayArr.getDay() %>
+                                        <%  var time = dayArr.getTime() %>
+                                        <div class="item btn btn-outline-dark btn-time-index"
+                                            onclick="openCity(event, 'monday')" day="<%=time%>" >
+                                        <%switch (day) { case 0:%>
+                                        <div>SUNDAY</div>
+                                        <%break;case 1:%>
+                                        <div>MONDAY</div>
+                                        <%break;case 2:%>
+                                        <div>TUESDAY</div>
+                                        <%break;case 3:%>
+                                        <div>WEDNESDAY</div>
+                                        <%break;case 4:%>
+                                        <div>THURSDAY</div>
+                                        <%break;case 5:%>
+                                        <div>FRIDAY</div>
+                                        <%break;case 6:%>
+                                        <div>SATURDAY</div>
+                                        <%break;default: }%>
+                                    
+                                        
+                                        <span><%=date%>/<%=month%></span>
+                                    </div>
+                                    <%})%>
                                 </div>
                             </ul>
                             <div class="tab-content">
@@ -478,14 +427,14 @@
         function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-list");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
+        //     for (i = 0; i < tabcontent.length; i++) {
+        //         tabcontent[i].style.display = "none";
+        //     }
             tablinks = document.getElementsByClassName("btn-time-index");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-            document.getElementById(cityName).style.display = "block";
+        //     document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
     </script>

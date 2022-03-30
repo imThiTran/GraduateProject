@@ -28,9 +28,9 @@ app.use(express.static(path.join(__dirname,'public')));
 
 //setup cloudinary
 cloudinary.config({ 
-  cloud_name: 'thi', 
-  api_key: '415314185911635', 
-  api_secret: 'rle4Hc_E1Oe8dGx099O5xb7rASY',
+  cloud_name: process.env.image_name, 
+  api_key: process.env.image_key, 
+  api_secret: process.env.image_secret,
   secure: true
 });
 
@@ -76,9 +76,17 @@ app.use('/auth',auth);
 app.use('/user',checkUser,user);
 
 app.get("/",checkUser,function(req,res){
+  var today=new Date();
+  var timeDay = today.getTime();
+  var daylength=24*60*60*1000;
+  var dayArr=[today];
+    for (var i=1;i<7;i++){
+      timeDay=timeDay+daylength;
+      var nextday = new Date(timeDay);
+      dayArr.push(nextday);
+    }
   res.render('index',{
-    dayinmonth:dayinmonth,      
-    today:today
+    dayArrs:dayArr,      
   });
 })
 

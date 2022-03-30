@@ -142,6 +142,9 @@ router.get('/confirm-register/:token',(req,res) => {
 
 //get login
 router.get('/login', (req, res) => {
+    if (req.session.user){
+        res.redirect('/');
+    } else
     res.render('auth/login');
 })
 
@@ -298,6 +301,18 @@ router.post('/reset/:id/:token', (req, res) => {
             }
         })
     })
+})
+
+router.get('/logout',(req,res) => {
+    if (req.session.user){
+        req.session.destroy();
+        res.redirect('/');
+    }
+    else {
+        res.status(404).render('error', {
+            mes: 'Page Not Found'
+        });
+    }
 })
 
 module.exports = router;
