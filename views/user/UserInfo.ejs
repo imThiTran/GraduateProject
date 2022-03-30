@@ -38,7 +38,11 @@
                                     </div>
                                 </div>
                                 <div class="userInfo-right">
-                                    <img src="../img/no_img.png" class="user-img" alt="Your avatar">
+                                        <%if (us.photo!=""){%>
+                                        <img src="<%=us.photo%>" class="user-img user-img-preview" alt="Your avatar">
+                                        <%} else {%>
+                                        <img src="../img/no_img.png" class="user-img user-img-preview" alt="Your avatar">
+                                        <%}%> 
 
                                 </div>
                             </form>

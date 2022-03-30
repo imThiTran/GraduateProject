@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var fs = require('fs');
 var cloudinary = require('cloudinary').v2;
+var bcrypt = require('bcrypt');
 
 router.get('/info', (req, res) => {
     if(req.session.user){
@@ -45,13 +46,12 @@ router.post('/change-info', (req,res) =>{
     var imageFile;
     if (req.files != null) imageFile=req.files.image;
     else imageFile="";
-    User.findOne({email: req.session.user},function(err,us){
+    User.findOne({email: req.session.user},(err,us) => {
         if (err) return console.log(err);
         us.fullname=fullname;
         us.gender=gender;
         us.birthday=birthday;
-        us.phone=phone
-        us.save();
+        us.phone=phone;
         if (imageFile != ""){
             cloudinary.uploader.upload(imageFile.tempFilePath,{folder:"cinema/users/"+us.email},function(err,rs){
                 if (err) throw err;
@@ -71,7 +71,45 @@ router.post('/change-info', (req,res) =>{
                     })
                 }
             } else {
-                res.redirect('back');
+                us.save(function(err){
+                    res.redirect('back');
+                });  
+        }
+    })
+})
+
+router.post('/check-pass',(req,res) => {
+    var {email,password}=req.body;
+    User.findOne({email:email},function(err,us){
+        if (err) return console.log(err);
+        if (us){
+            bcrypt.compare(password, us.password, (err, result) => {
+                if (result){
+                    res.send("");
+                }
+                else res.send("Mật khẩu hiện tại chưa đúng");
+            })  
+        }
+    })
+})
+
+router.post('/change-pass/:email',function(req,res){
+    var email=req.params.email;
+    var {oldpass,newpass}=req.body;
+    User.findOne({email:email},function(err,us){
+        if (err) return console.log(err);
+        if (us){
+            bcrypt.compare(oldpass, us.password, (err, result) => {
+                if (result){
+                    bcrypt.hash(newpass, 10, function (err, hash) {
+                    us.password=hash;
+                    us.save((err)=> {
+                        res.send('Đổi mật khẩu thành công');
+                        });
+                    })
+                } else 
+                res.send('Vui lòng nhập lại mật khẩu hiện tại')
+            })   
         }
     })
 })

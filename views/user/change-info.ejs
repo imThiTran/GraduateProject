@@ -1,6 +1,18 @@
 <%- include('../layouts/header') %>
 
 <body>
+    <!-- loading  -->
+    <div class="body-loading">
+        <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <span>Loading</span>
+        </div>
+    </div>
     <%- include('../layouts/sub-header') %>
     <section class="container userInfo-background">
         <div class="container-fluid">
@@ -59,32 +71,36 @@
                                             <img src="../img/no_img.png" class="user-img user-img-preview" alt="Your avatar">
                                             <%}%>
                                             <input onchange="loadImg()" type="file" class="" name="image" id="imgUser"
-                                                accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                                                accept="image/*" style="display: none;">
                                             <label class="btn-img" id="" for="imgUser" style=" width: 100px;">Chọn ảnh</label>
                                             <input type="hidden" name="pimage" value="<%=us.photodrop%>" id="">
                                         </div>
-                                        <button type="submit">Lưu thay đổi</button>
+                                        <button type="submit" class="save-edit">Lưu thay đổi</button>
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="change2" role="tabpanel">
-                                    <form action="" method="post" style="margin:40px">
+                                    <form action="" class="formEdit" method="post" style="margin:40px">
                                         <div class="info-element">
+                                            <p class="alertSave" style="color: red;"></p>
                                             <label style="width: 180px;">Mật khẩu hiện tại:</label>
-                                            <input type="password" name="" id="" value="">
+                                            <input type="password" class="passwordBlur" name="oldpass" id="<%=us.email%>" value="">
                                             <a href="">
                                                 <span style="margin-left: 10px; color: #fdc85b; font-size: 0.8rem;">Quên mật khẩu?</span>
                                             </a>
                                         </div>
+                                        <p class="alertOldPass span-error" style="color: red;"></p>
                                         <div class="info-element">
                                             <label style="width: 180px;">Mật khẩu mới:</label>
-                                            <input type="password" name="" id="" value="">
+                                            <input type="password" class="newpass" name="newpass" id="" value="">
                                         </div>
+                                        <p class="alertNewPass span-error" style="color: red;"></p>
                                         <div class="info-element">
                                             <label style="width: 180px;">Xác nhận mật khẩu:</label>
-                                            <input type="password" name="" id="" value="">
+                                            <input type="password" class="repass" name="" id="" value="">
                                         </div>
+                                        <p class="alertRePass span-error" style="color: red;"></p>
                                         <div class="info-element"  style="text-align: center;">
-                                            <button type="submit" class="btn-img">Lưu thay đổi</button>
+                                            <button type="button" class="btn-save btn-img">Lưu thay đổi</button>
                                         </div>
                                     </form>
                                 </div>
@@ -98,21 +114,13 @@
     </section>
 </body>
 <%- include('../layouts/footer') %>
+<script src="/js/validate-pass.js"></script>
 <script>
-    // function readURL(input) {
-    //             if (input.files && input.files[0]) {
-    //                 var reader = new FileReader();
+    $('.save-edit').click(function(e){
+        $('.body-loading').css('display','block');
+    })
 
-    //                 reader.onload = function (e) {
-    //                     $(".user-img-preview").attr('src', e.target.result).width(100).height(100);
-    //                 }
-    //                 reader.readAsDataURL(input.files[0]);
-    //             }
-    //         }
 
-    // $("#imgUser").change(function () {
-    //     readURL(this);
-    // })
     var imdPrv = document.querySelector('.user-img-preview');
         function loadImg(){
             if (event.target.files.length > 0) {
