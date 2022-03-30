@@ -286,6 +286,7 @@ a:hover{
 .search-part .dropdown-menu{
     max-height: 300px; 
     overflow-y: scroll;
+    z-index: 9;
 }
 .search-option{
     display: flex;
@@ -1198,7 +1199,7 @@ a:hover{
     width:100%;
     height: 284vh;
     position: fixed;
-    background-color: rgba(139, 139, 139, 0.541);
+    background-color: rgb(133 131 131 / 88%);
     z-index: 999;
     display: none;
 }
