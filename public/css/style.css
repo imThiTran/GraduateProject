@@ -455,10 +455,6 @@ a:hover{
     border: #eee;
 }
 
-.tab-list {
-    display: none;
-}
-
 .flex-time {
     display: flex;
     height: 100%;
