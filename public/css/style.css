@@ -1286,3 +1286,230 @@ a:hover{
     left:15%;
 }
 
+/* detail */
+.detail-img {
+    width: 300px;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detial-movie {
+    padding-top: 50px;
+}
+
+.detail-side{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.detail-text{
+    flex: 5;
+    margin-left: 100px;
+}
+
+.subin {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 18px;
+    color: #eee;
+}
+
+.sub2 {
+    padding-left: 10px;
+    flex: 10;
+}
+
+.sub1 {
+    font-weight: 700;
+    flex: 2;
+}
+
+.trailer-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 80px;
+    padding-top: 30px;
+}
+
+.trailer-title{
+    width: 300px;
+    padding-bottom: 30px;
+}
+.frame-trailer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 50px 30px 60px;
+    border-bottom: 3px solid;
+    border-radius: 30px;
+    box-shadow: 15px 20px 2px;
+    background: #2b2b2b6e;
+}
+.span-detail{
+    width: 100%;
+    height: 2px;
+    background-color: #f0c673;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+}
+.btn-buy{
+    margin-top: 30px;
+    width: 140px;
+    background-color: #f0c673;
+    border-color: #f0c673;
+    color: #333 ;
+    font-weight: 600;
+}
+.btn-buy:hover{
+    background-color: #eee;
+    border-color: #f0c673;
+    color: #333 ;
+}
+
+.flex-cs-detail{
+    margin-top: 50px;
+}
+.btn-time:active:focus{
+    box-shadow: 1px 1px 1px #f0c673 !important;
+    outline: none !important;
+}
+.form-select:focus{
+    border-color: #333;
+    box-shadow: none !important;
+}
+.form-group{
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
+.modal-body{
+    padding: 20px 30px;
+}
+.btn-submit{
+    background-color: #fdbc3b;
+    border-color: #fdbc3b;
+    color: #333;
+    font-weight: 600;
+}
+.modal-title{
+    font-weight: 600;
+}
+.time-btn{
+    margin: 0 1px;
+}
+.flex-time-detail{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-left: 0px;
+}
+.comment {
+	display: block;
+	transition: all .5s;
+    width: 100%;
+    background: #7a7a7a8c;
+    height: 100%;
+    min-height: 50px;
+    margin-left: 30px;
+    border-radius: 50px;
+    padding: 10px 30px
+}
+.commentClicked {
+	min-height: 0px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	padding: 5px 10px;
+    color: #eee;
+    width: 100%;
+    margin-left: 30px;
+}
+.container textarea {
+	width: 100%;
+	border: none;
+	background: #E8E8E8;
+	padding: 5px 10px;
+	height: 50%;
+	border-radius: 5px 5px 0px 0px;
+	border-bottom: 2px solid fdbc3b;
+	transition: all 0.5s;
+	margin-top: 15px;
+}
+button.primaryContained {
+	background: #fdbc3b;
+	color: #333;
+	padding: 10px 30px;
+	border: none;
+	margin-top: 0px;
+	cursor: pointer;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.25);
+	transition: .5s all;
+	font-size: 12px;
+	border-radius: 5px;
+    font-weight: 600;
+}
+button.primaryContained:hover {
+    color: #333;
+	background: #eee;
+}
+.comment-side{
+    font-size: 30px;
+    color: #fdbc3b;
+    font-weight: 600;
+    border-bottom: 1px solid;
+}
+.comment-section{
+    padding-bottom: 100px;
+}
+.commented{
+    margin: 30px 20px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    align-items: end;
+}
+.commented img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+.comment-text{
+    margin-top: 30px;
+}
+.comment-text textarea{
+    height: 100%;
+    resize: none;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+.comment p{
+    align-content: center;
+    margin-bottom: 0px;
+    font-size: 16px;
+    color: #eee;
+}
+.star-comment{
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+}
+.star-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.rating-text{
+    height: 45px;
+    margin-left: 50px;
+}
+.container-comment{
+    background: #454545;
+    padding: 50px 70px;
+}
