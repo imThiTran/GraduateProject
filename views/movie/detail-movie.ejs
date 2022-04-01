@@ -108,7 +108,7 @@
                             <div class="subin">
                                 <div class="sub1">Đạo diễn:</div>
                                 <div class="sub2">
-                                    Daniel Espinosa
+                                    <%= film.directors %>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                             <div class="subin">
                                 <div class="sub1">Diễn viên:</div>
                                 <div class="sub2">
-                                    Jared Leto, Michael Keaton, Adria Arjona
+                                    <%= film.cast %>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                             <div class="subin">
                                 <div class="sub1">Thể loại:</div>
                                 <div class="sub2">
-                                    Phiêu lưu,Hành động
+                                    <%= film.idcat %>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                             <div class="subin">
                                 <div class="sub1">Khởi chiếu:</div>
                                 <div class="sub2">
-                                    30-03-2022
+                                    <%= film.premiere %>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                             <div class="subin">
                                 <div class="sub1">Thời lượng:</div>
                                 <div class="sub2">
-                                    105 phút
+                                    <%= film.time %>
                                 </div>
                             </div>
                         </div>
@@ -148,10 +148,7 @@
                             <div class="subin">
                                 <span class="sub1">Chi tiết:</span>
                                 <span class="sub2">
-                                    Morbius là một nhà khoa học tìm cách chữa căn bệnh “rối loạn máu”
-                                    của mình. Tuy nhiên, mọi chuyện lại không đi đúng hướng khi vị giáo sư
-                                    phải trả giá khi bị nhiễm một loại virus khát máu và trở thành một
-                                    sinh vật nửa người, nửa ma cà rồng.
+                                    <%= film.detail %>
                                 </span>
                             </div>
                         </div>
@@ -166,7 +163,7 @@
             <div class="trailer-title">
                 <img src="/img/trailer.png" alt="" style="width: 100%">
             </div>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/EOOIa7RFRpk"
+            <iframe width="560" height="315" src="<%= film.trailer %>"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>

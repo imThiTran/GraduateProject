@@ -37,6 +37,9 @@ var FilmSchema = mongoose.Schema({
     },
     trailer:{
         type:String
+    },
+    idcat:{
+        type: String
     }
 })
 
