@@ -69,25 +69,31 @@ server.listen(port,function(){
 
 var auth = require('./routes/auth');
 var user = require('./routes/user');
-
+var movie = require('./routes/movie')
 var checkUser = require('./middelwares/checkUser.middleware');
 
 app.use('/auth',auth);
 app.use('/user',checkUser,user);
+app.use('/movie',checkUser,movie);
 
+var Category = require('./models/category');
 app.get("/",checkUser,function(req,res){
-  var today=new Date();
-  var timeDay = today.getTime();
-  var daylength=24*60*60*1000;
-  var dayArr=[today];
-    for (var i=1;i<7;i++){
-      timeDay=timeDay+daylength;
-      var nextday = new Date(timeDay);
-      dayArr.push(nextday);
-    }
-  res.render('index',{
-    dayArrs:dayArr,      
-  });
+  Category.find({}, function(err,cats){
+    var today=new Date();
+    var timeDay = today.getTime();
+    var daylength=24*60*60*1000;
+    var dayArr=[today];
+      for (var i=1;i<7;i++){
+        timeDay=timeDay+daylength;
+        var nextday = new Date(timeDay);
+        dayArr.push(nextday);
+      }
+    res.render('index',{
+      dayArrs:dayArr,
+      cats: cats  
+    });
+  })
+  
 })
 
 app.use((req, res, next) => {

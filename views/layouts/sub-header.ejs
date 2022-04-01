@@ -37,9 +37,9 @@
                         Thể loại
                     </a>
                     <ul class="drop-menu">
-                        <li><a class="dropdown-item" href="#">Tình cảm</a></li>
-                        <li><a class="dropdown-item" href="#">Hành động</a></li>
-                        <li><a class="dropdown-item" href="#">Kinh dị</a></li>
+                        <% cats.forEach(function(cat){ %>
+                            <li><a class="dropdown-item" href="/movie/category/<%= cat.slug%>"><%= cat.title %></a></li>
+                        <% }); %>
                     </ul>
                 </li>
                 <li class="nav-item">
