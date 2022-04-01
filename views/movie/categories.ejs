@@ -14,23 +14,17 @@
         </ul>
         <div class="category-bar">
             <div class="category-side">
-                <li class="nav-item drop index-dropdown category-dropdown">
-                    <a class="nav-link index-navbar category-title">
+                    <label class="nav-link index-navbar category-title">
                         Thể loại
-                    </a>
-                    <ul class="drop-menu category-drop">
-                        <li><a class="dropdown-item" href="#">Tình cảm</a></li>
-                        <li><a class="dropdown-item" href="#">Hành động</a></li>
-                        <li><a class="dropdown-item" href="#">Kinh dị</a></li>
-                    </ul>
-                </li>
+                    </label>
+                
                 <div class="category-star">
                     <li class="nav-item drop index-dropdown category-dropdown">
                         <a class="nav-link index-navbar category-title">
                             Rating
                         </a>
                     </li>
-                    <div class="rating">
+                    <div class="rating" style="padding-right: 20px">
                         <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
                         <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
                         <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
@@ -44,18 +38,16 @@
                 <% films.forEach(function(film){ %>
                     <div class="coming-movie-cate">
                         <a class="a-coming" href="/movie/<%= film.slug%>">
-                            <div class="flex-img-cate">
+                            <div class="flex-img-cate" style="padding-bottom: 0px;">
                                 <img class="poster-movie" src="/img/P1.jpg">
                             </div>
                             <div class="flex-cs">
-                                <div class="star-rating">
-                                    <form action="">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </form>
+                                <div class="rating rating-star">
+                                    <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
                                 </div>
                                 <div class="english-title cate-title" >
                                     <div class="h5-poster">

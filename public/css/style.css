@@ -1093,9 +1093,6 @@ a:hover{
 .category-side li {
     list-style: none;
 }
-.category-dropdown{
-    margin-left: 20px;
-}
 .category-drop{
     width: 175px;
 }
@@ -1512,4 +1509,10 @@ button.primaryContained:hover {
 .container-comment{
     background: #454545;
     padding: 50px 70px;
+}
+.rating-star{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    height: 40px;
 }
