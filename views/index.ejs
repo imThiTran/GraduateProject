@@ -39,8 +39,8 @@
                                         <%  var month=((dayArr.getMonth()+1)<10)?('0'+(dayArr.getMonth()+1)):(dayArr.getMonth()+1) %>
                                         <%  var day=dayArr.getDay() %>
                                         <%  var time = dayArr.getTime() %>
-                                        <div class="item btn btn-outline-dark btn-time-index"
-                                            day="<%=time%>" >
+                                        <div class="chooseDate item btn btn-outline-dark btn-time-index"
+                                            date="<%=time%>" >
                                         <%switch (day) { case 0:%>
                                         <div>SUNDAY</div>
                                         <%break;case 1:%>
@@ -65,47 +65,53 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-list" id="monday">
-                                    <div class="movie-section">
+                                    <div class="movie-section render-ajax">
+                                        <%var check=false%>
                                         <%filmArrs.forEach(function(film){%>
-                                            <div class="poster-movie-div">
-                                                <div class="flex-title">
-                                                    <a href="#">
-                                                        <div class="flex-cs">
-                                                            <div class="english-title">
-                                                                <div class="h6-poster">
-                                                                    
+                                            <%if (film.stArr.length >0){%>
+                                                <%check=true%>
+                                                <div class="poster-movie-div">
+                                                    <div class="flex-title">
+                                                        <a href="#">
+                                                            <div class="flex-cs">
+                                                                <div class="english-title">
+                                                                    <div class="h6-poster">
+                                                                        <%=film.nameEN%>
+                                                                    </div>
+                                                                    <div class="cs">
+                                                                        <img class="img-cs" src="/img/cs<%=film.ageLimit%>.png">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="cs">
-                                                                    <img class="img-cs" src="/img/cs13.png">
+                                                                <div class="side-poster">
+                                                                    <%=film.nameVN%>
                                                                 </div>
                                                             </div>
-                                                            <div class="side-poster">
-                                                                <%=film.nameEN%>
-                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="flex-time">
+                                                        <a href="#"><img class="poster-movie" src=<%=film.photo%>></a>
+                                                        <div class="flex-time-detail">
+                                                            <%film.stArr.forEach(function(st){%>
+                                                                <div class="time-btn">
+                                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                                        <%newSt=st.split(':');%>
+                                                                        <%if (newSt[0]<12){ %>
+                                                                            <%=st%> AM
+                                                                        <%} else { %>
+                                                                            <%=st%> PM
+                                                                        <%}%>
+                                                                    </a>
+                                                                </div>
+                                                            <%})%>
+                                                            
                                                         </div>
-                                                    </a>
-                                                </div>
-                                                <div class="flex-time">
-                                                    <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
-                                                    <div class="flex-time-detail">
-                                                        <%film.stArr.forEach(function(st){%>
-                                                            <div class="time-btn">
-                                                                <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                                    <%newSt=st.split(':');%>
-                                                                    <%if (newSt[0]<12){ %>
-                                                                        <%=st%> AM
-                                                                    <%} else { %>
-                                                                        <%=st%> PM
-                                                                    <%}%>
-                                                                </a>
-                                                            </div>
-                                                        <%})%>
-                                                        
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <%}%>
                                         <%})%>
-                                        
+                                        <%if (check==false){%>
+                                            <h1>Không có suất chiếu nào trong ngày</h1>
+                                        <%}%>
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +286,6 @@
 <div class="zalo-chat-widget" data-oaid="2358533098341838834" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
 <script src="https://sp.zalo.me/plugins/sdk.js"></script>
 
-    <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
@@ -334,7 +339,24 @@
         });
 
     </script>
-
+    <script>
+        $('.chooseDate').each(function(){
+            $this=$(this);
+            var date=$this.attr('date');
+            $this.click(function(){
+                $.ajax({
+                        url: "/render/"+date,
+                        method: "GET",
+                        contentType: "application/json",
+                        data: JSON.stringify({}),
+                        success: function (result) {
+                            $('.render-ajax').html('');
+                            $('.render-ajax').html(result);
+                        }
+                })
+            })
+        })
+    </script>
 
 
 
