@@ -8,10 +8,6 @@ Category.find({}, function(err,categories){
     cats=categories
 })
 
-function isObjectEqual(object1, object2) {
-    return object1.value === object2.value;
-}
-
 router.get('/:slug', (req,res) => {
     var {slug} = req.params    
     Film.findOne({slug:slug}, function(err,film){ 

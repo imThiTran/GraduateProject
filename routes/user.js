@@ -6,6 +6,7 @@ var Film=require('../models/film');
 var fs = require('fs');
 var cloudinary = require('cloudinary').v2;
 var bcrypt = require('bcrypt');
+var shortid=require('shortid');
 
 
 var cats=[]
@@ -131,6 +132,7 @@ router.post('/comment',(req,res)=>{
             
             User.findOne({email:req.session.user},function(err,us){
                 var obj={
+                    idCmt:shortid.generate(),
                     emailUser: us.email,
                     comment:content,
                     date: new Date()

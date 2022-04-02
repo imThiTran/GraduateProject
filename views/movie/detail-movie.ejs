@@ -222,7 +222,11 @@
                             </p>
                         </div>
                         <div class="time-comt">
-                            12:30 AM 23/03/2022
+                            <%var hour =(cmt.date.getHours()<10?('0'+cmt.date.getHours()):cmt.date.getHours())%>
+                            <%var minute=(cmt.date.getMinutes()<10?('0'+cmt.date.getMinutes()):cmt.date.getMinutes())%>
+                            <% var time=hour+':'+minute %>
+                            <%var date=cmt.date.getDate()+'/'+(cmt.date.getMonth()+1)+'/'+(cmt.date.getFullYear())%>
+                            <%=time%> <%=date%>
                         </div>
                     </div>
                 </div>
