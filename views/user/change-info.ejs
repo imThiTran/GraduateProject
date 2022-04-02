@@ -63,6 +63,9 @@
                                                 <label style="width: 120px;">Ngày sinh:</label>
                                                 <input type="date" name="birthday" id="" value="<%=us.birthday%>">
                                             </div>
+                                            <div class="info-element"  style="text-align: center;">
+                                                <button type="submit" class="save-edit btn-save btn-img">Lưu thay đổi</button>
+                                            </div>
                                         </div>
                                         <div class="userInfo-right">
                                             <%if (us.photo!=""){%>
@@ -72,12 +75,10 @@
                                             <%}%>
                                             <input onchange="loadImg()" type="file" class="" name="image" id="imgUser"
                                                 accept="image/*" style="display: none;">
-                                            <label class="btn-img" id="" for="imgUser" style=" width: 100px;">Chọn ảnh</label>
+                                            <label class="btn-img" id="" for="imgUser" style="margin-top: 40px; width: 100px;">Chọn ảnh</label>
                                             <input type="hidden" name="pimage" value="<%=us.photodrop%>" id="">
                                         </div>
-                                        <div class="info-element"  style="text-align: center;">
-                                            <button type="submit" class="save-edit btn-save btn-img">Lưu thay đổi</button>
-                                        </div>
+                                       
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="change2" role="tabpanel">
@@ -90,17 +91,17 @@
                                                 <span style="margin-left: 10px; color: #fdc85b; font-size: 0.8rem;">Quên mật khẩu?</span>
                                             </a>
                                         </div>
-                                        <p class="alertOldPass span-error" style="color: red;"></p>
+                                        <p class="alertOldPass span-error" id="error-forgot"></p>
                                         <div class="info-element">
                                             <label style="width: 180px;">Mật khẩu mới:</label>
                                             <input type="password" class="newpass" name="newpass" id="" value="">
                                         </div>
-                                        <p class="alertNewPass span-error" style="color: red;"></p>
+                                        <p class="alertNewPass span-error" id="error-forgot"></p>
                                         <div class="info-element">
                                             <label style="width: 180px;">Xác nhận mật khẩu:</label>
                                             <input type="password" class="repass" name="" id="" value="">
                                         </div>
-                                        <p class="alertRePass span-error" style="color: red;"></p>
+                                        <p class="alertRePass span-error" id="error-forgot"></p>
                                         <div class="info-element"  style="text-align: center;">
                                             <button type="button" class="btn-save btn-img">Lưu thay đổi</button>
                                         </div>

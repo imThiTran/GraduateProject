@@ -747,7 +747,8 @@ a:hover {
 /*user*/
 
 .userInfo-background {
-    margin-top: 50px;
+    margin-bottom: 80px;
+    margin-top: 80px;
     min-height: 500px;
     padding: 20px;
     -webkit-transition: all 0.5s;
@@ -764,16 +765,26 @@ a:hover {
 
 .user-img {
     border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+.user-img-preview{
+    border-radius: 50%;
     width: 180px;
+    height: 180px;
+    object-fit: cover;
+    object-position: 50% 50%;
 }
 
 .userInfo-col {
-    font-size: 1.1rem;
-    margin: 20px 10px 0 10px;
+    font-size: 1rem;
+    margin: 20px 10px 0px 10px;
     background: #333;
     border: 2px solid #333;
     border-radius: 5px;
-    min-height: 480px;
+    height: 600px;
     color: #eee
 }
 
@@ -784,11 +795,17 @@ a:hover {
     color: #eee;
     padding: 20px;
     line-height: 2;
+    height: 100%;
+    padding-top: 50px;
+}
+.userInfo-menu h5{
+    margin-bottom: 30px;
+    margin-top: 10px;
 }
 
 .userInfo-menulist {
     border: 3px solid #fdc85b;
-    border-radius: 10px;
+    border-radius: 20px;
     background: #fdfdfd;
     width: 70%;
     color: #333;
@@ -827,13 +844,26 @@ a:hover {
     margin: 50px;
 }
 
+#error-forgot{
+    color: indianred;
+    font-style: italic;
+    font-size: 14px;
+    margin-left: 190px;
+}
+
+.label{
+    background:rgba(0,0,0,0);
+    border:none;
+}
+
 .info-element {
     margin-bottom: 0.5rem;
 }
 
 .info-element input {
     width: 200px;
-    border-radius: 5px;
+    border-radius: 20px;
+    padding: 0 20px;
 }
 
 .btn-img {
