@@ -99,9 +99,9 @@ router.get('/render/:time',async (req,res)=>{
               </div>
               <div class="flex-time">
                   <a href="/movie/`+film.slug+`"><img class="poster-movie" src=`+film.photo+`></a>
-                  <div class="flex-time-detail">`;
+                  <div class="flex-time-movie">`;
                       film.stArr.forEach(function(st){
-                          hmtlSend=hmtlSend+`<div class="time-btn">
+                          hmtlSend=hmtlSend+`<div class="movie-time">
                               <a class="btn-overtime btn btn-outline-warning btn-time">`;
                                   var newSt=st.split(':');
                                   if (newSt[0]<12){ 
