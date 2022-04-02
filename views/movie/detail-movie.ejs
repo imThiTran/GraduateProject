@@ -162,7 +162,7 @@
                             <div class="subin">
                                 <div class="sub1">Thời lượng:</div>
                                 <div class="sub2">
-                                    <%= film.time %>
+                                    <%= film.time %> phút
                                 </div>
                             </div>
                         </div>
@@ -196,57 +196,37 @@
     <section class="comment-section" id="app">
         <div class="container container-comment">
             <div class="comment-side">Bình luận</div>
-            <div class="commented">
-                <img src="/img/bg-movie.jpg" alt="">
-                <div class="star-text">
-                    <fieldset class="rating rating-text">
-                        <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                        <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                        <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                        <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                        <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                        <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                        <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                        <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                        <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                        <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                    </fieldset>
-                    <div class="comment">
-                        <p v-for="items in item" v-text="items">
-                            Trong một xã hội mà ai cũng “cặp bồ” với một cái Smartphone, thì “biết lắng nghe” đã trở
-                            thành
-                            một phẩm chất “hiếm có khó tìm”. Khi bạn nói với ai đó rằng họ thật biết cách lắng nghe, bạn
-                            không những ghi nhận sự có mặt của họ, mà còn tặng cho họ một danh hiệu tuyệt vời đấy.
-                        </p>
+            <%film.comments.forEach(function(cmt){%>
+                <div class="commented">
+                    <div>
+                        <img src="<%=cmt.photoUser%>" alt="">
+                        <p style="color: white;"><%=cmt.nameUser%></p>
+                    </div>
+                    
+                    <div class="star-text">
+                        <fieldset class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                            <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                            <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                            <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                            <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                            <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                        </fieldset>
+                        <div class="comment">
+                            <p v-for="items in item" v-text="items">
+                                <%=cmt.comment%>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="commented">
-                <img src="/img/bg-movie.jpg" alt="">
-                <div class="star-text">
-                    <fieldset class="rating rating-text">
-                        <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                        <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                        <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                        <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                        <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                        <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                        <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                        <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                        <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                        <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                    </fieldset>
-                    <div class="comment">
-                        <p v-for="items in item" v-text="items">
-                            Trong một xã hội mà ai cũng “cặp bồ” với một cái Smartphone, thì “biết lắng nghe” đã trở
-                            thành
-                            một phẩm chất “hiếm có khó tìm”
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <%})%>
+            
             <div class="comment-text">
-                <textarea type="text" class="input" placeholder="Viết bình luận của bạn ở đây" v-model="newItem"
+                <textarea type="text" class="contentComment input" placeholder="Viết bình luận của bạn ở đây" v-model="newItem"
                     @keyup.enter="addItem()"></textarea>
                 <div class="star-comment">
                     <fieldset class="rating">
@@ -261,7 +241,7 @@
                         <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
                         <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
                     </fieldset>
-                    <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Bình luận</button>
+                    <button class='userComment primaryContained float-right' id="<%= film._id %>" type="submit">Bình luận</button>
                 </div>
 
             </div>
@@ -276,6 +256,27 @@
                     $('nav').removeClass('sticky');
                 }
             });
+
+            $('.userComment').click(function(){
+                var value=$('.contentComment').val();
+                var idFilm=$('.userComment').attr('id');
+                if (value==''){
+                    alert('Vui long nhap noi dung');
+                } else {
+                    $.ajax({
+                        url: "/user/comment",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({content:value,idFilm:idFilm}),
+                        success: function (result) {
+                            if (result=='success')window.location.reload();
+                            else {
+                                window.location.href='/auth/login';
+                            }
+                        }
+                    })
+                } 
+            })
         });
     </script>
 

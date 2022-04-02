@@ -71,6 +71,7 @@ var user = require('./routes/user');
 var movie = require('./routes/movie');
 var site = require('./routes/site');
 var checkUser = require('./middelwares/checkUser.middleware');
+var checkLogin = require('./middelwares/checkLogin.middleware');
 
 app.use('/auth',auth);
 app.use('/user',checkUser,user);
