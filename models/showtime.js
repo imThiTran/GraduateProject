@@ -9,7 +9,8 @@ var ShowtimeSchema = mongoose.Schema({
         type: String
     },
     timeEnd:{
-        type: String
+        type: String,
+        default:""
     },
     idFilm:{
         type: String,

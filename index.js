@@ -56,11 +56,10 @@ app.use(session({
     }
   }));
 
-function daysInMonth(month, year){
-    return new Date(year,month,0).getDate();
-}
-const today = new Date();
-const dayinmonth = daysInMonth(today.getMonth()+1,today.getFullYear());                                                                
+// function daysInMonth(month, year){
+//     return new Date(year,month,0).getDate();
+// }
+// const dayinmonth = daysInMonth(today.getMonth()+1,today.getFullYear());                                                                
 
 var port=process.env.PORT || 3000;
 server.listen(port,function(){
@@ -69,26 +68,14 @@ server.listen(port,function(){
 
 var auth = require('./routes/auth');
 var user = require('./routes/user');
+var site = require('./routes/site');
+
 
 var checkUser = require('./middelwares/checkUser.middleware');
 
 app.use('/auth',auth);
 app.use('/user',checkUser,user);
-
-app.get("/",checkUser,function(req,res){
-  var today=new Date();
-  var timeDay = today.getTime();
-  var daylength=24*60*60*1000;
-  var dayArr=[today];
-    for (var i=1;i<7;i++){
-      timeDay=timeDay+daylength;
-      var nextday = new Date(timeDay);
-      dayArr.push(nextday);
-    }
-  res.render('index',{
-    dayArrs:dayArr,      
-  });
-})
+app.use('/',checkUser,site);
 
 app.use((req, res, next) => {
   res.status(404).render('error',{
