@@ -1,0 +1,85 @@
+<%- include ('../layouts/header') %>
+<body>
+    <%- include ('../layouts/sub-header') %>
+    
+
+    <div class="container">
+        <ul class="nav nav-tabs tab-phim" id="myTab" role="tablist">
+            <li class="nav-item " role="presentation">
+                <button class="nav-link tab-movie category-tab tab-show active" id="home-tab" data-bs-toggle="tab"
+                    data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                    Thể loại
+                </button>
+            </li>
+        </ul>
+        <div class="category-bar">
+            <div class="category-side">
+                    <label class="nav-link index-navbar category-title">
+                        Thể loại
+                    </label>
+                
+                <div class="category-star">
+                    <li class="nav-item drop index-dropdown category-dropdown">
+                        <a class="nav-link index-navbar category-title">
+                            Rating
+                        </a>
+                    </li>
+                    <div class="rating" style="padding-right: 20px">
+                        <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                        <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                        <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                        <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                        <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                    </div>
+                </div>
+            </div>
+            <div class="category-span"></div>
+            <div class="movie-side">
+                <% films.forEach(function(film){ %>
+                    <div class="coming-movie-cate">
+                        <a class="a-coming" href="/movie/<%= film.slug%>">
+                            <div class="flex-img-cate" style="padding-bottom: 0px;">
+                                <img class="poster-movie" src="/img/P1.jpg">
+                            </div>
+                            <div class="flex-cs">
+                                <div class="rating rating-star">
+                                    <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                                </div>
+                                <div class="english-title cate-title" >
+                                    <div class="h5-poster">
+                                        <%= film.nameEN%>
+                                    </div>
+                                    <div class="csc">
+                                        <img class="img-cs" src="/img/cs13.png">
+                                    </div>
+                                </div>
+                                <div class="side-poster">
+                                    <%= film.nameVN%>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <% }); %>   
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop()) {
+                    $('nav').addClass('sticky');
+                } else {
+                    $('nav').removeClass('sticky');
+                }
+            });
+        });
+    </script>
+    
+</body>
+<%- include ('../layouts/footer') %>
+</html>

@@ -68,14 +68,15 @@ server.listen(port,function(){
 
 var auth = require('./routes/auth');
 var user = require('./routes/user');
+var movie = require('./routes/movie');
 var site = require('./routes/site');
-
-
 var checkUser = require('./middelwares/checkUser.middleware');
 
 app.use('/auth',auth);
 app.use('/user',checkUser,user);
+app.use('/movie',checkUser,movie);
 app.use('/',checkUser,site);
+
 
 app.use((req, res, next) => {
   res.status(404).render('error',{
