@@ -39,7 +39,7 @@
                     <div class="coming-movie-cate">
                         <a class="a-coming" href="/movie/<%= film.slug%>">
                             <div class="flex-img-cate" style="padding-bottom: 0px;">
-                                <img class="poster-movie" src="/img/P1.jpg">
+                                <img class="poster-movie" src="<%=film.photo%>">
                             </div>
                             <div class="flex-cs">
                                 <div class="rating rating-star">
@@ -54,7 +54,7 @@
                                         <%= film.nameEN%>
                                     </div>
                                     <div class="csc">
-                                        <img class="img-cs" src="/img/cs13.png">
+                                        <img class="img-cs" src="/img/cs<%=film.ageLimit%>.png">
                                     </div>
                                 </div>
                                 <div class="side-poster">

@@ -72,7 +72,7 @@
                                                 <%check=true%>
                                                 <div class="poster-movie-div">
                                                     <div class="flex-title">
-                                                        <a href="#">
+                                                        <a href="/movie/<%=film.slug%>">
                                                             <div class="flex-cs">
                                                                 <div class="english-title">
                                                                     <div class="h6-poster">
@@ -89,7 +89,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="flex-time">
-                                                        <a href="#"><img class="poster-movie" src=<%=film.photo%>></a>
+                                                        <a href="/movie/<%=film.slug%>"><img class="poster-movie" src=<%=film.photo%>></a>
                                                         <div class="flex-time-detail">
                                                             <%film.stArr.forEach(function(st){%>
                                                                 <div class="time-btn">

@@ -1,7 +1,11 @@
 <%- include ('../layouts/header') %>
 <body>
     <%- include ('../layouts/sub-header') %>
-
+    <% function convertDate(date){%>
+        <%    var newDateArr=date.split('-'); %>
+        <%    var newDate=newDateArr[2]+'/'+newDateArr[1]+'/'+newDateArr[0];%>
+        <%    return newDate;%>
+        <%} %>
     <div class="container">
 
         <div class="detail-movie">
@@ -9,20 +13,20 @@
                 <div class="flex-cs-detail">
                     <div class="english-title">
                         <div class="h6-poster">
-                            ETERNAL
+                            <%=film.nameEN%>
                         </div>
                         <div class="cs">
-                            <img class="img-cs" src="/img/cs13.png">
+                            <img class="img-cs" src="/img/cs<%=film.ageLimit%>.png">
                         </div>
                     </div>
                     <div class="side-poster">
-                        CHỦNG TỘC BẤT TỬ
+                        <%=film.nameVN%>
                     </div>
                 </div>
                 <div class="span-detail"></div>
                 <div class="detail-side">
                     <div class="detail-img">
-                        <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
+                        <a href="#"><img class="poster-movie" src="<%=film.photo%>"></a>
                         <button type="button" class="btn btn-buy" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Mua vé
                         </button>
@@ -132,7 +136,7 @@
                             <div class="subin">
                                 <div class="sub1">Khởi chiếu:</div>
                                 <div class="sub2">
-                                    <%= film.premiere %>
+                                    <%= convertDate(film.premiere) %>
                                 </div>
                             </div>
                         </div>

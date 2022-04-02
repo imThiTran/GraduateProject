@@ -2,6 +2,12 @@
 <body>
     <%- include ('../layouts/sub-header') %>
 
+    <% function convertDate(date){%>
+        <%    var newDateArr=date.split('-'); %>
+        <%    var newDate=newDateArr[2]+'/'+newDateArr[1]+'/'+newDateArr[0];%>
+        <%    return newDate;%>
+        <%} %>
+
     <section class="container userInfo-background">
         <div class="container-fluid">
             <div class="row clearfix">
@@ -32,9 +38,7 @@
                                     </div>
                                     <div class="info-element">
                                         <label style="width: 120px;">Ngày sinh:</label>
-                                        <% var newDateArr=us.birthday.split('-') %>
-                                        <%var newDate=newDateArr[2]+'/'+newDateArr[1]+'/'+newDateArr[0]; %>
-                                        <span><%= newDate%></span>
+                                        <span><%= convertDate(us.birthday)%></span>
                                     </div>
                                 </div>
                                 <div class="userInfo-right">

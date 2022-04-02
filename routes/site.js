@@ -5,6 +5,11 @@ var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 
 var Category = require('../models/category');
+var fi=[];
+Film.find({},(err,films)=>{
+  fi=films;
+})
+
 router.get("/",function(req,res){
   Category.find({},async function(err,cats){
       var today=new Date();
@@ -19,7 +24,6 @@ router.get("/",function(req,res){
               dayArr.push(nextday);
           }
       var filmArr=[];
-      const fi = await Film.find({});
       const st = await Showtime.find({date:todayStr});
           for (var i=0;i<fi.length;i++){
             filmArr.push({
@@ -27,6 +31,7 @@ router.get("/",function(req,res){
               nameVN:fi[i].nameVN,
               ageLimit:fi[i].ageLimit,
               photo:fi[i].photo,
+              slug:fi[i].slug,
               stArr:[]
             })
           }
@@ -51,7 +56,6 @@ router.get('/render/:time',async (req,res)=>{
   var todayStr= ((today.getDate()<10)?('0'+today.getDate()):(today.getDate()))+'/'+
   (((today.getMonth()+1)<10)?('0'+(today.getMonth()+1)):(today.getMonth()+1));
   var filmArr=[];
-      const fi = await Film.find({});
       const st = await Showtime.find({date:todayStr});
           for (var i=0;i<fi.length;i++){
               filmArr.push({
@@ -59,6 +63,7 @@ router.get('/render/:time',async (req,res)=>{
               nameVN:fi[i].nameVN,
               ageLimit:fi[i].ageLimit,
               photo:fi[i].photo,
+              slug:fi[i].slug,
               stArr:[]
             })
           }
@@ -76,7 +81,7 @@ router.get('/render/:time',async (req,res)=>{
               check=true;
               hmtlSend=hmtlSend+`<div class="poster-movie-div">
               <div class="flex-title">
-                  <a href="#">
+                  <a href="/movie/`+film.slug+`">
                       <div class="flex-cs">
                           <div class="english-title">
                               <div class="h6-poster">
@@ -93,7 +98,7 @@ router.get('/render/:time',async (req,res)=>{
                   </a>
               </div>
               <div class="flex-time">
-                  <a href="#"><img class="poster-movie" src=`+film.photo+`></a>
+                  <a href="/movie/`+film.slug+`"><img class="poster-movie" src=`+film.photo+`></a>
                   <div class="flex-time-detail">`;
                       film.stArr.forEach(function(st){
                           hmtlSend=hmtlSend+`<div class="time-btn">
@@ -115,7 +120,7 @@ router.get('/render/:time',async (req,res)=>{
             };
           });
           if (check==false){hmtlSend=hmtlSend+`<h1>Không có suất chiếu nào trong ngày</h1>`}
-            res.send(hmtlSend);
+          res.send(hmtlSend);
 })
 
 module.exports = router;

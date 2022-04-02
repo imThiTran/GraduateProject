@@ -1,9 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Category = require('../models/category')
 var fs = require('fs');
 var cloudinary = require('cloudinary').v2;
 var bcrypt = require('bcrypt');
+var cats=[]
+Category.find({}, function(err,categories){
+    cats=categories
+})
 
 router.get('/info', (req, res) => {
     if(req.session.user){
@@ -17,6 +22,7 @@ router.get('/info', (req, res) => {
             res.render('user/UserInfo',{
                 us:us,
                 email:newUs,
+                cats:cats
             });
         })
     } else {
@@ -32,6 +38,7 @@ router.get('/change-info', (req,res) => {
             if (err) return console.log(err);
             res.render('user/change-info',{
                 us:us,
+                cats:cats
             });
         })
     } else {
