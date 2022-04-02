@@ -1292,7 +1292,7 @@ a:hover {
     flex: 6;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
@@ -1311,6 +1311,7 @@ a:hover {
 
 .coming-movie-cate {
     width: 250px;
+    margin-right: 50px;
 }
 
 .h5-poster {
@@ -1582,7 +1583,6 @@ a:hover {
 .comment {
     display: block;
     transition: all .5s;
-    width: 100%;
     background: #7a7a7a8c;
     height: 100%;
     min-height: 50px;
@@ -1646,11 +1646,12 @@ button.primaryContained:hover {
 }
 
 .commented {
-    margin: 30px 20px;
     display: flex;
     align-items: flex-start;
     flex-direction: row;
     align-items: end;
+    border-bottom: 1px solid #585353;
+    padding: 20px 20px 10px 20px;
 }
 
 .commented img {
@@ -1728,4 +1729,19 @@ button.primaryContained:hover {
 }
 .rating-film>label{
     font-size: 20px;
+}
+.rating-comt{
+    margin-left: 40px;
+}
+.name-comt{
+    color: #eee;
+    margin-top: 5px;
+}
+.time-comt{
+    margin-left: 50px;
+    color: #eee;
+    font-style: italic;
+    opacity: .8;
+    font-size: 11px;
+    margin-top: 5px;
 }

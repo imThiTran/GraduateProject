@@ -200,11 +200,11 @@
                 <div class="commented">
                     <div>
                         <img src="<%=cmt.photoUser%>" alt="">
-                        <p style="color: white;"><%=cmt.nameUser%></p>
+                        <div class="name-comt"><%=cmt.nameUser%></div>
                     </div>
                     
                     <div class="star-text">
-                        <fieldset class="rating">
+                        <fieldset class="rating rating-comt">
                             <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                             <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
                             <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -220,6 +220,9 @@
                             <p v-for="items in item" v-text="items">
                                 <%=cmt.comment%>
                             </p>
+                        </div>
+                        <div class="time-comt">
+                            12:30 AM 23/03/2022
                         </div>
                     </div>
                 </div>
