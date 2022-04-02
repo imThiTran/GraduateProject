@@ -66,131 +66,46 @@
                             <div class="tab-content">
                                 <div class="tab-list" id="monday">
                                     <div class="movie-section">
-                                        <div class="poster-movie-div">
-                                            <div class="flex-title">
-                                                <div class="rating rating-star">
-                                                    <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-                                                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                                                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                                                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                                                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                                        <%filmArrs.forEach(function(film){%>
+                                            <div class="poster-movie-div">
+                                                <div class="flex-title">
+                                                    <a href="#">
+                                                        <div class="flex-cs">
+                                                            <div class="english-title">
+                                                                <div class="h6-poster">
+                                                                    
+                                                                </div>
+                                                                <div class="cs">
+                                                                    <img class="img-cs" src="/img/cs13.png">
+                                                                </div>
+                                                            </div>
+                                                            <div class="side-poster">
+                                                                <%=film.nameEN%>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                                <a href="#">
-                                                    <div class="flex-cs">
-                                                        <div class="english-title">
-                                                            <div class="h6-poster">
-                                                                ETERNAL
+                                                <div class="flex-time">
+                                                    <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
+                                                    <div class="flex-time-detail">
+                                                        <%film.stArr.forEach(function(st){%>
+                                                            <div class="time-btn">
+                                                                <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                                    <%newSt=st.split(':');%>
+                                                                    <%if (newSt[0]<12){ %>
+                                                                        <%=st%> AM
+                                                                    <%} else { %>
+                                                                        <%=st%> PM
+                                                                    <%}%>
+                                                                </a>
                                                             </div>
-                                                            <div class="cs">
-                                                                <img class="img-cs" src="/img/cs13.png">
-                                                            </div>
-                                                        </div>
-                                                        <div class="side-poster">
-                                                            CHỦNG TỘC BẤT TỬ
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="flex-time">
-                                                <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
-                                                <div class="flex-time-detail">
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            09:30 AM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
+                                                        <%})%>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="poster-movie-div">
-                                            <div class="flex-title">
-                                                <a href="#">
-                                                    <div class="flex-cs">
-                                                        <div class="english-title">
-                                                            <div class="h6-poster">
-                                                                ETERNAL
-                                                            </div>
-                                                            <div class="cs">
-                                                                <img class="img-cs" src="/img/cs13.png">
-                                                            </div>
-                                                        </div>
-                                                        <div class="side-poster">
-                                                            CHỦNG TỘC BẤT TỬ
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="flex-time">
-                                                <a href="#"><img class="poster-movie" src="/img/P1.jpg"></a>
-                                                <div class="flex-time-detail">
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            09:30 AM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                    <div class="time-btn">
-                                                        <a class="btn-overtime btn btn-outline-warning btn-time">
-                                                            13:45 PM
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <%})%>
+                                        
                                     </div>
                                 </div>
                             </div>
