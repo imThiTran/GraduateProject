@@ -1,10 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var Category = require('../models/category')
+var Category = require('../models/category');
+var Film=require('../models/film');
 var fs = require('fs');
 var cloudinary = require('cloudinary').v2;
 var bcrypt = require('bcrypt');
+
+
 var cats=[]
 Category.find({}, function(err,categories){
     cats=categories
@@ -119,6 +122,29 @@ router.post('/change-pass/:email',function(req,res){
             })   
         }
     })
+})
+
+router.post('/comment',(req,res)=>{
+    var {content,idFilm}=req.body;
+    if (req.session.user){
+        Film.findById(idFilm,function(err,fi){
+            
+            User.findOne({email:req.session.user},function(err,us){
+                var obj={
+                    emailUser: us.email,
+                    comment:content,
+                    date: new Date()
+                }
+                fi.comments.push(obj);
+                fi.save(function(err){
+                    res.send('success');
+                })
+            })
+        })
+    } else {
+        res.send('fail');
+    }
+    
 })
 
 module.exports = router;

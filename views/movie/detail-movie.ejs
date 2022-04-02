@@ -144,7 +144,7 @@
                             <div class="subin">
                                 <div class="sub1">Thời lượng:</div>
                                 <div class="sub2">
-                                    <%= film.time %>
+                                    <%= film.time %> phút
                                 </div>
                             </div>
                         </div>
@@ -178,47 +178,32 @@
     <section class="comment-section" id="app">
         <div class="container container-comment">
             <div class="comment-side">Bình luận</div>
-            <div class="commented">
-                <img src="/img/bg-movie.jpg" alt="">
-                <div class="star-text">
-                    <div class="rating rating-text">
-                        <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-                        <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                        <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                        <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                        <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            <%film.comments.forEach(function(cmt){%>
+                <div class="commented">
+                    <div>
+                        <img src="<%=cmt.photoUser%>" alt="">
+                        <p style="color: white;"><%=cmt.nameUser%></p>
                     </div>
-                    <div class="comment">
-                        <p v-for="items in item" v-text="items">
-                            Trong một xã hội mà ai cũng “cặp bồ” với một cái Smartphone, thì “biết lắng nghe” đã trở
-                            thành
-                            một phẩm chất “hiếm có khó tìm”. Khi bạn nói với ai đó rằng họ thật biết cách lắng nghe, bạn
-                            không những ghi nhận sự có mặt của họ, mà còn tặng cho họ một danh hiệu tuyệt vời đấy.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="commented">
-                <img src="/img/bg-movie.jpg" alt="">
-                <div class="star-text">
-                    <div class="rating rating-text">
-                        <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-                        <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                        <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                        <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                        <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-                    </div>
-                    <div class="comment">
-                        <p v-for="items in item" v-text="items">
-                            Trong một xã hội mà ai cũng “cặp bồ” với một cái Smartphone, thì “biết lắng nghe” đã trở
-                            thành
-                            một phẩm chất “hiếm có khó tìm”
-                        </p>
+                    
+                    <div class="star-text">
+                        <div class="rating rating-text">
+                            <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                            <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                            <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                            <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                        </div>
+                        <div class="comment">
+                            <p v-for="items in item" v-text="items">
+                                <%=cmt.comment%>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <%})%>
+            
             <div class="comment-text">
-                <textarea type="text" class="input" placeholder="Viết bình luận của bạn ở đây" v-model="newItem"
+                <textarea type="text" class="contentComment input" placeholder="Viết bình luận của bạn ở đây" v-model="newItem"
                     @keyup.enter="addItem()"></textarea>
                 <div class="star-comment">
                     <div class="rating">
@@ -228,7 +213,7 @@
                         <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
                         <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
                     </div>
-                    <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Bình luận</button>
+                    <button class='userComment primaryContained float-right' id="<%= film._id %>" type="submit">Bình luận</button>
                 </div>
 
             </div>
@@ -243,6 +228,27 @@
                     $('nav').removeClass('sticky');
                 }
             });
+
+            $('.userComment').click(function(){
+                var value=$('.contentComment').val();
+                var idFilm=$('.userComment').attr('id');
+                if (value==''){
+                    alert('Vui long nhap noi dung');
+                } else {
+                    $.ajax({
+                        url: "/user/comment",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({content:value,idFilm:idFilm}),
+                        success: function (result) {
+                            if (result=='success')window.location.reload();
+                            else {
+                                window.location.href='/auth/login';
+                            }
+                        }
+                    })
+                } 
+            })
         });
     </script>
 
