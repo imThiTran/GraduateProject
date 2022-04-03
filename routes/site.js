@@ -24,29 +24,21 @@ router.get("/",function(req,res){
               var nextday = new Date(timeDay);
               dayArr.push(nextday);
           }
-      var filmArr=[];
       const st = await Showtime.find({date:todayStr});
           for (var i=0;i<fi.length;i++){
-            filmArr.push({
-              nameEN:fi[i].nameEN,
-              nameVN:fi[i].nameVN,
-              ageLimit:fi[i].ageLimit,
-              photo:fi[i].photo,
-              slug:fi[i].slug,
-              stArr:[]
-            })
+            fi[i].stArr=[]
           }
           for (var i=0;i<fi.length;i++){
             for (var j=0;j<st.length;j++){
               if (fi[i]._id.toString()== st[j].idFilm){
-                filmArr[i].stArr.push(st[j].timeStart);
+                fi[i].stArr.push(st[j].timeStart);
               } 
             }
           }
             res.render('index',{
               dayArrs:dayArr,
               cats: cats,
-              filmArrs:filmArr
+              filmArrs:fi
       });
   })
 })
@@ -57,28 +49,20 @@ router.get('/render/:time',async (req,res)=>{
   var todayStr= (today.getFullYear())+'-'+
   (((today.getMonth()+1)<10)?('0'+(today.getMonth()+1)):(today.getMonth()+1))+'-'+
   ((today.getDate()<10)?('0'+today.getDate()):(today.getDate()));
-  var filmArr=[];
       const st = await Showtime.find({date:todayStr});
           for (var i=0;i<fi.length;i++){
-              filmArr.push({
-              nameEN:fi[i].nameEN,
-              nameVN:fi[i].nameVN,
-              ageLimit:fi[i].ageLimit,
-              photo:fi[i].photo,
-              slug:fi[i].slug,
-              stArr:[]
-            })
+              fi[i].stArr=[];
           }
           for (var i=0;i<fi.length;i++){
             for (var j=0;j<st.length;j++){
               if (fi[i]._id.toString()== st[j].idFilm){
-                filmArr[i].stArr.push(st[j].timeStart);
+                fi[i].stArr.push(st[j].timeStart);
               } 
             }
           }
           var hmtlSend=``;
           var check=false;
-          filmArr.forEach(function(film){
+          fi.forEach(function(film){
             if (film.stArr.length >0){
               check=true;
               hmtlSend=hmtlSend+`<div class="poster-movie-div">
