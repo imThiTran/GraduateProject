@@ -14,8 +14,9 @@ router.get("/",function(req,res){
   Category.find({},async function(err,cats){
       var today=new Date();
       var timeDay = today.getTime();
-      var todayStr= ((today.getDate()<10)?('0'+today.getDate()):(today.getDate()))+'/'+
-      (((today.getMonth()+1)<10)?('0'+(today.getMonth()+1)):(today.getMonth()+1));
+      var todayStr=(today.getFullYear())+'-'+
+      (((today.getMonth()+1)<10)?('0'+(today.getMonth()+1)):(today.getMonth()+1))+'-'+
+      ((today.getDate()<10)?('0'+today.getDate()):(today.getDate()));
       var daylength=24*60*60*1000;
       var dayArr=[today];
           for (var i=1;i<7;i++){
@@ -37,7 +38,7 @@ router.get("/",function(req,res){
           }
           for (var i=0;i<fi.length;i++){
             for (var j=0;j<st.length;j++){
-              if (fi[i]._id== st[j].idFilm){
+              if (fi[i]._id.toString()== st[j].idFilm){
                 filmArr[i].stArr.push(st[j].timeStart);
               } 
             }
@@ -53,8 +54,9 @@ router.get("/",function(req,res){
 router.get('/render/:time',async (req,res)=>{
   var time=parseInt(req.params.time);
   var today=new Date(time);
-  var todayStr= ((today.getDate()<10)?('0'+today.getDate()):(today.getDate()))+'/'+
-  (((today.getMonth()+1)<10)?('0'+(today.getMonth()+1)):(today.getMonth()+1));
+  var todayStr= (today.getFullYear())+'-'+
+  (((today.getMonth()+1)<10)?('0'+(today.getMonth()+1)):(today.getMonth()+1))+'-'+
+  ((today.getDate()<10)?('0'+today.getDate()):(today.getDate()));
   var filmArr=[];
       const st = await Showtime.find({date:todayStr});
           for (var i=0;i<fi.length;i++){
@@ -69,7 +71,7 @@ router.get('/render/:time',async (req,res)=>{
           }
           for (var i=0;i<fi.length;i++){
             for (var j=0;j<st.length;j++){
-              if (fi[i]._id== st[j].idFilm){
+              if (fi[i]._id.toString()== st[j].idFilm){
                 filmArr[i].stArr.push(st[j].timeStart);
               } 
             }
@@ -101,17 +103,10 @@ router.get('/render/:time',async (req,res)=>{
                   <a href="/movie/`+film.slug+`"><img class="poster-movie" src=`+film.photo+`></a>
                   <div class="flex-time-movie">`;
                       film.stArr.forEach(function(st){
+                          var newSt=st.split(':');
                           hmtlSend=hmtlSend+`<div class="movie-time">
-                              <a class="btn-overtime btn btn-outline-warning btn-time">`;
-                                  var newSt=st.split(':');
-                                  if (newSt[0]<12){ 
-                                      hmtlSend=hmtlSend+st+' AM';}
-                                   else {
-                                    hmtlSend=hmtlSend+st+' PM'
-                                  };
-                                  hmtlSend=hmtlSend+`</a>
-                                  </div>`
-                              
+                              <a class="btn-overtime btn btn-outline-warning btn-time">`+st+((newSt[0]<12)?` AM`:` PM`)+`</a>
+                                  </div>`  
                       });
                     hmtlSend=hmtlSend+ `</div>
                     </div>

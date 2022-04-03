@@ -26,10 +26,10 @@
                         <div class="star-point">
                             <span>4.5/5</span>
                             <fieldset class="rating rating-film">
-                                <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="star5" name="rating"  value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                                 <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
                                 <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                                <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                <input type="radio" id="star3half" name="rating" checked value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
                                 <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
                                 <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
                                 <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
@@ -64,10 +64,14 @@
                                     <div class="modal-body">
                                         <h6 class="modal-title">Chọn ngày</h6>
                                         <div class="form-group">
-                                            <select name="date" id="dateShow" class="form-select"
+                                            <select name="date" id="dateShow" class="dateChange form-select"
                                                 aria-label="Default select example">
-                                                <option value="none" selected>Chọn ngày chiếu</option>
-                                                <option value="1">22/02/2022</option>
+                                                <% dateSts.sort() %>
+                                                    <option value="none">Chọn ngày chiếu</option>
+                                                <%dateSts.forEach(function(dateSt){%>
+                                                    <option value="<%=dateSt%>"><%=convertDate(dateSt) %></option>
+                                                <%})%> 
+                                                
                                             </select>
                                             <span class="span-error" id="birth_error"></span>
                                         </div>
@@ -76,42 +80,7 @@
                                     <div class="modal-body">
                                         <h6 class="modal-title">Chọn suất chiếu</h6>
                                         <div id="showtime" class="flex-time-detail">
-                                            <div class="time-btn">
-                                                <input type="radio" class="btn-check" id="btn-check1" name="options"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-warning btn-time" for="btn-check1">13:30
-                                                    PM</label>
-                                            </div>
-                                            <div class="time-btn">
-                                                <input type="radio" class="btn-check" id="btn-check2" name="options"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-warning btn-time" for="btn-check2">13:30
-                                                    PM</label>
-                                            </div>
-                                            <div class="time-btn">
-                                                <input type="radio" class="btn-check" id="btn-check3" name="options"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-warning btn-time" for="btn-check3">13:30
-                                                    PM</label>
-                                            </div>
-                                            <div class="time-btn">
-                                                <input type="radio" class="btn-check" id="btn-check4" name="options"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-warning btn-time" for="btn-check4">13:30
-                                                    PM</label>
-                                            </div>
-                                            <div class="time-btn">
-                                                <input type="radio" class="btn-check" id="btn-check5" name="options"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-warning btn-time" for="btn-check5">13:30
-                                                    PM</label>
-                                            </div>
-                                            <div class="time-btn">
-                                                <input type="radio" class="btn-check" id="btn-check6" name="options"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-warning btn-time" for="btn-check6">13:30
-                                                    PM</label>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="modal-footer" style="    height: 90px;">
@@ -199,13 +168,18 @@
             <%film.comments.forEach(function(cmt){%>
                 <div class="commented">
                     <div>
-                        <img src="<%=cmt.photoUser%>" alt="">
+                        <%if (cmt.photoUser!=''){%>
+                            <img src="<%=cmt.photoUser%>" alt="">
+                        <%} else {%>
+                            <img src="/img/no_img.png" alt="">
+                        <%}%>
+                        
                         <div class="name-comt"><%=cmt.nameUser%></div>
                     </div>
                     
                     <div class="star-text">
                         <fieldset class="rating rating-comt">
-                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                            <input type="radio" id="star5"  name="rating" value="5"  /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                             <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
                             <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
                             <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
@@ -256,6 +230,9 @@
     </section>
     <script>
         $(document).ready(function () {
+            var idFilm=$('.userComment').attr('id');
+
+
             $(window).scroll(function () {
                 if ($(this).scrollTop()) {
                     $('nav').addClass('sticky');
@@ -266,7 +243,6 @@
 
             $('.userComment').click(function(){
                 var value=$('.contentComment').val();
-                var idFilm=$('.userComment').attr('id');
                 if (value==''){
                     alert('Vui long nhap noi dung');
                 } else {
@@ -283,6 +259,21 @@
                         }
                     })
                 } 
+            })
+
+            $('.dateChange').change(function(){
+                var $this=$(this);
+                var date=$this.val();
+                    $.ajax({
+                        url: "/movie/load-time",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({date:date,idFilm:idFilm}),
+                        success: function (result) {
+                            $('#showtime').html(result);
+                        }
+                    })
+                
             })
         });
     </script>

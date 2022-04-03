@@ -133,7 +133,7 @@ router.post('/comment',(req,res)=>{
             User.findOne({email:req.session.user},function(err,us){
                 var obj={
                     idCmt:shortid.generate(),
-                    emailUser: us.email,
+                    idUser: us._id.toString(),
                     comment:content,
                     date: new Date()
                 }

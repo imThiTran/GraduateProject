@@ -1,7 +1,18 @@
 <%- include ('./layouts/header') %>
 
     <body>
-        
+        <!-- loading  -->
+        <div class="body-loading">
+            <div class="wrapper">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="shadow"></div>
+                <div class="shadow"></div>
+                <div class="shadow"></div>
+                <span>Loading</span>
+            </div>
+        </div>
         <%- include ('./layouts/sub-header') %>
 
         <div class="poster-index">
@@ -350,8 +361,12 @@
                         contentType: "application/json",
                         data: JSON.stringify({}),
                         success: function (result) {
-                            $('.render-ajax').html('');
-                            $('.render-ajax').html(result);
+                            $('.body-loading').css('display','block');
+                            setTimeout(() => {
+                                $('.body-loading').css('display','none');
+                                $('.render-ajax').html('');
+                                $('.render-ajax').html(result);
+                            }, 300); 
                         }
                 })
             })
