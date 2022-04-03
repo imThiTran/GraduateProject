@@ -18,7 +18,10 @@
                     <a href="/"><img src="/img/logo.gif" alt="logo"></a>
                     <h2 class="login-h1">Đăng ký</h2>
                     <form action="/auth/register" method="post" class="form-signin">
-                        <div class="alert alert-danger error-alert" role="alert"><%=mes%></div>
+                        <%  if (typeof mes!="undefined"){%>
+                            <div class="alert alert-danger error-alert" role="alert"><%=mes%></div>
+                        <%} %>
+                        
                         <div class="login-input">
                             <i class="fa-solid fa-circle-user"></i>
                             <input type="text" name="fullname" value="<%=fullname%>" placeholder="Họ tên" class="form-control email-input">

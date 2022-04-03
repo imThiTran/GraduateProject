@@ -12,8 +12,7 @@ function cleanText(text){
 
 //get register
 router.get('/register', (req, res) => {
-    res.render('auth/register', {
-        mes: '',
+    res.render('auth/register', {        
         email: '',
         fullname: '',
         phone: '',
@@ -130,6 +129,7 @@ router.get('/confirm-register/:token',(req,res) => {
                         });
                         user.save(function(err){
                             if (err) return console.log(err); 
+                            req.session.user = user.email;
                             res.render('auth/auth-notify',{
                                 mes:'Đăng ký thành công',
                             })
@@ -194,9 +194,7 @@ router.post('/login', (req, res) => {
 
 //get forgetPassword
 router.get('/forget', (req, res) => {
-    res.render('auth/forgetPass', {
-        mes: ''
-    });
+    res.render('auth/forgetPass');
 })
 
 //post forgetPW
@@ -311,7 +309,7 @@ router.post('/reset/:id/:token', (req, res) => {
 router.get('/logout',(req,res) => {
     if (req.session.user){
         req.session.destroy();
-        res.redirect('/');
+        res.redirect('/auth/login');
     }
     else {
         res.status(404).render('error', {

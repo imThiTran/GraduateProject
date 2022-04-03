@@ -19,7 +19,9 @@
                     <h2 class="login-h1">Quên mật khẩu?</h2>
                     <form action="/auth/forget" method="post" class="form-signin">
                         <div class="login-input">
-                            <div class="alert alert-danger error-alert" role="alert"><%=mes%></div>
+                            <%  if (typeof mes!="undefined"){%>
+                                <div class="alert alert-danger error-alert" role="alert"><%=mes%></div>
+                            <%} %>                            
                             <i class="fa-solid fa-circle-user"></i>
                             <input type="email" name="email" placeholder="Email" class="form-control email-input" id="exampleInputEmail1"
                                 aria-describedby="emailHelp">
