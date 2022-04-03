@@ -21,9 +21,11 @@
             })
             
             $('.newpass').blur(function (e) {
+                var regex=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
                 var value = $(this).val();
                 if (value == "")  {alertNewPass.text("Vui lòng nhập trường này"); alertRePass.text("");}
-                else if (value.length>15 || value.length<8) alertNewPass.text("Độ dài mật khẩu phải từ 8-15 ký tự");
+                else if (!value.match(regex)) 
+                alertNewPass.text("Mật khẩu từ 8 đến 15 ký tự và có ít nhất một chữ cái thường, một chữ hoa, một chữ số, một ký tự đặc biệt");
                 if ($('.repass').val()!="" && value !=""){
                     if (value != $('.repass').val()) alertRePass.text("Nhập lại mật khẩu chưa khớp");
                 }
@@ -51,7 +53,7 @@
                 alertSave.text("");
             })
             //nut luu mat khau
-            $('.btn-save').click(function (e) {
+            $('.save-pass').click(function (e) {
                 var check=true;
                 if ($('.passwordBlur').val()=="")   {alertOldPass.text("Vui lòng nhập trường này");check=false;}
                 if ($('.newpass').val()=="")        {alertNewPass.text("Vui lòng nhập trường này");check=false;}

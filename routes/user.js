@@ -8,6 +8,10 @@ var cloudinary = require('cloudinary').v2;
 var bcrypt = require('bcrypt');
 var shortid=require('shortid');
 
+//loai bo khoang trang trong chuoi
+function cleanText(text){
+    return text.replaceAll(/\s+/g,' ').trim();
+ }
 
 var cats=[]
 Category.find({}, function(err,categories){
@@ -18,14 +22,13 @@ router.get('/info', (req, res) => {
     if(req.session.user){
         User.findOne({email:req.session.user}, (err,us) => {
             if (err) return console.log(err);
-            var newUs=us.email;
-            var index=newUs.indexOf('@');
-            var newUs1=newUs.slice(0,index-3);
-            var newUs2=newUs.slice(index);
-            newUs=newUs1.concat('***',newUs2);
+            // var newUs=us.email;
+            // var index=newUs.indexOf('@');
+            // var newUs1=newUs.slice(0,index-3);
+            // var newUs2=newUs.slice(index);
+            // newUs=newUs1.concat('***',newUs2);
             res.render('user/UserInfo',{
                 us:us,
-                email:newUs,
                 cats:cats
             });
         })
@@ -59,7 +62,7 @@ router.post('/change-info', (req,res) =>{
     else imageFile="";
     User.findOne({email: req.session.user},(err,us) => {
         if (err) return console.log(err);
-        us.fullname=fullname;
+        us.fullname=cleanText(fullname);
         us.gender=gender;
         us.birthday=birthday;
         us.phone=phone;

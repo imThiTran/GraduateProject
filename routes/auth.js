@@ -5,6 +5,11 @@ var User = require('../models/user');
 var bcrypt = require('bcrypt');
 var transporter = require('../config/nodemailer')
 
+//loai bo khoang trang trong chuoi
+function cleanText(text){
+    return text.replaceAll(/\s+/g,' ').trim();
+}
+
 //get register
 router.get('/register', (req, res) => {
     res.render('auth/register', {
@@ -116,9 +121,9 @@ router.get('/confirm-register/:token',(req,res) => {
                         bcrypt.hash(password, 10, function (err, hash) {
                         if (err) return console.log(err);
                         var user = new User({
-                            email: email,
+                            email: cleanText(email),
                             password: hash,
-                            fullname: fullname,
+                            fullname: cleanText(fullname),
                             phone: phone,
                             birthday: birthday,
                             gender: gender
