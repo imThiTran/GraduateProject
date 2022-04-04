@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 var FilmSchema = mongoose.Schema({
     nameEN:{
         type : String,
-        required : true
+        required : true,
     },
     nameVN:{
         type: String
@@ -12,10 +12,20 @@ var FilmSchema = mongoose.Schema({
         type: String
     },
     photo:{
-        type: String
+        type: String,
+        default:''
     },
-    backgound:{
-        type: String
+    photoDrop:{
+        type: String,
+        default:'' 
+    },
+    background:{
+        type: String,
+        default:''
+    },
+    backgroundDrop:{
+        type: String,
+        default:''
     },
     slug:{
         type: String
@@ -38,7 +48,7 @@ var FilmSchema = mongoose.Schema({
     trailer:{
         type:String
     },
-    idcat:{
+    idCat:{
         type: String
     },
     comments:{

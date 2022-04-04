@@ -11,7 +11,7 @@ var shortid=require('shortid');
 //loai bo khoang trang trong chuoi
 function cleanText(text){
     return text.replaceAll(/\s+/g,' ').trim();
- }
+}
 
 var cats=[]
 Category.find({}, function(err,categories){
@@ -137,7 +137,7 @@ router.post('/comment',(req,res)=>{
                 var obj={
                     idCmt:shortid.generate(),
                     idUser: us._id.toString(),
-                    comment:content,
+                    content:content,
                     date: new Date()
                 }
                 fi.comments.push(obj);

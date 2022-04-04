@@ -70,12 +70,17 @@ var auth = require('./routes/auth');
 var user = require('./routes/user');
 var movie = require('./routes/movie');
 var site = require('./routes/site');
+
+var adminFilm = require('./routes/admin-film');
+
 var checkUser = require('./middelwares/checkUser.middleware');
 var checkLogin = require('./middelwares/checkLogin.middleware');
 
 app.use('/auth',auth);
-app.use('/user',checkUser,user);
+app.use('/user',checkLogin,checkUser,user);
 app.use('/movie',checkUser,movie);
+
+app.use('/admin/film',adminFilm);
 app.use('/',checkUser,site);
 
 

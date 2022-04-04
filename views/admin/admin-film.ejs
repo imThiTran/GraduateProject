@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Megas Cinema</title>
+</head>
+<body style="background-color: white;">
+    <!-- loading  -->
+    <div class="body-loading">
+        <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <span>Loading</span>
+        </div>
+    </div>
+
+    <h1>Thêm phim</h1>
+    <div style="margin: 20px;">
+        <form method="post" enctype="multipart/form-data" action="/admin/film/add-film">
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="nameEN">Tên tiếng anh</label>
+                <input type="text" name="nameEN" id="nameEN">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="nameVN">Tên tiếng diệt</label>
+                <input type="text" name="nameVN" id="nameVN">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="directors">Đạo diễn</label>
+                <input type="text" name="directors" id="directors">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="cast">Diễn viên</label>
+                <input type="text" name="cast" id="cast">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="premiere">Ngày khởi chiếu</label>
+                <input type="date" name="premiere" id="premiere">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="time">Thời lượng</label>
+                <input type="number" name="time" id="time">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="detail">Chi tiết</label>
+                <input type="text" name="detail" id="detail">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="trailer">Id trailer</label>
+                <input type="text" name="trailer" id="trailer">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="idCat">Thể loại</label>
+                <select name="idCat" id="">
+                    <%cats.forEach(function(cat){%>
+                        <option value="<%=cat._id%>"><%=cat.title%></option>
+                    <%})%>
+                </select>
+                
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="ageLimit">Độ tuổi</label>
+                <input type="number" name="ageLimit" id="ageLimit">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="photo">Ảnh chính</label>
+                <input class="photo" type="file" accept="image/*" name="photo" id="photo">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 60px;" for="background">Ảnh bìa</label>
+                <input class="background" type="file" accept="image/*" name="background" id="background">
+            </div>
+            <button class="save-edit" type="submit">Thêm</button>
+        </form>
+
+    </div>
+        
+</body>
+<script>
+
+$('.save-edit').click(function(e){
+        if ($('.photo').val()=='' || $('.background').val()=='') 
+        {alert('Thêm ảnh vô đi ba');e.preventDefault();}
+        else $('.body-loading').css('display','block');
+    })
+</script>
+</html>

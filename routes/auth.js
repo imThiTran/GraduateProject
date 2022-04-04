@@ -268,9 +268,7 @@ router.get('/reset/:id/:token', (req, res) => {
     User.findById(id, (err, us) => {
         jwt.verify(token, process.env.RESET_PASSWORD_KEY + us.password, function (err, decodedData) {
             if (decodedData) {
-                res.render('auth/resetPass', {
-                    mes: ''
-                });
+                res.render('auth/resetPass');
             } else {
                 res.status(404).render('error', {
                     mes: 'Page Not Found'
