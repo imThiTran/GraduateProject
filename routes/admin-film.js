@@ -23,7 +23,7 @@ router.post('/add-film',(req,res)=>{
     var {nameEN,nameVN,directors,cast,premiere,time,detail,trailer,idCat,ageLimit} = req.body;
     var idTrailer = trailer.split('/');
     trailer=idTrailer[idTrailer.length-1];
-    var slug=cleanText(nameVN).replaceAll(' ','-');
+    var slug=(cleanText(nameVN).replaceAll(' ','-')).toLowerCase();
     var photoFile,backgroundFile;
     if (req.files!=null){
         if (typeof req.files.photo != "undefined") photoFile=req.files.photo;
