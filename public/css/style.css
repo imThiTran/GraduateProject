@@ -1219,43 +1219,7 @@ a:hover {
     width: 175px;
 }
 
-/* .rating {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center
-}
 
-.rating>input {
-    display: none
-}
-
-.rating>label {
-    position: relative;
-    width: 1em;
-    font-size: 30px;
-    font-weight: 300;
-    color: #f0c673;
-    cursor: pointer
-}
-
-.rating>label::before {
-    content: "\2605";
-    position: absolute;
-    opacity: 0
-}
-
-.rating>label:hover:before,
-.rating>label:hover~label:before {
-    opacity: 1 !important
-}
-
-.rating>input:checked~label:before {
-    opacity: 1
-}
-
-.rating:hover>input:checked~label:before {
-    opacity: 0.4
-} */
 .rating {
     border: none;
     float: left;
@@ -1283,8 +1247,15 @@ a:hover {
     float: right;
 }
 
+.rating>input:checked~label{
+    color: #fdbc3b;
+}
 
-.rating>input:checked~label,
+.rating>input:not(:checked)>label{
+    color: #ddd;
+}
+
+/* .rating>input:checked~label,
 .rating:not(:checked)>label:hover,
 .rating:not(:checked)>label:hover~label {
     color: #FFD700;
@@ -1295,7 +1266,7 @@ a:hover {
 .rating>label:hover~input:checked~label,
 .rating>input:checked~label:hover~label {
     color: #FFED85;
-}
+} */
 
 .category-star {
     margin-top: 30px;
@@ -1720,6 +1691,11 @@ button.primaryContained:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    flex: 8;
+}
+
+.user-comt{
+    flex: 1;
 }
 
 .rating-text {
@@ -1773,5 +1749,59 @@ button.primaryContained:hover {
     font-style: italic;
     opacity: .8;
     font-size: 11px;
+    margin-top: 5px;
+}
+.star-text:hover .btn-comt{
+    display: flex;
+    justify-content: flex-end;
+    width: 850px;
+    position: absolute;
+    transition: all .3 ease;
+    animation: ToptoBottom .3s ease-in-out;
+}
+.btn-comt{
+   display: none;
+}
+.btn-sua, .btn-xoa{
+    margin-right: 10px;
+    padding: 5px 20px;
+    background: none !important;
+    color: #fdbc3b !important;
+    border: none;
+    margin-top: 0px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.25);
+    transition: .5s all;
+    font-size: 12px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.btn-xoa:hover, .btn-sua:hover{
+   background: rgb(76 76 76) !important;
+}
+#commentp{
+    display: block;
+}
+#text-sua, #btn-save{
+    display: none;
+    margin-left: 20px;
+    transition: all .4 ease;
+    animation: face .4s ease-in-out;
+}
+#btn-save{
+    margin-top: 10px;
+}
+.comment{
+    color: #eee;
+    transition: all .4 ease;
+    animation: face .3s ease-in-out;
+}
+.spinner-save{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
     margin-top: 5px;
 }

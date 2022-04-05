@@ -167,7 +167,7 @@
             <div class="comment-side">Bình luận</div>
             <%film.comments.forEach(function(cmt){%>
                 <div class="commented">
-                    <div>
+                    <div class="user-comt">
                         <%if (cmt.photoUser!=''){%>
                             <img src="<%=cmt.photoUser%>" alt="">
                         <%} else {%>
@@ -178,6 +178,10 @@
                     </div>
                     
                     <div class="star-text">
+                        <div class="btn-comt">
+                            <button id="btn-suacomt" class='btn-sua' type="submit">Sửa</button>
+                            <button id="btn-xoacomt" class='btn-xoa' type="submit">Xóa</button>
+                        </div>
                         <fieldset class="rating rating-comt">
                             <input type="radio" id="star5"  name="rating" value="5"  /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                             <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
@@ -190,11 +194,13 @@
                             <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
                             <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
                         </fieldset>
-                        <div class="comment">
-                            <p v-for="items in item" v-text="items">
-                                <%=cmt.content%>
-                            </p>
+                        <div class="comment" id="commentp">
+                            <p v-for="items in item" v-text="items"><%=cmt.content%></p>
                         </div>
+                        <textarea id="text-sua" type="text" class="contentComment input"  ></textarea>
+                        <button id="btn-save" class='btn-sua' type="submit" value="Lưu">
+                            <div class="spinner-border text-warning spinner-save" role="status"></div>Lưu
+                        </button>
                         <div class="time-comt">
                             <%var hour =(cmt.date.getHours()<10?('0'+cmt.date.getHours()):cmt.date.getHours())%>
                             <%var minute=(cmt.date.getMinutes()<10?('0'+cmt.date.getMinutes()):cmt.date.getMinutes())%>
@@ -281,6 +287,27 @@
             })
         });
     </script>
+
+    <script>
+        document.getElementById("btn-suacomt").onclick = function () {
+            document.getElementById("text-sua").style.display = 'block';
+            document.getElementById("btn-save").style.display = 'block';
+            document.getElementById("commentp").style.display = 'none';
+            document.getElementById("btn-suacomt").style.display = 'none';
+            document.getElementById("btn-xoacomt").style.display = 'none';
+            document.getElementById("text-sua").innerText=document.getElementById("commentp").innerText.trim();
+        };
+
+        document.getElementById("btn-save").onclick = function () {
+            document.getElementById("commentp").style.display = 'block';
+            document.getElementById("text-sua").style.display = 'none';
+            document.getElementById("btn-save").style.display = 'none';
+            document.getElementById("btn-suacomt").style.display = 'block';
+            document.getElementById("btn-xoacomt").style.display = 'block';
+            document.getElementById("commentp").innerText=document.getElementById("text-sua").value;
+        };
+    </script>
+
 
 </body>
 <%- include ('../layouts/footer') %>
