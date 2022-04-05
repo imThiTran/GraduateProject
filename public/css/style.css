@@ -1751,3 +1751,23 @@ button.primaryContained:hover {
     font-size: 11px;
     margin-top: 5px;
 }
+.star-text:hover .btn-comt{
+    display: flex;
+    justify-content: flex-end;
+    width: 850px;
+    position: absolute;
+    transition: all .3 ease;
+    animation: ToptoBottom .3s ease-in-out;
+}
+.btn-comt{
+   display: none;
+}
+.btn-sua-xoa{
+    margin-right: 10px;
+    padding: 5px 20px;
+    background: none !important;
+    color: #fdbc3b !important;
+}
+.btn-sua-xoa:hover{
+   background: rgb(76 76 76) !important;
+}
