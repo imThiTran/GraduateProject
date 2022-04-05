@@ -12,7 +12,7 @@ Category.find({}, function(err,categories){
 router.get('/:slug', (req,res) => {
     var {slug} = req.params    
     Film.findOne({slug:slug}, function(err,film){ 
-        Category.findById(film.idcat, function(err,cat){
+        Category.findById(film.idCat, function(err,cat){
             Showtime.find({idFilm:film._id.toString()},function(err,st){
                 var dateSt=[];
                 for(var i=0;i<st.length;i++){
@@ -29,12 +29,12 @@ router.get('/:slug', (req,res) => {
                             }
                         }
                     }
-                film.idcat=cat.title;
-                res.render('movie/detail-movie',{
-                    cats: cats,
-                    film: film,
-                    dateSts: Array.from(new Set(dateSt))
-                        })
+                    film.idCat=cat.title;
+                    res.render('movie/detail-movie',{
+                        cats: cats,
+                        film: film,
+                        dateSts: Array.from(new Set(dateSt))
+                            })
                     })
             })
         })
@@ -44,7 +44,7 @@ router.get('/:slug', (req,res) => {
 router.get('/category/:slug', (req,res) => {
     var {slug} = req.params
     Category.findOne({slug:slug}, function(err,cat){
-        Film.find({idcat:cat._id}, function(err,films){
+        Film.find({idCat:cat._id}, function(err,films){
             res.render('movie/categories',{
                 cats: cats,
                 films:films
