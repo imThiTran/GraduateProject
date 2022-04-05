@@ -200,7 +200,11 @@
                             <%var minute=(cmt.date.getMinutes()<10?('0'+cmt.date.getMinutes()):cmt.date.getMinutes())%>
                             <% var time=hour+':'+minute %>
                             <%var date=cmt.date.getDate()+'/'+(cmt.date.getMonth()+1)+'/'+(cmt.date.getFullYear())%>
-                            <%=time%> <%=date%>
+                            <% if (cmt.edited==0){ %>
+                                <%=time%> <%=date%>
+                            <%} else {%>
+                                Đã chỉnh sửa lúc <%=time%> <%=date%>
+                            <%}%> 
                         </div>
                     </div>
                 </div>

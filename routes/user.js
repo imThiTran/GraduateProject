@@ -138,7 +138,8 @@ router.post('/comment',(req,res)=>{
                     idCmt:shortid.generate(),
                     idUser: us._id.toString(),
                     content:content,
-                    date: new Date()
+                    date: new Date(),
+                    edited:0,
                 }
                 fi.comments.push(obj);
                 fi.save(function(err){
