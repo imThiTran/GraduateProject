@@ -149,8 +149,18 @@ router.post('/comment',(req,res)=>{
         })
     } else {
         res.send('fail');
+    }   
+})
+
+router.post('/edit-comment',async (req,res)=>{
+    var {idCmt,idFilm,content} = req.body;
+    const update= await Film.updateOne(
+    {_id:idFilm,"comments.idCmt":idCmt},
+    {$set:{"comments.$.content":content, "comments.$.date":new Date(),"comments.$.edited":"1"}}
+    );
+    if (update.modifiedCount==1){
+        res.send()
     }
-    
 })
 
 module.exports = router;

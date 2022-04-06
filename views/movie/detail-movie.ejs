@@ -178,10 +178,15 @@
                     </div>
                     
                     <div class="star-text">
+                    
+                    
+                    <%if (cmt.idUser==user._id){%>
                         <div class="btn-comt">
-                            <button id="btn-suacomt" class='btn-sua' type="submit">Sửa</button>
+                            <button id="btn-suacomt" class='btn-sua editCmt' type="submit">Sửa</button>
                             <button id="btn-xoacomt" class='btn-xoa' type="submit">Xóa</button>
-                        </div>
+                        </div> 
+                    <%}%>
+                        
                         <fieldset class="rating rating-comt">
                             <input type="radio" id="star5"  name="rating" value="5"  /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                             <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
@@ -197,9 +202,9 @@
                         <div class="comment" id="commentp">
                             <p v-for="items in item" v-text="items"><%=cmt.content%></p>
                         </div>
-                        <textarea id="text-sua" type="text" class="contentComment input"  ></textarea>
-                        <button id="btn-save" class='btn-sua' type="submit" value="Lưu">
-                            <div class="spinner-border text-warning spinner-save" role="status"></div>Lưu
+                        <textarea id="text-sua" type="text" class="input"  ></textarea>
+                        <button id="btn-save" class='btn-sua' idCmt="<%=cmt.idCmt%>" type="submit" value="Lưu">
+                            Lưu
                         </button>
                         <div class="time-comt">
                             <%var hour =(cmt.date.getHours()<10?('0'+cmt.date.getHours()):cmt.date.getHours())%>
@@ -213,7 +218,7 @@
                             <%}%> 
                         </div>
                     </div>
-                </div>
+                </div> 
             <%})%>
             
             <div class="comment-text">
@@ -254,7 +259,7 @@
             $('.userComment').click(function(){
                 var value=$('.contentComment').val();
                 if (value==''){
-                    alert('Vui long nhap noi dung');
+                    alert(value);
                 } else {
                     $.ajax({
                         url: "/user/comment",
@@ -285,18 +290,47 @@
                     })
                 
             })
-        });
-    </script>
 
-    <script>
-        document.getElementById("btn-suacomt").onclick = function () {
-            document.getElementById("text-sua").style.display = 'block';
-            document.getElementById("btn-save").style.display = 'block';
-            document.getElementById("commentp").style.display = 'none';
-            document.getElementById("btn-suacomt").style.display = 'none';
-            document.getElementById("btn-xoacomt").style.display = 'none';
-            document.getElementById("text-sua").innerText=document.getElementById("commentp").innerText.trim();
-        };
+        $('.editCmt').each(function(){
+            var $this=$(this);
+            var textEdit=$this.closest('.star-text').find('#text-sua');
+            var currentCmt=$this.closest('.star-text').find('#commentp');
+            var btnSave=$this.closest('.star-text').find('#btn-save');
+            var deleteCmtBtn=$(this).parent().find('#btn-xoacomt');
+            var editCmtBtn=$this;
+            $this.click(function(){  
+             textEdit.css('display','block');
+             currentCmt.css('display','none');
+             btnSave.html(`Lưu`)
+             btnSave.css('display','block');
+             $this.css('display','none');
+             deleteCmtBtn.css('display','none');
+             textEdit.text(currentCmt.text().trim());
+            })
+
+            btnSave.click(function(){
+                var $this=$(this);
+                var idCmt=$this.attr('idCmt');
+                var content=textEdit.val();
+                $.ajax({
+                        url: "/user/edit-comment",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({idCmt:idCmt,idFilm:idFilm,content:content}),
+                        success: function (result) {
+                            $this.html(`<div class="spinner-border text-warning spinner-save" role="status"></div>`);
+                            setTimeout(() => {
+                                textEdit.css('display','none');
+                                currentCmt.css('display','block');
+                                currentCmt.text(content);
+                                btnSave.css('display','none');
+                                editCmtBtn.css('display','block');
+                                deleteCmtBtn.css('display','block');
+                            }, 400);
+                      }
+                })
+            })
+        })
 
         document.getElementById("btn-save").onclick = function () {
             document.getElementById("commentp").style.display = 'block';
@@ -306,6 +340,9 @@
             document.getElementById("btn-xoacomt").style.display = 'block';
             document.getElementById("commentp").innerText=document.getElementById("text-sua").value;
         };
+    });
+        
+        
     </script>
 
 
