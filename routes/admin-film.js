@@ -28,6 +28,15 @@ router.get('/',(req,res)=>{
     })
 })
 
+router.get('/:slug',(req,res)=>{  
+    var {slug} = req.params           
+    Film.findById(slug,(err,film)=>{    
+        res.send({
+            film:film
+        })
+    })
+})
+
 router.post('/add-film',(req,res)=>{
     var {nameEN,nameVN,directors,cast,premiere,time,detail,trailer,idCat,ageLimit} = req.body;
     var idTrailer = trailer.split('/');
