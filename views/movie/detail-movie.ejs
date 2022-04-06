@@ -2,9 +2,8 @@
 <body>
     <%- include ('../layouts/sub-header') %>
     <% function convertDate(date){%>
-        <%    var newDateArr=date.split('-'); %>
-        <%    var newDate=newDateArr[2]+'/'+newDateArr[1]+'/'+newDateArr[0];%>
-        <%    return newDate;%>
+        <% var newDate= new Date(date);%>
+        <%    return newDate.toLocaleDateString('en-GB');%>
         <%} %>
     <div class="container">
 
