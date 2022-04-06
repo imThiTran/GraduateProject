@@ -203,9 +203,14 @@
                             <p v-for="items in item" v-text="items"><%=cmt.content%></p>
                         </div>
                         <textarea id="text-sua" type="text" class="input"  ></textarea>
-                        <button id="btn-save" class='btn-sua' idCmt="<%=cmt.idCmt%>" type="submit" value="Lưu">
-                            Lưu
-                        </button>
+                        <div class="btn-group">
+                            <button id="btn-save" class='btn-sua' idCmt="<%=cmt.idCmt%>" type="submit" value="Lưu">
+                                Lưu
+                            </button>
+                            <button id="btn-huy" class='btn-sua' type="submit" value="Hủy">
+                                Hủy
+                            </button>
+                        </div>
                         <div class="time-comt">
                             <%var hour =(cmt.date.getHours()<10?('0'+cmt.date.getHours()):cmt.date.getHours())%>
                             <%var minute=(cmt.date.getMinutes()<10?('0'+cmt.date.getMinutes()):cmt.date.getMinutes())%>
@@ -296,6 +301,7 @@
             var textEdit=$this.closest('.star-text').find('#text-sua');
             var currentCmt=$this.closest('.star-text').find('#commentp');
             var btnSave=$this.closest('.star-text').find('#btn-save');
+            var btnCancel=$this.closest('.star-text').find('#btn-huy');
             var deleteCmtBtn=$(this).parent().find('#btn-xoacomt');
             var editCmtBtn=$this;
             $this.click(function(){  
@@ -303,6 +309,7 @@
              currentCmt.css('display','none');
              btnSave.html(`Lưu`)
              btnSave.css('display','block');
+             btnCancel.css('display','block');
              $this.css('display','none');
              deleteCmtBtn.css('display','none');
              textEdit.text(currentCmt.text().trim());
@@ -324,6 +331,7 @@
                                 currentCmt.css('display','block');
                                 currentCmt.text(content);
                                 btnSave.css('display','none');
+                                btnCancel.css('display','none');
                                 editCmtBtn.css('display','block');
                                 deleteCmtBtn.css('display','block');
                             }, 400);
@@ -336,12 +344,12 @@
             document.getElementById("commentp").style.display = 'block';
             document.getElementById("text-sua").style.display = 'none';
             document.getElementById("btn-save").style.display = 'none';
+            document.getElementById("btn-huy").style.display = 'none';
             document.getElementById("btn-suacomt").style.display = 'block';
             document.getElementById("btn-xoacomt").style.display = 'block';
             document.getElementById("commentp").innerText=document.getElementById("text-sua").value;
         };
     });
-        
         
     </script>
 

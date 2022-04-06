@@ -1784,13 +1784,13 @@ button.primaryContained:hover {
 #commentp{
     display: block;
 }
-#text-sua, #btn-save{
+#text-sua, #btn-save, #btn-huy{
     display: none;
     margin-left: 20px;
     transition: all .4 ease;
     animation: face .4s ease-in-out;
 }
-#btn-save{
+#btn-save, #btn-huy{
     margin-top: 10px;
 }
 .comment{
