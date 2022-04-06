@@ -10,13 +10,32 @@ function cleanText(text){
     return text.replaceAll(/\s+/g,' ').trim();
 }
 
-router.get('/',(req,res)=>{
-    Category.find({},(err,cat)=>{
-        res.render('admin/admin-film',{
-            cats:cat
-        });
-    })
+// router.get('/',(req,res)=>{
+//     Category.find({},(err,cat)=>{
+//         res.render('admin/admin-film',{
+//             cats:cat
+//         });
+//     })
     
+// })
+
+
+router.get('/',(req,res)=>{               
+    Category.find({},(err,cats)=>{
+        Film.find({},(err,films)=>{    
+            films.forEach((film) => {
+                cats.forEach((cat) => {
+                    if(film.idCat==cat._id){
+                        film.idCat=cat.title      
+                    }
+                })
+            })
+            res.render('admin/AdminFilmManagement',{
+                films:films,
+                cats:cats
+            });        
+        })        
+    })
 })
 
 router.post('/add-film',(req,res)=>{

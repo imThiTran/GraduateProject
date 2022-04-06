@@ -44,16 +44,16 @@
                 <div class="detail-side">
                     <div class="detail-img">
                         <a href="#"><img class="poster-movie" src="<%=film.photo%>"></a>
-                        <button type="button" class="btn btn-buy" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button id="btn-buy" type="button" class="btn btn-buy" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Mua vé
                         </button>
                     </div>
 
                     <!-- bảng pop up  -->
-                    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
-                            <div class="modal-content">
+                            <div class="modal-content detail-body">
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="exampleModalLabel">Chi tiết mua vé</h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
