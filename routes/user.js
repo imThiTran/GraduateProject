@@ -137,7 +137,7 @@ router.post('/comment',(req,res)=>{
                 var obj={
                     idCmt:shortid.generate(),
                     idUser: us._id.toString(),
-                    content:cleanText(content),
+                    content:content.trim(),
                     date: new Date(),
                     edited:0,
                 }
@@ -152,11 +152,28 @@ router.post('/comment',(req,res)=>{
     }   
 })
 
+router.post('/delete-comment', async(req,res)=>{
+    var {idCmt,idFilm}=req.body;
+    const update= await Film.updateOne(
+            {_id:idFilm},
+            {$pull:{
+                comments:{idCmt:idCmt}
+                    }
+            },
+            {
+                safe:true
+            }
+        );
+        if (update.modifiedCount==1){
+            res.send()
+    }
+})
+
 router.post('/edit-comment',async (req,res)=>{
     var {idCmt,idFilm,content} = req.body;
     const update= await Film.updateOne(
     {_id:idFilm,"comments.idCmt":idCmt},
-    {$set:{"comments.$.content":cleanText(content), "comments.$.date":new Date(),"comments.$.edited":"1"}}
+    {$set:{"comments.$.content":content.trim(), "comments.$.date":new Date(),"comments.$.edited":"1"}}
     );
     if (update.modifiedCount==1){
         res.send()

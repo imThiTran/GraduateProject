@@ -10,16 +10,6 @@ function cleanText(text){
     return text.replaceAll(/\s+/g,' ').trim();
 }
 
-// router.get('/',(req,res)=>{
-//     Category.find({},(err,cat)=>{
-//         res.render('admin/admin-film',{
-//             cats:cat
-//         });
-//     })
-    
-// })
-
-
 router.get('/',(req,res)=>{               
     Category.find({},(err,cats)=>{
         Film.find({},(err,films)=>{    
@@ -30,7 +20,7 @@ router.get('/',(req,res)=>{
                     }
                 })
             })
-            res.render('admin/AdminFilmManagement',{
+            res.render('admin/admin-film',{
                 films:films,
                 cats:cats
             });        

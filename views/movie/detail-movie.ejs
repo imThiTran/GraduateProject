@@ -181,8 +181,8 @@
                     
                     <%if (cmt.idUser==user._id){%>
                         <div class="btn-comt">
-                            <button id="btn-suacomt" class='btn-sua editCmt' type="submit">Sửa</button>
-                            <button id="btn-xoacomt" class='btn-xoa' type="submit">Xóa</button>
+                            <button id="btn-suacomt"  class='btn-sua editCmt' type="submit">Sửa</button>
+                            <button id="btn-xoacomt" idCmt="<%=cmt.idCmt%>" class='btn-xoa deleteCmt' type="submit">Xóa</button>
                         </div> 
                     <%}%>
                         
@@ -246,12 +246,10 @@
         </div>
     </section>
     <script>
-
-        function cleanText(text){
+    function cleanText(text){
             return text.replaceAll(/\s+/g,' ').trim();
-        }
-
-        $(document).ready(function () {
+    }
+    $(document).ready(function () {
             var idFilm=$('.userComment').attr('id');
 
 
@@ -266,7 +264,7 @@
             $('.userComment').click(function(){
                 var value=$('.contentComment').val();
                 if (value==''){
-                    alert(value);
+                    alert('Vui lòng nhập nội dung');
                 } else {
                     $.ajax({
                         url: "/user/comment",
@@ -274,7 +272,7 @@
                         contentType: "application/json",
                         data: JSON.stringify({content:value,idFilm:idFilm}),
                         success: function (result) {
-                            if (result=='success')window.location.reload();
+                            if (result=='success') window.location.reload();
                             else {
                                 window.location.href='/auth/login';
                             }
@@ -316,15 +314,15 @@
                 deleteCmtBtn.css('display','block');
             }
 
-            $this.click(function(){  
-             textEdit.css('display','block');
-             currentCmt.css('display','none');
-             btnSave.html(`Lưu`)
-             btnSave.css('display','block');
-             btnCancel.css('display','block');
-             $this.css('display','none');
-             deleteCmtBtn.css('display','none');
-             textEdit.text(currentCmt.text().trim());
+            $this.click(function(){
+                textEdit.css('display','block');
+                currentCmt.css('display','none');
+                btnSave.html(`Lưu`)
+                btnSave.css('display','block');
+                btnCancel.css('display','block');
+                $this.css('display','none');
+                deleteCmtBtn.css('display','none');
+                textEdit.val(currentCmt.text().trim());
             })
 
             btnCancel.click(function(){
@@ -334,8 +332,8 @@
             btnSave.click(function(){
                 var $this=$(this);
                 var idCmt=$this.attr('idCmt');
-                var content=cleanText(textEdit.val());
-                if (content==cleanText(currentCmt.text())){
+                var content=textEdit.val().trim();
+                if (content==currentCmt.text().trim()){
                     revert();
                 } else{
                     $.ajax({
@@ -359,18 +357,34 @@
             })
         })
 
-        document.getElementById("btn-save").onclick = function () {
-            document.getElementById("commentp").style.display = 'block';
-            document.getElementById("text-sua").style.display = 'none';
-            document.getElementById("btn-save").style.display = 'none';
-            document.getElementById("btn-huy").style.display = 'none';
-            document.getElementById("btn-suacomt").style.display = 'block';
-            document.getElementById("btn-xoacomt").style.display = 'block';
-            document.getElementById("commentp").innerText=document.getElementById("text-sua").value;
-        };
+        $('.deleteCmt').each(function(){
+            var $this=$(this);
+            $this.click(function(){
+                deleteCmt($this);
+            })
+           
+        })
+
+        function deleteCmt(element){
+            var commentRow=element.closest('.commented');
+            var idCmt=element.attr('idCmt');
+            var editCmtBtn=element.parent().find('.editCmt')
+            if (confirm('Bạn có chắc chắn xóa ?')){
+                editCmtBtn.css('display','none');
+                $.ajax({
+                        url: "/user/delete-comment",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({idCmt:idCmt,idFilm:idFilm}),
+                        success: function (result) {
+                                commentRow.remove(); 
+                    }
+                })
+            }
+        } 
     });
         
-    </script>
+</script>
 
 
 </body>
