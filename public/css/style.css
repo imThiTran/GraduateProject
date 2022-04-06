@@ -1558,6 +1558,18 @@ a:hover {
 .modal-body {
     padding: 20px 30px;
 }
+.detail-body{
+    margin: 0 auto;
+    width: 100% !important;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: .3rem;
+    outline: 0;
+}
 
 .btn-submit {
     background-color: #fdbc3b;
@@ -1905,7 +1917,7 @@ button.primaryContained:hover {
   .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1090;
     padding-top: 100px;
     left: 0;
     top: 0;
