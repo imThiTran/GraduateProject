@@ -1970,7 +1970,8 @@ button.primaryContained:hover {
 }
 .container-combo{
     border-radius: 50px;
-    margin-top: 50px;
+    margin-top: 80px;
+    margin-bottom: 80px;
     padding: 50px 0px;
     border: 4px dashed #fdc85b;
     box-shadow: 0 0 16px hsl(40deg 98% 67%), 0 6px 20px rgb(255 255 255 / 20%);
@@ -1980,6 +1981,7 @@ button.primaryContained:hover {
 .btn-order-section{
     display: flex;
     justify-content: space-around;
+    padding-top: 30px;
 }
 .btn-back{
     background: #eee;
@@ -2016,7 +2018,40 @@ button.primaryContained:hover {
     padding-top: 30px;
     display: flex;
 }
-
+.fancy-border {
+    border: 4px dashed #fdc85b;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    background: #333;
+    top: -56px;
+    right: 395px;
+  }
+  .text-fancy{
+    position: absolute;
+    color: #eee;
+    font-size: 60px;
+    bottom: 0px;
+    top: -9px;
+    right: -48px;
+    transform: rotate(-7deg);
+    font-weight: 600;
+    text-shadow: 0 0 16px hsl(40deg 98% 67%), 0 6px 20px rgb(255 255 255 / 20%);
+    font-family: 'Saira Semi Condensed', sans-serif;
+  }
+  .combo-type{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 30px 100px 10px;
+  }
+  .type1{
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+    text-shadow: 0 0 16px hsl(40deg 98% 67%), 0 6px 20px rgb(255 255 255 / 20%);
+    font-family: 'Saira Semi Condensed', sans-serif;
+  }
 
 /*ADMIN*/
 
