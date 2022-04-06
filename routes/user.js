@@ -137,7 +137,7 @@ router.post('/comment',(req,res)=>{
                 var obj={
                     idCmt:shortid.generate(),
                     idUser: us._id.toString(),
-                    content:content,
+                    content:cleanText(content),
                     date: new Date(),
                     edited:0,
                 }
@@ -156,7 +156,7 @@ router.post('/edit-comment',async (req,res)=>{
     var {idCmt,idFilm,content} = req.body;
     const update= await Film.updateOne(
     {_id:idFilm,"comments.idCmt":idCmt},
-    {$set:{"comments.$.content":content, "comments.$.date":new Date(),"comments.$.edited":"1"}}
+    {$set:{"comments.$.content":cleanText(content), "comments.$.date":new Date(),"comments.$.edited":"1"}}
     );
     if (update.modifiedCount==1){
         res.send()
