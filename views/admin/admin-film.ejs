@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="../https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
     <link rel="stylesheet" href="../css/style-slide.css">
     <link rel="stylesheet" href="../css/style.css">
+    
 </head>
 
 <body>
@@ -196,7 +197,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-mode">
-                                        <button type="button" id="btnEditFilm"><i class="fa fa-pencil-square-o"
+                                        <button type="button" class="btnEditFilm" value="<%= film._id %>"><i class="fa fa-pencil-square-o"
                                             aria-hidden="true"></i></button>
                                         <button type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
                                     </div>
@@ -230,35 +231,32 @@
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Tên phim</label>
                                                 <div class="input-ten">
-                                                    <input class="input-sua" placeholder="Tên tiếng anh" type="text">
-                                                    <input class="input-sua" placeholder="Tên tiếng việt" type="text">
+                                                    <input class="input-sua nameen" placeholder="Tên tiếng anh" type="text">
+                                                    <input class="input-sua namevn" placeholder="Tên tiếng việt" type="text">
                                                 </div>
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Đạo diễn</label>
-                                                <input class="input-sua" type="text">
+                                                <input class="input-sua directors" type="text">
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Diễn viên</label>
-                                                <input class="input-sua" type="text">
+                                                <input class="input-sua cast" type="text">
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Khởi chiếu</label>
-                                                <input class="input-sua" type="date">
+                                                <input class="input-sua premiere" type="date">
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Thời gian</label>
-                                                <input class="input-sua" type="number">
+                                                <input class="input-sua time" type="number">
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Thể loại</label>
                                                 <select class="input-sua" name="" id="">
-                                                    <option value="1">Kinh dị</option>
-                                                    <option value="2">Tình cảm</option>
-                                                    <option value="3">Hành động</option>
-                                                    <option value="4">Hài hước</option>
-                                                    <option value="5">Hoạt hình</option>
-                                                    <option value="6">Lịch sử</option>
+                                                    <%cats.forEach(function(cat){%>
+                                                        <option value="<%=cat._id%>"><%=cat.title%></option>
+                                                    <%})%>
                                                 </select>
                                             </div>
                                             <div class="ad-phim">
@@ -271,12 +269,12 @@
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Chi tiết</label>
-                                                <textarea class="input-sua-area" name="" id="" cols="20"
+                                                <textarea class="input-sua-area detail" name="" id="" cols="20"
                                                     rows="10"></textarea>
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Trailer</label>
-                                                <input class="input-sua" type="url">
+                                                <input class="input-sua trailer" type="url">
                                             </div>
                                         </div>
                                     </div>
@@ -297,6 +295,7 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/trigger.js"></script>
     <script src="../js/modal.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </body>
 
 </html>

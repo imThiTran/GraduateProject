@@ -13,9 +13,31 @@ $('.close-footer').on('click',function(){
     modalAddFilm.style.display = "none";
     modalEditFilm.style.display = "none";
 });
-$('#btnEditFilm').on('click', function(){
-  modalEditFilm.style.display = "block";
-});
+$('.btnEditFilm').each(function () {
+  var $this = $(this);  
+  $this.on('click', function(){
+    $.ajax({
+      url:"/admin/film/"+$this[0].value,
+      method: "GET",
+      contentType: "application/json",
+      data: JSON.stringify({}),
+      success: function(result){        
+        var editform = $('#modalEditFilm')       
+        editform.find('.imgAddPreview').attr('src',result.film.photo);
+        editform.find('.nameen').val(result.film.nameEN);
+        editform.find('.namevn').val(result.film.nameVN);
+        editform.find('.directors').val(result.film.directors);
+        editform.find('.cast').val(result.film.cast);
+        editform.find('.premiere').val(result.film.premiere);        
+        editform.find('.time').val(result.film.time);
+        editform.find('.detail').val(result.film.detail);
+        editform.find('.trailer').val(result.film.trailer);
+      }
+    })
+    modalEditFilm.style.display = "block";
+  })  
+})
+
 $('#btnAddShowTime').on('click', function(){
   modalAddShowTime.style.display = "block";
 });
