@@ -617,7 +617,7 @@ a:hover {
 
 .event-section {
     padding: 70px;
-    background-image: url(/img/bg-dark.jpg);
+    background-image: url(/img/bg-dark.webp);
 
 }
 
@@ -630,7 +630,7 @@ a:hover {
 }
 
 .footer-index {
-    background: url(/img/bg-grid.jpg) top center repeat;
+    background: url(/img/bg-grid.webp) top center repeat;
 }
 
 .flex-footer {
