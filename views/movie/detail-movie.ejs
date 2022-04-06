@@ -333,7 +333,10 @@
                 var $this=$(this);
                 var idCmt=$this.attr('idCmt');
                 var content=textEdit.val().trim();
-                if (content==currentCmt.text().trim()){
+                if (content==''){
+                    deleteCmt(deleteCmtBtn);
+                }
+                else if (content==currentCmt.text().trim()){
                     revert();
                 } else{
                     $.ajax({
