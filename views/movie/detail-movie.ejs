@@ -212,10 +212,8 @@
                             </button>
                         </div>
                         <div class="time-comt">
-                            <%var hour =(cmt.date.getHours()<10?('0'+cmt.date.getHours()):cmt.date.getHours())%>
-                            <%var minute=(cmt.date.getMinutes()<10?('0'+cmt.date.getMinutes()):cmt.date.getMinutes())%>
-                            <% var time=hour+':'+minute %>
-                            <%var date=cmt.date.getDate()+'/'+(cmt.date.getMonth()+1)+'/'+(cmt.date.getFullYear())%>
+                            <%var time=cmt.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;%>
+                            <%var date=cmt.date.toLocaleDateString('en-GB'); %>
                             <% if (cmt.edited==0){ %>
                                 <%=time%> <%=date%>
                             <%} else {%>
@@ -249,6 +247,11 @@
         </div>
     </section>
     <script>
+
+        function cleanText(text){
+            return text.replaceAll(/\s+/g,' ').trim();
+        }
+
         $(document).ready(function () {
             var idFilm=$('.userComment').attr('id');
 
@@ -304,6 +307,16 @@
             var btnCancel=$this.closest('.star-text').find('#btn-huy');
             var deleteCmtBtn=$(this).parent().find('#btn-xoacomt');
             var editCmtBtn=$this;
+            var timeCommand=$this.closest('.star-text').find('.time-comt');
+            function revert(){
+                textEdit.css('display','none');
+                currentCmt.css('display','block');
+                btnSave.css('display','none');
+                btnCancel.css('display','none');
+                editCmtBtn.css('display','block');
+                deleteCmtBtn.css('display','block');
+            }
+
             $this.click(function(){  
              textEdit.css('display','block');
              currentCmt.css('display','none');
@@ -315,11 +328,18 @@
              textEdit.text(currentCmt.text().trim());
             })
 
+            btnCancel.click(function(){
+                revert();
+            })
+
             btnSave.click(function(){
                 var $this=$(this);
                 var idCmt=$this.attr('idCmt');
-                var content=textEdit.val();
-                $.ajax({
+                var content=cleanText(textEdit.val());
+                if (content==cleanText(currentCmt.text())){
+                    revert();
+                } else{
+                    $.ajax({
                         url: "/user/edit-comment",
                         method: "POST",
                         contentType: "application/json",
@@ -327,16 +347,16 @@
                         success: function (result) {
                             $this.html(`<div class="spinner-border text-warning spinner-save" role="status"></div>`);
                             setTimeout(() => {
-                                textEdit.css('display','none');
-                                currentCmt.css('display','block');
+                                revert();
+                                var now= new Date(); 
+                                var time=now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;
+                                var date=now.toLocaleDateString('en-GB');
+                                timeCommand.html("Đã chỉnh sửa lúc "+time+' '+date);
                                 currentCmt.text(content);
-                                btnSave.css('display','none');
-                                btnCancel.css('display','none');
-                                editCmtBtn.css('display','block');
-                                deleteCmtBtn.css('display','block');
                             }, 400);
                       }
-                })
+                    })
+                }
             })
         })
 
