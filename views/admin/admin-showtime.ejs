@@ -1,5 +1,8 @@
 <%- include ('../layouts/header')%>
-
+<% function convertDate(date){%>
+    <% var newDate= new Date(date);%>
+    <%    return newDate.toLocaleDateString('en-GB');%>
+    <%} %>
 <body>
     <%- include ('../layouts/admin-sub-header')%>
     <div class="wrapper-index">
@@ -12,7 +15,7 @@
                     Thêm mới</button>
             </div>
             <!-- Add suất chiếu -->
-            <form action="" method="">
+            <form class="formAdd" action="" method="">
                 <div id="modalAddShowTime" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -24,14 +27,13 @@
                                 <div class="rowShowTime">
                                     <label style="width: 150px;" for="">Chọn phim</label>
                                     <div class="rowST">
-                                        <select name="nameEN" id="phim" class="form-select">
+                                        <select name="idAndTime" id="phim" class="form-select">
                                             Chọn phim
-                                            <option value="">
-                                                Hello
-                                            </option>
-                                            <option value="">
-                                                Hi
-                                            </option>
+                                            <%films.forEach(function(film){%>
+                                                <option value="<%=film._id%>/<%=film.time%>">
+                                                    <%=film.nameEN%>
+                                                </option>
+                                            <%})%>
                                         </select>
                                         <span class="span-error"></span>
                                     </div>
@@ -47,14 +49,10 @@
                                     </div>
                                 </div>
                                 <div id="form-addSC">
-                                    <div class="row lc-suatchieu">
+                                    <div class="row first-row-addSc lc-suatchieu">
                                         <div class="col-5 showTimeComponent">
                                             <label for="">Suất chiếu</label>
-                                            <select id="" name="" class="form-select">
-                                                <option value="">9:00</option>
-                                                <option value="">12:00</option>
-                                                <option value="">20:00</option>
-                                            </select>
+                                            <input type="time" name="timeStart" id="">
                                         </div>
                                         <div class="col-5 showTimeComponent">
                                             <label for="">Rạp</label>
@@ -64,17 +62,15 @@
                                                 <option value="3">CINEMA 3</option>
                                             </select>
                                         </div>
-                                        <div class="col-2">
-                                            
-                                        </div>
                                     </div>
                                 </div>
                                 <button class="btn-SC" id="btnAddSC" type="button">Thêm suất chiếu</button>
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <p class="alertAdd" style="color: red;"></p>
                             <button type="button" class="btn btn-secondary close-showTime">Đóng</button>
-                            <button type="button" class="btn-common close-showTime">Thêm</button>
+                            <button type="button" class="btn-common btn-saveAdd">Thêm</button>
                         </div>
                     </div>
                 </div>
@@ -88,10 +84,13 @@
                             <div class="ad-phim1"
                                 style="justify-content: space-between; margin-top: 20px; align-items: flex-start;">
                                 <select name="" class="form-select filmSelect" style="width: 50%;">
-                                    <option href="" value=""> Tất cả phim </option>
-                                    <option href="" value="">
-                                        Hi nak
-                                    </option>
+                                    <option  value=""> Tất cả phim </option>
+                                    <%films.forEach(function(film){%>
+                                        <option value="<%=film._id%>">
+                                            <%=film.nameEN%>
+                                        </option>
+                                    <%})%>
+                                    
                                 </select>
                         </form>
                         <form class="formSearch" action="" method="POST">
@@ -139,49 +138,54 @@
         </thead>
         <tbody id="containTr">
             <form class="formDeleteAll" action="" method="post">
-                <tr class="trClosest">
-                    <td>
-                        <input class="form-check-input-del itemcheck" name="checkall" type="checkbox" value="">
-                    </td>
-                    <th style=" width: 20px;">
-                        1
-                    </th>
-                    <th scope="row">
-                        SC01
-                    </th>
-                    <td class="tdName" style="width: 20%;">
-                        <div>
-                            HI
-                        </div>
-                    </td>
-                    <td class="tdDate">
-                        20/02/2000
-                    </td>
-                    <td class="tdTime">
-                        10:00
-                    </td>
-                    <td class="tdRoom">
-                        CINEMA 1
-                    </td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="swclosed form-check-input" id="" type="checkbox" role="switch" />
-
-                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                        </div>
-                    </td>
-
-                    <td>
-                        <div class="ad-btn" style="    width: 60px;">
-
-                            <a class="confirmDeletion" href=""><button type="button" id=""
-                                    class="btnDelete btn-close btn-xoa" aria-label="Close"
-                                    style="margin-top: 30px;"></button></a>
-                            <button type="button" class="btn btn-danger btn-buy editBtn" id=""
-                                style="width:100%; margin-top: 20px">Sửa</button>
-                        </div>
-                    </td>
-                </tr>
+                <%var i=1;%>
+                <%showtimes.forEach(function(showtime){%>
+                    <tr class="trClosest">
+                        <td>
+                            <input class="form-check-input-del itemcheck" name="checkall" type="checkbox" value="">
+                        </td>
+                        <th style=" width: 20px;">
+                            <%=i%>
+                            <%i++;%>
+                        </th>
+                        <th scope="row">
+                            <%=showtime.shortId%>
+                        </th>
+                        <td class="tdName" style="width: 20%;">
+                            <div>
+                                <%=showtime.nameEN%>
+                            </div>
+                        </td>
+                        <td class="tdDate">
+                            <%=convertDate(showtime.date)%>
+                        </td>
+                        <td class="tdTime">
+                            <%=showtime.timeStart%> - <%=showtime.timeEnd%>
+                        </td>
+                        <td class="tdRoom">
+                            CINEMA <%=showtime.room%>
+                        </td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="swclosed form-check-input" id="" type="checkbox" role="switch" />
+    
+                                <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                            </div>
+                        </td>
+    
+                        <td>
+                            <div class="ad-btn" style="    width: 60px;">
+    
+                                <a class="confirmDeletion" href=""><button type="button" id=""
+                                        class="btnDelete btn-close btn-xoa" aria-label="Close"
+                                        style="margin-top: 30px;"></button></a>
+                                <button type="button" class="btn btn-danger btn-buy editBtn" id=""
+                                    style="width:100%; margin-top: 20px">Sửa</button>
+                            </div>
+                        </td>
+                    </tr>
+                <%})%>
+                
             </form>
         </tbody>
         </thead>
@@ -251,7 +255,6 @@
         </table>
 
     </div>
-    <script src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="/js/admin-showtime.js"></script>
 </body>
