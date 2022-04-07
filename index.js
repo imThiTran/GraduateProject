@@ -72,6 +72,7 @@ var movie = require('./routes/movie');
 var site = require('./routes/site');
 
 var adminFilm = require('./routes/admin-film');
+var adminShowtime = require('./routes/admin-showtime');
 
 var checkUser = require('./middelwares/checkUser.middleware');
 var checkLogin = require('./middelwares/checkLogin.middleware');
@@ -79,9 +80,11 @@ var checkLogin = require('./middelwares/checkLogin.middleware');
 app.use('/auth',auth);
 app.use('/user',checkLogin,checkUser,user);
 app.use('/movie',checkUser,movie);
-
-app.use('/admin/film',adminFilm);
 app.use('/',checkUser,site);
+
+app.use('/admin/film',checkUser,adminFilm);
+app.use('/admin/showtime',checkUser,adminShowtime);
+
 
 
 app.use((req, res, next) => {

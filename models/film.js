@@ -55,6 +55,10 @@ var FilmSchema = mongoose.Schema({
         type:Array,
         default:[]
     },
+    status:{
+        type:String,
+        required:true
+    },
     ratings:{
         type:Array,
         default:[]

@@ -1,3 +1,31 @@
+var modal = document.getElementById('myModal');
+var modalAdd= document.querySelector('.modal-add');
+var btn = document.getElementById("myBtn");
+var span = document.querySelector(".closeBtn");
+var modalAddShowTime = document.getElementById("modalAddShowTime");
+
+
+
+
+$('#btnAddShowTime').on('click', function(){
+  modalAddShowTime.style.display = "block";
+});
+$('.close-showTime').on('click',function(){
+  modalAddShowTime.style.display = "none";
+  modalEditShowTime.style.display = "none";
+});
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        else if (event.modalAdd == modal){
+
+        }
+    }
+
 //ADMIN
 //Add Suat chieu
 $('#btnAddSC').on('click', () => {
@@ -38,3 +66,4 @@ function toggleSelect(e) {
     const selectPc = e.parentElement.parentElement.querySelector('.sl-active');
     selectPc && (selectPc.disabled = e.checked);
 }
+

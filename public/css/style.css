@@ -617,7 +617,7 @@ a:hover {
 
 .event-section {
     padding: 70px;
-    background-image: url(/img/bg-dark.jpg);
+    background-image: url(/img/bg-dark.webp);
 
 }
 
@@ -630,7 +630,7 @@ a:hover {
 }
 
 .footer-index {
-    background: url(/img/bg-grid.jpg) top center repeat;
+    background: url(/img/bg-grid.webp) top center repeat;
 }
 
 .flex-footer {
@@ -2278,4 +2278,15 @@ button.primaryContained:hover {
   }
   .btn-mode button:hover{
     opacity: 1;
+  }
+   /* USER MANAGEMENT */
+   .span-error{
+    font-size: 12px;
+    color: #f93838;
+    font-style: italic;
+  }
+  .ad-header{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }

@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark index-nav-dark" id="navbar">
+    <ul class="nav justify-content-end index-sign-nav">
+        <div class="dropdown1">
+            <li class="nav-item">
+                <a class="nav-link user-login"><%=user.fullname%></a>
+                <ul class="drop-menu">
+                    <li><a class="dropdown-item user-drop" href="/user/info">Hồ sơ</a></li>
+                    <li><a class="dropdown-item user-drop" href="#">Vé đã đặt</a></li>
+                    <li><a class="dropdown-item" href="/auth/logout">Đăng xuất</a></li>
+                </ul>
+            </li>
+    </div>
+    </ul>
+    <div class="container-fluid">
+        <a class="navbar-brand index-brand" href="/">
+            <img class="index-img-logo" src="../img/logo.gif" alt="Megas Cinema">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll index-scroll"
+                style="--bs-scroll-height: 100px;">
+                <li class="nav-item drop index-dropdown">
+                    <a class="nav-link admin-navbar">
+                        Phim
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link admin-navbar" href="#">Suất chiếu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link admin-navbar" href="#">Ăn vặt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link admin-navbar">User</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link admin-navbar">Thống kê</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
