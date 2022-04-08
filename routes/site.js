@@ -31,7 +31,10 @@ router.get("/",function(req,res){
           for (var i=0;i<fi.length;i++){
             for (var j=0;j<st.length;j++){
               if (fi[i]._id.toString()== st[j].idFilm){
-                fi[i].stArr.push(st[j].timeStart);
+                fi[i].stArr.push({
+                  timeStart:st[j].timeStart,
+                  idSt:st[j]._id,
+                });
               } 
             }
           }
@@ -56,7 +59,10 @@ router.get('/render/:time',async (req,res)=>{
           for (var i=0;i<fi.length;i++){
             for (var j=0;j<st.length;j++){
               if (fi[i]._id.toString()== st[j].idFilm){
-                fi[i].stArr.push(st[j].timeStart);
+                fi[i].stArr.push({
+                  timeStart:st[j].timeStart,
+                  idSt:st[j]._id,
+                });
               } 
             }
           }
@@ -87,9 +93,9 @@ router.get('/render/:time',async (req,res)=>{
                   <a href="/movie/`+film.slug+`"><img class="poster-movie" src=`+film.photo+`></a>
                   <div class="flex-time-movie">`;
                       film.stArr.forEach(function(st){
-                          var newSt=st.split(':');
+                          var newSt=st.timeStart.split(':');
                           hmtlSend=hmtlSend+`<div class="movie-time">
-                              <a class="btn-overtime btn btn-outline-warning btn-time">`+st+((newSt[0]<12)?` AM`:` PM`)+`</a>
+                              <a href="/order?idShowtime=`+st.idSt+`" class="btn-overtime btn btn-outline-warning btn-time">`+st.timeStart+((newSt[0]<12)?` AM`:` PM`)+`</a>
                                   </div>`  
                       });
                     hmtlSend=hmtlSend+ `</div>

@@ -14,8 +14,8 @@ var TicketSchema = mongoose.Schema({
         default:"1",
     },
     price:{
-        type:String,
-        default:"50000",
+        type:Number,
+        required:true,
     },
     sorting:{
         type:Number,

@@ -13,10 +13,6 @@ var ShowtimeSchema = mongoose.Schema({
         type: String,
         required : true
     },
-    timeEndReal:{
-        type: String,
-        required : true
-    },
     idFilm:{
         type: String,
         required : true

@@ -104,12 +104,12 @@
                                                         <div class="flex-time-movie">
                                                             <%film.stArr.forEach(function(st){%>
                                                                 <div class="movie-time">
-                                                                    <a class="btn-overtime btn btn-outline-warning btn-time">
+                                                                    <a href="/order?idShowtime=<%=st.idSt%>" class="btn-overtime btn btn-outline-warning btn-time">
                                                                         <%newSt=st.split(':');%>
                                                                         <%if (newSt[0]<12){ %>
-                                                                            <%=st%> AM
+                                                                            <%=st.timeStart%> AM
                                                                         <%} else { %>
-                                                                            <%=st%> PM
+                                                                            <%=st.timeStart%> PM
                                                                         <%}%>
                                                                     </a>
                                                                 </div>

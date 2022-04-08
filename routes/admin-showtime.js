@@ -2,6 +2,8 @@ var express= require('express');
 var router=express.Router();
 var Film = require('../models/film');
 var Showtime = require('../models/showtime');
+var Ticket= require('../models/ticket');
+var shortId= require('shortid');
 
 var fs=require('fs');
 
@@ -64,9 +66,56 @@ router.post('/add-showtime',(req,res)=>{
             ]},(err,st)=>{
                 if (st)
                 {
-                    res.send('Suất chiếu đã tồn tại')
+                    res.send('Tồn tại suất chiếu trùng thời gian');
                 } else{
-                    res.send('OK Ổn');
+                    var tickets=[]; //du lieu ve add vao db
+                    var name;
+                    var showtime=new Showtime({
+                        date:date,
+                        timeStart:timeStart,
+                        timeEnd:timeEnd,
+                        room:room,
+                        idFilm:idFilm
+                    })
+                    showtime.save(function(err,result){
+                        if (err) return console.log(err);
+                        for (var i=0;i<=9;i++){
+                            switch(i)
+                            {
+                                case 0:name='A';break;
+                                case 1:name='B';break;
+                                case 2:name='C';break;
+                                case 3:name='D';break;
+                                case 4:name='E';break;
+                                case 5:name='F';break;
+                                case 6:name='G';break;
+                                case 7:name='H';break;
+                                case 8:name='J';break;
+                                case 9:name='K';break;
+                                default:'';
+                            }
+                            for(var j=1;j<=12;j++){
+                                if (i!=9){
+                                    tickets.push({
+                                        idShowtime:result._id,
+                                        name:name+j,
+                                        price:55000,
+                                        sorting:(12*i)+j,
+                                    })
+                                } else {
+                                    if (j==7) break;
+                                    tickets.push({
+                                        idShowtime:result._id,
+                                        name:name+j,
+                                        price:120000,
+                                        sorting:(12*i)+j,
+                                    })
+                                }
+                            }
+                        }
+                        Ticket.insertMany(tickets);
+                        res.send('success');
+                    })
                 }
             })
         }
@@ -113,9 +162,60 @@ router.post('/add-showtime',(req,res)=>{
                         {checkExist=false; break;}
                     }
                     if (checkExist==false){
-                        res.send('Suất chiếu đã tồn tại');
+                        res.send('Tồn tại suất chiếu trùng thời gian');
                     }else {
-                        res.send('Ok ổn');
+                        var tickets=[]; //du lieu ve add vao db
+                        var showtimes=[];//du lieu suat chieu add vao db
+                        var name;
+                        for(var i=0;i<room.length;i++){
+                            showtimes.push({
+                                date:date,
+                                idFilm:idFilm,
+                                timeStart:timeStart[i],
+                                timeEnd:timeEnd[i],
+                                room:room[i],
+                            }) 
+                        }
+                        Showtime.insertMany(showtimes).then(function(result){
+                            result.forEach(function(st){
+                                for (var i=0;i<=9;i++){
+                                    switch(i)
+                                    {
+                                        case 0:name='A';break;
+                                        case 1:name='B';break;
+                                        case 2:name='C';break;
+                                        case 3:name='D';break;
+                                        case 4:name='E';break;
+                                        case 5:name='F';break;
+                                        case 6:name='G';break;
+                                        case 7:name='H';break;
+                                        case 8:name='J';break;
+                                        case 9:name='K';break;
+                                        default:'';
+                                    }
+                                    for(var j=1;j<=12;j++){
+                                        if (i!=9){
+                                            tickets.push({
+                                                idShowtime:st._id,
+                                                name:name+j,
+                                                price:55000,
+                                                sorting:(12*i)+j,
+                                            })
+                                        } else {
+                                            if (j==7) break;
+                                            tickets.push({
+                                                idShowtime:st._id,
+                                                name:name+j,
+                                                price:120000,
+                                                sorting:(12*i)+j,
+                                            })
+                                        }
+                                    }
+                                }
+                            })
+                            Ticket.insertMany(tickets);
+                            res.send('success');
+                        });   
                     }
                 })
             }

@@ -39,7 +39,8 @@ $('.btn-saveAdd').click(function(){
             data: data,
             success: function (result) {
                if (result=="success"){
-                modalAddShowTime.style.display = "none";
+                    modalAddShowTime.style.display = "none";
+                    window.location.reload();
                } else {
                    $('.alertAdd').html(result);
                }
