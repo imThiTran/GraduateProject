@@ -2085,6 +2085,19 @@ button.primaryContained:hover {
       border-radius: 10px 10px 0 0;
       box-shadow: 8px 2px 1px 0px rgb(243 205 98 / 38%);
   }
+  .btn1{
+      margin-right: 10px;
+      width: 140px;
+  }
+  .btnSearchTime{
+    max-height:40px; margin:0px 10px; font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: #fdc85b;
+  }
+  .btnSearchTime:hover{
+      background-color: #fdbc3b;
+  }
   .line-detail{
     height: 3px;
         background: rgb(254 199 88);
