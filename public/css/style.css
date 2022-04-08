@@ -2056,6 +2056,9 @@ button.primaryContained:hover {
 /*ADMIN*/
 
 /*SHOWTIME MANAGEMENT*/
+.btn-admin{
+    cursor: pointer;
+}
 .admin-navbar {
     cursor: pointer;
     font-family: 'Lexend Deca', sans-serif;
