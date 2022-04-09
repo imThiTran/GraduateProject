@@ -2056,6 +2056,9 @@ button.primaryContained:hover {
 /*ADMIN*/
 
 /*SHOWTIME MANAGEMENT*/
+.btn-admin{
+    cursor: pointer;
+}
 .admin-navbar {
     cursor: pointer;
     font-family: 'Lexend Deca', sans-serif;
@@ -2084,6 +2087,19 @@ button.primaryContained:hover {
       text-align: center;
       border-radius: 10px 10px 0 0;
       box-shadow: 8px 2px 1px 0px rgb(243 205 98 / 38%);
+  }
+  .btn1{
+      margin-right: 10px;
+      width: 140px;
+  }
+  .btnSearchTime{
+    max-height:40px; margin:0px 10px; font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: #fdc85b;
+  }
+  .btnSearchTime:hover{
+      background-color: #fdbc3b;
   }
   .line-detail{
     height: 3px;
@@ -2279,8 +2295,8 @@ button.primaryContained:hover {
   .btn-mode button:hover{
     opacity: 1;
   }
-   /* USER MANAGEMENT */
-   .span-error{
+  /* USER MANAGEMENT */
+  .span-error{
     font-size: 12px;
     color: #f93838;
     font-style: italic;
@@ -2290,3 +2306,12 @@ button.primaryContained:hover {
     justify-content: space-between;
     flex-wrap: wrap;
   }
+  .userPosition-select{
+    height: 2rem;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+  }
+  .userPosition-select:focus {
+    border-color: #333;
+    box-shadow: none !important;
+}
