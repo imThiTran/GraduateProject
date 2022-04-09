@@ -105,7 +105,7 @@
                                                             <%film.stArr.forEach(function(st){%>
                                                                 <div class="movie-time">
                                                                     <a href="/order?idShowtime=<%=st.idSt%>" class="btn-overtime btn btn-outline-warning btn-time">
-                                                                        <%newSt=st.split(':');%>
+                                                                        <%newSt=st.timeStart.split(':');%>
                                                                         <%if (newSt[0]<12){ %>
                                                                             <%=st.timeStart%> AM
                                                                         <%} else { %>
