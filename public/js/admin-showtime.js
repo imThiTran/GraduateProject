@@ -3,13 +3,17 @@ var modalAdd= document.querySelector('.modal-add');
 var btn = document.getElementById("myBtn");
 var span = document.querySelector(".closeBtn");
 var modalAddShowTime = document.getElementById("modalAddShowTime");
-
+var modalEditShowTime = document.getElementById("modalEditShowTime");
 
 $('#btnAddShowTime').on('click', function(){
   modalAddShowTime.style.display = "block";
 });
+$('.btnEditShowTime').on('click', function(){
+    modalEditShowTime.style.display = "block";
+});
 $('.close-showTime').on('click',function(){
   modalAddShowTime.style.display = "none";
+  modalEditShowTime.style.display = "none";
 });
     span.onclick = function () {
         modal.style.display = "none";

@@ -2146,7 +2146,7 @@ button.primaryContained:hover {
     margin-bottom: 10px;
   }
   .showTimeComponent label{
-      width: 200px;
+      width: 12rem;
   }
   .btn-SC{
       width: 150px;
@@ -2226,7 +2226,13 @@ button.primaryContained:hover {
     max-width: 500px;
     margin-right: 20px;
   }
-
+  .timeShowTime div{
+      display: inline-block;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 5px;
+      background-color: #fdc85b;
+  }
   /*FILM MANAGEMENT*/
   .img-add{
     max-width: 100% !important;
