@@ -69,6 +69,11 @@ router.get('/render/:time',async (req,res)=>{
           var hmtlSend=``;
           var check=false;
           fi.forEach(function(film){
+              film.stArr.sort(function(a, b){ 
+                  if (a.timeStart.toLowerCase() < b.timeStart.toLowerCase()) {return -1;} 
+                  if (a.timeStart.toLowerCase() > b.timeStart.toLowerCase()) {return 1;} 
+                  return 0; 
+              })
             if (film.stArr.length >0){
               check=true;
               hmtlSend=hmtlSend+`<div class="poster-movie-div">

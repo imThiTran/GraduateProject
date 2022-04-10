@@ -138,86 +138,91 @@
                                 <tbody id="containTr">
                                     <form class="formDeleteAll" action="" method="post">
                                         <!-- Each film's show time -->
-                                        <tr>
-                                            <tr class="trClosest">
-                                                <th rowspan="3" style=" width: 20px;">
-                                                    1
-                                                </th>
-                                                <td rowspan="3" class="tdName" style="width: 20%;">
-                                                    <div class="wrapFilm">
-                                                        <div>
-                                                            Tên tieng anh nek
+                                        <%var i=1;%>
+                                        <% showtimes.forEach(function(showtime){ %>
+                                            <tr>
+                                                <tr class="trClosest">
+                                                    <th rowspan="3" style=" width: 20px;">
+                                                        <%=i%>
+                                                        <%i++%>
+                                                    </th>
+                                                    <td rowspan="3" class="tdName" style="width: 20%;">
+                                                        <div class="wrapFilm">
+                                                            <div>
+                                                                <%=showtime.nameEN%>
+                                                            </div>
+                                                            <div>
+                                                                <%=showtime.nameVN%>
+                                                            </div>
+                                                            <div>
+                                                                <img style="width: 100%" src="<%=showtime.photo%>" alt="Megas Cinema">
+                                                            </div>
                                                         </div>
-                                                        <div>
-                                                            Tên tiếng việt nek
+                                                    </td>
+                                                    <td class="tdDate">
+                                                        10/10
+                                                    </td>
+                                                    <td class="tdTime timeShowTime">
+                                                        <div>15:00 - 18:00</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-mode">
+                                                            <button type="button" class="btnEditShowTime" value=""><i
+                                                                    class="fa fa-pencil-square-o"
+                                                                    aria-hidden="true"></i></button>
+                                                            <button type="button"><i class="fa fa-times"
+                                                                    aria-hidden="true"></i></button>
                                                         </div>
-                                                        <div>
-                                                            <img style="width: 100%" src="" alt="Megas Cinema">
+                                                    </td>
+                                                </tr>
+                                                <tr class="trClosest">
+                                                    <td class="tdDate">
+                                                        12/10
+                                                    </td>
+                                                    <td class="tdTime timeShowTime">
+                                                        <div>9:00 - 12:00</div>
+                                                        <div>15:00 - 18:00</div>
+                                                        <div>9:00 - 12:00</div>
+                                                        <div>15:00 - 18:00</div>
+                                                        <div>9:00 - 12:00</div>
+                                                        <div>15:00 - 18:00</div>
+                                                        <div>9:00 - 12:00</div>
+                                                        <div>15:00 - 18:00</div>
+                                                        <div>9:00 - 12:00</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-mode">
+                                                            <button type="button" class="btnEditShowTime" value=""><i
+                                                                    class="fa fa-pencil-square-o"
+                                                                    aria-hidden="true"></i></button>
+                                                            <button type="button"><i class="fa fa-times"
+                                                                    aria-hidden="true"></i></button>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td class="tdDate">
-                                                    10/10
-                                                </td>
-                                                <td class="tdTime timeShowTime">
-                                                    <div>15:00 - 18:00</div>
-                                                </td>
-                                                <td>
-                                                    <div class="btn-mode">
-                                                        <button type="button" class="btnEditShowTime" value=""><i
-                                                                class="fa fa-pencil-square-o"
-                                                                aria-hidden="true"></i></button>
-                                                        <button type="button"><i class="fa fa-times"
-                                                                aria-hidden="true"></i></button>
-                                                    </div>
-                                                </td>
+                                                    </td>
+                                                </tr>
+                                                <tr class="trClosest">
+                                                    <td class="tdDate">
+                                                        15/10
+                                                    </td>
+                                                    <td class="tdTime timeShowTime">
+                                                        <div>15:00 - 18:00</div>
+                                                        <div>9:00 - 12:00</div>
+                                                        <div>15:00 - 18:00</div>
+                                                        <div>9:00 - 12:00</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-mode">
+                                                            <button type="button" class="btnEditShowTime" value=""><i
+                                                                    class="fa fa-pencil-square-o"
+                                                                    aria-hidden="true"></i></button>
+                                                            <button type="button"><i class="fa fa-times"
+                                                                    aria-hidden="true"></i></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tr>
-                                            <tr class="trClosest">
-                                                <td class="tdDate">
-                                                    12/10
-                                                </td>
-                                                <td class="tdTime timeShowTime">
-                                                    <div>9:00 - 12:00</div>
-                                                    <div>15:00 - 18:00</div>
-                                                    <div>9:00 - 12:00</div>
-                                                    <div>15:00 - 18:00</div>
-                                                    <div>9:00 - 12:00</div>
-                                                    <div>15:00 - 18:00</div>
-                                                    <div>9:00 - 12:00</div>
-                                                    <div>15:00 - 18:00</div>
-                                                    <div>9:00 - 12:00</div>
-                                                </td>
-                                                <td>
-                                                    <div class="btn-mode">
-                                                        <button type="button" class="btnEditShowTime" value=""><i
-                                                                class="fa fa-pencil-square-o"
-                                                                aria-hidden="true"></i></button>
-                                                        <button type="button"><i class="fa fa-times"
-                                                                aria-hidden="true"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="trClosest">
-                                                <td class="tdDate">
-                                                    15/10
-                                                </td>
-                                                <td class="tdTime timeShowTime">
-                                                    <div>15:00 - 18:00</div>
-                                                    <div>9:00 - 12:00</div>
-                                                    <div>15:00 - 18:00</div>
-                                                    <div>9:00 - 12:00</div>
-                                                </td>
-                                                <td>
-                                                    <div class="btn-mode">
-                                                        <button type="button" class="btnEditShowTime" value=""><i
-                                                                class="fa fa-pencil-square-o"
-                                                                aria-hidden="true"></i></button>
-                                                        <button type="button"><i class="fa fa-times"
-                                                                aria-hidden="true"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tr>
+                                        <%})%>
+                                       
                                         <!-- End each film's show time -->
                                     </form>
                                 </tbody>

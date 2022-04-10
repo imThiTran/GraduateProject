@@ -58,12 +58,12 @@ router.post('/load-time',(req,res)=>{
     var {date,idFilm}=req.body;
     if (date!='none'){
         var hmtlSend='';
-    Showtime.find({date:date,idFilm:idFilm},(err,sts)=>{
+    Showtime.find({date:date,idFilm:idFilm}).sort({timeStart:1}).exec((err,sts)=>{
         var i=1;
         sts.forEach(function(st){
             var newSt=st.timeStart.split(':');
             hmtlSend=hmtlSend+`<div class="time-btn">
-            <input type="radio" class="btn-check" id="btn-check`+i+`" name="options"
+            <input type="radio" class="btn-check" idSt=`+st._id+` onclick="handleRadio(this);" id="btn-check`+i+`" name="timeStart"
                 autocomplete="off">
             <label class="btn btn-outline-warning btn-time" for="btn-check`+i+`">`+st.timeStart+((newSt[0]<12)?` AM`:` PM`)+ `
                 </label>

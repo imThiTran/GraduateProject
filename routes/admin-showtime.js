@@ -12,19 +12,31 @@ function cleanText(text){
     return text.replaceAll(/\s+/g,' ').trim();
 }
 
-router.get('/',(req,res)=>{     
+router.get('/',(req,res)=>{
+    var showtimeArr=[];  
+    var times=[];
+    var date=[];
     Film.find({},(err,fi)=>{
         Showtime.find({},(err,st)=>{
-            st.forEach(function(s){
-               s.shortId=s._id.toString().slice(17);
-               fi.forEach(function(f){
+            fi.forEach(function(f){
+                times=[];
+                date=[];
+                st.forEach(function(s){
+                    s.shortId=s._id.toString().slice(17);
                    if (s.idFilm==f._id.toString()){
-                       s.nameEN=f.nameEN;
+                       times.push(s.timeStart);
+                       date.push({nameDate:s.date, times:times})
                    }
-               }) 
+               })
+                showtimeArr.push({
+                    nameEN:f.nameEN,
+                    nameVN:f.nameVN,
+                    photo:f.photo,
+                    descrb:date
+                })
             })
             res.render('admin/admin-showtime',{
-                showtimes:st, 
+                showtimes:showtimeArr, 
                 films:fi           
                 });
             })

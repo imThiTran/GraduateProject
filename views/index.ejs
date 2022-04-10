@@ -102,6 +102,11 @@
                                                     <div class="flex-time">
                                                         <a href="/movie/<%=film.slug%>"><img class="poster-movie" src=<%=film.photo%>></a>
                                                         <div class="flex-time-movie">
+                                                            <%film.stArr.sort(function(a, b){ %>
+                                                            <%    if (a.timeStart.toLowerCase() < b.timeStart.toLowerCase()) {return -1;} %>
+                                                            <%    if (a.timeStart.toLowerCase() > b.timeStart.toLowerCase()) {return 1;} %>
+                                                            <%    return 0; %>
+                                                            <%})%>
                                                             <%film.stArr.forEach(function(st){%>
                                                                 <div class="movie-time">
                                                                     <a href="/order?idShowtime=<%=st.idSt%>" class="btn-overtime btn btn-outline-warning btn-time">
