@@ -947,8 +947,8 @@ a:hover {
 }
 
 .purchase-order {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .purchase-order .purchase-item:last-child {
@@ -963,8 +963,9 @@ a:hover {
 }
 
 .img-order-list {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
 }
 
 .name-order-list, .total-order-list, .price-order-list {
@@ -1035,7 +1036,27 @@ a:hover {
     border: 1px solid #ebebeb;
     background: #ebebeb;
 }
-
+.row-detail{
+    display: flex;
+}
+.row-detail div:nth-child(2){
+    width: 60%;
+}
+.row-detail div:first-child, .row-detail div:last-child{
+    width: 20%;
+}
+.detail-purchase{
+    background-color: transparent;
+    font-style: italic;
+    border: none;
+    font-size: 1rem;
+}
+.purchase-film{
+    margin-top: 5px;
+    background-color: #454545;
+    cursor: pointer;
+    border-radius: 5px;
+}
 /* login */
 .login-section {
     width: 100%;
