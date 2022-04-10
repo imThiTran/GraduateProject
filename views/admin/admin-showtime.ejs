@@ -63,9 +63,9 @@
                                                                 <div class="col-5 showTimeComponent">
                                                                     <label for="">Rạp</label>
                                                                     <select id="room" name="room" class="form-select">
-                                                                        <option value="1">CINEMA 1</option>
-                                                                        <option value="2">CINEMA 2</option>
-                                                                        <option value="3">CINEMA 3</option>
+                                                                        <%rooms.forEach(function(room){%>
+                                                                            <option value="<%=room._id%>"><%=room.name%></option>
+                                                                        <%})%>                                                 
                                                                     </select>
                                                                 </div>
                                                             </div>

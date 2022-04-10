@@ -17,7 +17,7 @@ var ShowtimeSchema = mongoose.Schema({
         type: String,
         required : true
     },
-    room:{
+    idRoom:{
         type:String,
         required:true,
     },

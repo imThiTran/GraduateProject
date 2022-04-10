@@ -4,8 +4,9 @@ var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 var Ticket= require('../models/ticket');
 var shortId= require('shortid');
+const Room = require('../models/room');
 
-var fs=require('fs');
+
 
 //loai bo khoang trang trong chuoi
 function cleanText(text){
@@ -18,6 +19,7 @@ router.get('/',(req,res)=>{
     var date=[];
     Film.find({},(err,fi)=>{
         Showtime.find({},(err,st)=>{
+            Room.find({block:0},(err,ro)=>{
             fi.forEach(function(f){
                 times=[];
                 date=[];
@@ -37,8 +39,10 @@ router.get('/',(req,res)=>{
             })
             res.render('admin/admin-showtime',{
                 showtimes:showtimeArr, 
-                films:fi           
-                });
+                films:fi,
+                rooms:ro      
+                    });
+                })
             })
         })
     })
@@ -72,7 +76,7 @@ router.post('/add-showtime',(req,res)=>{
         }
         else {
             var timeEnd=transferTimeEnd(timeStart,time);
-            Showtime.findOne({date:date,room:room,$or:[     //kiem tra suat chieu nay da ton tai hay khong
+            Showtime.findOne({date:date,idRoom:room,$or:[     //kiem tra suat chieu nay da ton tai hay khong
                 {timeStart:{$lte:timeStart},timeEnd:{$gte:timeStart}},
                 {timeStart:{$lte:timeEnd},timeEnd:{$gte:timeEnd}}
             ]},(err,st)=>{
@@ -86,7 +90,7 @@ router.post('/add-showtime',(req,res)=>{
                         date:date,
                         timeStart:timeStart,
                         timeEnd:timeEnd,
-                        room:room,
+                        idRoom:room,
                         idFilm:idFilm
                     })
                     showtime.save(function(err,result){
@@ -131,7 +135,7 @@ router.post('/add-showtime',(req,res)=>{
                 }
             })
         }
-    }else {
+    }else { //else room = array
         var checkTime=true;
         timeStart.forEach(function(timeStart){
             var newDay=new Date(date); 
@@ -165,7 +169,7 @@ router.post('/add-showtime',(req,res)=>{
                     for (var i=0;i<st.length;i++)
                     for (var j=0;j<timeStart.length;j++)
                     {
-                        if (st[i].date==date && st[i].room==room[j] && 
+                        if (st[i].date==date && st[i].idRoom==room[j] && 
                             (
                                 (st[i].timeStart<timeStart[j] && st[i].timeEnd>timeStart[j]) || 
                                 (st[i].timeStart<timeEnd[j] && st[i].timeEnd>timeEnd[j])
@@ -185,7 +189,7 @@ router.post('/add-showtime',(req,res)=>{
                                 idFilm:idFilm,
                                 timeStart:timeStart[i],
                                 timeEnd:timeEnd[i],
-                                room:room[i],
+                                idRoom:room[i],
                             }) 
                         }
                         Showtime.insertMany(showtimes).then(function(result){
