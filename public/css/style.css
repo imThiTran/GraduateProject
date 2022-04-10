@@ -2226,7 +2226,20 @@ button.primaryContained:hover {
     max-width: 500px;
     margin-right: 20px;
   }
-  .timeShowTime div{
+  .tdTime, .tdDate, .tdOption{
+      position: relative;
+      height: 100%;
+  }
+ .timeShowTime, .dateShowTime, .optionShowTime{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: absolute;
+  }
+  .timeShowTime div, .dateShowTime div, .optionShowTime div{
+      flex-grow: 1;
+  }
+  .timeShowTime div div{
       display: inline-block;
       border-radius: 5px;
       padding: 5px;
