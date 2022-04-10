@@ -162,59 +162,47 @@
                                                     </td>
                                                     <td class="tdDate">
                                                         <div class="dateShowTime">
-                                                            <div>10/12/2022</div>
-                                                            <div>11/12/2022</div>
-                                                            <div>12/12/2022</div>
+                                                            <%showtime.descrb.sort(function(a, b){ %>
+                                                                <%    if (a.nameDate.toLowerCase() < b.nameDate.toLowerCase()) {return -1;} %>
+                                                                <%    if (a.nameDate.toLowerCase() > b.nameDate.toLowerCase()) {return 1;} %>
+                                                                <%    return 0; %>
+                                                                <%})%>
+                                                            <%showtime.descrb.forEach(function(date){%>
+                                                                <div><%=convertDate(date.nameDate)%></div>
+                                                            <%})%> 
                                                         </div>
                                                     </td>
                                                     <td class="tdTime">
                                                         <div class="timeShowTime">
 
                                                             <!-- The show time of date -->
-                                                            <div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                            </div>
-                                                            <div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                            </div>
-                                                            <div>
-                                                                <div>15:00 - 18:00</div>
-                                                                <div>15:00 - 18:00</div>
-                                                            </div>
+                                                            <%showtime.descrb.forEach(function(date){%>
+                                                                <div>
+                                                                    <%date.times.sort(); %>   
+                                                                    <%date.times.forEach(function(time){%>
+                                                                        <%newSt=time.split(':');%>
+                                                                        <%if (newSt[0]<12){ %>
+                                                                            <div><%=time%> AM</div>
+                                                                        <%} else { %>
+                                                                            <div><%=time%> PM</div>
+                                                                        <%}%>
+                                                                        
+                                                                    <%})%>                                                           
+                                                                </div>
+                                                            <%})%>                                                      
                                                         </div>
                                                     </td>
                                                     <td class="tdOption" style="width: 11%;">
                                                         <div class="optionShowTime">
-                                                            <div class="btn-mode">
-                                                                <button type="button" class="btnEditShowTime" value=""><i
-                                                                        class="fa fa-pencil-square-o"
-                                                                        aria-hidden="true"></i></button>
-                                                                <button type="button"><i class="fa fa-times"
-                                                                        aria-hidden="true"></i></button>
-                                                            </div>
-                                                            <div class="btn-mode">
-                                                                <button type="button" class="btnEditShowTime" value=""><i
-                                                                        class="fa fa-pencil-square-o"
-                                                                        aria-hidden="true"></i></button>
-                                                                <button type="button"><i class="fa fa-times"
-                                                                        aria-hidden="true"></i></button>
-                                                            </div>
-                                                            <div class="btn-mode">
-                                                                <button type="button" class="btnEditShowTime" value=""><i
-                                                                        class="fa fa-pencil-square-o"
-                                                                        aria-hidden="true"></i></button>
-                                                                <button type="button"><i class="fa fa-times"
-                                                                        aria-hidden="true"></i></button>
-                                                            </div>
+                                                            <%showtime.descrb.forEach(function(date){%>
+                                                                <div class="btn-mode">
+                                                                    <button type="button" class="btnEditShowTime" value=""><i
+                                                                            class="fa fa-pencil-square-o"
+                                                                            aria-hidden="true"></i></button>
+                                                                    <button type="button"><i class="fa fa-times"
+                                                                            aria-hidden="true"></i></button>
+                                                                </div>
+                                                            <%})%>                                                                                                           
                                                         </div>
                                                     </td>
                                                 </tr>

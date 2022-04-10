@@ -17,25 +17,37 @@ router.get('/',(req,res)=>{
     var showtimeArr=[];  
     var times=[];
     var date=[];
+    var descrb=[];
     Film.find({},(err,fi)=>{
         Showtime.find({},(err,st)=>{
             Room.find({block:0},(err,ro)=>{
             fi.forEach(function(f){
-                times=[];
+                descrb=[];
                 date=[];
                 st.forEach(function(s){
-                    s.shortId=s._id.toString().slice(17);
-                   if (s.idFilm==f._id.toString()){
-                       times.push(s.timeStart);
-                       date.push({nameDate:s.date, times:times})
-                   }
-               })
-                showtimeArr.push({
-                    nameEN:f.nameEN,
-                    nameVN:f.nameVN,
-                    photo:f.photo,
-                    descrb:date
+                    if (s.idFilm==f._id.toString())
+                    date.push(s.date);
                 })
+                date=Array.from(new Set(date));
+                if (date.length!=0){
+                    date.forEach(function(d){
+                        times=[];
+                        st.forEach(function(s){
+                            if (s.date==d && s.idFilm==f._id.toString()) 
+                            times.push(s.timeStart);
+                        })
+                        descrb.push({
+                            nameDate:d,
+                            times:times
+                        })  
+                    })
+                    showtimeArr.push({
+                        nameEN:f.nameEN,
+                        nameVN:f.nameVN,
+                        photo:f.photo,
+                        descrb:descrb
+                    })   
+                }
             })
             res.render('admin/admin-showtime',{
                 showtimes:showtimeArr, 

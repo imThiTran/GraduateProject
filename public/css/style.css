@@ -2297,10 +2297,7 @@ button.primaryContained:hover {
     resize: none;
     height: 150px;
   }
-  .btn-mode{
-      display: flex;
-      flex-direction: row;
-  }
+  
   .btn-mode button{
       border: none;
       background-color: transparent;
