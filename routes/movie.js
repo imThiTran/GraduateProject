@@ -47,7 +47,8 @@ router.get('/category/:slug', (req,res) => {
         Film.find({idCat:cat._id}, function(err,films){
             res.render('movie/categories',{
                 cats: cats,
-                films:films
+                films:films,
+                type:cat.title
             })
         }) 
     })

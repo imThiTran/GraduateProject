@@ -52,68 +52,12 @@
                     <a class="nav-link index-navbar">Liên hệ</a>
                 </li>
             </ul>
-            <form class="d-flex index-flex">
+            <form method="get" action="/search-film" class="d-flex index-flex">
                 <div class="search-part">
-                    <input class="form-control me-2 search-input" type="search" placeholder="Tìm kiếm tên phim"
+                    <input class="form-control me-2 search-input" name="name" type="search" placeholder="Tìm kiếm tên phim"
                         aria-label="Search">
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">
-                                <div class="search-option">
-                                    <div class="img-option">
-                                        <img src="/img/P1.jpg" alt="phim1">
-                                    </div>
-                                    <div class="title-option">
-                                        <div class="rating-flex">
-                                            <h5>ETERNAL</h5>
-                                            <img src="/img/cs13.png" alt="">
-                                        </div>
-                                        <h6>Chủng tộc bất tử</h6>
-                                    </div>
-                                </div>
-                            </a></li>
-                        <li><a class="dropdown-item" href="#">
-                                <div class="search-option">
-                                    <div class="img-option">
-                                        <img src="/img/P1.jpg" alt="phim1">
-                                    </div>
-                                    <div class="title-option">
-                                        <div class="rating-flex">
-                                            <h5>ETERNAL</h5>
-                                            <img src="/img/cs13.png" alt="">
-                                        </div>
-                                        <h6>Chủng tộc bất tử</h6>
-                                    </div>
-                                </div>
-                            </a></li>
-                        <li><a class="dropdown-item" href="#">
-                                <div class="search-option">
-                                    <div class="img-option">
-                                        <img src="/img/P1.jpg" alt="phim1">
-                                    </div>
-                                    <div class="title-option">
-                                        <div class="rating-flex">
-                                            <h5>ETERNAL</h5>
-                                            <img src="/img/cs13.png" alt="">
-                                        </div>
-                                        <h6>Chủng tộc bất tử</h6>
-                                    </div>
-                                </div>
-                            </a></li>
-                        <li><a class="dropdown-item" href="#">
-                                <div class="search-option">
-                                    <div class="img-option">
-                                        <img src="/img/P1.jpg" alt="phim1">
-                                    </div>
-                                    <div class="title-option">
-                                        <div class="rating-flex">
-                                            <h5>ETERNAL</h5>
-                                            <img src="/img/cs13.png" alt="">
-                                        </div>
-                                        <h6>Chủng tộc bất tử</h6>
-                                    </div>
-                                </div>
-                            </a></li>
-                    </ul>
+                    <div class="containSearch">  
+                    </div>
                 </div>
                 <button class="btn btn-outline-success index-search" type="submit">
                     <img src="/img/search-icon.png" alt="search">
@@ -122,3 +66,21 @@
         </div>
     </div>
 </nav>
+<script>
+    $('.search-input').on('input',function(){
+        var name=$(this).val();
+        if (name!=''){
+                $.ajax({
+                url: "/search-film-ajax",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({name:name}),
+                success: function (result) {
+                    $('.containSearch').html(result);
+                }
+            })
+        } else {
+            $('.containSearch').html('');
+        }
+    })
+</script>

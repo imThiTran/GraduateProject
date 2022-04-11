@@ -113,4 +113,45 @@ router.get('/render/:time',async (req,res)=>{
           res.send(hmtlSend);
 })
 
+router.post('/search-film-ajax',(req,res)=>{
+  var name=req.body.name;
+  var htmlSend='';
+  Film.find({$or:[{nameEN:{$regex:name,$options:"$i"}},{nameVN:{$regex:name,$options:"$i"}}]},(err,fi)=>{
+    if (fi.length!=0){
+      htmlSend=htmlSend+`<ul class="dropdown-menu">`;
+    fi.forEach(function(fiFe){
+      htmlSend=htmlSend+`<li><a class="dropdown-item" href="/movie/`+fiFe.slug+`">
+      <div class="search-option">
+          <div class="img-option">
+              <img src="`+fiFe.photo+`" alt="phim1">
+          </div>
+          <div class="title-option">
+              <div class="rating-flex">
+                  <h5>`+fiFe.nameEN+`</h5>
+                  <img src="/img/cs`+fiFe.ageLimit+`.png" alt="">
+              </div>
+              <h6>`+fiFe.nameVN+`</h6>
+          </div>
+      </div>
+  </a></li>`
+    })
+    htmlSend=htmlSend+`</ul>`;
+    }
+    res.send(htmlSend);
+  })
+})
+
+router.get('/search-film',(req,res)=>{
+  var name=req.query.name;
+    Category.find({}, function(err,cats){
+      Film.find({$or:[{nameEN:{$regex:name,$options:"$i"}},{nameVN:{$regex:name,$options:"$i"}}]}, function(err,films){
+          res.render('movie/categories',{
+              cats: cats,
+              films:films,
+              type:'Tìm kiếm phim'
+          })
+      }) 
+  })
+})
+
 module.exports = router;

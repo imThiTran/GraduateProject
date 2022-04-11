@@ -9,7 +9,22 @@ $('#btnAddShowTime').on('click', function(){
   modalAddShowTime.style.display = "block";
 });
 $('.btnEditShowTime').on('click', function(){
-    modalEditShowTime.style.display = "block";
+    var $this=$(this);
+    var idFilm=$this.attr('idFilm');
+    var date=$this.attr('date');
+    $.ajax({
+        url: "/admin/showtime/load-edit",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({idFilm:idFilm,date:date}),
+        success: function (result) {
+            result.date=(new Date(result.date)).toLocaleDateString('en-GB');
+            $('.nameEdit').html(result.nameEN);
+            $('.dateEdit').html(result.date);
+            $('.first-row-editSc').html(result.htmlSend);
+            modalEditShowTime.style.display = "block";
+        }
+    })
 });
 $('.close-showTime').on('click',function(){
   modalAddShowTime.style.display = "none";

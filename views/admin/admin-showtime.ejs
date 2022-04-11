@@ -196,10 +196,10 @@
                                                         <div class="optionShowTime">
                                                             <%showtime.descrb.forEach(function(date){%>
                                                                 <div class="btn-mode">
-                                                                    <button type="button" class="btnEditShowTime" value=""><i
+                                                                    <button idFilm="<%=showtime.idFilm%>" date="<%=date.nameDate%>" type="button" class="btnEditShowTime" value=""><i
                                                                             class="fa fa-pencil-square-o"
                                                                             aria-hidden="true"></i></button>
-                                                                    <button type="button"><i class="fa fa-times"
+                                                                    <button idFilm="<%=showtime.idFilm%>" date="<%=date.nameDate%>" type="button"><i class="fa fa-times"
                                                                             aria-hidden="true"></i></button>
                                                                 </div>
                                                             <%})%>                                                                                                           
@@ -213,7 +213,7 @@
                                 </tbody>
                                 </thead>
                                 <!-- Edit Suất chiếu từng ngày-->
-                                <form class="formAdd" action="" method="">
+                                <form class="" action="" method="">
                                     <div id="modalEditShowTime" class="modal">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -226,18 +226,18 @@
                                                 <div class="wrapModal">
                                                     <div class="rowShowTime">
                                                         <label style="width: 150px;" for="">Tên phim</label>
-                                                        <div class="rowST">
+                                                        <div class="nameEdit rowST">
                                                             PHIM SỐ 1
                                                         </div>
                                                     </div>
                                                     <div class="rowShowTime">
                                                         <div class="rowST">
                                                             <label style="width: 150px;" for="">Ngày chiếu</label>
-                                                            12/10/2022
+                                                            <div class="dateEdit">12/10/2022</div> 
                                                         </div>
                                                     </div>
                                                     <div id="">
-                                                        <div class="row first-row-addSc lc-suatchieu">
+                                                        <div class="row first-row-editSc lc-suatchieu">
                                                             <div class="col-5 showTimeComponent">
                                                                 <label for="">Suất chiếu</label>
                                                                 <input type="time" name="timeStart" id="">
@@ -260,10 +260,10 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <p class="alertAdd" style="color: red;"></p>
+                                                <p class="" style="color: red;"></p>
                                                 <button type="button"
                                                     class="btn btn-secondary close-showTime">Đóng</button>
-                                                <button type="button" class="btn-common btn-saveAdd">Xác nhận</button>
+                                                <button type="button" class="btn-common">Xác nhận</button>
                                             </div>
                                         </div>
                                     </div>

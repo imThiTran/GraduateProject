@@ -7,7 +7,6 @@ var shortId= require('shortid');
 const Room = require('../models/room');
 
 
-
 //loai bo khoang trang trong chuoi
 function cleanText(text){
     return text.replaceAll(/\s+/g,' ').trim();
@@ -42,6 +41,7 @@ router.get('/',(req,res)=>{
                         })  
                     })
                     showtimeArr.push({
+                        idFilm:f._id,
                         nameEN:f.nameEN,
                         nameVN:f.nameVN,
                         photo:f.photo,
@@ -251,4 +251,45 @@ router.post('/add-showtime',(req,res)=>{
     }    
 })
 
+
+router.post('/load-edit',(req,res)=>{
+    var {idFilm,date} = req.body;
+    var htmlSend='';
+    Showtime.find({idFilm:idFilm,date:date},(err,st)=>{
+        Film.findOne({_id:idFilm},(err,fi)=>{
+            Room.find({block:0},(err,ro)=>{
+                st.sort(function(a, b){ 
+                        if (a.timeStart.toLowerCase() < b.timeStart.toLowerCase()) {return -1;} 
+                        if (a.timeStart.toLowerCase() > b.timeStart.toLowerCase()) {return 1;} 
+                        return 0; 
+                    });
+                st.forEach(function(stFe){
+                    htmlSend=htmlSend+`<div class="col-5 showTimeComponent">
+                    <label for="">Suất chiếu</label>
+                    <input type="hidden" name="idShowtime" value="`+stFe._id+`" id="">
+                    <input type="time" name="timeStart" value="`+stFe.timeStart+`" id="">
+                </div>
+                <div class="col-5 showTimeComponent">
+                    <label for="">Rạp</label>
+                    <select id="room" name="room" class="form-select">`;
+                    ro.forEach(function(roFe){
+                        htmlSend=htmlSend+`<option `+((stFe.idRoom==roFe._id.toString())?`selected`:``)+` value="`+roFe._id+`">`+roFe.name+`</option>`
+                    });
+                    htmlSend=htmlSend+ `</select>
+                </div>
+                <div class="col-2">
+                    <button type="button" idSt="`+stFe._id+`" class="btnDelSC"> <i
+                            class="fa fa-times"
+                            aria-hidden="true"></i></button>
+                </div>`
+                });
+                res.send({
+                    nameEN:fi.nameEN,
+                    date:date,
+                    htmlSend:htmlSend
+                })
+            }) 
+        })
+    })
+})
 module.exports= router;
