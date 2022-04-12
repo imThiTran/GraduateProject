@@ -1,0 +1,104 @@
+<%- include('../layouts/header') %>
+
+<body>
+    <%- include('../layouts/admin-sub-header') %>
+    <div class="wrapper-index">
+        <div class="ad-movie">
+            <div class="ad-header">
+                <div class="h5-detail">Quản lý người dùng</div>
+                <form class="purchase-search" style="width: 50%">
+                    <input type="text" placeholder="Tìm kiếm người dùng" name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <span class="line-detail"></span>
+            <form action="">
+                <table class="table table-striped  table-bordered" style="font-size: 15px; margin-top: 10px;">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Gmail</th>
+                            <th scope="col">Tên người dùng</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Vai trò</th>
+                            <th scope="col">Hoạt động</th>
+                            <th scope="col" style="width: 1%;">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% var i=1%>
+                        <%users.forEach(function(user){%>
+                            <tr>
+                                <th scope="row" style="width: 5%">
+                                    <%=i++%>
+                                </th>
+                                <td style="width: 20%;">
+                                    <div><%=user.email%></div>
+                                </td>
+                                <td><%=user.fullname%></td>
+                                <td><%=user.phone%></td>
+                                <%if (user.gender=='male'){%>
+                                    <td>Nam</td>
+                                <%} else if (user.gender=='female'){%>
+                                    <td>Nữ</td>
+                                <%} else {%>
+                                    <td>Khác</td>
+                                <%}%>
+                                <td><%=(new Date(user.birthday)).toLocaleDateString('en-GB')%></td>
+                                <td>
+                                    <select idUser="<%=user._id%>" class="userPosition-select decentralize" name="" id="">
+                                        <option class="option" <%if (user.actor=='staff'){%> selected <%}%> value="staff">Nhân viên</option>
+                                        <option class="option" <%if (user.actor=='guest'){%> selected <%}%> value="guest">Khách hàng</option>
+                                        <option class="option" <%if (user.actor=='admin'){%> selected <%}%> value="admin">Admin</option>
+                                    </select>
+                                </td>
+                                <td class="container" style="width: 16%;">
+                                    <div class="active-user" style="    display: flex;">
+                                        <div class=" form-switch">
+                                            <input idUser="<%=user._id%>" class="form-check-input block-switch" 
+                                            <%if (user.block.type!=0){%>checked<%}%> type="checkbox" role="switch"
+                                                id="flexSwitchCheckChecked" >
+                                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                        </div>
+                                        <select class="selectTime sl-active" name="" id="">
+                                            <option value="1">1 ngày</option>
+                                            <option value="3">3 ngày</option>
+                                            <option value="7">7 ngày</option>
+                                            <option value="30">30 ngày</option>
+                                            <option value="90">90 ngày</option>
+                                            <option value="-1">Đến khi mở chặn</option>
+                                        </select>
+                                    </div>
+                                    <%if (user.block.type!=0 && user.block.type!=-1){%>
+                                        <%var time=user.block.dateto.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;%>
+                                        <%var date=user.block.dateto.toLocaleDateString('en-GB'); %>
+                                        <div class="span-error">Bị chặn đến <%=date%> <%=time%></div>
+                                    <%} else if (user.block.type==-1) {%>
+                                        <div class="span-error">Bị chặn đến khi mở lại</div>
+                                    <%} else {%>
+                                        <div class="span-error"></div>
+                                    <%}%>
+                                    
+                                </td>
+                                <td>
+                                    <div class="ad-btn" style="width:60px">
+                                        <button type="button" class="btn-close btn-xoa" aria-label="Close"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <%})%>           
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/AdminUserManagement.js"></script>
+</body>
+
+</html>

@@ -74,19 +74,23 @@ var order = require('./routes/order');
 
 var adminFilm = require('./routes/admin-film');
 var adminShowtime = require('./routes/admin-showtime');
+var adminUser = require('./routes/admin-user');
 
 var checkUser = require('./middelwares/checkUser.middleware');
 var checkLogin = require('./middelwares/checkLogin.middleware');
+var checkAdmin = require('./middelwares/checkAdmin.middleware');
+var checkCurrentBlock = require('./middelwares/checkCurrentBlock.middleware');
+var checkOpenBlock = require('./middelwares/checkOpenBlock.middleware');
 
-app.use('/auth',auth);
-app.use('/user',checkLogin,checkUser,user);
-app.use('/movie',checkUser,movie);
-app.use('/order',checkUser,order);
-app.use('/',checkUser,site);
+app.use('/auth',checkOpenBlock,auth);
+app.use('/user',checkOpenBlock,checkLogin,checkUser,checkCurrentBlock,user);
+app.use('/movie',checkOpenBlock,checkUser,checkCurrentBlock,movie);
+app.use('/order',checkOpenBlock,checkLogin,checkUser,checkCurrentBlock,order);
+app.use('/',checkOpenBlock,checkUser,checkCurrentBlock,site);
 
-app.use('/admin/film',checkUser,adminFilm);
-app.use('/admin/showtime',checkUser,adminShowtime);
-
+app.use('/admin/film',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);
+app.use('/admin/showtime',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminShowtime);
+app.use('/admin/user',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminUser);
 
 
 app.use((req, res, next) => {

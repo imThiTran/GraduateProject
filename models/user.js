@@ -17,9 +17,9 @@ var UserSchema = mongoose.Schema({
         type: String,
         required : true
     },
-    admin:{
-        type: Number,
-        default:0
+    actor:{
+        type: String,
+        default:"guest",
     },
     gender:{
         type: String,
@@ -42,7 +42,6 @@ var UserSchema = mongoose.Schema({
         default: {
             type : 0,
             dateto:"",
-            realdate:"",
         },
     },
 })

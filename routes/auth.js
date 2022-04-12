@@ -160,28 +160,33 @@ router.post('/login', (req, res) => {
     User.findOne({ email: email }, function (err, user) {
         if (err) return console.log(err);
         if (user) {
-            // if (user.block.type!=0) {
-            //     var mes="Tài khoản của bạn bị chặn đến "+user.block.dateto+" vì vi phạm chính sách, liên hệ MEGAS để được hỗ trợ";
-            //     if (user.block.type=='non') 
-            //     mes="Tài khoản của bạn bị chặn vì vi phạm chính sách, liên hệ MEGAS để được hỗ trợ";
-            //     res.render('auth/login',{
-            //         value: email,
-            //         mes: mes
-            //     })
-            // } else
-            bcrypt.compare(password, user.password, (err, result) => {
-                if (err) return console.log(err);
-                if (result) {
-                    req.session.user = email;
-                    res.redirect('/')
-                }
-                else {
-                    res.render('auth/login', {
-                        value: email,
-                        mes: 'Sai mật khẩu'
-                    })
-                }
-            })
+                bcrypt.compare(password, user.password, (err, result) => {
+                    if (err) return console.log(err);
+                    if (result) {
+                        if (user.block.type!=0) {
+                            var mes;
+                            if (user.block.type==-1)  mes="Tài khoản của bạn bị chặn vì vi phạm chính sách, liên hệ MEGAS để được hỗ trợ";
+                            else {
+                                var time=user.block.dateto.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;
+                                var date=user.block.dateto.toLocaleDateString('en-GB');
+                                mes="Tài khoản của bạn bị chặn đến "+date+" "+time+" vì vi phạm chính sách, liên hệ MEGAS để được hỗ trợ";
+                            }
+                            res.render('auth/login',{
+                                value: email,
+                                mes: mes
+                            })
+                        } else{
+                            req.session.user = email;
+                            res.redirect('/')
+                        } 
+                    }
+                    else {
+                        res.render('auth/login', {
+                            value: email,
+                            mes: 'Sai mật khẩu'
+                        })
+                    }
+                })
         }
         else {
             res.render('auth/login', {
