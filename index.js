@@ -55,12 +55,7 @@ app.use(session({
       maxAge: 1800000
     }
   }));
-
-// function daysInMonth(month, year){
-//     return new Date(year,month,0).getDate();
-// }
-// const dayinmonth = daysInMonth(today.getMonth()+1,today.getFullYear());                                                                
-
+                                                      
 var port=process.env.PORT || 3000;
 server.listen(port,function(){
     console.log('connected to port ' + port);
@@ -75,6 +70,8 @@ var order = require('./routes/order');
 var adminFilm = require('./routes/admin-film');
 var adminShowtime = require('./routes/admin-showtime');
 var adminUser = require('./routes/admin-user');
+var adminRoom = require('./routes/admin-room');
+var adminEvent = require('./routes/admin-event');
 
 var checkUser = require('./middelwares/checkUser.middleware');
 var checkLogin = require('./middelwares/checkLogin.middleware');
@@ -91,7 +88,8 @@ app.use('/',checkOpenBlock,checkUser,checkCurrentBlock,site);
 app.use('/admin/film',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);
 app.use('/admin/showtime',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminShowtime);
 app.use('/admin/user',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminUser);
-
+app.use('/admin/room',checkUser,adminRoom);
+app.use('/admin/event',checkUser,adminEvent)
 
 app.use((req, res, next) => {
   res.status(404).render('error',{

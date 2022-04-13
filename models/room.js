@@ -11,7 +11,7 @@ var RoomSchema = mongoose.Schema({
     },
     block:{
         type: Number,
-        required : true
+        default:0
     },
 })
 
