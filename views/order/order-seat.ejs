@@ -12,7 +12,7 @@
                     </tr>
                     <tr class="book-sub">
                         <td>
-                            <div class="book-info">MEGAS ĐÀ NẴNG | PHÒNG <%=room.name%> | Số ghế: <%=countAvailable%>/<%=countAll%></div>
+                            <div class="book-info">MEGAS ĐÀ NẴNG | PHÒNG <%=room.name%> | Số ghế: <span class="countAvailable"><%=countAvailable%></span>/<%=countAll%></div>
                             <div class="book-info">PHIM: <%=nameEN%> - <%=nameVN%></div>
                             <div class="book-info-sub"><%=(new Date(date)).toLocaleDateString('en-GB')%> <%=timeStart%> </div>
                         </td>
@@ -22,30 +22,30 @@
 
 
             <div class="screen"></div>
-
+            <input type="hidden" class="idSt" value="<%=idSt%>" name="" id="">
             <table>
-                <tr class="row">
+                <tr class="row rowSeat">
                     <%for (var i=0;i<a.length;i++){%>
                         <td class="td-order">
                             <%for (var j=0;j<a[i].length;j++){%>
                                 <%if(i!=9){%>
                                     <%if (j==1 || j==9){%>
-                                        <input type="checkbox" class="btn-check" id="btn-check-<%=a[i][j].name%>" checked autocomplete="off" <%if (a[i][j].available==0){%>disabled<%}%>>
+                                        <input type="checkbox" class="btn-check" id="btn-check-<%=a[i][j].name%>"  autocomplete="off" <%if (a[i][j].available==0){%>disabled<%}%>>
                                         <label class="btn btn-primary btn-seat" for="btn-check-<%=a[i][j].name%>"><%=a[i][j].name%></label>
-                                        <input type="checkbox" class="btn-check" id="btn-check-a2" checked autocomplete="off" disabled>
+                                        <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
                                         <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>
                                     <%}else {%>
-                                        <input type="checkbox" class="btn-check" id="btn-check-<%=a[i][j].name%>" checked autocomplete="off" <%if (a[i][j].available==0){%>disabled<%}%>>
+                                        <input type="checkbox" class="btn-check" id="btn-check-<%=a[i][j].name%>"  autocomplete="off" <%if (a[i][j].available==0){%>disabled<%}%>>
                                         <label class="btn btn-primary btn-seat" for="btn-check-<%=a[i][j].name%>"><%=a[i][j].name%></label>
                                     <%}%>
                                 <%}else{%>
                                     <%if (j==0 || j==4){%>
-                                        <input type="checkbox" class="btn-check couple" id="btn-check-<%=a[i][j].name%>" checked autocomplete="off" <%if (a[i][j].available==0){%>disabled<%}%>>
+                                        <input type="checkbox" class="btn-check couple" id="btn-check-<%=a[i][j].name%>"  autocomplete="off" <%if (a[i][j].available==0){%>disabled<%}%>>
                                         <label class="btn btn-primary btn-couple btn-seat" for="btn-check-<%=a[i][j].name%>"><%=a[i][j].name%></label>
-                                        <input type="checkbox" class="btn-check" id="btn-check-a2" checked autocomplete="off" disabled>
+                                        <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
                                         <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>
                                     <%}else {%>
-                                        <input type="checkbox" class="btn-check couple" id="btn-check-<%=a[i][j].name%>" checked autocomplete="off" <%if (a[i][j].available==0){%>disabled<%}%>>
+                                        <input type="checkbox" class="btn-check couple" id="btn-check-<%=a[i][j].name%>"  autocomplete="off" <%if (a[i][j].available==0){%>disabled<%}%>>
                                         <label class="btn btn-primary btn-couple btn-seat" for="btn-check-<%=a[i][j].name%>"><%=a[i][j].name%></label>
                                     <%}%>
                                 <%}%>
@@ -87,3 +87,49 @@
 
 
 </body>
+<script>
+     var checked=[];
+     $('.btn-check').each(function(){
+         $(this).change(function(){
+            if (($(this).is(':checked'))) checked.push($(this).attr('id'));
+            else 
+                {   
+                for(var i=0;i<checked.length;i++){
+                if (checked[i]==$(this).attr('id')) checked.splice(i,1);
+                }
+            }
+         })
+     })
+    function ajaxRequest(){
+        var idSt=$('.idSt').val();
+       
+        $.ajax({
+                url: "/order/reload",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ idShowtime: idSt}),
+                success: function (result) {
+                    $('.rowSeat').html(result.htmlSend);
+                    $('.countAvailable').html(result.countAvailable);
+                    $('.btn-check').each(function(){
+                        var $this=$(this);
+                        checked.forEach(function(checkedFe){
+                            if ($this.attr('id')==checkedFe && $this.prop('disabled')==false) $this.prop('checked','true');
+                        })
+                            $this.change(function(){
+                            if (($this.is(':checked'))) checked.push($this.attr('id'));
+                            else 
+                                {   
+                                for(var i=0;i<checked.length;i++){
+                                if (checked[i]==$this.attr('id')) checked.splice(i,1);
+                                }
+                            }
+                        })
+                    })
+                }
+            })
+    }
+    
+    setInterval(()=>{ajaxRequest()}, 3000);
+    
+</script>

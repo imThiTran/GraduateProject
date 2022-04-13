@@ -37,7 +37,8 @@ router.get('/',(req,res)=>{
                             countAvailable:countAvailable,
                             countAll:tks.length,
                             a:allRows,
-                            cats:cats
+                            cats:cats,
+                            idSt:idSt
                             })
                         })
                     })
@@ -46,5 +47,61 @@ router.get('/',(req,res)=>{
         })
     })
 })
+
+router.post('/reload',(req,res)=>{
+    var idSt=req.body.idShowtime;
+    var htmlSend=``;
+        Ticket.find({idShowtime:idSt}).sort({sorting:1}).exec((err,tks)=>{
+            var a=[],rowA=[],rowB=[],rowC=[],rowD=[],rowE=[],rowF=[],rowG=[],rowH=[],rowJ=[],rowK=[];
+            tks.forEach(function(tk){
+                    if (tk.name.includes('A')) rowA.push(tk);
+                    else if (tk.name.includes('B')) rowB.push(tk);
+                    else if (tk.name.includes('C')) rowC.push(tk);
+                    else if (tk.name.includes('D')) rowD.push(tk);
+                    else if (tk.name.includes('E')) rowE.push(tk);
+                    else if (tk.name.includes('F')) rowF.push(tk);
+                    else if (tk.name.includes('G')) rowG.push(tk);
+                    else if (tk.name.includes('H')) rowH.push(tk);
+                    else if (tk.name.includes('J')) rowJ.push(tk);
+                    else if (tk.name.includes('K')) rowK.push(tk);
+                })
+                    a.push(rowA,rowB,rowC,rowD,rowE,rowF,rowG,rowH,rowJ,rowK);
+                    Ticket.countDocuments({idShowtime:idSt,available:1},(err,countAvailable)=>{
+                    for (var i=0;i<a.length;i++){
+                        htmlSend=htmlSend+`<td class="td-order">`;
+                            for (var j=0;j<a[i].length;j++){
+                                if(i!=9){
+                                    if (j==1 || j==9){
+                                        htmlSend=htmlSend+`<input type="checkbox" class="btn-check" id="btn-check-`+a[i][j].name+`"  autocomplete="off"`+((a[i][j].available==0)?`disabled`:``)+` >
+                                        <label class="btn btn-primary btn-seat" for="btn-check-`+a[i][j].name+`">`+a[i][j].name+`</label>
+                                        <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
+                                        <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>`;
+                                    }else {
+                                        htmlSend=htmlSend+`<input type="checkbox" class="btn-check" id="btn-check-`+a[i][j].name+`"  autocomplete="off" `+((a[i][j].available==0)?`disabled`:``)+`>
+                                        <label class="btn btn-primary btn-seat" for="btn-check-`+a[i][j].name+`">`+a[i][j].name+`</label>`;
+                                    }
+                                }else{
+                                    if (j==0 || j==4){
+                                        htmlSend=htmlSend+`<input type="checkbox" class="btn-check couple" id="btn-check-`+a[i][j].name+`"  autocomplete="off" `+((a[i][j].available==0)?`disabled`:``)+`>
+                                        <label class="btn btn-primary btn-couple btn-seat" for="btn-check-`+a[i][j].name+`">`+a[i][j].name+`</label>
+                                        <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
+                                        <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>`;
+                                    }else {
+                                        htmlSend=htmlSend+`<input type="checkbox" class="btn-check couple" id="btn-check-`+a[i][j].name+`"  autocomplete="off" `+((a[i][j].available==0)?`disabled`:``)+`>
+                                        <label class="btn btn-primary btn-couple btn-seat" for="btn-check-`+a[i][j].name+`">`+a[i][j].name+`</label>`
+                                    }
+                                }
+                            
+                            }
+                        htmlSend=htmlSend+`</td>`;
+            }
+            res.send({
+                htmlSend:htmlSend,
+                countAvailable:countAvailable
+            })
+        })
+    })
+})
+
 
 module.exports = router;
