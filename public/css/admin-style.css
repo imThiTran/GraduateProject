@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&family=Nunito:wght@300;400;500;600;700&family=Rubik:wght@300&family=Saira+Semi+Condensed:wght@100;400;500;600;800&display=swap');
+
+/* admin-navbar */
+:root {
+    --header-height: 3rem;
+    --nav-width: 60px;
+    --first-color: #fdcc5d ;
+    --first-color-light: #AFA5D9;
+    --first-color-dark: #333;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box
+}
+
+/* body {
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    padding: 0 0 0 3rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s
+} */
+
+a {
+    text-decoration: none
+}
+
+.header {
+    width: 100%;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: var(--white-color);
+    z-index: var(--z-fixed);
+    transition: .5s
+}
+
+.header_toggle {
+    color: var(--first-color-dark);
+    font-size: 1.5rem;
+    cursor: pointer
+}
+
+.header_img {
+    margin-top: 20px;
+    width: 100% !important;
+    height: 60px !important;
+    display: flex;
+    justify-content: center;
+    overflow: hidden
+}
+
+.header_img img {
+    border-radius: 50%;
+    width: 40px !important;
+    height: 40px;
+}
+
+.l-navbar {
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: var(--nav-width);
+    height: 100%;
+    background-color: var(--first-color-dark);
+    padding: .5rem 1rem 0 0;
+    transition: .5s;
+    z-index: var(--z-fixed)
+}
+
+.nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden
+}
+
+.nav_logo,
+.nav_link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: .5rem 0 .5rem 1.5rem
+}
+
+.nav_logo {
+    margin-bottom: 2rem
+}
+
+.nav_logo-icon {
+    font-size: 1.25rem;
+    color: var(--white-color)
+}
+
+.nav_logo-name {
+    color: var(--white-color);
+    font-weight: 700
+}
+
+.nav_link {
+    position: relative;
+    color: var(--first-color-light);
+    margin-bottom: 1.5rem;
+    transition: .3s
+}
+
+.nav_link:hover {
+    color: var(--white-color)
+}
+
+.nav_icon {
+    font-size: 1.25rem
+}
+
+.show {
+    left: 0;
+    width: 200px;
+}
+
+.body-pd {
+    padding-left: calc(var(--nav-width) + 8rem)
+}
+
+.active {
+    color: var(--white-color)
+}
+
+.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: var(--white-color)
+}
+
+.height-100 {
+    height: 100vh
+}
+
+@media screen and (min-width: 768px) {
+    /* body {
+        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        padding-left: calc(var(--nav-width) + 2rem)
+    } */
+
+    .header {
+        height: calc(var(--header-height) + 1rem);
+        padding: 0 2rem 0 calc(var(--nav-width) + 2rem)
+    }
+
+    .header_img {
+        width: 40px;
+        height: 40px
+    }
+
+    .header_img img {
+        width: 45px
+    }
+
+    .l-navbar {
+        left: 0;
+        padding: 1rem .6rem 0 0
+    }
+
+    .show {
+        width: calc(var(--nav-width) + 156px)
+    }
+
+    .body-pd {
+        padding-left: calc(var(--nav-width) + 188px)
+    }
+}
+.dropdown1 {
+    min-width: 100px;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown1:hover .drop-menu {
+    display: block;
+    position: absolute;
+    list-style: none;
+    background: #f7f6fb;
+    padding: 10px;
+    z-index: 99;
+    font-size: 16px;
+    box-shadow: 0 3px 3px rgb(49 49 49 / 20%)
+}
+
+.admin-login {
+    color:  var(--first-color-dark)
+}
+.admin-login:hover{
+    color:  var(--first-color-dark) !important;
+}
+
+.user-drop {
+    border-bottom: 1px solid  var(--first-color-dark);
+}
+.dropdown-item {
+    animation: ToptoBottom .3s ease-in-out;
+    margin-bottom: 3px;
+}
+
+.dropdown-item:hover {
+    background-color:  var(--first-color-dark);
+    color: #eee !important;
+    border-radius: 3px;
+}
+.drop-menu {
+    width: 150px;
+    display: none;
+    animation: face .3s ease-in-out;
+    margin-top: -5px;
+    margin-left: -20px;
+}
+.nav-item{
+    list-style: none;
+}
+.admin-img-logo{
+    width: 150px;
+}
+.fa-camera-movie::before{
+    font-family: FontAwesome;
+    content: 'f8a9';
+}
