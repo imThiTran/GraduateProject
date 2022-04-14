@@ -23,18 +23,49 @@ $('.btnEditFilm').each(function () {
       data: JSON.stringify({}),
       success: function(result){        
         var editform = $('#modalEditFilm')       
-        editform.find('.imgAddPreview').attr('src',result.film.photo);
+        editform.find('.imgavt').attr('src',result.film.photo);
+        editform.find('.imgbg').attr('src',result.film.background);
         editform.find('.nameen').val(result.film.nameEN);
         editform.find('.namevn').val(result.film.nameVN);
         editform.find('.directors').val(result.film.directors);
         editform.find('.cast').val(result.film.cast);
         editform.find('.premiere').val(result.film.premiere);        
         editform.find('.time').val(result.film.time);
+        editform.find('.age').val(result.film.ageLimit);
         editform.find('.detail').val(result.film.detail);
         editform.find('.trailer').val(result.film.trailer);
+        editform.find('.selectedit').val(result.film.idCat);
+        modalEditFilm.style.display = "block";
       }
+    })    
+  })  
+})
+
+$('.btnDeleteFilm').each(function () {
+  var $this = $(this);  
+  $this.on('click', function(){
+    swal({
+      title: "Bạn có chắc chắn muốn xóa?",
+      text: "Một khi đã xóa, bạn không thể khôi phục lại được.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     })
-    modalEditFilm.style.display = "block";
+    .then((willDelete) => {
+      if (willDelete) {
+        $.ajax({
+          url:"/admin/film/delete/"+$this[0].value,
+          method: "GET",
+          contentType: "application/json",
+          data: JSON.stringify({}),
+          success: function(result){        
+            swal(result.msg, "", "success").then((value) =>{
+              $(`.${result.id}`).remove()
+            })
+          }
+        })
+      }
+    });
   })  
 })
 

@@ -5,8 +5,7 @@
     <div class="wrapper-index">
         <div class="ad-movie">
             <div class="h5-detail">Quản lý phim</div>
-            <span class="line-detail"></span>
-            <form action="">
+            <span class="line-detail"></span>            
                 <table class="table table-striped  table-bordered" style="font-size: 15px;">
                     <thead>
                         <tr>
@@ -14,15 +13,14 @@
                             <th scope="col">Tên phim</th>
                             <th scope="col">Đạo diễn</th>
                             <th scope="col">Khởi chiếu</th>
-                            <th scope="col">Thể loại</th>
-                            <th scope="col">Rating</th>
+                            <th scope="col">Thể loại</th>                            
                             <th scope="col">Tình trạng</th>
                             <th scope="col" style="width: 1%;">
                                 <div class="btn-admin">
                                     <button type="button" id="btnAddFilm" class="btn-common btn-buy" data-toggle="modal"
                                         data-target=".bd-example-modal-lg"><i class="fa fa-plus" aria-hidden="true"></i>
                                         Thêm mới</button>
-                                    <form action="" method="">
+                                    <form action="/admin/film/add-film" method="post" enctype="multipart/form-data">
                                         <div id="modalAddFilm" class="modal">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -36,38 +34,48 @@
                                                             <img id="img-edit-item" class="imgAddPreview"
                                                                 src="../img/no_img.webp" style="width: 100%;">
                                                             <input type="file" class="form-control imgChangeAdd"
-                                                                name="image" id="img1"
+                                                                name="photo" id="img1"
                                                                 accept="image/png, image/jpeg, image/jpg"
-                                                                style="display: none;">
+                                                                style="display: none;" name="photoFile">
                                                             <label class="btn-common" id="btn-edit-img-item"
                                                                 for="img1">Chọn ảnh</label>
                                                         </div>
-                                                    </div>
+                                                        <div class="col-5 img-add">
+                                                            <img id="img-edit-item" class="imgAddPreview"
+                                                                src="../img/no_img.webp" style="width: 100%;">
+                                                            <input type="file" class="form-control imgChangeAdd"
+                                                                name="background" id="img2"
+                                                                accept="image/png, image/jpeg, image/jpg"
+                                                                style="display: none;" name="backgroundFile">
+                                                            <label class="btn-common" id="btn-edit-img-item"
+                                                                for="img2">Chọn ảnh</label>
+                                                        </div>
+                                                    </div>                                                    
                                                     <div class="modal-right">
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Tên phim</label>
                                                             <div class="input-ten">
                                                                 <input class="input-sua" placeholder="Tên tiếng anh"
-                                                                    type="text">
+                                                                    type="text" name="nameEN">
                                                                 <input class="input-sua" placeholder="Tên tiếng việt"
-                                                                    type="text">
+                                                                    type="text" name="nameVN">
                                                             </div>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Đạo diễn</label>
-                                                            <input class="input-sua" type="text">
+                                                            <input class="input-sua" type="text" name="directors">
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Diễn viên</label>
-                                                            <input class="input-sua" type="text">
+                                                            <input class="input-sua" type="text" name="cast">
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Khởi chiếu</label>
-                                                            <input class="input-sua" type="date">
+                                                            <input class="input-sua" type="date" name="premiere">
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Thời gian</label>
-                                                            <input class="input-sua" type="number">
+                                                            <input class="input-sua" type="number" name="time">
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Thể loại</label>
@@ -78,28 +86,32 @@
                                                             </select>
                                                         </div>
                                                         <div class="ad-phim">
+                                                            <label class="label-chitiet">Độ tuổi</label>
+                                                            <input class="input-sua" type="number" name="ageLimit">
+                                                        </div>
+                                                        <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Tình trạng</label>
-                                                            <select class="input-sua" name="" id="">
-                                                                <option value="1">Đang khởi chiếu</option>
-                                                                <option value="2">Sắp khởi chiếu</option>
-                                                                <option value="3">Đã chiếu xong</option>
+                                                            <select class="input-sua" name="status" id="">
+                                                                <option value="Đang khởi chiếu">Đang khởi chiếu</option>
+                                                                <option value="Sắp khởi chiếu">Sắp khởi chiếu</option>
+                                                                <option value="Đã chiếu xong">Đã chiếu xong</option>
                                                             </select>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Chi tiết</label>
-                                                            <textarea class="input-sua-area" name="" id="" cols="20"
-                                                                rows="10"></textarea>
+                                                            <textarea class="input-sua-area" cols="20"
+                                                                rows="10" name="detail"></textarea>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Trailer</label>
-                                                            <input class="input-sua" type="url">
+                                                            <input class="input-sua" type="url" name="trailer">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button"
                                                         class="btn btn-secondary close-footer">Đóng</button>
-                                                    <button type="button" class="btn-common close-footer">Thêm</button>
+                                                    <button type="submit" >Thêm</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,7 +121,7 @@
                     </thead>
                     <tbody>
                         <% films.forEach(function(film){ %>
-                            <tr>
+                            <tr class="<%= film._id %>">
                                 <th scope="row" style="width: 15%">
                                     <img style="width: 100%" src="<%=film.photo%>" alt="">
                                 </th>                                
@@ -119,10 +131,7 @@
                                 </td>
                                 <td><%= film.directors %></td>
                                 <td><%= film.premiere %></td>
-                                <td><%= film.idCat %></td>
-                                <td>
-                                    Phim như bìu
-                                </td>
+                                <td><%= film.idCat %></td>                                
                                 <td>
                                     <div><%= film.status%></div>
                                 </td>
@@ -130,7 +139,7 @@
                                     <div class="btn-mode">
                                         <button type="button" class="btnEditFilm" value="<%= film._id %>"><i class="fa fa-pencil-square-o"
                                             aria-hidden="true"></i></button>
-                                        <button type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <button type="button" class="btnDeleteFilm" value="<%= film._id %>"><i class="fa fa-times" aria-hidden="true"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -149,10 +158,17 @@
                                     <div class="modal-body-plus">
                                         <div class="modal-left">
                                             <div class="col-5 img-add">
-                                                <img id="img-edit-item" class="imgAddPreview" src="../img/no_img.webp"
+                                                <img id="img-edit-item" class="imgAddPreview imgavt" src="../img/no_img.webp"
                                                     style="width: 100%;">
-                                                <input type="file" class="form-control imgChangeAdd" name="image"
-                                                    id="img1" accept="image/png, image/jpeg, image/jpg"
+                                                <input type="file" class="form-control imgChangeAdd" accept="image/png, image/jpeg, image/jpg"
+                                                    style="display: none;">
+                                                <label class="btn-common" id="btn-edit-img-item" for="img1">Chọn
+                                                    ảnh</label>
+                                            </div>
+                                            <div class="col-5 img-add">
+                                                <img id="img-edit-item" class="imgAddPreview imgbg" src="../img/no_img.webp"
+                                                    style="width: 100%;">
+                                                <input type="file" class="form-control imgChangeAdd" accept="image/png, image/jpeg, image/jpg"
                                                     style="display: none;">
                                                 <label class="btn-common" id="btn-edit-img-item" for="img1">Chọn
                                                     ảnh</label>
@@ -173,7 +189,7 @@
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Diễn viên</label>
                                                 <input class="input-sua cast" type="text">
-                                            </div>
+                                            </div>                                            
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Khởi chiếu</label>
                                                 <input class="input-sua premiere" type="date">
@@ -184,11 +200,15 @@
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Thể loại</label>
-                                                <select class="input-sua" name="" id="">
+                                                <select class="input-sua selectedit" name="" id="">
                                                     <%cats.forEach(function(cat){%>
                                                         <option value="<%=cat._id%>"><%=cat.title%></option>
                                                     <%})%>
                                                 </select>
+                                            </div>
+                                            <div class="ad-phim">
+                                                <label class="label-chitiet">Độ tuổi</label>
+                                                <input class="input-sua age" type="number" name="ageLimit">
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Tình trạng</label>
@@ -218,8 +238,7 @@
                         </form>
                     </tbody>
                 </table>
-
-            </form>
+            
         </div>
     </div>
     <script src="../js/jquery.min.js"></script>
@@ -227,6 +246,7 @@
     <script src="../js/trigger.js"></script>
     <script src="../js/modal.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>

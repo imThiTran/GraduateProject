@@ -4,6 +4,7 @@ var Film = require('../models/film');
 var cloudinary = require('cloudinary').v2;
 var Category = require('../models/category');
 var fs=require('fs');
+const { resolveNaptr } = require('dns');
 
 //loai bo khoang trang trong chuoi
 function cleanText(text){
@@ -38,9 +39,9 @@ router.get('/:slug',(req,res)=>{
 })
 
 router.post('/add-film',(req,res)=>{
-    var {nameEN,nameVN,directors,cast,premiere,time,detail,trailer,idCat,ageLimit} = req.body;
+    var {nameEN,nameVN,directors,cast,premiere,time,detail,trailer,idCat,ageLimit,status} = req.body;
     var idTrailer = trailer.split('/');
-    trailer=idTrailer[idTrailer.length-1];
+    trailer=idTrailer[idTrailer.length-1];    
     var slug=(cleanText(nameVN).replaceAll(' ','-')).toLowerCase();
     var photoFile,backgroundFile;
     if (req.files!=null){
@@ -60,7 +61,7 @@ router.post('/add-film',(req,res)=>{
                     fs.unlink(backgroundFile.tempFilePath,function(err){                  
                     if (err) throw err;
                     })
-                })
+                })                
                 var film=new Film({
                     nameEN:cleanText(nameEN),
                     nameVN:cleanText(nameVN),
@@ -72,6 +73,7 @@ router.post('/add-film',(req,res)=>{
                     detail:cleanText(detail),
                     trailer:cleanText(trailer),
                     idCat:idCat,
+                    status:status,
                     ageLimit:ageLimit,
                     photo:rsPhoto.url,
                     photoDrop:rsPhoto.public_id,
@@ -86,4 +88,16 @@ router.post('/add-film',(req,res)=>{
         })
     } 
 })
+
+router.get('/delete/:id',(req,res)=>{  
+    var {id} = req.params           
+    Film.findByIdAndRemove(id,(err,film)=>{    
+        if(err) throw err;
+        res.send({
+            msg:"Xóa thành công",
+            id:id
+        })
+    })
+})
+
 module.exports= router;
