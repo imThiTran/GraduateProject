@@ -52,7 +52,6 @@ router.get('/category/:slug', (req,res) => {
             })
         }) 
     })
-       
 })
 
 router.post('/load-time',(req,res)=>{
