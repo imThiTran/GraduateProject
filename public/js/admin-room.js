@@ -29,7 +29,7 @@ $('.btnDeleteRoom').each(function(){
     var idRoom=$this.attr('id');
     $this.click(function(){
       console.log(idRoom);
-      if (confirm('Bạn có chắc chắn xóa ?')){
+      if (confirm('Tất cả các suất chiếu của phòng này sẽ bị xóa, bạn chắc chắn ?')){
         $(location).attr('href','/admin/room/delete-room/'+idRoom)
       }
     })
