@@ -85,9 +85,31 @@
                                                                 <%})%>
                                                             </select>
                                                         </div>
-                                                        <div class="ad-phim">
-                                                            <label class="label-chitiet">Độ tuổi</label>
-                                                            <input class="input-sua" type="number" name="ageLimit">
+                                                        <div class="agelimitEdit ad-phim">
+                                                            <label class="label-chitiet" for="">Rating</label>
+                                                            <div class="" style="display: flex; justify-content: center;">
+                                                                <div class="form-check radio-choose">
+                                                                    <input class="form-check-input rating18" value="18" type="radio"
+                                                                        name="agelimit" id="flexRadioDefault1" checked>
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        <img class="img-cs" style="width: 70%;" src="/img/cs18.png">
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check radio-choose">
+                                                                    <input class="form-check-input rating16" value="16" type="radio"
+                                                                        name="agelimit" id="flexRadioDefault1">
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        <img class="img-cs" style="width: 70%;" src="/img/cs16.png">
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check radio-choose">
+                                                                    <input class="form-check-input rating13" value="13" type="radio"
+                                                                        name="agelimit" id="flexRadioDefault1">
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        <img class="img-cs" style="width: 70%;" src="/img/cs13.png">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Tình trạng</label>
@@ -111,7 +133,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button"
                                                         class="btn btn-secondary close-footer">Đóng</button>
-                                                    <button type="submit" >Thêm</button>
+                                                    <button class="btn btn-warning" type="submit" >Thêm</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -1871,18 +1871,22 @@ button.primaryContained:hover {
       border-radius: 10px;
   }
   .btn-seat{
-    background: white !important;
+    background: rgb(254 199 88) !important;
       box-shadow: none !important;
       border: none !important;
       padding: 5px 10px !important;
       width: 50px;
-      color: #333 !important;
+      color: white !important;
+  }
+  .btn-couple{
+    background: indianred !important;
+    color: white !important;
   }
   
   .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary:active, 
   .show>.btn-primary.dropdown-toggle{
-    background: rgb(254 199 88) !important;
-    color: white !important;
+    background: white !important;
+    color: black !important;
   }
   .td-order{
     padding-bottom: 5px;
@@ -1891,7 +1895,7 @@ button.primaryContained:hover {
   }
   .couple:active+.btn-pcouple, .couple:checked+.btn-couple, .btn-couple.active, .btn-couple:active, 
   .show>.btn-couple.dropdown-toggle{
-    background: indianred !important;
+    background: white !important;
     
   }
   .screen {
@@ -2283,6 +2287,9 @@ button.primaryContained:hover {
       margin: 5px;
       background-color: #fdc85b;
   }
+  th {
+      font-size: 20px;
+  }
   /*FILM MANAGEMENT*/
   .img-add{
     max-width: 100% !important;
@@ -2347,6 +2354,12 @@ button.primaryContained:hover {
   }
   .btn-mode button:hover{
     opacity: 1;
+  }
+  #modalAddFilm{
+      padding-top: 50px;
+  }
+  .radio-choose{
+    width: 20%;
   }
   /* USER MANAGEMENT */
   .span-error{
