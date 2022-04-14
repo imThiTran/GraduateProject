@@ -18,11 +18,10 @@
                     <a href="/"><img src="/img/logo.gif" alt="logo"></a>
                     <h2 class="login-h1">Đăng nhập</h2>
                     <form action="/auth/login" method="post" class="form-signin">
+                        <%  if (typeof mes!="undefined"){%>
+                            <div class="alert alert-danger error-alert" role="alert"><%=mes%></div>
+                        <%} %>
                         <div class="login-input">
-                            
-                            <%  if (typeof mes!="undefined"){%>
-                                <div class="alert alert-danger error-alert" role="alert"><%=mes%></div>
-                            <%} %>
                             <i class="fa-solid fa-circle-user"></i>
                             <input type="email" name="email" placeholder="Email" class="form-control email-input" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" value=
