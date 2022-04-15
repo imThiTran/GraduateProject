@@ -17,7 +17,7 @@
                             <th scope="col">Tình trạng</th>
                             <th scope="col" style="width: 1%;">
                                 <div class="btn-admin">
-                                    <button type="button" id="btnAddFilm" class="btn-common btn-buy" data-toggle="modal"
+                                    <button type="button" id="btnAddFilm" class="btn-common btn-buy btn-add-film" data-toggle="modal"
                                         data-target=".bd-example-modal-lg"><i class="fa fa-plus" aria-hidden="true"></i>
                                         Thêm mới</button>
                                     <form action="/admin/film/add-film" method="post" enctype="multipart/form-data">
@@ -31,16 +31,20 @@
                                                 <div class="modal-body-plus">
                                                     <div class="modal-left">
                                                         <div class="col-5 img-add">
+                                                            <div>Ảnh phim</div>
                                                             <img id="img-edit-item" class="imgAddPreview imgavtadd"
                                                                 src="../img/no_img.webp" style="width: 100%;">
                                                             <input type="file" class="form-control imgChangeAdd"
                                                                 name="photo" id="img1" onchange="imgAvtAdd()"
                                                                 accept="image/png, image/jpeg, image/jpg"
                                                                 style="display: none;" name="photoFile">
+                                                                
                                                             <label class="btn-common" id="btn-edit-img-item"
                                                                 for="img1">Chọn ảnh</label>
                                                         </div>
+                                                        <div class="line-img"></div>
                                                         <div class="col-5 img-add">
+                                                            <div>Ảnh poster</div>
                                                             <img id="img-edit-item" class="imgAddPreview imgbgadd"
                                                                 src="../img/no_img.webp" style="width: 100%;">
                                                             <input type="file" class="form-control imgChangeAdd"
@@ -170,7 +174,7 @@
 
                         <!-- Edit Film's infomation -->
                         <form action="/admin/film/edit" method="post" enctype="multipart/form-data" class="formeditfilm">
-                            <div id="modalEditFilm" class="modal">
+                            <div id="modalEditFilm" class="modal modal-edit-film">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Chỉnh sửa thông tin phim</h4>

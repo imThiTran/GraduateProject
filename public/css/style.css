@@ -2274,7 +2274,8 @@ button.primaryContained:hover {
   
   .modal-right{
     width: 100%;
-    max-width: 500px;
+    max-width: 470px;
+    padding-left: 10px;
     margin-right: 20px;
   }
   .tdTime, .tdDate, .tdOption{
@@ -2353,6 +2354,13 @@ button.primaryContained:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px 10px;
+  }
+  .line-img{
+    height: 1px;
+    background: black;
+    width: 80%;
+    margin-left: 20px;
   }
   .btn-common{
     cursor: pointer;
@@ -2360,6 +2368,7 @@ button.primaryContained:hover {
     border-color: #fdcc5d;
     padding: 5px;
     border-radius: 5px;
+    margin-top: 10px;
   }
   .btn-common:hover{
     background-color: #fdbc3b;
@@ -2371,6 +2380,13 @@ button.primaryContained:hover {
     padding-top: 20px;
     overflow-y: auto;
     max-height: calc(100vh - 260px);
+    font-size: 15px;
+  }
+  .modal-edit-film{
+      padding-top: 50px;
+  }
+  .btn-add-film{
+      margin-left: 0px !important;
   }
   .label-chitiet{
     width: 120px;
@@ -2379,7 +2395,7 @@ button.primaryContained:hover {
   }
   
 .input-sua{
-    width: 350px;
+    width: 340px;
     margin-bottom: 10px;
     border: 1px solid #ced4da;
     padding: 2px;
