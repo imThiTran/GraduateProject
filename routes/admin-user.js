@@ -5,7 +5,7 @@ var User = require('../models/user');
 
 //loai bo khoang trang trong chuoi
 function cleanText(text) {
-    return text.replaceAll(/\s+/g, ' ').trim();
+    return text.replace(/\s+/g, ' ').trim();
 }
 router.get('/', (req, res) => {
     User.find({ email: { '$ne': req.session.user } }, function (err, us) {

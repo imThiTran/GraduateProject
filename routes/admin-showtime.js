@@ -9,7 +9,7 @@ const Room = require('../models/room');
 
 //loai bo khoang trang trong chuoi
 function cleanText(text) {
-    return text.replaceAll(/\s+/g, ' ').trim();
+    return text.replace(/\s+/g, ' ').trim();
 }
 
 router.get('/', (req, res) => {

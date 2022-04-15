@@ -10,7 +10,7 @@ var shortid=require('shortid');
 
 //loai bo khoang trang trong chuoi
 function cleanText(text){
-    return text.replaceAll(/\s+/g,' ').trim();
+    return text.replace(/\s+/g,' ').trim();
 }
 
 var cats=[]
