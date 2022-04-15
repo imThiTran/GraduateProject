@@ -100,4 +100,70 @@ router.get('/delete/:id', (req, res) => {
     })
 })
 
+router.post('/edit', (req, res) => {    
+    var { nameEN, nameVN, directors, cast, premiere, time, detail, trailer, idCat, ageLimit, status, avtimg, bgimg, idFilm } = req.body;    
+    var idTrailer = trailer.split('/');
+    trailer = idTrailer[idTrailer.length - 1];
+    var slug = (cleanText(nameVN).replaceAll(' ', '-')).toLowerCase();
+    var photoFile, backgroundFile;
+    if (req.files != null) {
+        if (typeof req.files.photo != "undefined") photoFile = req.files.photo;
+        else photoFile = "";
+        if (typeof req.files.background != "undefined") backgroundFile = req.files.background;
+        else backgroundFile = "";
+    } else {
+        photoFile = "";
+        backgroundFile = "";
+    }
+    Film.findById(idFilm, (err, film) => {
+        if (err) return console.log(err);
+        film.nameEN=cleanText(nameEN);
+        film.nameVN=cleanText(nameVN);
+        film.directors=cleanText(directors);
+        film.cast=cleanText(cast);
+        film.premiere=premiere;
+        film.slug=slug;
+        film.time=time;
+        film.detail=cleanText(detail);
+        film.trailer=cleanText(trailer);
+        film.idCat=idCat;
+        film.status=status;
+        film.ageLimit=ageLimit
+        if (photoFile != "" && backgroundFile != "") {
+            cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/films/" + nameEN }, function (err, rsPhoto) {
+                cloudinary.uploader.upload(backgroundFile.tempFilePath, { folder: "cinema/films/" + nameEN }, function (err, rsBackground) {
+                    if (err) throw err;
+                    film.photo=rsPhoto.url
+                    film.photoDrop=rsPhoto.public_id
+                    film.background=rsBackground.url
+                    film.backgroundDrop=rsBackground.public_id
+                    fs.unlink(photoFile.tempFilePath, function (err) {
+                        fs.unlink(backgroundFile.tempFilePath, function (err) {
+                            if (err) throw err;
+                        })
+                    })                    
+                    film.save(function (err) {
+                        if (err) throw err;
+                        res.redirect('back');
+                    });
+                })
+            })
+            if (avtimg!=""){
+                cloudinary.uploader.destroy(avtimg,function(err,rs){
+                    if (err) throw err;
+                })
+            }
+            if (bgimg!=""){
+                cloudinary.uploader.destroy(bgimg,function(err,rs){
+                    if (err) throw err;
+                })
+            }
+        }else{
+            film.save(function (err) {
+                if (err) throw err;
+                res.redirect('back');
+            });
+        }
+    })
+})
 module.exports = router;
