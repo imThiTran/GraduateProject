@@ -86,7 +86,7 @@ app.use('/order',checkOpenBlock,checkLogin,checkUser,checkCurrentBlock,order);
 app.use('/',checkOpenBlock,checkUser,checkCurrentBlock,site);
 
 app.use('/admin/film',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);
-app.use('/admin/showtime',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminShowtime);
+app.use('/admin/showtime',checkUser,adminShowtime);
 app.use('/admin/user',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminUser);
 app.use('/admin/room',checkUser,adminRoom);
 app.use('/admin/event',checkUser,adminEvent)

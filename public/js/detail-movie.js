@@ -16,7 +16,7 @@ $(document).ready(function () {
     $('.userComment').click(function(){
         var value=$('.contentComment').val();
         if (value==''){
-            alert('Vui lòng nhập nội dung');
+            Swal.fire('Vui lòng nhập nội dung');
         } else {
             $.ajax({
                 url: "/user/comment",
