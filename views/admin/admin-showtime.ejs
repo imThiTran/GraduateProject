@@ -128,11 +128,11 @@
                                 </div>
                                 </tr>
                                 <tr>
-                                    <th scope="col">STT</th>
+                                    <th scope="col" style="width: 1%;">STT</th>
                                     <th scope="col">Phim</th>
-                                    <th scope="col">Ngày chiếu</th>
-                                    <th scope="col" style="width: 50%;">Suất chiếu </th>
-                                    <th scope="col" style="width: 1%;">
+                                    <th scope="col" style="width: 10%;">Ngày chiếu</th>
+                                    <th scope="col" style="width: 48%;">Suất chiếu </th>
+                                    <th scope="col" style="width: 10%;">
                                 </tr>
                                 </thead>
                                 <tbody id="containTr">
@@ -160,64 +160,64 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tdDate">
-                                                        <div class="dateShowTime">
-                                                            
-                                                            <%showtime.descrb.sort(function(a, b){ %>
-                                                                <%    if (a.nameDate.toLowerCase() < b.nameDate.toLowerCase()) {return -1;} %>
-                                                                <%    if (a.nameDate.toLowerCase() > b.nameDate.toLowerCase()) {return 1;} %>
-                                                                <%    return 0; %>
-                                                                <%})%>
-                                                            <%showtime.descrb.forEach(function(date){%>
-                                                                <div>
-                                                                    <span><%=convertDate(date.nameDate)%></span>
-                                                                </div>
-                                                            <%})%> 
-                                                            
-                                                        </div>
-                                                    </td>
-                                                    <td class="tdTime">
+                                                    <td colspan="3">
+                                                        <div class="td-sc">
                                                         
-                                                            <div class="timeShowTime">
-
-                                                                <!-- The show time of date -->
-                                                                <%showtime.descrb.forEach(function(date){%>
+                                                            
+                                                                
+                                                                <%showtime.descrb.sort(function(a, b){ %>
+                                                                    <%    if (a.nameDate.toLowerCase() < b.nameDate.toLowerCase()) {return -1;} %>
+                                                                    <%    if (a.nameDate.toLowerCase() > b.nameDate.toLowerCase()) {return 1;} %>
+                                                                    <%    return 0; %>
+                                                                    <%})%>
                                                                     
-                                                                        <div>
-                                                                            <%date.times.sort(); %>   
-                                                                            <%date.times.forEach(function(time){%>
-                                                                                <%newSt=time.split(':');%>
-                                                                                <%if (newSt[0]<12){ %>
-                                                                                    
-                                                                                        <div><%=time%> AM</div>
-                                                                                    
-                                                                                <%} else { %>
-                                                                                    
-                                                                                        <div><%=time%> PM</div>
-                                                                                    
-                                                                                <%}%>
-                                                                                
-                                                                            <%})%>                                                           
-                                                                        </div>
-                                                                   
-                                                                <%})%>                                                      
-                                                            </div>
-                                                       
-                                                    </td>
-                                                    <td class="tdOption" style="width: 11%;">
-                                                        <div class="optionShowTime">
-                                                            <%showtime.descrb.forEach(function(date){%>
-                                                                <div class="btn-mode">
-                                                                    <button idFilm="<%=showtime.idFilm%>" date="<%=date.nameDate%>" type="button" class="btnEditShowTime" value=""><i
-                                                                            class="fa fa-pencil-square-o"
-                                                                            aria-hidden="true"></i></button>
-                                                                    <button idFilm="<%=showtime.idFilm%>" date="<%=date.nameDate%>" type="button">
-                                                                        <i class="fa fa-times"
-                                                                            aria-hidden="true"></i></button>
+                                                                <%showtime.descrb.forEach(function(date){%>
+                                                                    <div class="dateShowTime">
+                                                                    <div class="date-div">
+                                                                        <span><%=convertDate(date.nameDate)%></span>
+                                                                    </div>
+                                                                    <div class="timeShowTime">
+    
+                                                                        <!-- The show time of date -->
+                                                                        
+                                                                            
+                                                                                <div>
+                                                                                    <%date.times.sort(); %>   
+                                                                                    <%date.times.forEach(function(time){%>
+                                                                                        <%newSt=time.split(':');%>
+                                                                                        <%if (newSt[0]<12){ %>
+                                                                                            
+                                                                                                <div><%=time%> AM</div>
+                                                                                            
+                                                                                        <%} else { %>
+                                                                                            
+                                                                                                <div><%=time%> PM</div>
+                                                                                            
+                                                                                        <%}%>
+                                                                                        
+                                                                                    <%})%>                                                           
+                                                                                </div>
+                                                                           
+                                                                                                                         
+                                                                    </div>  
+                                                                    <div class="optionShowTime">
+                                                                      
+                                                                            <div class="btn-mode">
+                                                                                <button idFilm="<%=showtime.idFilm%>" date="<%=date.nameDate%>" type="button" class="btnEditShowTime" value=""><i
+                                                                                        class="fa fa-pencil-square-o"
+                                                                                        aria-hidden="true"></i></button>
+                                                                                <button idFilm="<%=showtime.idFilm%>" date="<%=date.nameDate%>" type="button">
+                                                                                    <i class="fa fa-times"
+                                                                                        aria-hidden="true"></i></button>
+                                                                            </div>
+                                                                                                                                                                                
+                                                                    </div>
                                                                 </div>
-                                                            <%})%>                                                                                                           
-                                                        </div>
+                                                                <%})%> 
+                                                        
+                                                    </div>
                                                     </td>
+                                           
                                                 </tr>
                                                 <%})%>
 
@@ -251,12 +251,12 @@
                                                     </div>
                                                     <div id="">
                                                         <div class="row first-row-editSc lc-suatchieu">
-                                                            <div class="col-5 showTimeComponent">
+                                                            <div class="choose-showtime">
                                                                 <label for="">Suất chiếu</label>
-                                                                <input type="time" name="timeStart" id="">
+                                                                <input class="form-control" type="time" name="timeStart" id="">
                                                             </div>
-                                                            <div class="col-5 showTimeComponent">
-                                                                <label for="">Rạp</label>
+                                                            <div class="choose-showtime">
+                                                                <label style="width: 80px">Rạp</label>
                                                                 <select id="room" name="room" class="form-select">
                                                                     <option value="1">CINEMA 1</option>
                                                                     <option value="2">CINEMA 2</option>

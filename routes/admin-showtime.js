@@ -261,13 +261,13 @@ router.post('/load-edit', (req, res) => {
                     return 0;
                 });
                 st.forEach(function (stFe) {
-                    htmlSend = htmlSend + `<div class="col-5 showTimeComponent">
+                    htmlSend = htmlSend + `<div class="choose-showtime">
                     <label for="">Suất chiếu</label>
                     <input type="hidden" name="idShowtime" value="`+ stFe._id + `" id="">
-                    <input type="time" name="timeStart" value="`+ stFe.timeStart + `" id="">
+                    <input class="form-control" type="time" name="timeStart" value="`+ stFe.timeStart + `" id="">
                 </div>
-                <div class="col-5 showTimeComponent">
-                    <label for="">Rạp</label>
+                <div class="choose-showtime">
+                    <label style="width: 80px">Rạp</label>
                     <select id="room" name="room" class="form-select">`;
                     ro.forEach(function (roFe) {
                         htmlSend = htmlSend + `<option ` + ((stFe.idRoom == roFe._id.toString()) ? `selected` : ``) + ` value="` + roFe._id + `">` + roFe.name + `</option>`
