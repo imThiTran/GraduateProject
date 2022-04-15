@@ -31,10 +31,14 @@ $('.btnEditFilm').each(function () {
         editform.find('.cast').val(result.film.cast);
         editform.find('.premiere').val(result.film.premiere);
         editform.find('.time').val(result.film.time);
-        editform.find('.age').val(result.film.ageLimit);
+        editform.find("input[name=ageLimit][value=" + result.film.ageLimit + "]").prop('checked', true);
         editform.find('.detail').val(result.film.detail);
-        editform.find('.trailer').val('https://www.youtube.com/embed/' + result.film.trailer);
+        editform.find('.trailer').val('https://youtu.be/' + result.film.trailer);
         editform.find('.selectedit').val(result.film.idCat);
+        editform.find('.status').val(result.film.status);
+        editform.find('.avtimg').val(result.film.photoDrop);
+        editform.find('.bgimg').val(result.film.backgroundDrop);
+        editform.find('.idfilm').val(result.film._id);        
         modalEditFilm.style.display = "block";
       }
     })
