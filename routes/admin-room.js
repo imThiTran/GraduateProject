@@ -38,7 +38,7 @@ router.get('/delete-room/:id', (req, res) => {
             Showtime.deleteMany({ idRoom: id }, () => {
                 Room.findByIdAndRemove(id, function (err) {
                     if (err) return console.log(err);
-                    res.redirect('back');
+                    res.send('success');
                 })
             });
         });
