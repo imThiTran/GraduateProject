@@ -8,7 +8,7 @@ const { resolveNaptr } = require('dns');
 
 //loai bo khoang trang trong chuoi
 function cleanText(text) {
-    return text.replaceAll(/\s+/g, ' ').trim();
+    return text.replace(/\s+/g, ' ').trim();
 }
 
 router.get('/', (req, res) => {
@@ -42,7 +42,7 @@ router.post('/add-film', (req, res) => {
     var { nameEN, nameVN, directors, cast, premiere, time, detail, trailer, idCat, ageLimit, status } = req.body;
     var idTrailer = trailer.split('/');
     trailer = idTrailer[idTrailer.length - 1];
-    var slug = (cleanText(nameVN).replaceAll(' ', '-')).toLowerCase();
+    var slug = (cleanText(nameVN).replace(/\s/g, '-')).toLowerCase();
     var photoFile, backgroundFile;
     if (req.files != null) {
         if (typeof req.files.photo != "undefined") photoFile = req.files.photo;
