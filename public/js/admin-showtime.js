@@ -8,24 +8,27 @@ var modalEditShowTime = document.getElementById("modalEditShowTime");
 $('#btnAddShowTime').on('click', function(){
   modalAddShowTime.style.display = "block";
 });
-$('.btnEditShowTime').on('click', function(){
-    var $this=$(this);
-    var idFilm=$this.attr('idFilm');
-    var date=$this.attr('date');
-    $.ajax({
-        url: "/admin/showtime/load-edit",
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({idFilm:idFilm,date:date}),
-        success: function (result) {
-            result.date=(new Date(result.date)).toLocaleDateString('en-GB');
-            $('.nameEdit').html(result.nameEN);
-            $('.dateEdit').html(result.date);
-            $('.first-row-editSc').html(result.htmlSend);
-            modalEditShowTime.style.display = "block";
-        }
-    })
-});
+// $('.btnEditShowTime').on('click', function(){
+//     var $this=$(this);
+//     var idFilm=$this.attr('idFilm');
+//     var date=$this.attr('date');
+//     $.ajax({
+//         url: "/admin/showtime/load-edit",
+//         method: "POST",
+//         contentType: "application/json",
+//         data: JSON.stringify({idFilm:idFilm,date:date}),
+//         success: function (result) {
+//             result.date=(new Date(result.date)).toLocaleDateString('en-GB');
+//             $('.nameEdit').html(result.nameEN);
+//             $('.dateEdit').html(result.date);
+//             $('.first-row-editSc').html(result.htmlSend);
+//             modalEditShowTime.style.display = "block";
+//         }
+//     })
+// });
+$('.btnShowTimeDetail').on('click', function(){
+    modalEditShowTime.style.display = "block";
+  });
 $('.close-showTime').on('click',function(){
   modalAddShowTime.style.display = "none";
   modalEditShowTime.style.display = "none";
@@ -71,9 +74,9 @@ $('.btn-saveAdd').click(function(){
 $('#btnAddSC').on('click', () => {
     var htmlObj = $('#form-addSC');
     htmlObj.append(`
-    <div class="row lc-suatchieu">
+    <div class="lc-suatchieu">
         `+$('.first-row-addSc').html()+`
-        <div class="col-2">
+        <div class="">
             <button type="button" class="btnDelSC"> <i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
     </div>`); 

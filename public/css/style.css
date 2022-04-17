@@ -2182,7 +2182,6 @@ button.primaryContained:hover {
   }
 .choose-showtime{
     display: flex;
-    width: 40%;
     padding-bottom: 10px;
 }
 .choose-showtime label{
@@ -2192,8 +2191,12 @@ button.primaryContained:hover {
     flex: 1;
     width: 140px;
 }
+.hourST select{
+    width: 5rem !important;
+    margin: 0 5px 0 5px;
+}
 .choose-showtime select {
-    width: 140px;
+    width: 140px ;
 }
 .col-2{
     width: 10%;
@@ -2211,9 +2214,11 @@ button.primaryContained:hover {
     background: #f5e3c1;
   }
   .btnDelSC{
+      margin-left: 10px;
       border: none;
       background-color: transparent;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
   }
   .modal {
     display: none;
@@ -2332,8 +2337,9 @@ button.primaryContained:hover {
     flex-wrap: wrap;
     flex-direction: row;
   }
-  .timeShowTime div div{
+  .timeShowTime div button{
     display: inline-block;
+    border: none;
     border-radius: 5px;
     padding: 5px;
     margin: 5px;
@@ -2361,6 +2367,10 @@ button.primaryContained:hover {
     background: black;
     width: 80%;
     margin-left: 20px;
+  }
+  .saveEdit{
+      padding: 3px !important;
+      margin-top: 4px !important;
   }
   .btn-common{
     cursor: pointer;
