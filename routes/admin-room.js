@@ -25,8 +25,8 @@ router.post('/add-room', (req, res) => {
         name: cleanText(name),
         type: type
     })
-    room.save(function (err) {
-        res.send('success');
+    room.save(function (err,result) {
+        res.send(result);
     })
 })
 

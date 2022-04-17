@@ -23,7 +23,7 @@
                             <th scope="col">Giới tính</th>
                             <th scope="col">Ngày sinh</th>
                             <th scope="col">Vai trò</th>
-                            <th scope="col">Hoạt động</th>
+                            <th scope="col">Khóa tài khoản</th>
                             <th scope="col" style="width: 1%;">
                             </th>
                         </tr>
@@ -63,13 +63,13 @@
                                                 id="flexSwitchCheckChecked" >
                                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
                                         </div>
-                                        <select class="selectTime sl-active" name="" id="">
+                                        <select class="selectTime sl-active" name="" idUser="<%=user._id%>">
+                                            <option  <% if(user.block.type==-1){%> selected <%}%> value="-1">Đến khi mở chặn</option>
                                             <option  <% if(user.block.type==1){%> selected <%}%> value="1">1 ngày</option>
                                             <option  <% if(user.block.type==3){%> selected <%}%> value="3">3 ngày</option>
                                             <option  <% if(user.block.type==7){%> selected <%}%> value="7">7 ngày</option>
                                             <option  <% if(user.block.type==30){%> selected <%}%> value="30">30 ngày</option>
                                             <option  <% if(user.block.type==90){%> selected <%}%> value="90">90 ngày</option>
-                                            <option  <% if(user.block.type==-1){%> selected <%}%> value="-1">Đến khi mở chặn</option>
                                         </select>
                                     </div>
                                     <%if (user.block.type!=0 && user.block.type!=-1){%>

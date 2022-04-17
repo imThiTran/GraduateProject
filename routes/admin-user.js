@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/blockbtn', (req, res) => {
+router.post('/block-btn', (req, res) => {
     var { idUser, time } = req.body;
     time = parseInt(time);
     var newBlock = {};
