@@ -54,8 +54,8 @@ router.post('/add-film', (req, res) => {
         backgroundFile = "";
     }
     if (photoFile != "" && backgroundFile != "") {
-        cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/films/" + nameEN }, function (err, rsPhoto) {
-            cloudinary.uploader.upload(backgroundFile.tempFilePath, { folder: "cinema/films/" + nameEN }, function (err, rsBackground) {
+        cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/films/" + slug }, function (err, rsPhoto) {
+            cloudinary.uploader.upload(backgroundFile.tempFilePath, { folder: "cinema/films/" + slug }, function (err, rsBackground) {
                 if (err) throw err;
                 fs.unlink(photoFile.tempFilePath, function (err) {
                     fs.unlink(backgroundFile.tempFilePath, function (err) {
