@@ -8,15 +8,95 @@
                         <%- include ('../layouts/admin-sub-header')%>
                             <div class="wrapper-index">
                                 <div class="ad-movie">
-                                    <div style="display: flex;
-                                    justify-content: space-between;
-                                    align-items: center;">
+                                    <div class="ql-title">
                                         <div class="h5-detail">Quản lý suất chiếu</div>
-                                        <button type="button" id="btnAddShowTime" class="btn-common btn1"
-                                            data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"
-                                                aria-hidden="true"></i>
-                                            Thêm mới</button>
+                                        <div>
+                                            <button type="button" id="btnAddPrice" class="btn-common btn1"
+                                                data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                                                    class="fa fa-plus" aria-hidden="true"></i>
+                                                Giá vé</button>
+                                            <button type="button" id="btnAddShowTime" class="btn-common btn1"
+                                                data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                                                    class="fa fa-plus" aria-hidden="true"></i>
+                                                Thêm mới</button>
+                                        </div>
                                     </div>
+                                    <!-- Add price -->
+                                    <form class="formAddPrice" action="" method="">
+                                        <div id="modalAddPrice" class="modal">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Thay đổi giá vé</h4>
+                                                    <button type="button" class="close-showTime close"
+                                                        data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="wrapModal">
+                                                        <div class="form-check check-price">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="flexRadioDefault1" id="check-default"
+                                                                 checked>
+                                                            <label class="form-check-label check-label"
+                                                                for="check-default">
+                                                                Giá vé mặc định:
+                                                            </label>
+                                                            <div class="price-seat" id="default">
+                                                                <div class="price-ticket">
+                                                                    <label for="seat-normal">Ghế thường</label>
+                                                                    <input type="text" class="form-control seat-normal"
+                                                                        id="seat-normal">
+                                                                    <span>VNĐ</span>
+                                                                </div>
+                                                                <div class="price-ticket">
+                                                                    <label for="seat-normal">Ghế couple</label>
+                                                                    <input type="text" class="form-control seat-normal"
+                                                                        id="seat-normal">
+                                                                    <span>VNĐ</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="flexRadioDefault2" id="check-change" 
+                                                               >
+                                                            <label class="form-check-label check-label"
+                                                                for="check-change">
+                                                                Giá vé theo giờ:
+                                                            </label>
+                                                            <div class="price-seat">
+                                                                <div class="price-ticket-time datetime-price">
+                                                                    <input type="datetime-local"
+                                                                        class="form-control input-datetime" id="seat-normal" disabled>
+                                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                                    <input type="datetime-local"
+                                                                        class="form-control input-datetime" id="seat-normal" disabled>
+                                                                </div>
+                                                                <div class="price-ticket">
+                                                                    <label for="seat-normal">Ghế thường</label>
+                                                                    <input type="text" class="form-control seat-change"
+                                                                        id="seat-normal" disabled>
+                                                                    <span>VNĐ</span>
+                                                                </div>
+                                                                <div class="price-ticket">
+                                                                    <label for="seat-normal">Ghế couple</label>
+                                                                    <input type="text" class="form-control seat-change"
+                                                                        id="seat-normal" disabled>
+                                                                    <span>VNĐ</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <p class="alertAdd" style="color: red;"></p>
+                                                    <button type="button"
+                                                        class="btn btn-secondary close-showTime">Đóng</button>
+                                                    <button type="button"
+                                                        class="btn-common btn-saveAdd saveEdit ">Thêm</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                     <!-- Add show time -->
                                     <form class="formAdd" action="" method="">
                                         <div id="modalAddShowTime" class="modal">
@@ -85,7 +165,8 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="choose-showtime">
-                                                                    <label style="width: 80px; margin-left: 1rem;">Rạp</label>
+                                                                    <label
+                                                                        style="width: 80px; margin-left: 1rem;">Rạp</label>
                                                                     <select id="room" name="room" class="form-select">
                                                                         <%rooms.forEach(function(room){%>
                                                                             <option value="<%=room._id%>">
@@ -110,7 +191,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <span class="line-detail"></span>
                                     <table class="table table-striped table-bordered" style="font-size: 15px;">
                                         <thead>
                                             <tr>
@@ -334,7 +414,8 @@
                                                                 </select>
                                                             </div>
                                                             <div class="choose-showtime">
-                                                                <label style="width: 80px; margin-left: 1rem;">Rạp</label>
+                                                                <label
+                                                                    style="width: 80px; margin-left: 1rem;">Rạp</label>
                                                                 <select id="room" name="room" class="form-select">
                                                                     <option value="1">CINEMA 1</option>
                                                                     <option value="2">CINEMA 2</option>

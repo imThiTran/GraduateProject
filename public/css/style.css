@@ -2354,6 +2354,57 @@ button.primaryContained:hover {
     align-items: center;
     flex-direction: column;
   }
+  .ql-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #f0c673;
+  }
+
+  /* model giá vé */
+  .check-price{
+      display: flex;
+  }
+ .check-label{
+     font-weight: 600;
+     width: 200px;
+ }
+  .price-ticket{
+    display: flex;
+    margin-left: 20px;
+  }
+  .price-ticket label{
+    width: 120px;
+  }
+.price-ticket input{
+    height: 30px;
+    width: 150px;
+}
+.price-ticket span{
+    margin-left: 10px;
+}
+.price-seat{
+    width: 100%;
+}
+.price-ticket-time{
+    display: flex;
+    margin-left: 0px;
+}
+.input-datetime{
+    width: 240px !important;
+    margin: 0 20px;
+    position: relative;
+}
+.datetime-price{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.fa-arrow-right{
+    position: absolute;
+    left: 296px;
+    top: 48px;
+}
+
   /*FILM MANAGEMENT*/
   .img-add{
     max-width: 100% !important;
@@ -2551,7 +2602,6 @@ button.primaryContained:hover {
 .line-detail {
     height: 3px;
     background: rgb(254 199 88);
-    width: 100%;
     position: absolute;
 }
 

@@ -2,8 +2,14 @@ var modal = document.getElementById('myModal');
 var modalAdd= document.querySelector('.modal-add');
 var btn = document.getElementById("myBtn");
 // var span = document.querySelector(".closeBtn");
+var modalAddPrice= document.getElementById("modalAddPrice");
 var modalAddShowTime = document.getElementById("modalAddShowTime");
 var modalEditShowTime = document.getElementById("modalEditShowTime");
+
+
+$('#btnAddPrice').on('click', function(){
+    modalAddPrice.style.display = "block";
+  });
 
 $('#btnAddShowTime').on('click', function(){
   modalAddShowTime.style.display = "block";
@@ -32,6 +38,7 @@ $('.btnShowTimeDetail').on('click', function(){
 $('.close-showTime').on('click',function(){
   modalAddShowTime.style.display = "none";
   modalEditShowTime.style.display = "none";
+  modalAddPrice.style.display = "none";
 });
     // span.onclick = function () {
     //     modal.style.display = "none";
@@ -91,5 +98,26 @@ $('#btnAddSC').on('click', () => {
 })
 
 
+//Choose price seat
 
+$(function(){
+
+    $("input:radio[name*='flexRadioDefault2']").click(function(){
+
+        $(".input-datetime").attr('disabled', false);
+        $(".seat-change").attr('disabled', false);
+        $(".seat-normal").attr('disabled', true);
+        $("input:radio[name*='flexRadioDefault1']").attr('checked', false);
+    });
+
+    $("input:radio[name*='flexRadioDefault1']").click(function(){
+
+        $(".seat-normal").attr('disabled', false);
+        $(".input-datetime").attr('disabled', true);
+        $(".seat-change").attr('disabled', true);
+        $("input:radio[name*='flexRadioDefault2']").attr('checked', false);
+        
+
+    });
+});
 
