@@ -743,6 +743,10 @@ a:hover {
 .nav-pills {
     margin-bottom: 1px !important;
 }
+.grid-cate{
+    display: grid;
+    grid-template-columns: auto auto auto
+}
 
 /*user*/
 
@@ -1186,9 +1190,7 @@ a:hover {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding: 30px 0;
-    /* margin-top: 50px;
-    border-top: 3px solid #f0c673; */
+    padding: 30px 100px 50px 150px;
 }
 
 .category-title {
@@ -1275,19 +1277,9 @@ a:hover {
 .rating>input:not(:checked)>label{
     color: #ddd;
 }
-
-/* .rating>input:checked~label,
-.rating:not(:checked)>label:hover,
-.rating:not(:checked)>label:hover~label {
-    color: #FFD700;
+.fulled{
+    color: #fdbc3b !important;
 }
-
-.rating>input:checked+label:hover,
-.rating>input:checked~label:hover,
-.rating>label:hover~input:checked~label,
-.rating>input:checked~label:hover~label {
-    color: #FFED85;
-} */
 
 .category-star {
     margin-top: 30px;
@@ -1333,7 +1325,7 @@ a:hover {
 
 .coming-movie-cate {
     width: 250px;
-    margin-right: 50px;
+    margin-right: 55px;
 }
 
 .h5-poster {
@@ -1354,6 +1346,7 @@ a:hover {
 }
 .flex-cate{
     display: flex;
+    flex-direction: column;
 }
 
 /* loading */

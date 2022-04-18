@@ -37,9 +37,12 @@
                         Thể loại
                     </a>
                     <ul class="drop-menu">
-                        <% cats.forEach(function(cat){ %>
-                            <li><a class="dropdown-item" href="/movie/category/<%= cat.slug%>"><%= cat.title %></a></li>
-                        <% }); %>
+                        <div class="grid-cate">
+                            <% cats.forEach(function(cat){ %>
+                                <li><a class="dropdown-item" href="/movie/category/<%= cat.slug%>"><%= cat.title %></a></li>
+                            <% }); %>
+                        </div>
+                        
                     </ul>
                 </li>
                 <li class="nav-item">
