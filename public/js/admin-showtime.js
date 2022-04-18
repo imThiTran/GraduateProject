@@ -70,10 +70,10 @@ function saveEdit(idSt) {
         contentType: false,
         data: data,
         success: function (result) {
-            checkFormChange = false;
-            if (result == 'fail') {
-                $('.alertEdit').html(`Tồn tại suất chiếu trùng thời gian`);
+            if (typeof result=='string'){
+                $('.alertEdit').html(result);
             } else {
+                checkFormChange = false;
                 modalEditShowTime.style.display = "none";
                 Swal.fire({
                     icon: 'success',
@@ -150,7 +150,15 @@ $('.btn-saveAdd').click(function () {
         success: function (result) {
             if (result == "success") {
                 modalAddShowTime.style.display = "none";
-                window.location.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thêm thành công',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1300);
             } else {
                 $('.alertAdd').html(result);
             }
