@@ -84,11 +84,18 @@
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Thể loại</label>
-                                                            <select class="input-sua selectadd" name="idCat" id="">
-                                                                <%cats.forEach(function(cat){%>
-                                                                    <option value="<%=cat._id%>"><%=cat.title%></option>
-                                                                <%})%>
-                                                            </select>
+                                                            <div class="add-cate">
+                                                                <div id="form-addCT">
+                                                                    <div class="add-category lc-category">
+                                                                        <select class="input-sua selectadd" name="idCat" id="">
+                                                                            <%cats.forEach(function(cat){%>
+                                                                                <option value="<%=cat._id%>"><%=cat.title%></option>
+                                                                            <%})%>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <button class="btn-CT" id="btnAddCT" type="button">Thêm thể loại</button>
+                                                            </div>
                                                         </div>
                                                         <div class="agelimitEdit ad-phim">
                                                             <label class="label-chitiet" for="">Rating</label>
@@ -227,11 +234,19 @@
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Thể loại</label>
-                                                <select class="input-sua selectedit" name="idCat" id="">
-                                                    <%cats.forEach(function(cat){%>
-                                                        <option value="<%=cat._id%>"><%=cat.title%></option>
-                                                    <%})%>
-                                                </select>
+                                                <div class="add-cate">
+                                                    <div id="form-editCT">
+                                                        <div class="add-category lc-category">
+                                                            <select class="input-sua selectedit" name="idCat" id="">
+                                                                <%cats.forEach(function(cat){%>
+                                                                    <option value="<%=cat._id%>"><%=cat.title%></option>
+                                                                <%})%>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn-CT" id="btnEditCT" type="button">Thêm thể loại</button>
+                                                </div>
+                                                
                                             </div>
                                             <div class="agelimitEdit ad-phim">
                                                 <label class="label-chitiet" for="">Rating</label>
@@ -330,5 +345,45 @@
             imgbgedit.src=src;
         }
     }
+</script>
+
+<script>
+    //Add element sc
+    $('#btnAddCT').on('click', () => {
+        var htmlObj = $('#form-addCT');
+        htmlObj.append(`
+        <div class="lc-category">
+            `+ $('.add-category').html() + `
+            <div class="">
+                <button type="button" class="btnDelSC"> <i class="fa fa-times close-ct" aria-hidden="true"></i></button>
+            </div>
+        </div>`);
+        $('.btnDelSC').each(function () {
+            var $this = $(this);
+            var rowAddSt = $this.closest('.lc-category');
+            $this.click(function (e) {
+                e.preventDefault();
+                rowAddSt.remove();
+            })
+        })
+    })
+    $('#btnEditCT').on('click', () => {
+        var htmlObj = $('#form-editCT');
+        htmlObj.append(`
+        <div class="lc-category">
+            `+ $('.add-category').html() + `
+            <div class="">
+                <button type="button" class="btnDelSC"> <i class="fa fa-times close-ct" aria-hidden="true"></i></button>
+            </div>
+        </div>`);
+        $('.btnDelSC').each(function () {
+            var $this = $(this);
+            var rowAddSt = $this.closest('.lc-category');
+            $this.click(function (e) {
+                e.preventDefault();
+                rowAddSt.remove();
+            })
+        })
+    })
 </script>
 </html>
