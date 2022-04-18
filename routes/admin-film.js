@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 
 router.get('/:slug', (req, res) => {
     var { slug } = req.params
-    Film.findById(slug, (err, film) => {
+    Film.findOne({slug:slug}, (err, film) => {
         res.send({
             film: film
         })
@@ -39,63 +39,91 @@ router.get('/:slug', (req, res) => {
 })
 
 router.post('/add-film', (req, res) => {
-    var { nameEN, nameVN, directors, cast, premiere, time, detail, trailer, idCat, ageLimit, status } = req.body;
+    var { nameEN, nameVN, directors, cast, premiere, time, detail, trailer, idCat, ageLimit, status, imgAdd } = req.body;
     var idTrailer = trailer.split('/');
     trailer = idTrailer[idTrailer.length - 1];
     var slug = (cleanText(nameVN).replace(/\s/g, '-')).toLowerCase();
-    var photoFile, backgroundFile;
-    if (req.files != null) {
-        if (typeof req.files.photo != "undefined") photoFile = req.files.photo;
-        else photoFile = "";
-        if (typeof req.files.background != "undefined") backgroundFile = req.files.background;
-        else backgroundFile = "";
-    } else {
-        photoFile = "";
-        backgroundFile = "";
-    }
-    if (photoFile != "" && backgroundFile != "") {
-        cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/films/" + slug }, function (err, rsPhoto) {
-            cloudinary.uploader.upload(backgroundFile.tempFilePath, { folder: "cinema/films/" + slug }, function (err, rsBackground) {
-                if (err) throw err;
-                fs.unlink(photoFile.tempFilePath, function (err) {
-                    fs.unlink(backgroundFile.tempFilePath, function (err) {
+    
+    Film.findOne({slug:slug}, function(err,film){
+        if(film){
+            res.send({
+                msg: "Phim đã tồn tại",
+                add:false
+            })
+        }else{            
+            var photoFile, backgroundFile;
+            if (req.files != null) {
+                if (typeof req.files.photo != "undefined") photoFile = req.files.photo;
+                else photoFile = "";
+                if (typeof req.files.background != "undefined") backgroundFile = req.files.background;
+                else backgroundFile = "";
+            } else {
+                photoFile = "";
+                backgroundFile = "";                
+            }
+            if (photoFile != "" && backgroundFile != "") {    
+                Category.findById(idCat, function(err,cat){
+                    var filmAdd = {
+                        nameEN:nameEN,
+                        nameVN:nameVN,
+                        slug:slug,
+                        directors:directors,
+                        premiere:premiere,
+                        cat:cat.title,
+                        status:status   
+                    }
+                    res.send({
+                        msg:"Thêm thành công",
+                        imgAdd: imgAdd,
+                        filmAdd:filmAdd,
+                        add:true
+                    })
+                })                            
+                cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/films/" + slug }, function (err, rsPhoto) {
+                    cloudinary.uploader.upload(backgroundFile.tempFilePath, { folder: "cinema/films/" + slug }, function (err, rsBackground) {
                         if (err) throw err;
+                        fs.unlink(photoFile.tempFilePath, function (err) {
+                            fs.unlink(backgroundFile.tempFilePath, function (err) {
+                                if (err) throw err;
+                            })
+                        })
+                        var film = new Film({
+                            nameEN: cleanText(nameEN),
+                            nameVN: cleanText(nameVN),
+                            directors: cleanText(directors),
+                            cast: cleanText(cast),
+                            premiere: premiere,
+                            slug: slug,
+                            time: time,
+                            detail: cleanText(detail),
+                            trailer: cleanText(trailer),
+                            idCat: idCat,
+                            status: status,
+                            ageLimit: ageLimit,
+                            photo: rsPhoto.url,
+                            photoDrop: rsPhoto.public_id,
+                            background: rsBackground.url,
+                            backgroundDrop: rsBackground.public_id,
+                        })
+                        
+                        film.save(function (err) {
+                            if (err) throw err;                                                        
+                        });
                     })
                 })
-                var film = new Film({
-                    nameEN: cleanText(nameEN),
-                    nameVN: cleanText(nameVN),
-                    directors: cleanText(directors),
-                    cast: cleanText(cast),
-                    premiere: premiere,
-                    slug: slug,
-                    time: time,
-                    detail: cleanText(detail),
-                    trailer: cleanText(trailer),
-                    idCat: idCat,
-                    status: status,
-                    ageLimit: ageLimit,
-                    photo: rsPhoto.url,
-                    photoDrop: rsPhoto.public_id,
-                    background: rsBackground.url,
-                    backgroundDrop: rsBackground.public_id,
-                })
-                film.save(function (err) {
-                    if (err) throw err;
-                    res.redirect('back');
-                });
-            })
-        })
-    }
+            }
+        }
+    })
+    
 })
 
-router.get('/delete/:id', (req, res) => {
-    var { id } = req.params
-    Film.findByIdAndRemove(id, (err, film) => {
+router.get('/delete/:slug', (req, res) => {
+    var { slug } = req.params
+    Film.findOneAndRemove({slug:slug}, (err, film) => {
         if (err) throw err;
         res.send({
             msg: "Xóa thành công",
-            id: id
+            slug: slug
         })
     })
 })
