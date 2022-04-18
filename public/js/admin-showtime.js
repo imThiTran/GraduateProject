@@ -2,34 +2,34 @@ var modal = document.getElementById('myModal');
 var modalAdd = document.querySelector('.modal-add');
 var btn = document.getElementById("myBtn");
 // var span = document.querySelector(".closeBtn");
-var modalAddPrice= document.getElementById("modalAddPrice");
+var modalAddPrice = document.getElementById("modalAddPrice");
 var modalAddShowTime = document.getElementById("modalAddShowTime");
 var modalEditShowTime = document.getElementById("modalEditShowTime");
 var checkFormChange; //check form change 
 
 
-$('#btnAddPrice').on('click', function(){
+$('#btnAddPrice').on('click', function () {
     modalAddPrice.style.display = "block";
-  });
-
-$('#btnAddShowTime').on('click', function(){
-  modalAddShowTime.style.display = "block";
 });
 
-$('.close-showTime').on('click',function(){
-  modalAddShowTime.style.display = "none";
-  modalEditShowTime.style.display = "none";
-  modalAddPrice.style.display = "none";
+$('#btnAddShowTime').on('click', function () {
+    modalAddShowTime.style.display = "block";
 });
-    // span.onclick = function () {
-    //     modal.style.display = "none";
-    // }
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-        else if (event.modalAdd == modal){}
+
+$('.close-showTime').on('click', function () {
+    modalAddShowTime.style.display = "none";
+    modalEditShowTime.style.display = "none";
+    modalAddPrice.style.display = "none";
+});
+// span.onclick = function () {
+//     modal.style.display = "none";
+// }
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
+    else if (event.modalAdd == modal) { }
+}
 
 $('.closedEdit').change(function () {
     checkFormChange = true;
@@ -45,7 +45,44 @@ $('.roomEdit').change(function () {
 })
 
 
-
+//click delete
+$('.saveDelete').click(function () {
+    var id = $(this).closest('#modalEditShowTime').find('.idHidden').val();
+    var buttonShowtime = $(`#${id}`);
+    modalEditShowTime.style.display = "none"
+    Swal.fire({
+        icon: 'question',
+        title: 'Bạn có chắc chắn muốn xóa ?',
+        text: 'Suất chiếu này sẽ mất và không thể khôi phục',
+        showCancelButton: true
+    }).then((confirm) => {
+        if (confirm.isConfirmed) {
+            $.ajax({
+                url: "/admin/showtime/delete-showtime/" + id,
+                method: "GET",
+                contentType: "application/json",
+                data: JSON.stringify(),
+                success: function (result) {
+                    var container = buttonShowtime.closest('.dateShowTime');
+                    var lengthBtn = container.find('.btnShowTimeDetail');
+                    if (lengthBtn.length == 1) {
+                        container.remove();
+                    } else {
+                        buttonShowtime.remove();
+                    }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Xóa thành công',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                }
+            })
+        } else {
+            modalEditShowTime.style.display = "block"
+        }
+    })
+})
 
 
 //click save edit
@@ -73,7 +110,7 @@ function saveEdit(idSt) {
         contentType: false,
         data: data,
         success: function (result) {
-            if (typeof result=='string'){
+            if (typeof result == 'string') {
                 $('.alertEdit').html(result);
             } else {
                 checkFormChange = false;
@@ -194,9 +231,9 @@ $('#btnAddSC').on('click', () => {
 
 //Choose price seat
 
-$(function(){
+$(function () {
 
-    $("input:radio[name*='flexRadioDefault2']").click(function(){
+    $("input:radio[name*='flexRadioDefault2']").click(function () {
 
         $(".input-datetime").attr('disabled', false);
         $(".seat-change").attr('disabled', false);
@@ -204,14 +241,13 @@ $(function(){
         $("input:radio[name*='flexRadioDefault1']").attr('checked', false);
     });
 
-    $("input:radio[name*='flexRadioDefault1']").click(function(){
+    $("input:radio[name*='flexRadioDefault1']").click(function () {
 
         $(".seat-normal").attr('disabled', false);
         $(".input-datetime").attr('disabled', true);
         $(".seat-change").attr('disabled', true);
         $("input:radio[name*='flexRadioDefault2']").attr('checked', false);
-        
+
 
     });
 });
-    

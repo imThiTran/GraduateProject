@@ -335,5 +335,14 @@ router.post('/edit-showtime', (req, res) => {
     })
 })
 
+router.get('/delete-showtime/:idSt',(req,res)=>{
+    var idSt=req.params.idSt;
+    Ticket.deleteMany({idShowtime:idSt},(err)=>{
+        Showtime.findByIdAndRemove(idSt,function(err){
+            if (err) return console.log(err);
+            res.send('success');
+        })
+    })
+})
 
 module.exports = router;
