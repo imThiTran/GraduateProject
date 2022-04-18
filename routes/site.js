@@ -34,6 +34,7 @@ router.get("/",function(req,res){
                 fi[i].stArr.push({
                   timeStart:st[j].timeStart,
                   idSt:st[j]._id,
+                  closed:st[j].closed
                 });
               } 
             }
@@ -62,6 +63,7 @@ router.get('/render/:time',async (req,res)=>{
                 fi[i].stArr.push({
                   timeStart:st[j].timeStart,
                   idSt:st[j]._id,
+                  closed:st[j].closed
                 });
               } 
             }
@@ -99,9 +101,15 @@ router.get('/render/:time',async (req,res)=>{
                   <div class="flex-time-movie">`;
                       film.stArr.forEach(function(st){
                           var newSt=st.timeStart.split(':');
-                          hmtlSend=hmtlSend+`<div class="movie-time">
+                          if (st.closed==0){
+                            hmtlSend=hmtlSend+`<div class="movie-time">
                               <a href="/order?idShowtime=`+st.idSt+`" class="btn-overtime btn btn-outline-warning btn-time">`+st.timeStart+((newSt[0]<12)?` AM`:` PM`)+`</a>
                                   </div>`  
+                          } else {
+                            hmtlSend=hmtlSend+`<div class="movie-time">
+                            <a style="opacity:0.5;" class="btn-overtime btn btn-outline-warning btn-time">`+st.timeStart+((newSt[0]<12)?` AM`:` PM`)+`</a>
+                                </div>`  
+                          }
                       });
                     hmtlSend=hmtlSend+ `</div>
                     </div>

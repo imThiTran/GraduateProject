@@ -78,18 +78,19 @@ var checkLogin = require('./middelwares/checkLogin.middleware');
 var checkAdmin = require('./middelwares/checkAdmin.middleware');
 var checkCurrentBlock = require('./middelwares/checkCurrentBlock.middleware');
 var checkOpenBlock = require('./middelwares/checkOpenBlock.middleware');
+var checkBlockShowtime = require('./middelwares/checkBlockShowtime');
 
-app.use('/auth',checkOpenBlock,auth);
-app.use('/user',checkOpenBlock,checkLogin,checkUser,checkCurrentBlock,user);
-app.use('/movie',checkOpenBlock,checkUser,checkCurrentBlock,movie);
-app.use('/order',checkOpenBlock,checkLogin,checkUser,checkCurrentBlock,order);
-app.use('/',checkOpenBlock,checkUser,checkCurrentBlock,site);
+app.use('/auth',checkOpenBlock,checkBlockShowtime,auth);
+app.use('/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,user);
+app.use('/movie',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,movie);
+app.use('/order',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,order);
+app.use('/',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,site);
 
-app.use('/admin/film',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);
-app.use('/admin/showtime',checkUser,adminShowtime);
-app.use('/admin/user',checkOpenBlock,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminUser);
-app.use('/admin/room',checkUser,adminRoom);
-app.use('/admin/event',checkUser,adminEvent)
+app.use('/admin/film',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);
+app.use('/admin/showtime',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminShowtime);
+app.use('/admin/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminUser);
+app.use('/admin/room',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminRoom);
+app.use('/admin/event',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminEvent)
 
 app.use((req, res, next) => {
   res.status(404).render('error',{
