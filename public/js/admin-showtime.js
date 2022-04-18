@@ -2,12 +2,18 @@ var modal = document.getElementById('myModal');
 var modalAdd = document.querySelector('.modal-add');
 var btn = document.getElementById("myBtn");
 // var span = document.querySelector(".closeBtn");
+var modalAddPrice= document.getElementById("modalAddPrice");
 var modalAddShowTime = document.getElementById("modalAddShowTime");
 var modalEditShowTime = document.getElementById("modalEditShowTime");
 var checkFormChange; //check form change 
 
-$('#btnAddShowTime').on('click', function () {
-    modalAddShowTime.style.display = "block";
+
+$('#btnAddPrice').on('click', function(){
+    modalAddPrice.style.display = "block";
+  });
+
+$('#btnAddShowTime').on('click', function(){
+  modalAddShowTime.style.display = "block";
 });
 // $('.btnEditShowTime').on('click', function(){
 //     var $this=$(this);
@@ -27,6 +33,22 @@ $('#btnAddShowTime').on('click', function () {
 //         }
 //     })
 // });
+$('.btnShowTimeDetail').on('click', function(){
+    modalEditShowTime.style.display = "block";
+  });
+$('.close-showTime').on('click',function(){
+  modalAddShowTime.style.display = "none";
+  modalEditShowTime.style.display = "none";
+  modalAddPrice.style.display = "none";
+});
+    // span.onclick = function () {
+    //     modal.style.display = "none";
+    // }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        else if (event.modalAdd == modal){
 
 
 $('.closedEdit').change(function () {
@@ -41,6 +63,7 @@ $('.minuteEdit').change(function () {
 $('.roomEdit').change(function () {
     checkFormChange = true;
 })
+        }
 
 
 
@@ -189,5 +212,26 @@ $('#btnAddSC').on('click', () => {
 })
 
 
+//Choose price seat
 
+$(function(){
 
+    $("input:radio[name*='flexRadioDefault2']").click(function(){
+
+        $(".input-datetime").attr('disabled', false);
+        $(".seat-change").attr('disabled', false);
+        $(".seat-normal").attr('disabled', true);
+        $("input:radio[name*='flexRadioDefault1']").attr('checked', false);
+    });
+
+    $("input:radio[name*='flexRadioDefault1']").click(function(){
+
+        $(".seat-normal").attr('disabled', false);
+        $(".input-datetime").attr('disabled', true);
+        $(".seat-change").attr('disabled', true);
+        $("input:radio[name*='flexRadioDefault2']").attr('checked', false);
+        
+
+    });
+});
+    }
