@@ -23,7 +23,11 @@ var ShowtimeSchema = mongoose.Schema({
     },
     closed:{
         type:String,
-        default:"0",
+        default:'0',
+    },
+    createAt:{
+        type:Date,
+        default: new Date(),
     }
 })
 
