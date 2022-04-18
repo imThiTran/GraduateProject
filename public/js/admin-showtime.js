@@ -15,27 +15,7 @@ $('#btnAddPrice').on('click', function(){
 $('#btnAddShowTime').on('click', function(){
   modalAddShowTime.style.display = "block";
 });
-// $('.btnEditShowTime').on('click', function(){
-//     var $this=$(this);
-//     var idFilm=$this.attr('idFilm');
-//     var date=$this.attr('date');
-//     $.ajax({
-//         url: "/admin/showtime/load-edit",
-//         method: "POST",
-//         contentType: "application/json",
-//         data: JSON.stringify({idFilm:idFilm,date:date}),
-//         success: function (result) {
-//             result.date=(new Date(result.date)).toLocaleDateString('en-GB');
-//             $('.nameEdit').html(result.nameEN);
-//             $('.dateEdit').html(result.date);
-//             $('.first-row-editSc').html(result.htmlSend);
-//             modalEditShowTime.style.display = "block";
-//         }
-//     })
-// });
-$('.btnShowTimeDetail').on('click', function(){
-    modalEditShowTime.style.display = "block";
-  });
+
 $('.close-showTime').on('click',function(){
   modalAddShowTime.style.display = "none";
   modalEditShowTime.style.display = "none";
@@ -48,8 +28,8 @@ $('.close-showTime').on('click',function(){
         if (event.target == modal) {
             modal.style.display = "none";
         }
-        else if (event.modalAdd == modal){
-
+        else if (event.modalAdd == modal){}
+    }
 
 $('.closedEdit').change(function () {
     checkFormChange = true;
@@ -63,7 +43,7 @@ $('.minuteEdit').change(function () {
 $('.roomEdit').change(function () {
     checkFormChange = true;
 })
-        }
+
 
 
 
@@ -93,10 +73,10 @@ function saveEdit(idSt) {
         contentType: false,
         data: data,
         success: function (result) {
-            checkFormChange = false;
-            if (result == 'fail') {
-                $('.alertEdit').html(`Tồn tại suất chiếu trùng thời gian`);
+            if (typeof result=='string'){
+                $('.alertEdit').html(result);
             } else {
+                checkFormChange = false;
                 modalEditShowTime.style.display = "none";
                 Swal.fire({
                     icon: 'success',
@@ -173,7 +153,15 @@ $('.btn-saveAdd').click(function () {
         success: function (result) {
             if (result == "success") {
                 modalAddShowTime.style.display = "none";
-                window.location.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thêm thành công',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1300);
             } else {
                 $('.alertAdd').html(result);
             }
@@ -226,4 +214,4 @@ $(function(){
 
     });
 });
-    }
+    

@@ -293,32 +293,46 @@ router.post('/load-edit', (req, res) => {
 
 router.post('/edit-showtime', (req, res) => {
     var { idSt, hour, minute, room, closed, time, date } = req.body;
-    if (closed=='') closed=1;
-    var timeStart = hour + ':' + minute;
-    if (typeof closed == "undefined") closed = 1;
-    var timeEnd = transferTimeEnd(timeStart, time);
-    Showtime.findOne({
-        _id: { $ne: idSt }, date: date, idRoom: room, $or: [     //kiem tra suat chieu nay da ton tai hay khong
-            { timeStart: { $lte: timeStart }, timeEnd: { $gte: timeStart } },
-            { timeStart: { $lte: timeEnd }, timeEnd: { $gte: timeEnd } }
-        ]
-    }, (err, st) => {
-        if (st) {
-            res.send('fail');
+    var today = new Date();
+    Showtime.findOne({ _id: idSt }, (err, st) => {
+        var editDate = new Date(st.date);
+        editDate.setHours(st.timeStart.split(':')[0], st.timeStart.split(':')[1]);
+        if (today >= editDate) {
+            res.send('Suất chiếu này đã hết hạn và không thể chỉnh sửa');
         } else {
-            Showtime.updateOne({ _id: idSt },
-                {
-                    $set: { closed: closed, timeStart: timeStart, idRoom: room }
-                }, function (err, result) {
-                    if (err) throw err;
-                    res.send({
-                        timeStart:timeStart,
-                        closed:closed
-                    });
+            editDate = new Date(date);
+            editDate.setHours(hour, minute);
+            if (today >= editDate) {
+                res.send('Thời gian bạn muốn chỉnh sửa sớm hơn thời điểm hiện tại');
+            } else {
+                if (closed == '') closed = 1;
+                var timeStart = hour + ':' + minute;
+                if (typeof closed == "undefined") closed = 1;
+                var timeEnd = transferTimeEnd(timeStart, time);
+                Showtime.findOne({
+                    _id: { $ne: idSt }, date: date, idRoom: room, $or: [     //kiem tra suat chieu nay da ton tai hay khong
+                        { timeStart: { $lte: timeStart }, timeEnd: { $gte: timeStart } },
+                        { timeStart: { $lte: timeEnd }, timeEnd: { $gte: timeEnd } }
+                    ]
+                }, (err, st) => {
+                    if (st) {
+                        res.send('Tồn tại suất chiếu trùng thời gian');
+                    } else {
+                        Showtime.updateOne({ _id: idSt },
+                            {
+                                $set: { closed: closed, timeStart: timeStart, idRoom: room }
+                            }, function (err, result) {
+                                if (err) throw err;
+                                res.send({
+                                    timeStart: timeStart,
+                                    closed: closed
+                                });
+                            })
+                    }
                 })
+            }
         }
     })
-
 })
 
 

@@ -88,11 +88,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <p class="alertAdd" style="color: red;"></p>
+                                                    <p class="alert" style="color: red;"></p>
                                                     <button type="button"
                                                         class="btn btn-secondary close-showTime">Đóng</button>
                                                     <button type="button"
-                                                        class="btn-common btn-saveAdd saveEdit ">Thêm</button>
+                                                        class="btn-common">Thêm</buttDon>
                                                 </div>
                                             </div>
                                         </div>
@@ -293,7 +293,13 @@
 
 
                                                                                             <div>
-                                                                                                <%date.times.sort(); %>
+                                                                                                <%date.times.sort(function(a, b){ %>
+                                                                                                    <% if (a.timeStart.toLowerCase() <
+                                                                                                        b.timeStart.toLowerCase()) {return -1;} %>
+                                                                                                        <% if (a.timeStart.toLowerCase()>
+                                                                                                            b.timeStart.toLowerCase()) {return 1;} %>
+                                                                                                            <% return 0; %>
+                                                                                                                <%}); %>
                                                                                                     <%date.times.forEach(function(time){%>
                                                                                                         <%newSt=time.timeStart.split(':');%>
                                                                                                             <%if (newSt[0]<12){ %>
