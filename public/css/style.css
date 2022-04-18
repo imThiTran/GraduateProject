@@ -2495,6 +2495,30 @@ button.primaryContained:hover {
   .radio-choose{
     width: 20%;
   }
+  .add-cate{
+      display: flex;
+      flex-direction: column;
+  }
+  .btn-CT{
+    width: 150px;
+    border-radius: 5px;
+    background: #f6efe2;
+    border: none;
+    line-height: 2rem;
+  }
+  .selectadd{
+    width: 230px;
+    height: 30px;
+  }
+  .lc-category{
+      display: flex;
+      position: relative;
+  }
+  .close-ct{
+    position: absolute;
+    top: 6px;
+    font-size: 20px;
+  }
   /* USER MANAGEMENT */
   .span-error{
     font-size: 12px;
