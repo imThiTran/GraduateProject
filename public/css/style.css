@@ -2506,7 +2506,7 @@ button.primaryContained:hover {
     border: none;
     line-height: 2rem;
   }
-  .selectadd{
+  .selectadd, .selectedit{
     width: 230px;
     height: 30px;
   }
