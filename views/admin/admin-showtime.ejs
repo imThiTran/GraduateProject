@@ -34,8 +34,7 @@
                                                     <div class="wrapModal">
                                                         <div class="form-check check-price">
                                                             <input class="form-check-input" type="radio"
-                                                                name="flexRadioDefault1" id="check-default"
-                                                                 checked>
+                                                                name="flexRadioDefault1" id="check-default" checked>
                                                             <label class="form-check-label check-label"
                                                                 for="check-default">
                                                                 Giá vé mặc định:
@@ -57,8 +56,7 @@
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio"
-                                                                name="flexRadioDefault2" id="check-change" 
-                                                               >
+                                                                name="flexRadioDefault2" id="check-change">
                                                             <label class="form-check-label check-label"
                                                                 for="check-change">
                                                                 Giá vé theo giờ:
@@ -66,10 +64,12 @@
                                                             <div class="price-seat">
                                                                 <div class="price-ticket-time datetime-price">
                                                                     <input type="datetime-local"
-                                                                        class="form-control input-datetime" id="seat-normal" disabled>
+                                                                        class="form-control input-datetime"
+                                                                        id="seat-normal" disabled>
                                                                     <i class="fa-solid fa-arrow-right"></i>
                                                                     <input type="datetime-local"
-                                                                        class="form-control input-datetime" id="seat-normal" disabled>
+                                                                        class="form-control input-datetime"
+                                                                        id="seat-normal" disabled>
                                                                 </div>
                                                                 <div class="price-ticket">
                                                                     <label for="seat-normal">Ghế thường</label>
@@ -91,8 +91,7 @@
                                                     <p class="alert" style="color: red;"></p>
                                                     <button type="button"
                                                         class="btn btn-secondary close-showTime">Đóng</button>
-                                                    <button type="button"
-                                                        class="btn-common">Thêm</buttDon>
+                                                    <button type="button" class="btn-common">Thêm</buttDon>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,293 +184,322 @@
                                                     <p class="alertAdd" style="color: red;"></p>
                                                     <button type="button"
                                                         class="btn btn-secondary close-showTime">Đóng</button>
-                                                    <button type="button"
-                                                        class="btn-common btn-saveAdd">Thêm</button>
+                                                    <button type="button" class="btn-common btn-saveAdd">Thêm</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
+                                    <div style="display: flex;
+                                    margin-top: 1rem">
+                                        <form action="" method="get" class="purchase-search" style="width: 50%; padding-left: 0 !important">
+                                            <input type="text" style="height: 38px;" placeholder="Tìm kiếm suất chiếu theo phim" name="name">
+                                            <button style="height: 38px;" type="submit"><i class="fa fa-search"></i></button>
+                                        </form>
+                                        <form class="formSearch" action="" method="POST">
+                                            <div class="label-date">
+                                                <label class="labeltime">Từ</label>
+                                                <div class="input-date">
+                                                    <input type="hidden" name="nameEN" value="" id="">
+                                                    <input style="background-image: none;" class="date-lc1 form-select"
+                                                        name="datefrom" type="datetime-local" value="">
+                                                    <span class="span-error" id="timefrom_error"></span>
+                                                </div>
+                                                <label class="labeltime">Đến</label>
+                                                <div class="input-date">
+                                                    <input style="background-image: none;" class="date-lc1 form-select"
+                                                        name="dateto" type="datetime-local" value="">
+
+                                                    <span class="span-error" id="timeto_error">
+
+                                                </div>
+                                                <button class="submitsearch btn btn-buy btnSearchTime" type="submit">Tìm
+                                                    kiếm</button>
+
+                                            </div>
+                                        </form>
+                                    </div>
                                     <table class="table table-striped table-bordered" style="font-size: 15px;">
                                         <thead>
                                             <tr>
-                                                <form action="">
-                                                    <div class="ad-phim1"
-                                                        style="justify-content: space-between; margin-top: 20px; align-items: flex-start;">
-                                                        <select name="" class="form-select filmSelect"
-                                                            style="width: 50%;">
-                                                            <option value=""> Tất cả phim </option>
-                                                            <%films.forEach(function(film){%>
-                                                                <option value="<%=film._id%>">
-                                                                    <%=film.nameEN%>
-                                                                </option>
-                                                                <%})%>
+                                                <th scope="col" style="width: 1%;">STT</th>
+                                                <th scope="col">Phim</th>
+                                                <th scope="col" style="width: 10%;">Ngày chiếu</th>
+                                                <th scope="col" style="width: 48%;">Suất chiếu </th>
+                                                <th scope="col" style="width: 10%;">
+                                            </tr>
+                                        </thead>
+                                        <tbody id="containTr">
+                                            <form class="formDeleteAll" action="" method="post">
+                                                <!-- Each film's show time -->
+                                                <%var i=1;%>
+                                                    <% showtimes.forEach(function(showtime){ %>
 
-                                                        </select>
-                                                </form>
-                                                <form class="formSearch" action="" method="POST">
-                                                    <div class="label-date" style=" align-items: flex-start;">
-                                                        <label class="labeltime">Từ</label>
-                                                        <div class="input-date">
-                                                            <input type="hidden" name="nameEN" value="" id="">
-                                                            <input style="background-image: none;"
-                                                                class="date-lc1 form-select" name="datefrom"
-                                                                type="datetime-local" value="">
-                                                            <span class="span-error" id="timefrom_error"></span>
-                                                        </div>
-                                                        <label class="labeltime">Đến</label>
-                                                        <div class="input-date">
-                                                            <input style="background-image: none;"
-                                                                class="date-lc1 form-select" name="dateto"
-                                                                type="datetime-local" value="">
-
-                                                            <span class="span-error" id="timeto_error">
-
-                                                        </div>
-                                                        <button class="submitsearch btn btn-buy btnSearchTime"
-                                                            type="submit">Tìm kiếm</button>
-
-                                                    </div>
-                                                </form>
-                                </div>
-                                </tr>
-                                <tr>
-                                    <th scope="col" style="width: 1%;">STT</th>
-                                    <th scope="col">Phim</th>
-                                    <th scope="col" style="width: 10%;">Ngày chiếu</th>
-                                    <th scope="col" style="width: 48%;">Suất chiếu </th>
-                                    <th scope="col" style="width: 10%;">
-                                </tr>
-                                </thead>
-                                <tbody id="containTr">
-                                    <form class="formDeleteAll" action="" method="post">
-                                        <!-- Each film's show time -->
-                                        <%var i=1;%>
-                                            <% showtimes.forEach(function(showtime){ %>
-
-                                                <tr class="trClosest">
-                                                    <th style=" width: 20px;">
-                                                        <%=i%>
-                                                            <%i++%>
-                                                    </th>
-                                                    <td class="tdName" style="width: 20%;">
-                                                        <div class="wrapFilm">
-                                                            <div class="h5-poster" style="color: #333">
-                                                                <%=showtime.nameEN%>
-                                                            </div>
-                                                            <div class="side-poster" style="color: #333">
-                                                                <%=showtime.nameVN%>
-                                                            </div>
-                                                            <div>
-                                                                <img class="poster-movie" style="width: 100%"
-                                                                    src="<%=showtime.photo%>" alt="Megas Cinema">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td colspan="3">
-                                                        <div class="td-sc">
+                                                        <tr class="trClosest">
+                                                            <th style=" width: 20px;">
+                                                                <%=i%>
+                                                                    <%i++%>
+                                                            </th>
+                                                            <td class="tdName" style="width: 20%;">
+                                                                <div class="wrapFilm">
+                                                                    <div class="h5-poster" style="color: #333">
+                                                                        <%=showtime.nameEN%>
+                                                                    </div>
+                                                                    <div class="side-poster" style="color: #333">
+                                                                        <%=showtime.nameVN%>
+                                                                    </div>
+                                                                    <div>
+                                                                        <img class="poster-movie" style="width: 100%"
+                                                                            src="<%=showtime.photo%>"
+                                                                            alt="Megas Cinema">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td colspan="3">
+                                                                <div class="td-sc">
 
 
 
-                                                            <%showtime.descrb.sort(function(a, b){ %>
-                                                                <% if (a.nameDate.toLowerCase() <
-                                                                    b.nameDate.toLowerCase()) {return -1;} %>
-                                                                    <% if (a.nameDate.toLowerCase()>
-                                                                        b.nameDate.toLowerCase()) {return 1;} %>
-                                                                        <% return 0; %>
-                                                                            <%})%>
-
-                                                                                <%showtime.descrb.forEach(function(date){%>
-                                                                                    <div class="dateShowTime">
-                                                                                        <div class="date-div">
-                                                                                            <span>
-                                                                                                <%=convertDate(date.nameDate)%>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                        <div class="timeShowTime">
-
-                                                                                            <!-- The show time of date -->
-
-
-                                                                                            <div >
-                                                                                                <%date.times.sort(function(a, b){ %>
-                                                                                                    <% if (a.timeStart.toLowerCase() <
-                                                                                                        b.timeStart.toLowerCase()) {return -1;} %>
-                                                                                                        <% if (a.timeStart.toLowerCase()>
-                                                                                                            b.timeStart.toLowerCase()) {return 1;} %>
-                                                                                                            <% return 0; %>
-                                                                                                                <%}); %>
-                                                                                                    <%date.times.forEach(function(time){%>
-                                                                                                        <%newSt=time.timeStart.split(':');%>
-                                                                                                            <%if (newSt[0]<12){ %>
-                                                                                                                <%if (time.closed==0){%>
-                                                                                                                    <button onclick="showtimeDetail(this);"
-                                                                                                                    type="button"
-                                                                                                                    class="btnShowTimeDetail" id="<%=time.id%>" >
-                                                                                                                    <%=time.timeStart%>
-                                                                                                                        AM
-                                                                                                                </button>
-                                                                                                                <%} else {%>
-                                                                                                                    <button onclick="showtimeDetail(this);" id="<%=time.id%>"  style="opacity: 0.5;"
-                                                                                                                    type="button"
-                                                                                                                    class="btnShowTimeDetail">
-                                                                                                                    <%=time.timeStart%>
-                                                                                                                        AM
-                                                                                                                </button>
-                                                                                                                <%}%>
-                                                                                                                
-
-                                                                                                                <%} else{ %>
-
-                                                                                                                    <%if (time.closed==0){%>
-                                                                                                                        <button onclick="showtimeDetail(this);" id="<%=time.id%>"
-                                                                                                                        type="button"
-                                                                                                                        class="btnShowTimeDetail">
-                                                                                                                        <%=time.timeStart%>
-                                                                                                                            PM
-                                                                                                                    </button>
-                                                                                                                    <%} else {%>
-                                                                                                                        <button onclick="showtimeDetail(this);" id="<%=time.id%>" style="opacity: 0.5;"
-                                                                                                                        type="button"
-                                                                                                                        class="btnShowTimeDetail">
-                                                                                                                        <%=time.timeStart%>
-                                                                                                                            PM
-                                                                                                                    </button>
-                                                                                                                    <%}%>
-
-                                                                                                                    <%}%>
-
-                                                                                                                        <%})%>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="optionShowTime">
-
-                                                                                            <div class="btn-mode">
-
-                                                                                                <button 
-                                                                                                    idFilm="<%=showtime.idFilm%>"
-                                                                                                    date="<%=date.nameDate%>"
-                                                                                                    type="button">
-                                                                                                    <i class="fa fa-times"
-                                                                                                        aria-hidden="true"></i></button>
-                                                                                            </div>
-
-                                                                                        </div>
-                                                                                    </div>
+                                                                    <%showtime.descrb.sort(function(a, b){ %>
+                                                                        <% if (a.nameDate.toLowerCase() <
+                                                                            b.nameDate.toLowerCase()) {return -1;} %>
+                                                                            <% if (a.nameDate.toLowerCase()>
+                                                                                b.nameDate.toLowerCase()) {return 1;} %>
+                                                                                <% return 0; %>
                                                                                     <%})%>
 
-                                                        </div>
-                                                    </td>
+                                                                                        <%showtime.descrb.forEach(function(date){%>
+                                                                                            <div class="dateShowTime">
+                                                                                                <div class="date-div">
+                                                                                                    <span>
+                                                                                                        <%=convertDate(date.nameDate)%>
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="timeShowTime">
 
-                                                </tr>
-                                                <%})%>
+                                                                                                    <!-- The show time of date -->
 
-                                                    <!-- End each film's show time -->
-                                    </form>
-                                </tbody>
-                                </thead>
-                                <!-- Edit show time-->
-                                <form class="formEdit" action="" method="">
-                                    <div id="modalEditShowTime" class="modal">
-                                        <div class="modal-content contain-edit">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title"> <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                    Thông tin suất chiếu</h4>
-                                                <button type="button" class="close-showTime close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body-plus">
-                                                <input type="hidden" class="idHidden" name="idSt" id="">
-                                                <input type="hidden" class="timeHidden" name="time">
-                                                <input type="hidden" class="dateHidden" name="date" id="">
-                                                <div class="wrapModal">
-                                                    <div class="rowShowTime">
-                                                        <label style="width: 150px;" for="">Tên phim: </label>
-                                                        <div class="nameEdit rowST">
-                                                            PHIM SỐ 1
+
+                                                                                                    <div>
+                                                                                                        <%date.times.sort(function(a,
+                                                                                                            b){ %>
+                                                                                                            <% if
+                                                                                                                (a.timeStart.toLowerCase()
+                                                                                                                <
+                                                                                                                b.timeStart.toLowerCase())
+                                                                                                                {return
+                                                                                                                -1;} %>
+                                                                                                                <% if
+                                                                                                                    (a.timeStart.toLowerCase()>
+                                                                                                                    b.timeStart.toLowerCase())
+                                                                                                                    {return
+                                                                                                                    1;}
+                                                                                                                    %>
+                                                                                                                    <% return
+                                                                                                                        0;
+                                                                                                                        %>
+                                                                                                                        <%});
+                                                                                                                            %>
+                                                                                                                            <%date.times.forEach(function(time){%>
+                                                                                                                                <%newSt=time.timeStart.split(':');%>
+                                                                                                                                    <%if (newSt[0]<12){
+                                                                                                                                        %>
+                                                                                                                                        <%if
+                                                                                                                                            (time.closed==0){%>
+                                                                                                                                            <button
+                                                                                                                                                onclick="showtimeDetail(this);"
+                                                                                                                                                type="button"
+                                                                                                                                                class="btnShowTimeDetail"
+                                                                                                                                                id="<%=time.id%>">
+                                                                                                                                                <%=time.timeStart%>
+                                                                                                                                                    AM
+                                                                                                                                            </button>
+                                                                                                                                            <%} else
+                                                                                                                                                {%>
+                                                                                                                                                <button
+                                                                                                                                                    onclick="showtimeDetail(this);"
+                                                                                                                                                    id="<%=time.id%>"
+                                                                                                                                                    style="opacity: 0.5;"
+                                                                                                                                                    type="button"
+                                                                                                                                                    class="btnShowTimeDetail">
+                                                                                                                                                    <%=time.timeStart%>
+                                                                                                                                                        AM
+                                                                                                                                                </button>
+                                                                                                                                                <%}%>
+
+
+                                                                                                                                                    <%} else{
+                                                                                                                                                        %>
+
+                                                                                                                                                        <%if
+                                                                                                                                                            (time.closed==0){%>
+                                                                                                                                                            <button
+                                                                                                                                                                onclick="showtimeDetail(this);"
+                                                                                                                                                                id="<%=time.id%>"
+                                                                                                                                                                type="button"
+                                                                                                                                                                class="btnShowTimeDetail">
+                                                                                                                                                                <%=time.timeStart%>
+                                                                                                                                                                    PM
+                                                                                                                                                            </button>
+                                                                                                                                                            <%} else
+                                                                                                                                                                {%>
+                                                                                                                                                                <button
+                                                                                                                                                                    onclick="showtimeDetail(this);"
+                                                                                                                                                                    id="<%=time.id%>"
+                                                                                                                                                                    style="opacity: 0.5;"
+                                                                                                                                                                    type="button"
+                                                                                                                                                                    class="btnShowTimeDetail">
+                                                                                                                                                                    <%=time.timeStart%>
+                                                                                                                                                                        PM
+                                                                                                                                                                </button>
+                                                                                                                                                                <%}%>
+
+                                                                                                                                                                    <%}%>
+
+                                                                                                                                                                        <%})%>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="optionShowTime">
+
+                                                                                                    <div
+                                                                                                        class="btn-mode">
+
+                                                                                                        <button
+                                                                                                            idFilm="<%=showtime.idFilm%>"
+                                                                                                            date="<%=date.nameDate%>"
+                                                                                                            type="button">
+                                                                                                            <i class="fa fa-times"
+                                                                                                                aria-hidden="true"></i></button>
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <%})%>
+
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                        <%})%>
+
+                                                            <!-- End each film's show time -->
+                                            </form>
+                                        </tbody>
+                                        </thead>
+                                        <!-- Edit show time-->
+                                        <form class="formEdit" action="" method="">
+                                            <div id="modalEditShowTime" class="modal">
+                                                <div class="modal-content contain-edit">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title"> <i class="fa fa-pencil"
+                                                                aria-hidden="true"></i>
+                                                            Thông tin suất chiếu</h4>
+                                                        <button type="button" class="close-showTime close"
+                                                            data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body-plus">
+                                                        <input type="hidden" class="idHidden" name="idSt" id="">
+                                                        <input type="hidden" class="timeHidden" name="time">
+                                                        <input type="hidden" class="dateHidden" name="date" id="">
+                                                        <div class="wrapModal">
+                                                            <div class="rowShowTime">
+                                                                <label style="width: 150px;" for="">Tên phim: </label>
+                                                                <div class="nameEdit rowST">
+                                                                    PHIM SỐ 1
+                                                                </div>
+                                                            </div>
+                                                            <div class="rowShowTime">
+                                                                <div class="rowST">
+                                                                    <label style="width: 150px;" for="">Ngày chiếu:
+                                                                    </label>
+                                                                    <div class="dateEdit">12/10/2022</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="rowShowTime">
+                                                                <div class="rowST">
+                                                                    <span style="width: 150px;">Hoạt động: </span>
+                                                                    <div class="form-check form-switch"
+                                                                        style="padding-left: 2.5rem;">
+                                                                        <input
+                                                                            class="swclosed closedEdit form-check-input"
+                                                                            value="0" id="" name="closed" checked
+                                                                            type="checkbox" role="switch" />
+                                                                        <label class="form-check-label"
+                                                                            for="flexSwitchCheckChecked"></label>
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                            <div id="">
+                                                                <div class="first-row-editSc lc-suatchieu">
+                                                                    <div class="choose-showtime hourST">
+                                                                        <label style="width: 140px">Giờ</label>
+                                                                        <select id="" name="hour"
+                                                                            class="hourEdit form-select">
+                                                                            <option value="08">08</option>
+                                                                            <option value="09">09</option>
+                                                                            <option value="10">10</option>
+                                                                            <option value="11">11</option>
+                                                                            <option value="12">12</option>
+                                                                            <option value="13">13</option>
+                                                                            <option value="14">14</option>
+                                                                            <option value="15">15</option>
+                                                                            <option value="16">16</option>
+                                                                            <option value="17">17</option>
+                                                                            <option value="18">18</option>
+                                                                            <option value="19">19</option>
+                                                                            <option value="20">20</option>
+                                                                            <option value="21">21</option>
+                                                                            <option value="22">22</option>
+                                                                            <option value="23">23</option>
+                                                                        </select>
+                                                                        <span>:</span>
+                                                                        <select id="room" name="minute"
+                                                                            class="minuteEdit form-select">
+                                                                            <option value="00">00</option>
+                                                                            <option value="15">15</option>
+                                                                            <option value="30">30</option>
+                                                                            <option value="45">45</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="choose-showtime">
+                                                                        <label
+                                                                            style="width: 80px; margin-left: 1rem;">Rạp</label>
+                                                                        <select id="room" name="room"
+                                                                            class="roomEdit form-select">
+                                                                            <%rooms.forEach(function(room){%>
+                                                                                <option value="<%=room._id%>">
+                                                                                    <%=room.name%>
+                                                                                </option>
+                                                                                <%})%>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="rowShowTime">
-                                                        <div class="rowST">
-                                                            <label style="width: 150px;" for="">Ngày chiếu: </label>
-                                                            <div class="dateEdit">12/10/2022</div>
+                                                    <div class="modal-footer" style="align-items: baseline; justify-content: space-between !important;">
+                                                        <div class="">
+                                                            <button type="button" class="saveDelete del1 btn-common">Xóa suất chiếu</i></button>
                                                         </div>
-                                                    </div>
-                                                    <div class="rowShowTime">
-                                                        <div class="rowST">
-                                                            <span style="width: 150px;">Hoạt động: </span>
-                                                            <div class="form-check form-switch"
-                                                                style="padding-left: 2.5rem;">
-                                                                <input class="swclosed closedEdit form-check-input" value="0" id="" name="closed" checked
-                                                                    type="checkbox" role="switch" />
-                                                                <label class="form-check-label"
-                                                                    for="flexSwitchCheckChecked"></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="">
-                                                        <div class="first-row-editSc lc-suatchieu">
-                                                            <div class="choose-showtime hourST">
-                                                                <label style="width: 140px">Giờ</label>
-                                                                <select id="" name="hour" class="hourEdit form-select">
-                                                                    <option value="08">08</option>
-                                                                    <option value="09">09</option>
-                                                                    <option value="10">10</option>
-                                                                    <option value="11">11</option>
-                                                                    <option value="12">12</option>
-                                                                    <option value="13">13</option>
-                                                                    <option value="14">14</option>
-                                                                    <option value="15">15</option>
-                                                                    <option value="16">16</option>
-                                                                    <option value="17">17</option>
-                                                                    <option value="18">18</option>
-                                                                    <option value="19">19</option>
-                                                                    <option value="20">20</option>
-                                                                    <option value="21">21</option>
-                                                                    <option value="22">22</option>
-                                                                    <option value="23">23</option>
-                                                                </select>
-                                                                <span>:</span>
-                                                                <select id="room" name="minute" class="minuteEdit form-select">
-                                                                    <option value="00">00</option>
-                                                                    <option value="15">15</option>
-                                                                    <option value="30">30</option>
-                                                                    <option value="45">45</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="choose-showtime">
-                                                                <label style="width: 80px; margin-left: 1rem;">Rạp</label>
-                                                                <select id="room" name="room" class="roomEdit form-select">
-                                                                    <%rooms.forEach(function(room){%>
-                                                                        <option value="<%=room._id%>">
-                                                                            <%=room.name%>
-                                                                        </option>
-                                                                        <%})%>
-                                                                </select>
-                                                            </div>
-                                                            <div class="">
-                                                                <button type="button" class="saveDelete"> <i
-                                                                        class="fa fa-times"
-                                                                        aria-hidden="true"></i></button>
-                                                            </div>
+                                                        <div>
+                                                            <p class="alertEdit" style="color: red;"></p>
+                                                        <button type="button"
+                                                            class="btn btn-secondary close-showTime">Đóng</button>
+                                                        <button type="button" class="saveEdit btn-common">Xác
+                                                            nhận</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <p class="alertEdit" style="color: red;"></p>
-                                                <button type="button"
-                                                    class="btn btn-secondary close-showTime">Đóng</button>
-                                                <button type="button" class="saveEdit btn-common">Xác nhận</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                </table>
+                                        </form>
+                                    </table>
 
-                            </div>
-                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                            <script src="/js/bootstrap.min.js"></script>
-                            <script src="/js/admin-showtime.js"></script>
+                                </div>
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                <script src="/js/bootstrap.min.js"></script>
+                                <script src="/js/admin-showtime.js"></script>
                     </body>
 
                     </html>

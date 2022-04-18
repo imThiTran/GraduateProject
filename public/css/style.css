@@ -2397,7 +2397,17 @@ button.primaryContained:hover {
     left: 296px;
     top: 48px;
 }
-
+.del1{
+    font-size: 1rem;
+    background-color: rgb(230, 228, 228) !important;
+}
+.del1:hover{
+    background-image: -webkit-repeating-linear-gradient(90deg, rgba(229,230,215,1) 0%, rgba(218,216,191,1) 44%, rgba(245,229,182,1) 100%);
+    background-image: -moz-repeating-linear-gradient(90deg, rgba(229,230,215,1) 0%, rgba(218,216,191,1) 44%, rgba(245,229,182,1) 100%);
+    background-image: -ms-repeating-linear-gradient(90deg, rgba(229,230,215,1) 0%, rgba(218,216,191,1) 44%, rgba(245,229,182,1) 100%);
+    background-image: -o-repeating-linear-gradient(90deg, rgba(229,230,215,1) 0%, rgba(218,216,191,1) 44%, rgba(245,229,182,1) 100%);
+    background-image: repeating-linear-gradient(90deg, rgba(229,230,215,1) 0%, rgba(218,216,191,1) 44%, rgba(245,229,182,1) 100%);
+}
   /*FILM MANAGEMENT*/
   .img-add{
     max-width: 100% !important;

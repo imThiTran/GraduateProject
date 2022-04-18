@@ -1,82 +1,292 @@
 <%- include ('../layouts/header')%>
 
-<body>
-    <%- include ('../layouts/admin-sub-header')%>
-    <div class="wrapper-index">
-        <div class="ad-movie">
-            <div class="h5-detail">Quản lý phim</div>
-            <span class="line-detail"></span>            
-                <table class="table table-striped  table-bordered" style="font-size: 15px;">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Tên phim</th>
-                            <th scope="col">Đạo diễn</th>
-                            <th scope="col">Khởi chiếu</th>
-                            <th scope="col">Thể loại</th>                            
-                            <th scope="col">Tình trạng</th>
-                            <th scope="col" style="width: 1%;">
-                                <div class="btn-admin">
-                                    <button type="button" id="btnAddFilm" class="btn-common btn-buy btn-add-film" data-toggle="modal"
-                                        data-target=".bd-example-modal-lg"><i class="fa fa-plus" aria-hidden="true"></i>
-                                        Thêm mới</button>
-                                    <form action="/admin/film/add-film" method="post" enctype="multipart/form-data" id="formAddFilm">
-                                        <div id="modalAddFilm" class="modal">
+    <body>
+        <%- include ('../layouts/admin-sub-header')%>
+            <div class="wrapper-index">
+                <div class="ad-movie">
+                    <div style="display: flex; justify-content: space-between;
+                    flex-wrap: wrap;">
+                        <div class="h5-detail">Quản lý phim</div>
+                        <form action="/" method="get" class="purchase-search" style="width: 50%">
+                            <input type="text" placeholder="Tìm kiếm phim" name="name">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <span class="line-detail"></span>
+                    <table class="table table-striped  table-bordered" style="font-size: 15px;">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Tên phim</th>
+                                <th scope="col">Đạo diễn</th>
+                                <th scope="col">Khởi chiếu</th>
+                                <th scope="col">Thể loại</th>
+                                <th scope="col">Tình trạng</th>
+                                <th scope="col" style="width: 1%;">
+                                    <div class="btn-admin">
+                                        <button type="button" id="btnAddFilm" class="btn-common btn-buy btn-add-film"
+                                            data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"
+                                                aria-hidden="true"></i>
+                                            Thêm mới</button>
+                                        <form action="/admin/film/add-film" method="post" enctype="multipart/form-data"
+                                            id="formAddFilm">
+                                            <div id="modalAddFilm" class="modal">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Thêm phim</h4>
+                                                        <button type="button" class="close-footer close"
+                                                            data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body-plus">
+                                                        <div class="modal-left">
+                                                            <div class="col-5 img-add">
+                                                                <div>Ảnh phim</div>
+                                                                <img id="img-edit-item"
+                                                                    class="imgAddPreview imgavtadd imgavt"
+                                                                    src="../img/no_img.webp" style="width: 100%;">
+                                                                <input type="file" class="form-control imgChangeAdd"
+                                                                    name="photo" id="img1" onchange="imgAvtAdd()"
+                                                                    accept="image/png, image/jpeg, image/jpg"
+                                                                    style="display: none;" name="photoFile">
+
+                                                                <label class="btn-common" id="btn-edit-img-item"
+                                                                    for="img1">Chọn ảnh</label>
+                                                                <input type="hidden" class="imgtest" name="imgAdd">
+                                                            </div>
+                                                            <div class="line-img"></div>
+                                                            <div class="col-5 img-add">
+                                                                <div>Ảnh poster</div>
+                                                                <img id="img-edit-item"
+                                                                    class="imgAddPreview imgbgadd imgbg"
+                                                                    src="../img/no_img.webp" style="width: 100%;">
+                                                                <input type="file" class="form-control imgChangeAdd"
+                                                                    name="background" id="img2" onchange="imgBgAdd()"
+                                                                    accept="image/png, image/jpeg, image/jpg"
+                                                                    style="display: none;" name="backgroundFile">
+                                                                <label class="btn-common" id="btn-edit-img-item"
+                                                                    for="img2">Chọn ảnh</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-right">
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet" for="">Tên phim</label>
+                                                                <div class="input-ten">
+                                                                    <input class="input-sua nameen"
+                                                                        placeholder="Tên tiếng anh" type="text"
+                                                                        name="nameEN">
+                                                                    <input class="input-sua namevn"
+                                                                        placeholder="Tên tiếng việt" type="text"
+                                                                        name="nameVN">
+                                                                </div>
+                                                            </div>
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet" for="">Đạo diễn</label>
+                                                                <input class="input-sua directors" type="text"
+                                                                    name="directors">
+                                                            </div>
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet " for="">Diễn viên</label>
+                                                                <input class="input-sua cast" type="text" name="cast">
+                                                            </div>
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet" for="">Khởi chiếu</label>
+                                                                <input class="input-sua premiere" type="date"
+                                                                    name="premiere">
+                                                            </div>
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet" for="">Thời gian</label>
+                                                                <input class="input-sua time" type="number" name="time">
+                                                            </div>
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet" for="">Thể loại</label>
+                                                                <div class="add-cate">
+                                                                    <div id="form-addCT">
+                                                                        <div class="add-category lc-category">
+                                                                            <select class="input-sua selectadd"
+                                                                                name="idCat" id="">
+                                                                                <%cats.forEach(function(cat){%>
+                                                                                    <option value="<%=cat._id%>">
+                                                                                        <%=cat.title%>
+                                                                                    </option>
+                                                                                    <%})%>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button class="btn-CT" id="btnAddCT"
+                                                                        type="button">Thêm thể loại</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="agelimitEdit ad-phim">
+                                                                <label class="label-chitiet" for="">Rating</label>
+                                                                <div class=""
+                                                                    style="display: flex; justify-content: center;">
+                                                                    <div class="form-check radio-choose">
+                                                                        <input class="form-check-input rating18"
+                                                                            value="18" type="radio" name="ageLimit"
+                                                                            id="flexRadioDefault1" checked>
+                                                                        <label class="form-check-label"
+                                                                            for="flexRadioDefault1">
+                                                                            <img class="img-cs" style="width: 70%;"
+                                                                                src="/img/cs18.png">
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check radio-choose">
+                                                                        <input class="form-check-input rating16"
+                                                                            value="16" type="radio" name="ageLimit"
+                                                                            id="flexRadioDefault1">
+                                                                        <label class="form-check-label"
+                                                                            for="flexRadioDefault1">
+                                                                            <img class="img-cs" style="width: 70%;"
+                                                                                src="/img/cs16.png">
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check radio-choose">
+                                                                        <input class="form-check-input rating13"
+                                                                            value="13" type="radio" name="ageLimit"
+                                                                            id="flexRadioDefault1">
+                                                                        <label class="form-check-label"
+                                                                            for="flexRadioDefault1">
+                                                                            <img class="img-cs" style="width: 70%;"
+                                                                                src="/img/cs13.png">
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet" for="">Tình trạng</label>
+                                                                <select class="input-sua status" name="status" id="">
+                                                                    <option value="Đang khởi chiếu">Đang khởi chiếu
+                                                                    </option>
+                                                                    <option value="Sắp khởi chiếu">Sắp khởi chiếu
+                                                                    </option>
+                                                                    <option value="Đã chiếu xong">Đã chiếu xong</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet" for="">Chi tiết</label>
+                                                                <textarea class="input-sua-area detail" cols="20"
+                                                                    rows="10" name="detail"></textarea>
+                                                            </div>
+                                                            <div class="ad-phim">
+                                                                <label class="label-chitiet" for="">Trailer</label>
+                                                                <input class="input-sua trailer" type="url"
+                                                                    name="trailer">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button"
+                                                            class="btn btn-secondary close-footer">Đóng</button>
+                                                        <button class="btn btn-warning" type="submit">Thêm</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyAdd">
+                            <% films.forEach(function(film){ %>
+                                <tr class="<%= film.slug %>">
+                                    <th scope="row" style="width: 15%">
+                                        <img style="width: 100%" src="<%=film.photo%>" alt="">
+                                    </th>
+                                    <td style="width: 20%;">
+                                        <div>
+                                            <%=film.nameEN%>
+                                        </div>
+                                        <div>
+                                            <%=film.nameVN%>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <%= film.directors %>
+                                    </td>
+                                    <td>
+                                        <%= film.premiere %>
+                                    </td>
+                                    <td>
+                                        <%= film.idCat %>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <%= film.status%>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-mode">
+                                            <button type="button" class="btnEditFilm" value="<%= film.slug %>"><i
+                                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            <button type="button" class="btnDeleteFilm" value="<%= film.slug %>"><i
+                                                    class="fa fa-times" aria-hidden="true"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }); %>
+
+
+                                    <!-- Edit Film's infomation -->
+                                    <form action="/admin/film/edit" method="post" enctype="multipart/form-data"
+                                        class="formeditfilm">
+                                        <div id="modalEditFilm" class="modal modal-edit-film">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Thêm phim</h4>
+                                                    <h4 class="modal-title">Chỉnh sửa thông tin phim</h4>
                                                     <button type="button" class="close-footer close"
                                                         data-dismiss="modal">&times;</button>
                                                 </div>
                                                 <div class="modal-body-plus">
                                                     <div class="modal-left">
                                                         <div class="col-5 img-add">
-                                                            <div>Ảnh phim</div>
-                                                            <img id="img-edit-item" class="imgAddPreview imgavtadd imgavt"
+                                                            <img id="img-edit-item"
+                                                                class="imgAddPreview imgavt imgavtedit"
                                                                 src="../img/no_img.webp" style="width: 100%;">
                                                             <input type="file" class="form-control imgChangeAdd"
-                                                                name="photo" id="img1" onchange="imgAvtAdd()"
                                                                 accept="image/png, image/jpeg, image/jpg"
-                                                                style="display: none;" name="photoFile">
-                                                                
+                                                                style="display: none;" onchange="imgAvtEdit()" id="img3"
+                                                                name="photo">
                                                             <label class="btn-common" id="btn-edit-img-item"
-                                                                for="img1">Chọn ảnh</label>
-                                                            <input type="hidden" class="imgtest" name="imgAdd">
+                                                                for="img3">Chọn
+                                                                ảnh</label>
                                                         </div>
-                                                        <div class="line-img"></div>
                                                         <div class="col-5 img-add">
-                                                            <div>Ảnh poster</div>
-                                                            <img id="img-edit-item" class="imgAddPreview imgbgadd imgbg"
+                                                            <img id="img-edit-item"
+                                                                class="imgAddPreview imgbg imgbgedit"
                                                                 src="../img/no_img.webp" style="width: 100%;">
                                                             <input type="file" class="form-control imgChangeAdd"
-                                                                name="background" id="img2" onchange="imgBgAdd()"
                                                                 accept="image/png, image/jpeg, image/jpg"
-                                                                style="display: none;" name="backgroundFile">
+                                                                style="display: none;" onchange="imgBgEdit()" id="img4"
+                                                                name="background">
                                                             <label class="btn-common" id="btn-edit-img-item"
-                                                                for="img2">Chọn ảnh</label>
+                                                                for="img4">Chọn
+                                                                ảnh</label>
                                                         </div>
-                                                    </div>                                                    
+                                                    </div>
                                                     <div class="modal-right">
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Tên phim</label>
                                                             <div class="input-ten">
-                                                                <input class="input-sua nameen" placeholder="Tên tiếng anh"
-                                                                    type="text" name="nameEN">
-                                                                <input class="input-sua namevn" placeholder="Tên tiếng việt"
-                                                                    type="text" name="nameVN">
+                                                                <input class="input-sua nameen"
+                                                                    placeholder="Tên tiếng anh" type="text"
+                                                                    name="nameEN">
+                                                                <input class="input-sua namevn"
+                                                                    placeholder="Tên tiếng việt" type="text"
+                                                                    name="nameVN">
                                                             </div>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Đạo diễn</label>
-                                                            <input class="input-sua directors" type="text" name="directors">
+                                                            <input class="input-sua directors" type="text"
+                                                                name="directors">
                                                         </div>
                                                         <div class="ad-phim">
-                                                            <label class="label-chitiet " for="">Diễn viên</label>
+                                                            <label class="label-chitiet" for="">Diễn viên</label>
                                                             <input class="input-sua cast" type="text" name="cast">
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Khởi chiếu</label>
-                                                            <input class="input-sua premiere" type="date" name="premiere">
+                                                            <input class="input-sua premiere" type="date"
+                                                                name="premiere">
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Thời gian</label>
@@ -85,40 +295,55 @@
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Thể loại</label>
                                                             <div class="add-cate">
-                                                                <div id="form-addCT">
+                                                                <div id="form-editCT">
                                                                     <div class="add-category lc-category">
-                                                                        <select class="input-sua selectadd" name="idCat" id="">
+                                                                        <select class="input-sua selectedit"
+                                                                            name="idCat" id="">
                                                                             <%cats.forEach(function(cat){%>
-                                                                                <option value="<%=cat._id%>"><%=cat.title%></option>
-                                                                            <%})%>
+                                                                                <option value="<%=cat._id%>">
+                                                                                    <%=cat.title%>
+                                                                                </option>
+                                                                                <%})%>
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <button class="btn-CT" id="btnAddCT" type="button">Thêm thể loại</button>
+                                                                <button class="btn-CT" id="btnEditCT" type="button">Thêm
+                                                                    thể loại</button>
                                                             </div>
+
                                                         </div>
                                                         <div class="agelimitEdit ad-phim">
                                                             <label class="label-chitiet" for="">Rating</label>
-                                                            <div class="" style="display: flex; justify-content: center;">
+                                                            <div class=""
+                                                                style="display: flex; justify-content: center;">
                                                                 <div class="form-check radio-choose">
-                                                                    <input class="form-check-input rating18" value="18" type="radio"
-                                                                        name="ageLimit" id="flexRadioDefault1" checked>
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        <img class="img-cs" style="width: 70%;" src="/img/cs18.png">
+                                                                    <input class="form-check-input rating18" value="18"
+                                                                        type="radio" name="ageLimit"
+                                                                        id="flexRadioDefault1" checked>
+                                                                    <label class="form-check-label"
+                                                                        for="flexRadioDefault1">
+                                                                        <img class="img-cs" style="width: 70%;"
+                                                                            src="/img/cs18.png">
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check radio-choose">
-                                                                    <input class="form-check-input rating16" value="16" type="radio"
-                                                                        name="ageLimit" id="flexRadioDefault1">
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        <img class="img-cs" style="width: 70%;" src="/img/cs16.png">
+                                                                    <input class="form-check-input rating16" value="16"
+                                                                        type="radio" name="ageLimit"
+                                                                        id="flexRadioDefault1">
+                                                                    <label class="form-check-label"
+                                                                        for="flexRadioDefault1">
+                                                                        <img class="img-cs" style="width: 70%;"
+                                                                            src="/img/cs16.png">
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check radio-choose">
-                                                                    <input class="form-check-input rating13" value="13" type="radio"
-                                                                        name="ageLimit" id="flexRadioDefault1">
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        <img class="img-cs" style="width: 70%;" src="/img/cs13.png">
+                                                                    <input class="form-check-input rating13" value="13"
+                                                                        type="radio" name="ageLimit"
+                                                                        id="flexRadioDefault1">
+                                                                    <label class="form-check-label"
+                                                                        for="flexRadioDefault1">
+                                                                        <img class="img-cs" style="width: 70%;"
+                                                                            src="/img/cs13.png">
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -133,8 +358,8 @@
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Chi tiết</label>
-                                                            <textarea class="input-sua-area detail" cols="20"
-                                                                rows="10" name="detail"></textarea>
+                                                            <textarea class="input-sua-area detail" name="detail" id=""
+                                                                cols="20" rows="10"></textarea>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Trailer</label>
@@ -142,248 +367,100 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" class="avtimg" name="avtimg">
+                                                <input type="hidden" class="bgimg" name="bgimg">
+                                                <input type="hidden" class="idfilm" name="idFilm">
                                                 <div class="modal-footer">
                                                     <button type="button"
                                                         class="btn btn-secondary close-footer">Đóng</button>
-                                                    <button class="btn btn-warning" type="submit" >Thêm</button>
+                                                    <button type="submit" class="btn-common close-footer submitedit">Xác
+                                                        nhận</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodyAdd">
-                        <% films.forEach(function(film){ %>
-                            <tr class="<%= film.slug %>">
-                                <th scope="row" style="width: 15%">
-                                    <img style="width: 100%" src="<%=film.photo%>" alt="">
-                                </th>                                
-                                <td style="width: 20%;">
-                                    <div><%=film.nameEN%></div>
-                                    <div><%=film.nameVN%></div>
-                                </td>
-                                <td><%= film.directors %></td>
-                                <td><%= film.premiere %></td>
-                                <td><%= film.idCat %></td>                                
-                                <td>
-                                    <div><%= film.status%></div>
-                                </td>
-                                <td>
-                                    <div class="btn-mode">
-                                        <button type="button" class="btnEditFilm" value="<%= film.slug %>"><i class="fa fa-pencil-square-o"
-                                            aria-hidden="true"></i></button>
-                                        <button type="button" class="btnDeleteFilm" value="<%= film.slug %>"><i class="fa fa-times" aria-hidden="true"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        <% }); %>
-                        
+                        </tbody>
+                    </table>
 
-                        <!-- Edit Film's infomation -->
-                        <form action="/admin/film/edit" method="post" enctype="multipart/form-data" class="formeditfilm">
-                            <div id="modalEditFilm" class="modal modal-edit-film">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Chỉnh sửa thông tin phim</h4>
-                                        <button type="button" class="close-footer close"
-                                            data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body-plus">
-                                        <div class="modal-left">
-                                            <div class="col-5 img-add">
-                                                <img id="img-edit-item" class="imgAddPreview imgavt imgavtedit" src="../img/no_img.webp"
-                                                    style="width: 100%;">
-                                                <input type="file" class="form-control imgChangeAdd" accept="image/png, image/jpeg, image/jpg"
-                                                    style="display: none;" onchange="imgAvtEdit()" id="img3" name="photo">
-                                                <label class="btn-common" id="btn-edit-img-item" for="img3">Chọn
-                                                    ảnh</label>
-                                            </div>
-                                            <div class="col-5 img-add">
-                                                <img id="img-edit-item" class="imgAddPreview imgbg imgbgedit" src="../img/no_img.webp"
-                                                    style="width: 100%;">
-                                                <input type="file" class="form-control imgChangeAdd" accept="image/png, image/jpeg, image/jpg"
-                                                    style="display: none;" onchange="imgBgEdit()" id="img4" name="background">
-                                                <label class="btn-common" id="btn-edit-img-item" for="img4">Chọn
-                                                    ảnh</label>
-                                            </div>
-                                        </div>
-                                        <div class="modal-right">
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Tên phim</label>
-                                                <div class="input-ten">
-                                                    <input class="input-sua nameen" placeholder="Tên tiếng anh" type="text" name="nameEN">
-                                                    <input class="input-sua namevn" placeholder="Tên tiếng việt" type="text" name="nameVN">
-                                                </div>
-                                            </div>
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Đạo diễn</label>
-                                                <input class="input-sua directors" type="text" name="directors">
-                                            </div>
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Diễn viên</label>
-                                                <input class="input-sua cast" type="text" name="cast">
-                                            </div>                                            
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Khởi chiếu</label>
-                                                <input class="input-sua premiere" type="date" name="premiere">
-                                            </div>
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Thời gian</label>
-                                                <input class="input-sua time" type="number" name="time">
-                                            </div>
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Thể loại</label>
-                                                <div class="add-cate">
-                                                    <div id="form-editCT">
-                                                        <div class="add-category lc-category">
-                                                            <select class="input-sua selectedit" name="idCat" id="">
-                                                                <%cats.forEach(function(cat){%>
-                                                                    <option value="<%=cat._id%>"><%=cat.title%></option>
-                                                                <%})%>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn-CT" id="btnEditCT" type="button">Thêm thể loại</button>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="agelimitEdit ad-phim">
-                                                <label class="label-chitiet" for="">Rating</label>
-                                                <div class="" style="display: flex; justify-content: center;">
-                                                    <div class="form-check radio-choose">
-                                                        <input class="form-check-input rating18" value="18" type="radio"
-                                                            name="ageLimit" id="flexRadioDefault1" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            <img class="img-cs" style="width: 70%;" src="/img/cs18.png">
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check radio-choose">
-                                                        <input class="form-check-input rating16" value="16" type="radio"
-                                                            name="ageLimit" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            <img class="img-cs" style="width: 70%;" src="/img/cs16.png">
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check radio-choose">
-                                                        <input class="form-check-input rating13" value="13" type="radio"
-                                                            name="ageLimit" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            <img class="img-cs" style="width: 70%;" src="/img/cs13.png">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Tình trạng</label>
-                                                <select class="input-sua status" name="status" id="">
-                                                    <option value="Đang khởi chiếu">Đang khởi chiếu</option>
-                                                    <option value="Sắp khởi chiếu">Sắp khởi chiếu</option>
-                                                    <option value="Đã chiếu xong">Đã chiếu xong</option>
-                                                </select>
-                                            </div>
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Chi tiết</label>
-                                                <textarea class="input-sua-area detail" name="detail"  id="" cols="20"
-                                                    rows="10"></textarea>
-                                            </div>
-                                            <div class="ad-phim">
-                                                <label class="label-chitiet" for="">Trailer</label>
-                                                <input class="input-sua trailer" type="url" name="trailer">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" class="avtimg" name="avtimg">
-                                    <input type="hidden" class="bgimg" name="bgimg">
-                                    <input type="hidden" class="idfilm" name="idFilm">
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary close-footer">Đóng</button>
-                                        <button type="submit" class="btn-common close-footer submitedit">Xác nhận</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </tbody>
-                </table>
-            
-        </div>
-    </div>
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/trigger.js"></script>
-    <script src="../js/modal.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>    
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
-<script>
-    var imgavtadd = document.getElementsByClassName('imgavtadd')[0]    
-    function imgAvtAdd(){
-        if (event.target.files.length > 0) {
-            let src = URL.createObjectURL(event.target.files[0]);
-            document.getElementsByClassName('imgtest')[0].value=src
-            imgavtadd.src=src;
+                </div>
+            </div>
+            <script src="../js/jquery.min.js"></script>
+            <script src="../js/bootstrap.min.js"></script>
+            <script src="../js/trigger.js"></script>
+            <script src="../js/modal.js"></script>
+            <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </body>
+    <script>
+        var imgavtadd = document.getElementsByClassName('imgavtadd')[0]
+        function imgAvtAdd() {
+            if (event.target.files.length > 0) {
+                let src = URL.createObjectURL(event.target.files[0]);
+                document.getElementsByClassName('imgtest')[0].value = src
+                imgavtadd.src = src;
+            }
         }
-    }
-    var imgbgadd = document.getElementsByClassName('imgbgadd')[0]    
-    function imgBgAdd(){
-        if (event.target.files.length > 0) {
-            let src = URL.createObjectURL(event.target.files[0]);
-            imgbgadd.src=src;
+        var imgbgadd = document.getElementsByClassName('imgbgadd')[0]
+        function imgBgAdd() {
+            if (event.target.files.length > 0) {
+                let src = URL.createObjectURL(event.target.files[0]);
+                imgbgadd.src = src;
+            }
         }
-    }
-    var imgavtedit = document.getElementsByClassName('imgavtedit')[0]    
-    function imgAvtEdit(){
-        if (event.target.files.length > 0) {
-            let src = URL.createObjectURL(event.target.files[0]);
-            imgavtedit.src=src;
+        var imgavtedit = document.getElementsByClassName('imgavtedit')[0]
+        function imgAvtEdit() {
+            if (event.target.files.length > 0) {
+                let src = URL.createObjectURL(event.target.files[0]);
+                imgavtedit.src = src;
+            }
         }
-    }
-    var imgbgedit = document.getElementsByClassName('imgbgedit')[0]    
-    function imgBgEdit(){
-        if (event.target.files.length > 0) {
-            let src = URL.createObjectURL(event.target.files[0]);
-            imgbgedit.src=src;
+        var imgbgedit = document.getElementsByClassName('imgbgedit')[0]
+        function imgBgEdit() {
+            if (event.target.files.length > 0) {
+                let src = URL.createObjectURL(event.target.files[0]);
+                imgbgedit.src = src;
+            }
         }
-    }
-</script>
+    </script>
 
-<script>
-    //Add element sc
-    $('#btnAddCT').on('click', () => {
-        var htmlObj = $('#form-addCT');
-        htmlObj.append(`
+    <script>
+        //Add element sc
+        $('#btnAddCT').on('click', () => {
+            var htmlObj = $('#form-addCT');
+            htmlObj.append(`
         <div class="lc-category">
             `+ $('.add-category').html() + `
             <div class="">
                 <button type="button" class="btnDelSC"> <i class="fa fa-times close-ct" aria-hidden="true"></i></button>
             </div>
         </div>`);
-        $('.btnDelSC').each(function () {
-            var $this = $(this);
-            var rowAddSt = $this.closest('.lc-category');
-            $this.click(function (e) {
-                e.preventDefault();
-                rowAddSt.remove();
+            $('.btnDelSC').each(function () {
+                var $this = $(this);
+                var rowAddSt = $this.closest('.lc-category');
+                $this.click(function (e) {
+                    e.preventDefault();
+                    rowAddSt.remove();
+                })
             })
         })
-    })
-    $('#btnEditCT').on('click', () => {
-        var htmlObj = $('#form-editCT');
-        htmlObj.append(`
+        $('#btnEditCT').on('click', () => {
+            var htmlObj = $('#form-editCT');
+            htmlObj.append(`
         <div class="lc-category">
             `+ $('.add-category').html() + `
             <div class="">
                 <button type="button" class="btnDelSC"> <i class="fa fa-times close-ct" aria-hidden="true"></i></button>
             </div>
         </div>`);
-        $('.btnDelSC').each(function () {
-            var $this = $(this);
-            var rowAddSt = $this.closest('.lc-category');
-            $this.click(function (e) {
-                e.preventDefault();
-                rowAddSt.remove();
+            $('.btnDelSC').each(function () {
+                var $this = $(this);
+                var rowAddSt = $this.closest('.lc-category');
+                $this.click(function (e) {
+                    e.preventDefault();
+                    rowAddSt.remove();
+                })
             })
         })
-    })
-</script>
-</html>
+    </script>
+
+    </html>
