@@ -13,65 +13,75 @@ $('.close-footer').on('click', function () {
   modalAddFilm.style.display = "none";
   modalEditFilm.style.display = "none";
 });
-$('.btnEditFilm').each(function () {
-  var $this = $(this);
-  $this.on('click', function () {
-    $.ajax({
-      url: "/admin/film/" + $this[0].value,
-      method: "GET",
-      contentType: "application/json",
-      data: JSON.stringify({}),
-      success: function (result) {
-        var editform = $('#modalEditFilm')
-        editform.find('.imgavt').attr('src', result.film.photo);
-        editform.find('.imgbg').attr('src', result.film.background);
-        editform.find('.nameen').val(result.film.nameEN);
-        editform.find('.namevn').val(result.film.nameVN);
-        editform.find('.directors').val(result.film.directors);
-        editform.find('.cast').val(result.film.cast);
-        editform.find('.premiere').val(result.film.premiere);
-        editform.find('.time').val(result.film.time);
-        editform.find("input[name=ageLimit][value=" + result.film.ageLimit + "]").prop('checked', true);
-        editform.find('.detail').val(result.film.detail);
-        editform.find('.trailer').val('https://youtu.be/' + result.film.trailer);
-        editform.find('.selectedit').val(result.film.idCat);
-        editform.find('.status').val(result.film.status);
-        editform.find('.avtimg').val(result.film.photoDrop);
-        editform.find('.bgimg').val(result.film.backgroundDrop);
-        editform.find('.idfilm').val(result.film._id);        
-        modalEditFilm.style.display = "block";
-      }
-    })
-  })
-})
-
-$('.btnDeleteFilm').each(function () {
-  var $this = $(this);
-  $this.on('click', function () {
-    swal({
-      title: "Bạn có chắc chắn muốn xóa?",
-      text: "Một khi đã xóa, bạn không thể khôi phục lại được.",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-      .then((willDelete) => {
-        if (willDelete) {
-          $.ajax({
-            url: "/admin/film/delete/" + $this[0].value,
-            method: "GET",
-            contentType: "application/json",
-            data: JSON.stringify({}),
-            success: function (result) {
-              swal(result.msg, "", "success").then((value) => {
-                $(`.${result.id}`).remove()
-              })
-            }
-          })
+function editFilm(){
+  $('.btnEditFilm').each(function () {
+    var $this = $(this);
+    $this.on('click', function () {
+      $.ajax({
+        url: "/admin/film/" + $this[0].value,
+        method: "GET",
+        contentType: "application/json",
+        data: JSON.stringify({}),
+        success: function (result) {
+          var editform = $('#modalEditFilm')
+          editform.find('.imgavt').attr('src', result.film.photo);
+          editform.find('.imgbg').attr('src', result.film.background);
+          editform.find('.nameen').val(result.film.nameEN);
+          editform.find('.namevn').val(result.film.nameVN);
+          editform.find('.directors').val(result.film.directors);
+          editform.find('.cast').val(result.film.cast);
+          editform.find('.premiere').val(result.film.premiere);
+          editform.find('.time').val(result.film.time);
+          editform.find("input[name=ageLimit][value=" + result.film.ageLimit + "]").prop('checked', true);
+          editform.find('.detail').val(result.film.detail);
+          editform.find('.trailer').val('https://youtu.be/' + result.film.trailer);
+          editform.find('.selectedit').val(result.film.idCat);
+          editform.find('.status').val(result.film.status);
+          editform.find('.avtimg').val(result.film.photoDrop);
+          editform.find('.bgimg').val(result.film.backgroundDrop);
+          editform.find('.idfilm').val(result.film._id);        
+          modalEditFilm.style.display = "block";
         }
-      });
+      })
+    })
   })
-})
+}
+editFilm()
+  
+function deleteFilm(){
+  $('.btnDeleteFilm').each(function () {  
+    var $this = $(this);
+    $this.on('click', function () {    
+      swal.fire({
+        icon: 'warning',
+        title: 'Bạn có chắc chắn muốn xóa?',
+        text: 'Một khi đã xóa, bạn không thể khôi phục lại được.',
+        showCancelButton: true,
+        confirmButtonColor: '#d33'
+      })
+        .then((willDelete) => {
+          if (willDelete.isConfirmed) {
+            $.ajax({
+              url: "/admin/film/delete/" + $this[0].value,
+              method: "GET",
+              contentType: "application/json",
+              data: JSON.stringify({}),
+              success: function (result) {
+                swal.fire(
+                  result.msg,
+                  "",
+                  "success"
+                ).then((value) => {
+                  $(`.${result.slug}`).remove()
+                })
+              }
+            })
+          }
+        });
+    })
+  })
+}
+deleteFilm()
 
 $('#btnAddShowTime').on('click', function () {
   modalAddShowTime.style.display = "block";
@@ -189,3 +199,81 @@ $('.swclosed').each(function () {
   })
 
 })
+
+$("#formAddFilm").submit(function(e){
+  e.preventDefault();
+  var form = $(this);
+  var formData = new FormData(this);
+  var actionUrl = form.attr('action');  
+  $.ajax({
+      type: "POST",
+      url: actionUrl,
+      data: formData,
+      success: function(data)
+      {
+        if(data.add){
+          var tr=
+          `<tr class="${data.filmAdd.slug}">
+              <th scope="row" style="width: 15%">
+                  <img style="width: 100%" src="${data.imgAdd}" alt="">
+              </th>                                
+              <td style="width: 20%;">
+                  <div>${data.filmAdd.nameEN}</div>
+                  <div>${data.filmAdd.nameVN}</div>
+              </td>
+              <td>${data.filmAdd.directors}</td>
+              <td>${data.filmAdd.premiere}</td>
+              <td>${data.filmAdd.cat}</td>                                
+              <td>
+                  <div>${data.filmAdd.status}</div>
+              </td>
+              <td>
+                  <div class="btn-mode">
+                      <button type="button" class="btnEditFilm" value="${data.filmAdd.slug}"><i class="fa fa-pencil-square-o"
+                          aria-hidden="true"></i></button>
+                      <button type="button" class="btnDeleteFilm" value="${data.filmAdd.slug}"><i class="fa fa-times" aria-hidden="true"></i></button>
+                  </div>
+              </td>
+          </tr>`
+          Swal.fire(
+            data.msg,
+            '',        
+            'success'
+          )
+          $('#bodyAdd').append(tr)
+          modalAddFilm.style.display = "none"
+          editFilm()
+          deleteFilm()
+          var editform = $('#formAddFilm')
+          editform.find('.imgavt').attr('src', '../img/no_img.webp');
+          editform.find('.imgbg').attr('src', '../img/no_img.webp');
+          editform.find('.imgtest').val('');
+          editform.find('#img1').val('');
+          editform.find('#img2').val('');
+          editform.find('.nameen').val('');
+          editform.find('.namevn').val('');
+          editform.find('.directors').val('');
+          editform.find('.cast').val('');
+          editform.find('.premiere').val('');
+          editform.find('.time').val('');
+          editform.find("input[name=ageLimit][value=" + 18 + "]").prop('checked', true);
+          editform.find('.detail').val('');
+          editform.find('.trailer').val('');
+          editform.find('.selectadd').val('62469bbeb004812168c21722');
+          editform.find('.status').val('Đang khởi chiếu');              
+        }else{
+          modalAddFilm.style.display = "none"
+          Swal.fire({
+            icon: 'warning',
+            title: data.msg
+          }).then((value) => {
+            modalAddFilm.style.display = "block"
+          })          
+        }        
+      },
+      cache: false,
+      processData: false,
+      contentType: false
+  });
+  
+});

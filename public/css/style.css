@@ -2213,7 +2213,7 @@ button.primaryContained:hover {
   .btn-SC:hover{
     background: #f5e3c1;
   }
-  .btnDelSC{
+  .saveDelete, .btnDelSC{
       margin-left: 10px;
       border: none;
       background-color: transparent;

@@ -5,6 +5,13 @@ var Showtime = require('../models/showtime');
 var Ticket = require('../models/ticket');
 var shortId = require('shortid');
 const Room = require('../models/room');
+const TicketPrice = require('../models/ticket-price');
+var singleSeat, coupleSeat;
+
+TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
+    singleSeat = tkpr.singleSeat;
+    coupleSeat = tkpr.coupleSeat;
+})
 
 
 //loai bo khoang trang trong chuoi
@@ -33,7 +40,11 @@ router.get('/', (req, res) => {
                             times = [];
                             st.forEach(function (s) {
                                 if (s.date == d && s.idFilm == f._id.toString())
-                                    times.push(s.timeStart);
+                                    times.push({
+                                        timeStart: s.timeStart,
+                                        closed: s.closed,
+                                        id: s._id.toString()
+                                    });
                             })
                             descrb.push({
                                 nameDate: d,
@@ -74,12 +85,20 @@ function transferTimeEnd(timeStart, time) {
 }
 
 router.post('/add-showtime', (req, res) => {
-    const { date, idAndTime, timeStart, room } = req.body;
+    const { date, idAndTime, hour, minute, room } = req.body;
+    var timeStart;
     var idAndTimeArr = idAndTime.split('/');
     var idFilm = idAndTimeArr[0];
     var time = idAndTimeArr[1];
     var today = new Date();
+    var singleSeat, coupleSeat;
+
+    TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
+        singleSeat = tkpr.singleSeat;
+        coupleSeat = tkpr.coupleSeat;
+    })
     if (typeof room == "string") {
+        timeStart = hour + ':' + minute;
         var newDay = new Date(date);
         var timeArr = timeStart.split(':');
         newDay.setHours(timeArr[0], timeArr[1]);
@@ -127,7 +146,7 @@ router.post('/add-showtime', (req, res) => {
                                     tickets.push({
                                         idShowtime: result._id,
                                         name: name + j,
-                                        price: 55000,
+                                        price: singleSeat,
                                         sorting: (12 * i) + j,
                                     })
                                 } else {
@@ -135,7 +154,7 @@ router.post('/add-showtime', (req, res) => {
                                     tickets.push({
                                         idShowtime: result._id,
                                         name: name + j,
-                                        price: 120000,
+                                        price: coupleSeat,
                                         sorting: (12 * i) + j,
                                     })
                                 }
@@ -149,6 +168,10 @@ router.post('/add-showtime', (req, res) => {
         }
     } else { //else room = array
         var checkTime = true;
+        timeStart = [];
+        hour.forEach(function (hourFe, index) {
+            timeStart.push(hourFe + ':' + minute[index]);
+        })
         timeStart.forEach(function (timeStart) {
             var newDay = new Date(date);
             var timeArr = timeStart.split(':');
@@ -223,7 +246,7 @@ router.post('/add-showtime', (req, res) => {
                                             tickets.push({
                                                 idShowtime: st._id,
                                                 name: name + j,
-                                                price: 55000,
+                                                price: singleSeat,
                                                 sorting: (12 * i) + j,
                                             })
                                         } else {
@@ -231,7 +254,7 @@ router.post('/add-showtime', (req, res) => {
                                             tickets.push({
                                                 idShowtime: st._id,
                                                 name: name + j,
-                                                price: 120000,
+                                                price: coupleSeat,
                                                 sorting: (12 * i) + j,
                                             })
                                         }
@@ -250,43 +273,53 @@ router.post('/add-showtime', (req, res) => {
 
 
 router.post('/load-edit', (req, res) => {
-    var { idFilm, date } = req.body;
-    var htmlSend = '';
-    Showtime.find({ idFilm: idFilm, date: date }, (err, st) => {
-        Film.findOne({ _id: idFilm }, (err, fi) => {
-            Room.find({ block: 0 }, (err, ro) => {
-                st.sort(function (a, b) {
-                    if (a.timeStart.toLowerCase() < b.timeStart.toLowerCase()) { return -1; }
-                    if (a.timeStart.toLowerCase() > b.timeStart.toLowerCase()) { return 1; }
-                    return 0;
-                });
-                st.forEach(function (stFe) {
-                    htmlSend = htmlSend + `<div class="choose-showtime">
-                    <label for="">Suất chiếu</label>
-                    <input type="hidden" name="idShowtime" value="`+ stFe._id + `" id="">
-                    <input class="form-control" type="time" name="timeStart" value="`+ stFe.timeStart + `" id="">
-                </div>
-                <div class="choose-showtime">
-                    <label style="width: 80px">Rạp</label>
-                    <select id="room" name="room" class="form-select">`;
-                    ro.forEach(function (roFe) {
-                        htmlSend = htmlSend + `<option ` + ((stFe.idRoom == roFe._id.toString()) ? `selected` : ``) + ` value="` + roFe._id + `">` + roFe.name + `</option>`
-                    });
-                    htmlSend = htmlSend + `</select>
-                </div>
-                <div class="col-2">
-                    <button type="button" idSt="`+ stFe._id + `" class="btnDelSC"> <i
-                            class="fa fa-times"
-                            aria-hidden="true"></i></button>
-                </div>`
-                });
-                res.send({
-                    nameEN: fi.nameEN,
-                    date: date,
-                    htmlSend: htmlSend
-                })
+    var idSt = req.body.idSt;
+    Showtime.findById(idSt, (err, st) => {
+        Film.findOne({ id: st.idFilm }, (err, fi) => {
+            var hour = st.timeStart.split(':')[0];
+            var minute = st.timeStart.split(':')[1];
+            res.send({
+                nameEN: fi.nameEN,
+                time: fi.time,
+                closed: st.closed,
+                date: st.date,
+                hour: hour,
+                minute: minute,
+                room: st.idRoom,
             })
         })
     })
 })
+
+router.post('/edit-showtime', (req, res) => {
+    var { idSt, hour, minute, room, closed, time, date } = req.body;
+    if (closed=='') closed=1;
+    var timeStart = hour + ':' + minute;
+    if (typeof closed == "undefined") closed = 1;
+    var timeEnd = transferTimeEnd(timeStart, time);
+    Showtime.findOne({
+        _id: { $ne: idSt }, date: date, idRoom: room, $or: [     //kiem tra suat chieu nay da ton tai hay khong
+            { timeStart: { $lte: timeStart }, timeEnd: { $gte: timeStart } },
+            { timeStart: { $lte: timeEnd }, timeEnd: { $gte: timeEnd } }
+        ]
+    }, (err, st) => {
+        if (st) {
+            res.send('fail');
+        } else {
+            Showtime.updateOne({ _id: idSt },
+                {
+                    $set: { closed: closed, timeStart: timeStart, idRoom: room }
+                }, function (err, result) {
+                    if (err) throw err;
+                    res.send({
+                        timeStart:timeStart,
+                        closed:closed
+                    });
+                })
+        }
+    })
+
+})
+
+
 module.exports = router;

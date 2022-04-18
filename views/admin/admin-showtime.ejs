@@ -138,30 +138,30 @@
                                                             <div class="first-row-addSc lc-suatchieu">
                                                                 <div class="choose-showtime hourST">
                                                                     <label style="width: 140px">Giờ</label>
-                                                                    <select id="" name="" class="form-select">
-                                                                        <option value="">8</option>
-                                                                        <option value="">9</option>
-                                                                        <option value="">10</option>
-                                                                        <option value="">11</option>
-                                                                        <option value="">12</option>
-                                                                        <option value="">13</option>
-                                                                        <option value="">14</option>
-                                                                        <option value="">15</option>
-                                                                        <option value="">16</option>
-                                                                        <option value="">17</option>
-                                                                        <option value="">18</option>
-                                                                        <option value="">19</option>
-                                                                        <option value="">20</option>
-                                                                        <option value="">21</option>
-                                                                        <option value="">22</option>
-                                                                        <option value="">23</option>
+                                                                    <select id="" name="hour" class="form-select">
+                                                                        <option value="08">08</option>
+                                                                        <option value="09">09</option>
+                                                                        <option value="10">10</option>
+                                                                        <option value="11">11</option>
+                                                                        <option value="12">12</option>
+                                                                        <option value="13">13</option>
+                                                                        <option value="14">14</option>
+                                                                        <option value="15">15</option>
+                                                                        <option value="16">16</option>
+                                                                        <option value="17">17</option>
+                                                                        <option value="18">18</option>
+                                                                        <option value="19">19</option>
+                                                                        <option value="20">20</option>
+                                                                        <option value="21">21</option>
+                                                                        <option value="22">22</option>
+                                                                        <option value="23">23</option>
                                                                     </select>
                                                                     <span>:</span>
-                                                                    <select id="room" name="room" class="form-select">
-                                                                        <option value="">00</option>
-                                                                        <option value="">15</option>
-                                                                        <option value="">30</option>
-                                                                        <option value="">45</option>
+                                                                    <select id="room" name="minute" class="form-select">
+                                                                        <option value="00">00</option>
+                                                                        <option value="15">15</option>
+                                                                        <option value="30">30</option>
+                                                                        <option value="45">45</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="choose-showtime">
@@ -186,7 +186,7 @@
                                                     <button type="button"
                                                         class="btn btn-secondary close-showTime">Đóng</button>
                                                     <button type="button"
-                                                        class="btn-common btn-saveAdd saveEdit ">Thêm</button>
+                                                        class="btn-common btn-saveAdd">Thêm</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -295,26 +295,42 @@
                                                                                             <div>
                                                                                                 <%date.times.sort(); %>
                                                                                                     <%date.times.forEach(function(time){%>
-                                                                                                        <%newSt=time.split(':');%>
-                                                                                                            <%if (newSt[0]<12){
-                                                                                                                %>
-
-                                                                                                                <button
+                                                                                                        <%newSt=time.timeStart.split(':');%>
+                                                                                                            <%if (newSt[0]<12){ %>
+                                                                                                                <%if (time.closed==0){%>
+                                                                                                                    <button onclick="showtimeDetail(this);"
                                                                                                                     type="button"
-                                                                                                                    class="btnShowTimeDetail">
-                                                                                                                    <%=time%>
+                                                                                                                    class="btnShowTimeDetail" id="<%=time.id%>" >
+                                                                                                                    <%=time.timeStart%>
                                                                                                                         AM
                                                                                                                 </button>
+                                                                                                                <%} else {%>
+                                                                                                                    <button onclick="showtimeDetail(this);" id="<%=time.id%>"  style="opacity: 0.5;"
+                                                                                                                    type="button"
+                                                                                                                    class="btnShowTimeDetail">
+                                                                                                                    <%=time.timeStart%>
+                                                                                                                        AM
+                                                                                                                </button>
+                                                                                                                <%}%>
+                                                                                                                
 
-                                                                                                                <%} else
-                                                                                                                    { %>
+                                                                                                                <%} else{ %>
 
-                                                                                                                    <button
+                                                                                                                    <%if (time.closed==0){%>
+                                                                                                                        <button onclick="showtimeDetail(this);" id="<%=time.id%>"
                                                                                                                         type="button"
                                                                                                                         class="btnShowTimeDetail">
-                                                                                                                        <%=time%>
+                                                                                                                        <%=time.timeStart%>
                                                                                                                             PM
                                                                                                                     </button>
+                                                                                                                    <%} else {%>
+                                                                                                                        <button onclick="showtimeDetail(this);" id="<%=time.id%>" style="opacity: 0.5;"
+                                                                                                                        type="button"
+                                                                                                                        class="btnShowTimeDetail">
+                                                                                                                        <%=time.timeStart%>
+                                                                                                                            PM
+                                                                                                                    </button>
+                                                                                                                    <%}%>
 
                                                                                                                     <%}%>
 
@@ -325,7 +341,7 @@
 
                                                                                             <div class="btn-mode">
 
-                                                                                                <button
+                                                                                                <button 
                                                                                                     idFilm="<%=showtime.idFilm%>"
                                                                                                     date="<%=date.nameDate%>"
                                                                                                     type="button">
@@ -348,9 +364,9 @@
                                 </tbody>
                                 </thead>
                                 <!-- Edit show time-->
-                                <form class="" action="" method="">
+                                <form class="formEdit" action="" method="">
                                     <div id="modalEditShowTime" class="modal">
-                                        <div class="modal-content">
+                                        <div class="modal-content contain-edit">
                                             <div class="modal-header">
                                                 <h4 class="modal-title"> <i class="fa fa-pencil" aria-hidden="true"></i>
                                                     Thông tin suất chiếu</h4>
@@ -358,6 +374,9 @@
                                                     data-dismiss="modal">&times;</button>
                                             </div>
                                             <div class="modal-body-plus">
+                                                <input type="hidden" class="idHidden" name="idSt" id="">
+                                                <input type="hidden" class="timeHidden" name="time">
+                                                <input type="hidden" class="dateHidden" name="date" id="">
                                                 <div class="wrapModal">
                                                     <div class="rowShowTime">
                                                         <label style="width: 150px;" for="">Tên phim: </label>
@@ -376,7 +395,7 @@
                                                             <span style="width: 150px;">Hoạt động: </span>
                                                             <div class="form-check form-switch"
                                                                 style="padding-left: 2.5rem;">
-                                                                <input class="swclosed form-check-input" id="" checked
+                                                                <input class="swclosed closedEdit form-check-input" value="0" id="" name="closed" checked
                                                                     type="checkbox" role="switch" />
                                                                 <label class="form-check-label"
                                                                     for="flexSwitchCheckChecked"></label>
@@ -387,43 +406,44 @@
                                                         <div class="first-row-editSc lc-suatchieu">
                                                             <div class="choose-showtime hourST">
                                                                 <label style="width: 140px">Giờ</label>
-                                                                <select id="" name="" class="form-select">
-                                                                    <option value="">8</option>
-                                                                    <option value="">9</option>
-                                                                    <option value="">10</option>
-                                                                    <option value="">11</option>
-                                                                    <option value="">12</option>
-                                                                    <option value="">13</option>
-                                                                    <option value="">14</option>
-                                                                    <option value="">15</option>
-                                                                    <option value="">16</option>
-                                                                    <option value="">17</option>
-                                                                    <option value="">18</option>
-                                                                    <option value="">19</option>
-                                                                    <option value="">20</option>
-                                                                    <option value="">21</option>
-                                                                    <option value="">22</option>
-                                                                    <option value="">23</option>
+                                                                <select id="" name="hour" class="hourEdit form-select">
+                                                                    <option value="08">08</option>
+                                                                    <option value="09">09</option>
+                                                                    <option value="10">10</option>
+                                                                    <option value="11">11</option>
+                                                                    <option value="12">12</option>
+                                                                    <option value="13">13</option>
+                                                                    <option value="14">14</option>
+                                                                    <option value="15">15</option>
+                                                                    <option value="16">16</option>
+                                                                    <option value="17">17</option>
+                                                                    <option value="18">18</option>
+                                                                    <option value="19">19</option>
+                                                                    <option value="20">20</option>
+                                                                    <option value="21">21</option>
+                                                                    <option value="22">22</option>
+                                                                    <option value="23">23</option>
                                                                 </select>
                                                                 <span>:</span>
-                                                                <select id="room" name="room" class="form-select">
-                                                                    <option value="">00</option>
-                                                                    <option value="">15</option>
-                                                                    <option value="">30</option>
-                                                                    <option value="">45</option>
+                                                                <select id="room" name="minute" class="minuteEdit form-select">
+                                                                    <option value="00">00</option>
+                                                                    <option value="15">15</option>
+                                                                    <option value="30">30</option>
+                                                                    <option value="45">45</option>
                                                                 </select>
                                                             </div>
                                                             <div class="choose-showtime">
-                                                                <label
-                                                                    style="width: 80px; margin-left: 1rem;">Rạp</label>
-                                                                <select id="room" name="room" class="form-select">
-                                                                    <option value="1">CINEMA 1</option>
-                                                                    <option value="2">CINEMA 2</option>
-                                                                    <option value="3">CINEMA 3</option>
+                                                                <label style="width: 80px; margin-left: 1rem;">Rạp</label>
+                                                                <select id="room" name="room" class="roomEdit form-select">
+                                                                    <%rooms.forEach(function(room){%>
+                                                                        <option value="<%=room._id%>">
+                                                                            <%=room.name%>
+                                                                        </option>
+                                                                        <%})%>
                                                                 </select>
                                                             </div>
                                                             <div class="">
-                                                                <button type="button" class="btnDelSC"> <i
+                                                                <button type="button" class="saveDelete"> <i
                                                                         class="fa fa-times"
                                                                         aria-hidden="true"></i></button>
                                                             </div>
@@ -432,7 +452,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <p class="" style="color: red;"></p>
+                                                <p class="alertEdit" style="color: red;"></p>
                                                 <button type="button"
                                                     class="btn btn-secondary close-showTime">Đóng</button>
                                                 <button type="button" class="saveEdit btn-common">Xác nhận</button>
@@ -443,7 +463,8 @@
                                 </table>
 
                             </div>
-                            <script src="../js/bootstrap.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <script src="/js/bootstrap.min.js"></script>
                             <script src="/js/admin-showtime.js"></script>
                     </body>
 
