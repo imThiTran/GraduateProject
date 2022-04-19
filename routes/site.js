@@ -24,7 +24,7 @@ router.get("/",function(req,res){
               var nextday = new Date(timeDay);
               dayArr.push(nextday);
           }
-      const st = await Showtime.find({date:todayStr});
+      const st = await Showtime.find({date:todayStr,closed:0});
           for (var i=0;i<fi.length;i++){
             fi[i].stArr=[]
           }
@@ -53,7 +53,7 @@ router.get('/render/:time',async (req,res)=>{
   var todayStr= (today.getFullYear())+'-'+
   (((today.getMonth()+1)<10)?('0'+(today.getMonth()+1)):(today.getMonth()+1))+'-'+
   ((today.getDate()<10)?('0'+today.getDate()):(today.getDate()));
-      const st = await Showtime.find({date:todayStr});
+      const st = await Showtime.find({date:todayStr,closed:0});
           for (var i=0;i<fi.length;i++){
               fi[i].stArr=[];
           }

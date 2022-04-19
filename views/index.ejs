@@ -109,7 +109,6 @@
                                                             <%})%>
                                                             <%film.stArr.forEach(function(st){%>
                                                                 <div class="movie-time">
-                                                                    <%if (st.closed==0){%>
                                                                         <a href="/order?idShowtime=<%=st.idSt%>" class="btn-overtime btn btn-outline-warning btn-time">
                                                                             <%newSt=st.timeStart.split(':');%>
                                                                             <%if (newSt[0]<12){ %>
@@ -118,16 +117,6 @@
                                                                                 <%=st.timeStart%> PM
                                                                             <%}%>
                                                                         </a>
-                                                                    <%} else {%>
-                                                                        <a style="opacity: 0.5;" class="btn-overtime btn btn-outline-warning btn-time">
-                                                                            <%newSt=st.timeStart.split(':');%>
-                                                                            <%if (newSt[0]<12){ %>
-                                                                                <%=st.timeStart%> AM
-                                                                            <%} else { %>
-                                                                                <%=st.timeStart%> PM
-                                                                            <%}%>
-                                                                        </a>
-                                                                    <%}%>
                                                                     
                                                                 </div>
                                                             <%})%>
