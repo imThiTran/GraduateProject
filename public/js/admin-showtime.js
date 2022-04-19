@@ -59,10 +59,10 @@ $('.saveDeleteDate').click(function () {
     }).then((confirm) => {
         if (confirm.isConfirmed) {
             $.ajax({
-                url: "/admin/showtime/delete-showtime-date/" ,
+                url: "/admin/showtime/delete-showtime-date/",
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify({idFilm:idFilm,date:date}),
+                data: JSON.stringify({ idFilm: idFilm, date: date }),
                 success: function (result) {
                     Swal.fire({
                         icon: 'success',
@@ -70,7 +70,7 @@ $('.saveDeleteDate').click(function () {
                         showConfirmButton: false,
                         timer: 1000
                     })
-                    if (lengthDate.length==1) {
+                    if (lengthDate.length == 1) {
                         containerDate.remove();
                         var counts = $('.count');
                         var i = 1;
@@ -91,7 +91,6 @@ $('.saveDeleteDate').click(function () {
 $('.saveDelete').click(function () {
     var id = $(this).closest('#modalEditShowTime').find('.idHidden').val();
     var buttonShowtime = $(`#${id}`);
-    modalEditShowTime.style.display = "none"
     Swal.fire({
         icon: 'question',
         title: 'Bạn có chắc chắn muốn xóa ?',
@@ -105,6 +104,7 @@ $('.saveDelete').click(function () {
                 contentType: "application/json",
                 data: JSON.stringify(),
                 success: function (result) {
+                    modalEditShowTime.style.display = "none";
                     var containerTime = buttonShowtime.closest('.dateShowTime');
                     var containerDate = buttonShowtime.closest('.trClosest');
                     var lengthTime = containerTime.find('.btnShowTimeDetail');
@@ -130,8 +130,6 @@ $('.saveDelete').click(function () {
                     })
                 }
             })
-        } else {
-            modalEditShowTime.style.display = "block"
         }
     })
 })
@@ -229,33 +227,37 @@ window.onclick = function (event) {
 
 //Save Add click
 $('.btn-saveAdd').click(function () {
-    var formm = $('.formAdd')[0];
-    var data = new FormData(formm);
-    $.ajax({
-        url: "/admin/showtime/add-showtime",
-        type: "POST",
-        enctype: "multipart/form-data",
-        cache: false,
-        processData: false,
-        contentType: false,
-        data: data,
-        success: function (result) {
-            if (result == "success") {
-                modalAddShowTime.style.display = "none";
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thêm thành công',
-                    showConfirmButton: false,
-                    timer: 1000
-                })
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1300);
-            } else {
-                $('.alertAdd').html(result);
+    if ($('.dateAdd').val() == '') {
+        $('.alertAdd').html('Vui lòng chọn ngày');
+    } else {
+        var formm = $('.formAdd')[0];
+        var data = new FormData(formm);
+        $.ajax({
+            url: "/admin/showtime/add-showtime",
+            type: "POST",
+            enctype: "multipart/form-data",
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (result) {
+                if (result == "success") {
+                    modalAddShowTime.style.display = "none";
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thêm thành công',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1300);
+                } else {
+                    $('.alertAdd').html(result);
+                }
             }
-        }
-    });
+        });
+    }
 })
 
 
@@ -303,3 +305,32 @@ $(function () {
 
     });
 });
+
+
+//validate search
+$('.btnSearchTime').click(function (e) {
+    var name = $('.nameSearch').val();
+    var datefrom = $('.datefrom').val();
+    var dateto = $('.dateto').val();
+    var check = true;
+    var title;
+    if (name == '' && datefrom == '' && dateto == '') {
+        title = 'Vui lòng nhập tên hoặc chọn ngày hoàn chỉnh';
+        check = false
+    } else if ((datefrom == '' && dateto != '') || (datefrom != '' && dateto == '')) {
+        title = 'Bạn chưa chọn đủ thông tin';
+        check = false;
+    } else if (new Date(datefrom) > new Date(dateto)) {
+        title = 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc';
+        check = false;
+    }
+    if (check == false) {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'warning',
+            title: title,
+            showConfirmButton: false,
+            timer: 1000
+        })
+    }
+})
