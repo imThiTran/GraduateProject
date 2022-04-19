@@ -914,7 +914,7 @@ a:hover {
 }
 
 .purchase-search input[type=text] {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 30px;
     height: 41px;
 }
@@ -941,10 +941,16 @@ a:hover {
     clear: both;
     display: table;
 }
-
+.form-search-date{
+    display: flex;
+    width: 100%;
+}
 .purchase-order {
     margin-left: 20px;
     margin-right: 20px;
+}
+.input-purchase{
+    width: 100%;
 }
 
 .purchase-order .purchase-item:last-child {

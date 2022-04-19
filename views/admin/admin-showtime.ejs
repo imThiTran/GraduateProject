@@ -195,10 +195,12 @@
                                     </form>
                                     <div style="display: flex;
                                     margin-top: 1rem">
-                                        <form action="/admin/showtime/search-time" method="get" class="purchase-search" style="width: 50%; padding-left: 0 !important">
-                                            <input type="text" class="nameSearch" style="height: 38px;"
-                                            <%if (typeof name != 'undefined') {%> value="<%=name%>" <%}%>
-                                            placeholder="Tìm kiếm suất chiếu theo phim" name="name">                         
+                                        <form action="/admin/showtime/search-time" method="get" class="form-search-date">
+                                            <div class="purchase-search input-purchase">
+                                                <input type="text" class="form-control nameSearch" style="height: 38px;"
+                                                <%if (typeof name != 'undefined') {%> value="<%=name%>" <%}%>
+                                                placeholder="Tìm kiếm suất chiếu theo phim" name="name">  
+                                            </div>             
                                             <div class="label-date">
                                                 <label class="labeltime">Từ</label>
                                                 <div class="input-date">
