@@ -44,6 +44,48 @@ $('.roomEdit').change(function () {
     checkFormChange = true;
 })
 
+//click delete date
+$('.saveDeleteDate').click(function () {
+    var idFilm = $(this).attr('idFilm');
+    var date = $(this).attr('date');
+    var rowDate = $(this).closest('.dateShowTime');
+    var containerDate = $(this).closest('.trClosest');
+    var lengthDate = containerDate.find('.dateShowTime');
+    Swal.fire({
+        icon: 'question',
+        title: 'Bạn có chắc chắn muốn xóa ?',
+        text: 'Tất cả suất chiếu của phim này vào ngày này sẽ bị xóa',
+        showCancelButton: true
+    }).then((confirm) => {
+        if (confirm.isConfirmed) {
+            $.ajax({
+                url: "/admin/showtime/delete-showtime-date/" ,
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({idFilm:idFilm,date:date}),
+                success: function (result) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Xóa thành công',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    if (lengthDate.length==1) {
+                        containerDate.remove();
+                        var counts = $('.count');
+                        var i = 1;
+                        counts.each(function () {
+                            $(this).text(i++)
+                        })
+                    } else {
+                        rowDate.remove();
+                    }
+                }
+            })
+        }
+    })
+})
+
 
 //click delete
 $('.saveDelete').click(function () {
@@ -63,10 +105,20 @@ $('.saveDelete').click(function () {
                 contentType: "application/json",
                 data: JSON.stringify(),
                 success: function (result) {
-                    var container = buttonShowtime.closest('.dateShowTime');
-                    var lengthBtn = container.find('.btnShowTimeDetail');
-                    if (lengthBtn.length == 1) {
-                        container.remove();
+                    var containerTime = buttonShowtime.closest('.dateShowTime');
+                    var containerDate = buttonShowtime.closest('.trClosest');
+                    var lengthTime = containerTime.find('.btnShowTimeDetail');
+                    var lengthDate = containerDate.find('.dateShowTime');
+                    if (lengthDate.length == 1 && lengthTime.length == 1) {
+                        containerDate.remove();
+                        var counts = $('.count');
+                        var i = 1;
+                        counts.each(function () {
+                            $(this).text(i++)
+                        })
+                    }
+                    else if (lengthTime.length == 1) {
+                        containerTime.remove();
                     } else {
                         buttonShowtime.remove();
                     }

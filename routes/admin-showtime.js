@@ -345,4 +345,17 @@ router.get('/delete-showtime/:idSt',(req,res)=>{
     })
 })
 
+router.post('/delete-showtime-date',(req,res)=>{
+    var {idFilm,date}=req.body;
+    Showtime.find({idFilm:idFilm,date:date},(err,st)=>{
+        var idStDelete = st.map(s=>s._id.toString());
+        Ticket.deleteMany({idShowtime:{$in:idStDelete}},(err)=>{
+            Showtime.deleteMany({idFilm:idFilm,date:date},(err)=>{
+                if (err) return console.log(err);
+                res.send('success');
+            })
+        })
+    })
+})
+
 module.exports = router;

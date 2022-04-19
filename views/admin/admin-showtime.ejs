@@ -235,7 +235,7 @@
                                                     <% showtimes.forEach(function(showtime){ %>
 
                                                         <tr class="trClosest">
-                                                            <th style=" width: 20px;">
+                                                            <th class="count" style=" width: 20px;">
                                                                 <%=i%>
                                                                     <%i++%>
                                                             </th>
@@ -281,25 +281,11 @@
 
 
                                                                                                     <div>
-                                                                                                        <%date.times.sort(function(a,
-                                                                                                            b){ %>
-                                                                                                            <% if
-                                                                                                                (a.timeStart.toLowerCase()
-                                                                                                                <
-                                                                                                                b.timeStart.toLowerCase())
-                                                                                                                {return
-                                                                                                                -1;} %>
-                                                                                                                <% if
-                                                                                                                    (a.timeStart.toLowerCase()>
-                                                                                                                    b.timeStart.toLowerCase())
-                                                                                                                    {return
-                                                                                                                    1;}
-                                                                                                                    %>
-                                                                                                                    <% return
-                                                                                                                        0;
-                                                                                                                        %>
-                                                                                                                        <%});
-                                                                                                                            %>
+                                                                                                        <%date.times.sort(function(a,b){ %>
+                                                                                                            <% if(a.timeStart.toLowerCase()<b.timeStart.toLowerCase()){return-1;} %>
+                                                                                                                <% if  (a.timeStart.toLowerCase()>   b.timeStart.toLowerCase()) {return  1;} %>
+                                                                                                                    <% return 0; %>
+                                                                                                                        <%});  %>
                                                                                                                             <%date.times.forEach(function(time){%>
                                                                                                                                 <%newSt=time.timeStart.split(':');%>
                                                                                                                                     <%if (newSt[0]<12){
@@ -366,6 +352,7 @@
                                                                                                         class="btn-mode">
 
                                                                                                         <button
+                                                                                                        class="saveDeleteDate"
                                                                                                             idFilm="<%=showtime.idFilm%>"
                                                                                                             date="<%=date.nameDate%>"
                                                                                                             type="button">
