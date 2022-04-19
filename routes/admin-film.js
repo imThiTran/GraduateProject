@@ -15,12 +15,16 @@ router.get('/', (req, res) => {
     Category.find({}, (err, cats) => {
         Film.find({}, (err, films) => {
             films.forEach((film) => {
-                cats.forEach((cat) => {
-                    if (film.idCat == cat._id) {
-                        film.idCat = cat.title
-                    }
-                })
-            })
+                let cate=[] 
+                for(var i=0;i<film.idCat.length;i++){
+                    for(var j=0;j<cats.length;j++){                       
+                        if(film.idCat[i]==cats[j]._id){
+                            cate.push(cats[j].title)
+                        }
+                    }                                   
+                }    
+                film.idCat=cate.toString()                 
+            })               
             res.render('admin/admin-film', {
                 films: films,
                 cats: cats
@@ -42,7 +46,7 @@ router.post('/add-film', (req, res) => {
     var { nameEN, nameVN, directors, cast, premiere, time, detail, trailer, idCat, ageLimit, status, imgAdd } = req.body;
     var idTrailer = trailer.split('/');
     trailer = idTrailer[idTrailer.length - 1];
-    var slug = (cleanText(nameVN).replace(/\s/g, '-')).toLowerCase();
+    var slug = (cleanText(nameEN).replace(/\s/g, '-')).toLowerCase();
     
     Film.findOne({slug:slug}, function(err,film){
         if(film){
@@ -61,24 +65,52 @@ router.post('/add-film', (req, res) => {
                 photoFile = "";
                 backgroundFile = "";                
             }
-            if (photoFile != "" && backgroundFile != "") {    
-                Category.findById(idCat, function(err,cat){
-                    var filmAdd = {
-                        nameEN:nameEN,
-                        nameVN:nameVN,
-                        slug:slug,
-                        directors:directors,
-                        premiere:premiere,
-                        cat:cat.title,
-                        status:status   
-                    }
-                    res.send({
-                        msg:"Thêm thành công",
-                        imgAdd: imgAdd,
-                        filmAdd:filmAdd,
-                        add:true
+            if (photoFile != "" && backgroundFile != "") {
+                if(typeof idCat == "string"){
+                    Category.findById(idCat, function(err,cat){
+                        var filmAdd = {
+                            nameEN:nameEN,
+                            nameVN:nameVN,
+                            slug:slug,
+                            directors:directors,
+                            premiere:premiere,
+                            cat:cat.title,
+                            status:status   
+                        }
+                        res.send({
+                            msg:"Thêm thành công",
+                            imgAdd: imgAdd,
+                            filmAdd:filmAdd,
+                            add:true
+                        })
                     })
-                })                            
+                }else{
+                    Category.find({}, function(err,cats){
+                        var cate=[]
+                        for(var i=0;i<idCat.length;i++){
+                            for(var j=0;j<cats.length;j++){
+                                if(idCat[i]==cats[j]._id){
+                                    cate.push(cats[j].title)
+                                }
+                            }
+                        }
+                        var filmAdd = {
+                            nameEN:nameEN,
+                            nameVN:nameVN,
+                            slug:slug,
+                            directors:directors,
+                            premiere:premiere,
+                            cat:cate.toString(),
+                            status:status
+                        }
+                        res.send({
+                            msg:"Thêm thành công",
+                            imgAdd: imgAdd,
+                            filmAdd:filmAdd,
+                            add:true
+                        })
+                    })
+                }                          
                 cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/films/" + slug }, function (err, rsPhoto) {
                     cloudinary.uploader.upload(backgroundFile.tempFilePath, { folder: "cinema/films/" + slug }, function (err, rsBackground) {
                         if (err) throw err;

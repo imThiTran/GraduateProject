@@ -15,8 +15,8 @@ $('.close-footer').on('click', function () {
 });
 function editFilm(){
   $('.btnEditFilm').each(function () {
-    var $this = $(this);
-    $this.on('click', function () {
+    var $this = $(this);    
+    $this.on('click', function () {      
       $.ajax({
         url: "/admin/film/" + $this[0].value,
         method: "GET",
@@ -35,7 +35,34 @@ function editFilm(){
           editform.find("input[name=ageLimit][value=" + result.film.ageLimit + "]").prop('checked', true);
           editform.find('.detail').val(result.film.detail);
           editform.find('.trailer').val('https://youtu.be/' + result.film.trailer);
-          editform.find('.selectedit').val(result.film.idCat);
+          var htmlObj = $('#form-editCT');
+          $('.sleditadd').remove()
+          if(result.film.idCat.length==1){
+            editform.find('.selectedit').val(result.film.idCat[0]);
+          }else{            
+            editform.find('.selectedit').val(result.film.idCat[0]);
+            for(var i=1;i<result.film.idCat.length;i++){                
+                htmlObj.append(`
+                  <div class="lc-category sledit sleditadd">
+                      `+ $('.sledit').html() + `
+                      <div class="">
+                          <button type="button" class="btnDelSC"> <i class="fa fa-times close-ct" aria-hidden="true"></i></button>
+                      </div>
+                  </div>
+                  <script>
+                    $('.btnDelSC').each(function () {
+                      var $this = $(this);
+                      var rowAddSt = $this.closest('.lc-category');
+                      $this.click(function (e) {
+                          e.preventDefault();
+                          rowAddSt.remove();
+                      })
+                    })
+                  </script>
+                `);
+                editform.find('.selectedit').eq(i).val(result.film.idCat[i]);
+            }
+          }                    
           editform.find('.status').val(result.film.status);
           editform.find('.avtimg').val(result.film.photoDrop);
           editform.find('.bgimg').val(result.film.backgroundDrop);
@@ -277,3 +304,43 @@ $("#formAddFilm").submit(function(e){
   });
   
 });
+
+
+//Add element sc
+$('#btnAddCT').on('click', () => {
+    var htmlObj = $('#form-addCT');
+    htmlObj.append(`
+<div class="lc-category">
+    `+ $('.sladd').html() + `
+    <div class="">
+        <button type="button" class="btnDelSC"> <i class="fa fa-times close-ct" aria-hidden="true"></i></button>
+    </div>
+</div>`);
+    $('.btnDelSC').each(function () {
+        var $this = $(this);
+        var rowAddSt = $this.closest('.lc-category');
+        $this.click(function (e) {
+            e.preventDefault();
+            rowAddSt.remove();
+        })
+    })
+})
+$('#btnEditCT').on('click', () => {
+    var htmlObj = $('#form-editCT');
+    htmlObj.append(`
+<div class="lc-category sledit sleditadd">
+    `+ $('.sledit').html() + `
+    <div class="">
+        <button type="button" class="btnDelSC"> <i class="fa fa-times close-ct" aria-hidden="true"></i></button>
+    </div>
+</div>`);
+    $('.btnDelSC').each(function () {
+        var $this = $(this);
+        var rowAddSt = $this.closest('.lc-category');
+        $this.click(function (e) {
+            e.preventDefault();
+            rowAddSt.remove();
+        })
+    })
+})
+  
