@@ -2141,7 +2141,6 @@ button.primaryContained:hover {
   .wrapModal{
       display: flex;
       flex-direction: column;
-      margin-left: 2rem;
   }
   .ad-phim1{
     display: flex;
@@ -2151,6 +2150,7 @@ button.primaryContained:hover {
   }
   .rowShowTime{
       display: flex;
+      padding-left: 2rem;
   }
   .rowST{
       margin-bottom: 20px;
@@ -2172,6 +2172,8 @@ button.primaryContained:hover {
   .lc-suatchieu{
       display: flex;
       width: 670px;
+      padding-left: 2rem;
+      position: relative;
   }
 .choose-showtime{
     display: flex;
@@ -2202,6 +2204,7 @@ button.primaryContained:hover {
       margin-bottom: 10px;
       line-height: 2rem;
       margin-top: 30px;
+      margin-left: 2rem;
   }
   .btn-SC:hover{
     background: #f5e3c1;
@@ -2212,6 +2215,9 @@ button.primaryContained:hover {
       background-color: transparent;
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
+  }
+  .btnDelSC{
+      height: 36px;
   }
   .modal {
     display: none;
@@ -2353,6 +2359,14 @@ button.primaryContained:hover {
     align-items: center;
     border-bottom: 3px solid #f0c673;
   }
+.select-time{
+    height: 36px;
+}
+.close-sc{
+    position: absolute;
+    top: 10px;
+    font-size: 20px;
+}
 
   /* model giá vé */
   .check-price{

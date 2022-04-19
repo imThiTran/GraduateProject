@@ -234,3 +234,6 @@ a {
     font-family: FontAwesome;
     content: 'f8a9';
 }
+.swal2-backdrop-show{
+    z-index: 1100;
+}

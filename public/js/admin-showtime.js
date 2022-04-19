@@ -267,7 +267,7 @@ $('#btnAddSC').on('click', () => {
     <div class="lc-suatchieu">
         `+ $('.first-row-addSc').html() + `
         <div class="">
-            <button type="button" class="btnDelSC"> <i class="fa fa-times" aria-hidden="true"></i></button>
+            <button type="button" class="btnDelSC"> <i class="fa fa-times close-sc" aria-hidden="true"></i></button>
         </div>
     </div>`);
     $('.btnDelSC').each(function () {
