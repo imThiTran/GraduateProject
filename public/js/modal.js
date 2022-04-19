@@ -288,14 +288,11 @@ $("#formAddFilm").submit(function(e){
           editform.find('.trailer').val('');
           editform.find('.selectadd').val('62469bbeb004812168c21722');
           editform.find('.status').val('Đang khởi chiếu');              
-        }else{
-          modalAddFilm.style.display = "none"
+        }else{          
           Swal.fire({
             icon: 'warning',
             title: data.msg
-          }).then((value) => {
-            modalAddFilm.style.display = "block"
-          })          
+          })        
         }        
       },
       cache: false,

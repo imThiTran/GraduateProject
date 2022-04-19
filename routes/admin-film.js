@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
                         }
                     }                                   
                 }    
-                film.idCat=cate.toString()                 
+                film.idCat=cate.join(', ');                
             })               
             res.render('admin/admin-film', {
                 films: films,
