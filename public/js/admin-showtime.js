@@ -197,10 +197,17 @@ function showtimeDetail(thisE) {
             $('.closedEdit').prop('checked', result.closed == 0);
             $('.hourEdit').val(result.hour);
             $('.minuteEdit').val(result.minute);
-            $('.roomEdit').val(result.room);
             $('.idHidden').val(idSt);
             $('.timeHidden').val(result.time);
             $('.dateHidden').val(result.date);
+            var roomHtml=result.rooms.map((room)=>{
+                return `<option value="${room._id}">
+                ${room.name}
+            </option>`
+            });
+            console.log(roomHtml.join(' '));
+            $('.roomEdit').html(roomHtml.join(' '));
+            $('.roomEdit').val(result.room);
             modalEditShowTime.style.display = "block";
         }
     })

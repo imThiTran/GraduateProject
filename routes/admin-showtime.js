@@ -97,9 +97,9 @@ router.post('/add-showtime', (req, res) => {
         coupleSeat = tkpr.coupleSeat;
     })
     if (typeof roomAndType == "string") {
-        var roomAndTypeArr=roomAndType.split('/');
-        var room=roomAndTypeArr[0];
-        var typeRoom=roomAndTypeArr[1];
+        var roomAndTypeArr = roomAndType.split('/');
+        var room = roomAndTypeArr[0];
+        var typeRoom = roomAndTypeArr[1];
         timeStart = hour + ':' + minute;
         var newDay = new Date(date);
         var timeArr = timeStart.split(':');
@@ -129,7 +129,7 @@ router.post('/add-showtime', (req, res) => {
                     })
                     showtime.save(function (err, result) {
                         if (err) return console.log(err);
-                        if (typeRoom==114){
+                        if (typeRoom == 114) {
                             for (var i = 0; i <= 9; i++) {
                                 switch (i) {
                                     case 0: name = 'A'; break;
@@ -205,10 +205,10 @@ router.post('/add-showtime', (req, res) => {
         }
     } else { //else room = array
         var checkTime = true;
-        var room=[];
-        var type=[];
-        roomAndType.forEach(function(each){
-            var roomAndTypeArr=each.split('/');
+        var room = [];
+        var type = [];
+        roomAndType.forEach(function (each) {
+            var roomAndTypeArr = each.split('/');
             room.push(roomAndTypeArr[0]);
             type.push(roomAndTypeArr[1]);
         })
@@ -228,7 +228,7 @@ router.post('/add-showtime', (req, res) => {
         else {
             var check = true; //kiem tra cac suat chieu da them co mau thuan khong
             var timeEnd = [];
-            
+
             timeStart.forEach(function (timeStart) {
                 var newTimeEnd = transferTimeEnd(timeStart, time);
                 timeEnd.push(newTimeEnd);
@@ -271,8 +271,8 @@ router.post('/add-showtime', (req, res) => {
                             })
                         }
                         Showtime.insertMany(showtimes).then(function (result) {
-                            result.forEach(function (st,index) {
-                                if (type[index]==114){
+                            result.forEach(function (st, index) {
+                                if (type[index] == 114) {
                                     for (var i = 0; i <= 9; i++) {
                                         switch (i) {
                                             case 0: name = 'A'; break;
@@ -339,8 +339,8 @@ router.post('/add-showtime', (req, res) => {
                                             }
                                         }
                                     }
-                                }  
-                            }) 
+                                }
+                            })
                             Ticket.insertMany(tickets);
                             res.send('success');
                         });
@@ -354,18 +354,26 @@ router.post('/add-showtime', (req, res) => {
 
 router.post('/load-edit', (req, res) => {
     var idSt = req.body.idSt;
+    var typeRoom;
     Showtime.findById(idSt, (err, st) => {
-        Film.findOne({ id: st.idFilm }, (err, fi) => {
-            var hour = st.timeStart.split(':')[0];
-            var minute = st.timeStart.split(':')[1];
-            res.send({
-                nameEN: fi.nameEN,
-                time: fi.time,
-                closed: st.closed,
-                date: st.date,
-                hour: hour,
-                minute: minute,
-                room: st.idRoom,
+        Room.find({}, (err, ro) => {
+            ro.forEach(function(roFe){
+                if (roFe._id==st.idRoom) typeRoom=roFe.type;
+            });
+            ro=ro.filter(roFt => (roFt.type==typeRoom));
+            Film.findOne({ id: st.idFilm }, (err, fi) => {
+                var hour = st.timeStart.split(':')[0];
+                var minute = st.timeStart.split(':')[1];
+                res.send({
+                    nameEN: fi.nameEN,
+                    time: fi.time,
+                    closed: st.closed,
+                    date: st.date,
+                    hour: hour,
+                    minute: minute,
+                    room: st.idRoom,
+                    rooms:ro
+                })
             })
         })
     })
@@ -461,10 +469,10 @@ router.get('/search-time', (req, res) => {
             fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
         } else if (name == '') {
             fi = await Film.find({});
-            st = st.filter(stFt =>  compareDate(df, dt, stFt.date, stFt.timeStart));
+            st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
         } else {
             fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
-            st = st.filter(stFt =>  compareDate(df, dt, stFt.date, stFt.timeStart));
+            st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
         }
         fi.forEach(function (f) {
             descrb = [];
@@ -503,9 +511,9 @@ router.get('/search-time', (req, res) => {
             showtimes: showtimeArr,
             films: fi,
             rooms: ro,
-            name:name,
-            datefrom:datefrom,
-            dateto:dateto
+            name: name,
+            datefrom: datefrom,
+            dateto: dateto
         });
     })
 })
