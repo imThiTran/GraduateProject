@@ -87,11 +87,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <p class="alert" style="color: red;"></p>
-                                                    <button type="button"
-                                                        class="btn btn-secondary close-showTime">Đóng</button>
-                                                    <button type="button" class="btn-common">Thêm</buttDon>
+                                                <div class="modal-footer footer-add-SC">
+                                                    <p class="alert"></p>
+                                                    <div class="footer-add-btn">
+                                                        <button type="button"
+                                                        class="btn btn-secondary close-showTime close-CL">Đóng</button>
+                                                        <button type="button" class="btn-common close-AC">Thêm</buttDon>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -180,11 +182,13 @@
                                                             chiếu</button>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <p class="alertAdd" style="color: red;"></p>
-                                                    <button type="button"
-                                                        class="btn btn-secondary close-showTime">Đóng</button>
-                                                    <button type="button" class="btn-common btn-saveAdd">Thêm</button>
+                                                <div class="modal-footer footer-add">
+                                                    <p class="alertAdd"></p>
+                                                    <div class="footer-add-btn">
+                                                        <button type="button"
+                                                        class="btn btn-secondary close-showTime close-CL">Đóng</button>
+                                                        <button type="button" class="btn-common btn-saveAdd close-AC">Thêm</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,8 +196,8 @@
                                     <div style="display: flex;
                                     margin-top: 1rem">
                                         <form action="" method="get" class="purchase-search" style="width: 50%; padding-left: 0 !important">
-                                            <input type="text" style="height: 38px;" placeholder="Tìm kiếm suất chiếu theo phim" name="name">
-                                            <button style="height: 38px;" type="submit"><i class="fa fa-search"></i></button>
+                                            <input type="text" class="form-control" placeholder="Tìm kiếm suất chiếu theo phim" name="name">
+                                            
                                         </form>
                                         <form class="formSearch" action="" method="POST">
                                             <div class="label-date">
@@ -466,16 +470,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="modal-footer" style="align-items: baseline; justify-content: space-between !important;">
-                                                        <div class="">
-                                                            <button type="button" class="saveDelete del1 btn-common">Xóa suất chiếu</i></button>
-                                                        </div>
-                                                        <div>
-                                                            <p class="alertEdit" style="color: red;"></p>
-                                                        <button type="button"
-                                                            class="btn btn-secondary close-showTime">Đóng</button>
-                                                        <button type="button" class="saveEdit btn-common">Xác
-                                                            nhận</button>
+                                                    <div class="modal-footer footer-SC" style="align-items: baseline; justify-content: space-between !important;">
+                                                        <p class="alertEdit"></p>
+                                                        <div class="footer-btn">
+                                                            <button type="button" class="saveDelete del1 btn-common">Xóa suất chiếu</button>
+                                                            <div class="alert-footer">
+                                                                <button type="button"
+                                                                    class="btn btn-secondary close-showTime close-CL">Đóng</button>
+                                                                <button type="button" class="saveEdit btn-common close-AC">Xác
+                                                                    nhận</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
