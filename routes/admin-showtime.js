@@ -85,19 +85,21 @@ function transferTimeEnd(timeStart, time) {
 }
 
 router.post('/add-showtime', (req, res) => {
-    const { date, idAndTime, hour, minute, room } = req.body;
+    const { date, idAndTime, hour, minute, roomAndType } = req.body;
     var timeStart;
     var idAndTimeArr = idAndTime.split('/');
     var idFilm = idAndTimeArr[0];
     var time = idAndTimeArr[1];
     var today = new Date();
     var singleSeat, coupleSeat;
-
     TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
         singleSeat = tkpr.singleSeat;
         coupleSeat = tkpr.coupleSeat;
     })
-    if (typeof room == "string") {
+    if (typeof roomAndType == "string") {
+        var roomAndTypeArr = roomAndType.split('/');
+        var room = roomAndTypeArr[0];
+        var typeRoom = roomAndTypeArr[1];
         timeStart = hour + ':' + minute;
         var newDay = new Date(date);
         var timeArr = timeStart.split(':');
@@ -127,36 +129,71 @@ router.post('/add-showtime', (req, res) => {
                     })
                     showtime.save(function (err, result) {
                         if (err) return console.log(err);
-                        for (var i = 0; i <= 9; i++) {
-                            switch (i) {
-                                case 0: name = 'A'; break;
-                                case 1: name = 'B'; break;
-                                case 2: name = 'C'; break;
-                                case 3: name = 'D'; break;
-                                case 4: name = 'E'; break;
-                                case 5: name = 'F'; break;
-                                case 6: name = 'G'; break;
-                                case 7: name = 'H'; break;
-                                case 8: name = 'J'; break;
-                                case 9: name = 'K'; break;
-                                default: '';
+                        if (typeRoom == 114) {
+                            for (var i = 0; i <= 9; i++) {
+                                switch (i) {
+                                    case 0: name = 'A'; break;
+                                    case 1: name = 'B'; break;
+                                    case 2: name = 'C'; break;
+                                    case 3: name = 'D'; break;
+                                    case 4: name = 'E'; break;
+                                    case 5: name = 'F'; break;
+                                    case 6: name = 'G'; break;
+                                    case 7: name = 'H'; break;
+                                    case 8: name = 'J'; break;
+                                    case 9: name = 'K'; break;
+                                    default: '';
+                                }
+                                for (var j = 1; j <= 12; j++) {
+                                    if (i != 9) {
+                                        tickets.push({
+                                            idShowtime: result._id,
+                                            name: name + j,
+                                            price: singleSeat,
+                                            sorting: (12 * i) + j,
+                                        })
+                                    } else {
+                                        if (j == 7) break;
+                                        tickets.push({
+                                            idShowtime: result._id,
+                                            name: name + j,
+                                            price: coupleSeat,
+                                            sorting: (12 * i) + j,
+                                        })
+                                    }
+                                }
                             }
-                            for (var j = 1; j <= 12; j++) {
-                                if (i != 9) {
-                                    tickets.push({
-                                        idShowtime: result._id,
-                                        name: name + j,
-                                        price: singleSeat,
-                                        sorting: (12 * i) + j,
-                                    })
-                                } else {
-                                    if (j == 7) break;
-                                    tickets.push({
-                                        idShowtime: result._id,
-                                        name: name + j,
-                                        price: coupleSeat,
-                                        sorting: (12 * i) + j,
-                                    })
+                        } else {
+                            for (var i = 0; i <= 8; i++) {
+                                switch (i) {
+                                    case 0: name = 'A'; break;
+                                    case 1: name = 'B'; break;
+                                    case 2: name = 'C'; break;
+                                    case 3: name = 'D'; break;
+                                    case 4: name = 'E'; break;
+                                    case 5: name = 'F'; break;
+                                    case 6: name = 'G'; break;
+                                    case 7: name = 'H'; break;
+                                    case 8: name = 'K'; break;
+                                    default: '';
+                                }
+                                for (var j = 1; j <= 10; j++) {
+                                    if (i != 8) {
+                                        tickets.push({
+                                            idShowtime: result._id,
+                                            name: name + j,
+                                            price: singleSeat,
+                                            sorting: (10 * i) + j,
+                                        })
+                                    } else {
+                                        if (j == 6) break;
+                                        tickets.push({
+                                            idShowtime: result._id,
+                                            name: name + j,
+                                            price: coupleSeat,
+                                            sorting: (10 * i) + j,
+                                        })
+                                    }
                                 }
                             }
                         }
@@ -168,6 +205,13 @@ router.post('/add-showtime', (req, res) => {
         }
     } else { //else room = array
         var checkTime = true;
+        var room = [];
+        var type = [];
+        roomAndType.forEach(function (each) {
+            var roomAndTypeArr = each.split('/');
+            room.push(roomAndTypeArr[0]);
+            type.push(roomAndTypeArr[1]);
+        })
         timeStart = [];
         hour.forEach(function (hourFe, index) {
             timeStart.push(hourFe + ':' + minute[index]);
@@ -184,6 +228,7 @@ router.post('/add-showtime', (req, res) => {
         else {
             var check = true; //kiem tra cac suat chieu da them co mau thuan khong
             var timeEnd = [];
+
             timeStart.forEach(function (timeStart) {
                 var newTimeEnd = transferTimeEnd(timeStart, time);
                 timeEnd.push(newTimeEnd);
@@ -191,8 +236,8 @@ router.post('/add-showtime', (req, res) => {
             for (var i = 0; i < timeStart.length; i++)
                 for (var j = i + 1; j < timeStart.length; j++) {
                     if (room[i] == room[j]) {
-                        if ((timeStart[j] < timeStart[i] && timeStart[i] < timeEnd[j])
-                            || (timeStart[j] < timeEnd[i] && timeEnd[i] < timeEnd[j]))
+                        if ((timeStart[j] <= timeStart[i] && timeStart[i] <= timeEnd[j])
+                            || (timeStart[j] <= timeEnd[i] && timeEnd[i] <= timeEnd[j]))
                             check = false;
                     }
                 }
@@ -205,8 +250,8 @@ router.post('/add-showtime', (req, res) => {
                         for (var j = 0; j < timeStart.length; j++) {
                             if (st[i].date == date && st[i].idRoom == room[j] &&
                                 (
-                                    (st[i].timeStart < timeStart[j] && st[i].timeEnd > timeStart[j]) ||
-                                    (st[i].timeStart < timeEnd[j] && st[i].timeEnd > timeEnd[j])
+                                    (st[i].timeStart <= timeStart[j] && st[i].timeEnd >= timeStart[j]) ||
+                                    (st[i].timeStart <= timeEnd[j] && st[i].timeEnd >= timeEnd[j])
                                 )
                             ) { checkExist = false; break; }
                         }
@@ -226,37 +271,72 @@ router.post('/add-showtime', (req, res) => {
                             })
                         }
                         Showtime.insertMany(showtimes).then(function (result) {
-                            result.forEach(function (st) {
-                                for (var i = 0; i <= 9; i++) {
-                                    switch (i) {
-                                        case 0: name = 'A'; break;
-                                        case 1: name = 'B'; break;
-                                        case 2: name = 'C'; break;
-                                        case 3: name = 'D'; break;
-                                        case 4: name = 'E'; break;
-                                        case 5: name = 'F'; break;
-                                        case 6: name = 'G'; break;
-                                        case 7: name = 'H'; break;
-                                        case 8: name = 'J'; break;
-                                        case 9: name = 'K'; break;
-                                        default: '';
+                            result.forEach(function (st, index) {
+                                if (type[index] == 114) {
+                                    for (var i = 0; i <= 9; i++) {
+                                        switch (i) {
+                                            case 0: name = 'A'; break;
+                                            case 1: name = 'B'; break;
+                                            case 2: name = 'C'; break;
+                                            case 3: name = 'D'; break;
+                                            case 4: name = 'E'; break;
+                                            case 5: name = 'F'; break;
+                                            case 6: name = 'G'; break;
+                                            case 7: name = 'H'; break;
+                                            case 8: name = 'J'; break;
+                                            case 9: name = 'K'; break;
+                                            default: '';
+                                        }
+                                        for (var j = 1; j <= 12; j++) {
+                                            if (i != 9) {
+                                                tickets.push({
+                                                    idShowtime: st._id,
+                                                    name: name + j,
+                                                    price: singleSeat,
+                                                    sorting: (12 * i) + j,
+                                                })
+                                            } else {
+                                                if (j == 7) break;
+                                                tickets.push({
+                                                    idShowtime: st._id,
+                                                    name: name + j,
+                                                    price: coupleSeat,
+                                                    sorting: (12 * i) + j,
+                                                })
+                                            }
+                                        }
                                     }
-                                    for (var j = 1; j <= 12; j++) {
-                                        if (i != 9) {
-                                            tickets.push({
-                                                idShowtime: st._id,
-                                                name: name + j,
-                                                price: singleSeat,
-                                                sorting: (12 * i) + j,
-                                            })
-                                        } else {
-                                            if (j == 7) break;
-                                            tickets.push({
-                                                idShowtime: st._id,
-                                                name: name + j,
-                                                price: coupleSeat,
-                                                sorting: (12 * i) + j,
-                                            })
+                                } else {
+                                    for (var i = 0; i <= 8; i++) {
+                                        switch (i) {
+                                            case 0: name = 'A'; break;
+                                            case 1: name = 'B'; break;
+                                            case 2: name = 'C'; break;
+                                            case 3: name = 'D'; break;
+                                            case 4: name = 'E'; break;
+                                            case 5: name = 'F'; break;
+                                            case 6: name = 'G'; break;
+                                            case 7: name = 'H'; break;
+                                            case 8: name = 'K'; break;
+                                            default: '';
+                                        }
+                                        for (var j = 1; j <= 10; j++) {
+                                            if (i != 8) {
+                                                tickets.push({
+                                                    idShowtime: st._id,
+                                                    name: name + j,
+                                                    price: singleSeat,
+                                                    sorting: (10 * i) + j,
+                                                })
+                                            } else {
+                                                if (j == 6) break;
+                                                tickets.push({
+                                                    idShowtime: st._id,
+                                                    name: name + j,
+                                                    price: coupleSeat,
+                                                    sorting: (10 * i) + j,
+                                                })
+                                            }
                                         }
                                     }
                                 }
@@ -274,18 +354,26 @@ router.post('/add-showtime', (req, res) => {
 
 router.post('/load-edit', (req, res) => {
     var idSt = req.body.idSt;
+    var typeRoom;
     Showtime.findById(idSt, (err, st) => {
-        Film.findOne({ id: st.idFilm }, (err, fi) => {
-            var hour = st.timeStart.split(':')[0];
-            var minute = st.timeStart.split(':')[1];
-            res.send({
-                nameEN: fi.nameEN,
-                time: fi.time,
-                closed: st.closed,
-                date: st.date,
-                hour: hour,
-                minute: minute,
-                room: st.idRoom,
+        Room.find({}, (err, ro) => {
+            ro.forEach(function(roFe){
+                if (roFe._id==st.idRoom) typeRoom=roFe.type;
+            });
+            ro=ro.filter(roFt => (roFt.type==typeRoom));
+            Film.findOne({ id: st.idFilm }, (err, fi) => {
+                var hour = st.timeStart.split(':')[0];
+                var minute = st.timeStart.split(':')[1];
+                res.send({
+                    nameEN: fi.nameEN,
+                    time: fi.time,
+                    closed: st.closed,
+                    date: st.date,
+                    hour: hour,
+                    minute: minute,
+                    room: st.idRoom,
+                    rooms:ro
+                })
             })
         })
     })
@@ -335,26 +423,98 @@ router.post('/edit-showtime', (req, res) => {
     })
 })
 
-router.get('/delete-showtime/:idSt',(req,res)=>{
-    var idSt=req.params.idSt;
-    Ticket.deleteMany({idShowtime:idSt},(err)=>{
-        Showtime.findByIdAndRemove(idSt,function(err){
+router.get('/delete-showtime/:idSt', (req, res) => {
+    var idSt = req.params.idSt;
+    Ticket.deleteMany({ idShowtime: idSt }, (err) => {
+        Showtime.findByIdAndRemove(idSt, function (err) {
             if (err) return console.log(err);
             res.send('success');
         })
     })
 })
 
-router.post('/delete-showtime-date',(req,res)=>{
-    var {idFilm,date}=req.body;
-    Showtime.find({idFilm:idFilm,date:date},(err,st)=>{
-        var idStDelete = st.map(s=>s._id.toString());
-        Ticket.deleteMany({idShowtime:{$in:idStDelete}},(err)=>{
-            Showtime.deleteMany({idFilm:idFilm,date:date},(err)=>{
+router.post('/delete-showtime-date', (req, res) => {
+    var { idFilm, date } = req.body;
+    Showtime.find({ idFilm: idFilm, date: date }, (err, st) => {
+        var idStDelete = st.map(s => s._id.toString());
+        Ticket.deleteMany({ idShowtime: { $in: idStDelete } }, (err) => {
+            Showtime.deleteMany({ idFilm: idFilm, date: date }, (err) => {
                 if (err) return console.log(err);
                 res.send('success');
             })
         })
+    })
+})
+
+function compareDate(datefrom, dateto, date, time) {
+    var timeArr = time.split(':');
+    var dateCompare = new Date(date);
+    dateCompare.setHours(timeArr[0], timeArr[1]);
+    if (dateCompare >= datefrom && dateCompare <= dateto) return true;
+    return false;
+}
+
+router.get('/search-time', (req, res) => {
+    var { name, datefrom, dateto } = req.query;
+    var showtimeArr = [];
+    var times = [];
+    var date = [];
+    var descrb = [];
+    df = new Date(datefrom);
+    dt = new Date(dateto);
+    Room.find({ block: 0 }, async (err, ro) => {
+        var st = await Showtime.find({});
+        var fi;
+        if (datefrom == '') {
+            fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
+        } else if (name == '') {
+            fi = await Film.find({});
+            st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
+        } else {
+            fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
+            st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
+        }
+        fi.forEach(function (f) {
+            descrb = [];
+            date = [];
+            st.forEach(function (s) {
+                if (s.idFilm == f._id.toString())
+                    date.push(s.date);
+            })
+            date = Array.from(new Set(date));
+            if (date.length != 0) {
+                date.forEach(function (d) {
+                    times = [];
+                    st.forEach(function (s) {
+                        if (s.date == d && s.idFilm == f._id.toString())
+                            times.push({
+                                timeStart: s.timeStart,
+                                closed: s.closed,
+                                id: s._id.toString()
+                            });
+                    })
+                    descrb.push({
+                        nameDate: d,
+                        times: times
+                    })
+                })
+                showtimeArr.push({
+                    idFilm: f._id,
+                    nameEN: f.nameEN,
+                    nameVN: f.nameVN,
+                    photo: f.photo,
+                    descrb: descrb
+                })
+            }
+        })
+        res.render('admin/admin-showtime', {
+            showtimes: showtimeArr,
+            films: fi,
+            rooms: ro,
+            name: name,
+            datefrom: datefrom,
+            dateto: dateto
+        });
     })
 })
 
