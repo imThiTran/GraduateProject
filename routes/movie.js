@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Category = require('../models/category')
+var Category = require('../models/category');
+const film = require('../models/film');
 var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 var User = require('../models/user');
@@ -11,8 +12,7 @@ Category.find({}, function(err,categories){
 
 router.get('/:slug', (req,res) => {
     var {slug} = req.params    
-    Film.findOne({slug:slug}, function(err,film){ 
-        Category.findById(film.idCat, function(err,cat){
+    Film.findOne({slug:slug}, function(err,film){         
             Showtime.find({idFilm:film._id.toString()},function(err,st){
                 var dateSt=[];
                 for(var i=0;i<st.length;i++){
@@ -29,7 +29,15 @@ router.get('/:slug', (req,res) => {
                             }
                         }
                     }
-                    film.idCat=cat.title;
+                    let cate=[] 
+                    for(var i=0;i<film.idCat.length;i++){
+                        for(var j=0;j<cats.length;j++){                       
+                            if(film.idCat[i]==cats[j]._id){
+                                cate.push(cats[j].title)
+                            }
+                        }                                   
+                    }    
+                    film.idCat=cate.toString()
                     res.render('movie/detail-movie',{
                         cats: cats,
                         film: film,
@@ -37,17 +45,22 @@ router.get('/:slug', (req,res) => {
                             })
                     })
             })
-        })
     })    
 })
 
 router.get('/category/:slug', (req,res) => {
     var {slug} = req.params
-    Category.findOne({slug:slug}, function(err,cat){
-        Film.find({idCat:cat._id}, function(err,films){
+    var fis=[]
+    Category.findOne({slug:slug}, function(err,cat){        
+        Film.find({}, function(err,films){
+            films.forEach((film) => {
+                if(film.idCat.includes(cat._id)){
+                    fis.push(film)
+                }
+            })
             res.render('movie/categories',{
                 cats: cats,
-                films:films,
+                films:fis,
                 type:cat.title
             })
         }) 

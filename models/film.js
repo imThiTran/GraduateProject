@@ -49,7 +49,8 @@ var FilmSchema = mongoose.Schema({
         type:String
     },
     idCat:{
-        type: String
+        type:Array,
+        default:[]
     },
     comments:{
         type:Array,
