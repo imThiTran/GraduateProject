@@ -7,9 +7,9 @@
                     <div style="display: flex; justify-content: space-between;
                     flex-wrap: wrap;">
                         <div class="h5-detail">Quản lý phim</div>
-                        <form action="/" method="get" class="purchase-search" style="width: 50%">
-                            <input type="text" placeholder="Tìm kiếm phim" name="name">
-                            <button type="submit"><i class="fa fa-search"></i></button>
+                        <form action="" method="get" class="purchase-search search-admin" style="width: 40%; padding-left: 0 !important">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên phim" name="name">
+                            <button class="submitsearch btn btn-buy btnSearchTime" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <span class="line-detail"></span>
@@ -18,10 +18,10 @@
                             <tr>
                                 <th scope="col"></th>
                                 <th scope="col">Tên phim</th>
-                                <th scope="col">Đạo diễn</th>
-                                <th scope="col">Khởi chiếu</th>
+                                <th scope="col" style="width: 10%;">Đạo diễn</th>
+                                <th scope="col" style="width: 12%;">Khởi chiếu</th>
                                 <th scope="col">Thể loại</th>
-                                <th scope="col">Tình trạng</th>
+                                <th scope="col" style="width: 11%;">Tình trạng</th>
                                 <th scope="col" style="width: 1%;">
                                     <div class="btn-admin">
                                         <button type="button" id="btnAddFilm" class="btn-common btn-buy btn-add-film"
@@ -40,7 +40,7 @@
                                                     <div class="modal-body-plus">
                                                         <div class="modal-left">
                                                             <div class="col-5 img-add">
-                                                                <div>Ảnh phim</div>
+                                                                <div class="title-img">Ảnh phim</div>
                                                                 <img id="img-edit-item"
                                                                     class="imgAddPreview imgavtadd imgavt"
                                                                     src="../img/no_img.webp" style="width: 100%;">
@@ -55,7 +55,7 @@
                                                             </div>
                                                             <div class="line-img"></div>
                                                             <div class="col-5 img-add">
-                                                                <div>Ảnh poster</div>
+                                                                <div class="title-img">Ảnh poster</div>
                                                                 <img id="img-edit-item"
                                                                     class="imgAddPreview imgbgadd imgbg"
                                                                     src="../img/no_img.webp" style="width: 100%;">
@@ -174,10 +174,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button"
-                                                            class="btn btn-secondary close-footer">Đóng</button>
-                                                        <button class="btn btn-warning" type="submit">Thêm</button>
+                                                    <div class="modal-footer footer-add">
+                                                        <div class="footer-add-btn">
+                                                            <button type="button"
+                                                            class="btn btn-secondary close-footer close-CL">Đóng</button>
+                                                        <button class="btn btn-common btn-warning close-AC" type="submit">Thêm</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,7 +191,7 @@
                             <% films.forEach(function(film){ %>
                                 <tr class="<%= film.slug %>">
                                     <th scope="row" style="width: 15%">
-                                        <img style="width: 100%" src="<%=film.photo%>" alt="">
+                                        <img class="poster-admin-film" src="<%=film.photo%>" alt="">
                                     </th>
                                     <td style="width: 20%;">
                                         <div>
@@ -238,6 +240,7 @@
                                                 <div class="modal-body-plus">
                                                     <div class="modal-left">
                                                         <div class="col-5 img-add">
+                                                            <div class="title-img">Ảnh phim</div>
                                                             <img id="img-edit-item"
                                                                 class="imgAddPreview imgavt imgavtedit"
                                                                 src="../img/no_img.webp" style="width: 100%;">
@@ -245,11 +248,13 @@
                                                                 accept="image/png, image/jpeg, image/jpg"
                                                                 style="display: none;" onchange="imgAvtEdit()" id="img3"
                                                                 name="photo">
-                                                            <label class="btn-common" id="btn-edit-img-item"
+                                                            <label class="btn-common btn-bold" id="btn-edit-img-item"
                                                                 for="img3">Chọn
                                                                 ảnh</label>
                                                         </div>
+                                                        <div class="line-img"></div>
                                                         <div class="col-5 img-add">
+                                                            <div class="title-img">Ảnh poster</div>
                                                             <img id="img-edit-item"
                                                                 class="imgAddPreview imgbg imgbgedit"
                                                                 src="../img/no_img.webp" style="width: 100%;">
@@ -257,7 +262,7 @@
                                                                 accept="image/png, image/jpeg, image/jpg"
                                                                 style="display: none;" onchange="imgBgEdit()" id="img4"
                                                                 name="background">
-                                                            <label class="btn-common" id="btn-edit-img-item"
+                                                            <label class="btn-common btn-bold" id="btn-edit-img-item"
                                                                 for="img4">Chọn
                                                                 ảnh</label>
                                                         </div>
@@ -370,11 +375,12 @@
                                                 <input type="hidden" class="avtimg" name="avtimg">
                                                 <input type="hidden" class="bgimg" name="bgimg">
                                                 <input type="hidden" class="idfilm" name="idFilm">
-                                                <div class="modal-footer">
-                                                    <button type="button"
-                                                        class="btn btn-secondary close-footer">Đóng</button>
-                                                    <button type="submit" class="btn-common close-footer submitedit">Xác
-                                                        nhận</button>
+                                                <div class="modal-footer footer-add">
+                                                    <div class="footer-add-btn">
+                                                        <button type="button"
+                                                        class="btn btn-secondary close-footer close-CL">Đóng</button>
+                                                    <button class="btn btn-common btn-warning close-footer submitedit close-AC" type="submit">Xác nhận</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
