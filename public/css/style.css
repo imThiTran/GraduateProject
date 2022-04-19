@@ -911,19 +911,12 @@ a:hover {
 .purchase-search {
     margin-top: 10px;
     font-size: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 
 .purchase-search input[type=text] {
     font-size: 14px;
     line-height: 30px;
-    height: 30px;
-    border: 1px solid grey;
-    float: left;
-    width: 95%;
-    background: #f1f1f1;
-    border-radius: 5px 0px 0px 5px;
+    height: 41px;
 }
 
 .purchase-search button {
@@ -2421,6 +2414,59 @@ button.primaryContained:hover {
     background-image: -ms-repeating-linear-gradient(90deg, rgba(229,230,215,1) 0%, rgba(218,216,191,1) 44%, rgba(245,229,182,1) 100%);
     background-image: -o-repeating-linear-gradient(90deg, rgba(229,230,215,1) 0%, rgba(218,216,191,1) 44%, rgba(245,229,182,1) 100%);
     background-image: repeating-linear-gradient(90deg, rgba(229,230,215,1) 0%, rgba(218,216,191,1) 44%, rgba(245,229,182,1) 100%);
+}
+.alert-footer{
+    display: flex;
+    align-items: flex-end;
+}
+.footer-SC{
+    flex-direction: column;
+    padding-right: 40px;
+    padding-top: 1px;
+    width: 100%;
+    position: relative;
+}
+.footer-add-SC{
+    flex-direction: column;
+    padding-right: 40px;
+    padding-top: 1px;
+    height: 90px;
+    width: 100%;
+    position: relative;
+}
+.footer-add{
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 40px;
+    padding-top: 1px;
+    height: 90px;
+    width: 100%;
+    position: relative;
+}
+.alertEdit, .alertAdd, .alert{
+    color: indianred;
+    font-size: 15px;
+    font-style: italic;
+}
+.footer-btn{
+    display: flex;
+    justify-content: space-between;
+    width: 100%
+}
+.close-CL{
+    margin-right: 10px;
+    height: 43px;
+}
+.close-AC{
+    height: 43px;
+}
+.footer-add-btn{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: flex-end;
+    position: absolute;
+    right: 30px;
 }
   /*FILM MANAGEMENT*/
   .img-add{

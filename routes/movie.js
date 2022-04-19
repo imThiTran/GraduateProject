@@ -37,7 +37,7 @@ router.get('/:slug', (req,res) => {
                             }
                         }                                   
                     }    
-                    film.idCat=cate.toString()
+                    film.idCat=cate.join(', ');
                     res.render('movie/detail-movie',{
                         cats: cats,
                         film: film,
