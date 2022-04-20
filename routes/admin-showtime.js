@@ -460,59 +460,63 @@ router.get('/search-time', (req, res) => {
     var descrb = [];
     df = new Date(datefrom);
     dt = new Date(dateto);
-    Room.find({ block: 0 }, async (err, ro) => {
-        var st = await Showtime.find({});
-        var fi;
-        if (datefrom == '') {
-            fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
-        } else if (name == '') {
-            fi = await Film.find({});
-            st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
-        } else {
-            fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
-            st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
-        }
-        fi.forEach(function (f) {
-            descrb = [];
-            date = [];
-            st.forEach(function (s) {
-                if (s.idFilm == f._id.toString())
-                    date.push(s.date);
-            })
-            date = Array.from(new Set(date));
-            if (date.length != 0) {
-                date.forEach(function (d) {
-                    times = [];
-                    st.forEach(function (s) {
-                        if (s.date == d && s.idFilm == f._id.toString())
-                            times.push({
-                                timeStart: s.timeStart,
-                                closed: s.closed,
-                                id: s._id.toString()
-                            });
-                    })
-                    descrb.push({
-                        nameDate: d,
-                        times: times
-                    })
-                })
-                showtimeArr.push({
-                    idFilm: f._id,
-                    nameEN: f.nameEN,
-                    nameVN: f.nameVN,
-                    photo: f.photo,
-                    descrb: descrb
-                })
+    TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
+        Room.find({ block: 0 }, async (err, ro) => {
+            var st = await Showtime.find({});
+            var fi;
+            if (datefrom == '') {
+                fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
+            } else if (name == '') {
+                fi = await Film.find({});
+                st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
+            } else {
+                fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
+                st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
             }
+            fi.forEach(function (f) {
+                descrb = [];
+                date = [];
+                st.forEach(function (s) {
+                    if (s.idFilm == f._id.toString())
+                        date.push(s.date);
+                })
+                date = Array.from(new Set(date));
+                if (date.length != 0) {
+                    date.forEach(function (d) {
+                        times = [];
+                        st.forEach(function (s) {
+                            if (s.date == d && s.idFilm == f._id.toString())
+                                times.push({
+                                    timeStart: s.timeStart,
+                                    closed: s.closed,
+                                    id: s._id.toString()
+                                });
+                        })
+                        descrb.push({
+                            nameDate: d,
+                            times: times
+                        })
+                    })
+                    showtimeArr.push({
+                        idFilm: f._id,
+                        nameEN: f.nameEN,
+                        nameVN: f.nameVN,
+                        photo: f.photo,
+                        descrb: descrb
+                    })
+                }
+            })
+            res.render('admin/admin-showtime', {
+                showtimes: showtimeArr,
+                films: fi,
+                rooms: ro,
+                name: name,
+                datefrom: datefrom,
+                dateto: dateto,
+                singleSeat:tkpr.singleSeat,
+                coupleSeat:tkpr.coupleSeat
+            });
         })
-        res.render('admin/admin-showtime', {
-            showtimes: showtimeArr,
-            films: fi,
-            rooms: ro,
-            name: name,
-            datefrom: datefrom,
-            dateto: dateto
-        });
     })
 })
 

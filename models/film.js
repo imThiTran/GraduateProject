@@ -52,10 +52,6 @@ var FilmSchema = mongoose.Schema({
         type:Array,
         default:[]
     },
-    comments:{
-        type:Array,
-        default:[]
-    },
     status:{
         type:String,
         required:true

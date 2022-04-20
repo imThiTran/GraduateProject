@@ -129,19 +129,19 @@ router.post('/change-pass/:email',function(req,res){
 })
 
 router.post('/comment',(req,res)=>{
-    var {content,idFilm}=req.body;
+    var {content,idFilm,rating}=req.body;
     if (req.session.user){
         Film.findById(idFilm,function(err,fi){
-            
             User.findOne({email:req.session.user},function(err,us){
                 var obj={
-                    idCmt:shortid.generate(),
+                    idRate:shortid.generate(),
                     idUser: us._id.toString(),
                     content:content.trim(),
+                    rating:parseInt(rating),
                     date: new Date(),
                     edited:0,
                 }
-                fi.comments.push(obj);
+                fi.ratings.push(obj);
                 fi.save(function(err){
                     res.send('success');
                 })
@@ -152,28 +152,28 @@ router.post('/comment',(req,res)=>{
     }   
 })
 
-router.post('/delete-comment', async(req,res)=>{
-    var {idCmt,idFilm}=req.body;
-    const update= await Film.updateOne(
-            {_id:idFilm},
-            {$pull:{
-                comments:{idCmt:idCmt}
-                    }
-            },
-            {
-                safe:true
-            }
-        );
-        if (update.modifiedCount==1){
-            res.send()
-    }
-})
+// router.post('/delete-comment', async(req,res)=>{
+//     var {idCmt,idFilm}=req.body;
+//     const update= await Film.updateOne(
+//             {_id:idFilm},
+//             {$pull:{
+//                 comments:{idCmt:idCmt}
+//                     }
+//             },
+//             {
+//                 safe:true
+//             }
+//         );
+//         if (update.modifiedCount==1){
+//             res.send()
+//     }
+// })
 
 router.post('/edit-comment',async (req,res)=>{
-    var {idCmt,idFilm,content} = req.body;
+    var {idRate,idFilm,content} = req.body;
     const update= await Film.updateOne(
-    {_id:idFilm,"comments.idCmt":idCmt},
-    {$set:{"comments.$.content":content.trim(), "comments.$.date":new Date(),"comments.$.edited":"1"}}
+    {_id:idFilm,"ratings.idRate":idRate},
+    {$set:{"ratings.$.content":content.trim(), "ratings.$.date":new Date(),"ratings.$.edited":"1"}}
     );
     if (update.modifiedCount==1){
         res.send()
