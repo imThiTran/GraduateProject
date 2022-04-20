@@ -27,6 +27,14 @@ nav.sticky {
     nav.sticky {
         position: static;
     }
+    .coming-movie-cate{
+        width: 150px !important;
+        
+    }
+    .poster-movie{
+        width: 150px !important;
+        height: 200px !important;
+    }
 }
 
 @media (max-width: 800px) {
@@ -1188,7 +1196,7 @@ a:hover {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding: 30px 100px 50px 150px;
+    padding: 30px 0;
 }
 
 .category-title {
@@ -1323,7 +1331,7 @@ a:hover {
 
 .coming-movie-cate {
     width: 250px;
-    margin-right: 55px;
+    margin-right: 35px;
 }
 
 .h5-poster {
