@@ -383,7 +383,19 @@
                                         <!-- Edit show time-->
                                         <form class="formEdit" action="" method="">
                                             <div id="modalEditShowTime" class="modal">
+                                                
                                                 <div class="modal-content contain-edit">
+                                                    <div class="body-loading loading-model">
+                                                        <div class="wrapper" style="top: 29%">
+                                                            <div class="circle"></div>
+                                                            <div class="circle"></div>
+                                                            <div class="circle"></div>
+                                                            <div class="shadow"></div>
+                                                            <div class="shadow"></div>
+                                                            <div class="shadow"></div>
+                                                            <span>Loading</span>
+                                                        </div>
+                                                    </div>
                                                     <div class="modal-header">
                                                         <h4 class="modal-title"> <i class="fa fa-pencil"
                                                                 aria-hidden="true"></i>
@@ -458,7 +470,7 @@
                                                                     </div>
                                                                     <div class="choose-showtime">
                                                                         <label
-                                                                            style="width: 80px; margin-left: 1rem;">Rạp</label>
+                                                                            style="margin-left: 1rem;">Rạp</label>
                                                                         <select id="room" name="room"
                                                                             class="roomEdit form-select">
                                                                             <%rooms.forEach(function(room){%>

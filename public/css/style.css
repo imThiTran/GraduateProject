@@ -1849,7 +1849,15 @@ button.primaryContained:hover {
     margin-right: 10px;
     margin-top: 5px;
 }
-
+.commented-text{
+    text-align: right;
+}
+.commented-text span{
+    font-style: italic;
+    color: #817d7d;
+    font-size: 15px;
+    margin-right: 30px;
+}
 
  /* detail order */
 .detail-movies{
@@ -2198,7 +2206,7 @@ button.primaryContained:hover {
     padding-bottom: 10px;
 }
 .choose-showtime label{
-    width: 100px;
+    width: 60px;
 }
 .choose-showtime input{
     flex: 1;
@@ -2208,8 +2216,11 @@ button.primaryContained:hover {
     width: 5rem !important;
     margin: 0 5px 0 5px;
 }
+.hourEdit, .minuteEdit, .roomEdit{
+    height: 38px;
+}
 .choose-showtime select {
-    width: 140px ;
+    width: 150px ;
 }
 .col-2{
     width: 10%;
@@ -2385,7 +2396,10 @@ button.primaryContained:hover {
     top: 10px;
     font-size: 20px;
 }
-
+.loading-model{
+    height: 100% !important;
+    position: absolute !important;
+}
   /* model giá vé */
   .check-price{
       display: flex;

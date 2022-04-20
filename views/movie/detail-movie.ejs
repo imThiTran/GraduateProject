@@ -371,10 +371,9 @@
                 </a>
                 
             <%} else { %>
-                <div class="comment-text">
-                    
+                <div class="comment-text commented-text">
                         <%if (checkRating==true){%>
-                            <button disabled class='primaryContained float-right' type="submit">Bạn đã đánh giá phim này</button>
+                            <span>Cảm ơn bạn đã đánh giá</span>
                         <%}else {%>
                             <textarea type="text" class="contentComment input" placeholder="Viết bình luận của bạn ở đây" v-model="newItem"
                         @keyup.enter="addItem()"></textarea>
