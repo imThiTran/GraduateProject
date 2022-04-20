@@ -1386,7 +1386,7 @@ a:hover {
     position: fixed;
     background-color: rgb(133 131 131 / 88%);
     z-index: 999;
-    display: block;
+    display: none;
 }
 
 .circle {
