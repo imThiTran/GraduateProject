@@ -354,13 +354,13 @@
             $this=$(this);
             var date=$this.attr('date');
             $this.click(function(){
+                $('.body-loading').css('display','block');
                 $.ajax({
                         url: "/render/"+date,
                         method: "GET",
                         contentType: "application/json",
                         data: JSON.stringify({}),
                         success: function (result) {
-                            $('.body-loading').css('display','block');
                             setTimeout(() => {
                                 $('.body-loading').css('display','none');
                                 $('.render-ajax').html(result);
