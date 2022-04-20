@@ -191,27 +191,27 @@
                             <% films.forEach(function(film){ %>
                                 <tr class="<%= film.slug %>">
                                     <th scope="row" style="width: 15%">
-                                        <img class="poster-admin-film" src="<%=film.photo%>" alt="">
+                                        <img class="poster-admin-film avt" src="<%=film.photo%>" alt="">
                                     </th>
                                     <td style="width: 20%;">
-                                        <div>
+                                        <div class="nameenedit">
                                             <%=film.nameEN%>
                                         </div>
-                                        <div>
+                                        <div class="namevnedit">
                                             <%=film.nameVN%>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="directorsedit">
                                         <%= film.directors %>
                                     </td>
-                                    <td>
+                                    <td class="premiereedit">
                                         <%= film.premiere %>
                                     </td>
-                                    <td>
+                                    <td class="categories">
                                         <%= film.idCat %>
                                     </td>
                                     <td>
-                                        <div>
+                                        <div class="statusedit">
                                             <%= film.status%>
                                         </div>
                                     </td>
@@ -228,7 +228,7 @@
 
 
                                     <!-- Edit Film's infomation -->
-                                    <form action="/admin/film/edit" method="post" enctype="multipart/form-data"
+                                    <form action="/admin/film/edit" method="post" enctype="multipart/form-data" id="formEditFilm"
                                         class="formeditfilm">
                                         <div id="modalEditFilm" class="modal modal-edit-film">
                                             <div class="modal-content">
@@ -251,6 +251,7 @@
                                                             <label class="btn-common btn-bold" id="btn-edit-img-item"
                                                                 for="img3">Chọn
                                                                 ảnh</label>
+                                                            <input type="hidden" class="imgavted" name="imgEdit">    
                                                         </div>
                                                         <div class="line-img"></div>
                                                         <div class="col-5 img-add">
@@ -303,7 +304,7 @@
                                                                 <div id="form-editCT">
                                                                     <div class="add-category lc-category sledit">
                                                                         <select class="input-sua selectedit"
-                                                                            name="idCat" id="">
+                                                                            name="hihi">
                                                                             <%cats.forEach(function(cat){%>
                                                                                 <option value="<%=cat._id%>">
                                                                                     <%=cat.title%>
@@ -379,7 +380,7 @@
                                                     <div class="footer-add-btn">
                                                         <button type="button"
                                                         class="btn btn-secondary close-footer close-CL">Đóng</button>
-                                                    <button class="btn btn-common btn-warning close-footer submitedit close-AC" type="submit">Xác nhận</button>
+                                                    <button class="btn btn-common btn-warning submitedit close-AC" type="submit">Xác nhận</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,6 +405,9 @@
                 let src = URL.createObjectURL(event.target.files[0]);
                 document.getElementsByClassName('imgtest')[0].value = src
                 imgavtadd.src = src;
+            }else{
+                imgavtadd.src='../img/no_img.webp'
+                document.getElementsByClassName('imgtest')[0].value = ''
             }
         }
         var imgbgadd = document.getElementsByClassName('imgbgadd')[0]
@@ -411,13 +415,19 @@
             if (event.target.files.length > 0) {
                 let src = URL.createObjectURL(event.target.files[0]);
                 imgbgadd.src = src;
+            }else{
+                imgbgadd.src='../img/no_img.webp'
             }
         }
         var imgavtedit = document.getElementsByClassName('imgavtedit')[0]
         function imgAvtEdit() {
             if (event.target.files.length > 0) {
                 let src = URL.createObjectURL(event.target.files[0]);
+                document.getElementsByClassName('imgavted')[0].value = src
                 imgavtedit.src = src;
+            }else{
+                imgavtedit.src='../img/no_img.webp'
+                document.getElementsByClassName('imgavted')[0].value = ''
             }
         }
         var imgbgedit = document.getElementsByClassName('imgbgedit')[0]
@@ -425,6 +435,8 @@
             if (event.target.files.length > 0) {
                 let src = URL.createObjectURL(event.target.files[0]);
                 imgbgedit.src = src;
+            }else{
+                imgbgedit.src='../img/no_img.webp'
             }
         }
     </script>
