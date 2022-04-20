@@ -1266,6 +1266,13 @@ a:hover {
     display: inline-block;
     content: "\f005";
 }
+.rating>span:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
 
 .rating>.half:before {
     content: "\f089";
@@ -1273,6 +1280,10 @@ a:hover {
 }
 
 .rating>label {
+    color: #ddd;
+    float: right;
+}
+.rating>span {
     color: #ddd;
     float: right;
 }
