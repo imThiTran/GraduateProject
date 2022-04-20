@@ -185,6 +185,8 @@ function saveEdit(idSt) {
 
 //click button edit
 function showtimeDetail(thisE) {
+    $('.body-loading').css('display','block');
+    modalEditShowTime.style.display = "block";
     var idSt = thisE.getAttribute('id');
     $.ajax({
         url: "/admin/showtime/load-edit",
@@ -208,7 +210,7 @@ function showtimeDetail(thisE) {
             console.log(roomHtml.join(' '));
             $('.roomEdit').html(roomHtml.join(' '));
             $('.roomEdit').val(result.room);
-            modalEditShowTime.style.display = "block";
+            $('.body-loading').css('display','none');
         }
     })
 }
