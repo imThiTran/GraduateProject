@@ -72,6 +72,7 @@ var adminShowtime = require('./routes/admin-showtime');
 var adminUser = require('./routes/admin-user');
 var adminRoom = require('./routes/admin-room');
 var adminEvent = require('./routes/admin-event');
+var adminSnack = require('./routes/admin-snack');
 
 var checkUser = require('./middelwares/checkUser.middleware');
 var checkLogin = require('./middelwares/checkLogin.middleware');
@@ -90,7 +91,8 @@ app.use('/admin/film',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,che
 app.use('/admin/showtime',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminShowtime);
 app.use('/admin/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminUser);
 app.use('/admin/room',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminRoom);
-app.use('/admin/event',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminEvent)
+app.use('/admin/event',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminEvent);
+app.use('/admin/snack',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminSnack);
 
 app.use((req, res, next) => {
   res.status(404).render('error',{

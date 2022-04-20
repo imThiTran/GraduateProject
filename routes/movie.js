@@ -11,22 +11,22 @@ Category.find({}, function (err, categories) {
 })
 
 function roundHalf(num) {
-    return Math.round(num*2)/2;
+    return Math.round(num * 2) / 2;
 }
 
 router.get('/:slug', (req, res) => {
     var { slug } = req.params;
     var today = (new Date()).toLocaleDateString('en-CA');
     Film.findOne({ slug: slug }, function (err, film) {
-        var checkRating=false; //check user rating one more time
-        var sumRate=0;
-        film.ratings.forEach(function(rateFe){
-            sumRate=sumRate+rateFe.rating;
-        })
-        if (film.ratings.length!=0){
-            film.avgRate=roundHalf(sumRate/(film.ratings.length));
-        }  else {
-            film.avgRate=0;
+        var checkRating = false; //check user rating one more time
+        var sumRate = 0;
+        if (film.ratings.length != 0) {
+            film.ratings.forEach(function (rateFe) {
+                sumRate = sumRate + rateFe.rating;
+            })
+            film.avgRate = roundHalf(sumRate / (film.ratings.length));
+        } else {
+            film.avgRate = 0;
         }
         Showtime.find({ idFilm: film._id.toString(), date: { $gte: today } }, function (err, st) {
             var dateSt = [];
@@ -37,8 +37,8 @@ router.get('/:slug', (req, res) => {
                 for (var i = 0; i < film.ratings.length; i++) {
                     for (var j = 0; j < us.length; j++) {
                         if (film.ratings[i].idUser == us[j]._id.toString()) {
-                            if (req.session.user){
-                                if (us[j].email==req.session.user) checkRating=true;
+                            if (req.session.user) {
+                                if (us[j].email == req.session.user) checkRating = true;
                             }
                             film.ratings[i].photoUser = us[j].photo;
                             film.ratings[i].nameUser = us[j].fullname;
@@ -58,7 +58,7 @@ router.get('/:slug', (req, res) => {
                     cats: cats,
                     film: film,
                     dateSts: Array.from(new Set(dateSt)),
-                    checkRating:checkRating
+                    checkRating: checkRating
                 })
             })
         })
@@ -67,17 +67,30 @@ router.get('/:slug', (req, res) => {
 
 router.get('/category/:slug', (req, res) => {
     var { slug } = req.params
-    var fis = []
+    var fis = [];
+    var avgRates=[];
     Category.findOne({ slug: slug }, function (err, cat) {
         Film.find({}, function (err, films) {
             films.forEach((film) => {
                 if (film.idCat.includes(cat._id)) {
+                    var sumRate = 0;
+                    var avgRate;
+                    if (film.ratings.length != 0) {
+                        film.ratings.forEach(function (rateFe) {
+                            sumRate = sumRate + rateFe.rating;
+                        })
+                        avgRate = roundHalf(sumRate / (film.ratings.length));
+                    } else {
+                        avgRate = 0;
+                    }
+                    avgRates.push(avgRate);
                     fis.push(film)
                 }
             })
             res.render('movie/categories', {
                 cats: cats,
                 films: fis,
+                avgRates:avgRates,
                 type: cat.title
             })
         })
