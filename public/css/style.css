@@ -922,9 +922,10 @@ a:hover {
 }
 
 .purchase-search input[type=text] {
-    font-size: 18px;
+    font-size: 1rem;
+    font-style: italic;
     line-height: 30px;
-    height: 41px;
+    height: 39px;
 }
 
 .purchase-search button {
@@ -2600,6 +2601,7 @@ button.primaryContained:hover {
     display: flex;
   }
   .search-admin button{
+    margin-left: 2px;
     float: left;
     background: #fbd485;
     color: #333;

@@ -109,7 +109,6 @@
                                                             <%})%>
                                                             <%film.stArr.forEach(function(st){%>
                                                                 <div class="movie-time">
-                                                                    <%if (st.closed==0){%>
                                                                         <a href="/order?idShowtime=<%=st.idSt%>" class="btn-overtime btn btn-outline-warning btn-time">
                                                                             <%newSt=st.timeStart.split(':');%>
                                                                             <%if (newSt[0]<12){ %>
@@ -118,16 +117,6 @@
                                                                                 <%=st.timeStart%> PM
                                                                             <%}%>
                                                                         </a>
-                                                                    <%} else {%>
-                                                                        <a style="opacity: 0.5;" class="btn-overtime btn btn-outline-warning btn-time">
-                                                                            <%newSt=st.timeStart.split(':');%>
-                                                                            <%if (newSt[0]<12){ %>
-                                                                                <%=st.timeStart%> AM
-                                                                            <%} else { %>
-                                                                                <%=st.timeStart%> PM
-                                                                            <%}%>
-                                                                        </a>
-                                                                    <%}%>
                                                                     
                                                                 </div>
                                                             <%})%>
@@ -365,13 +354,13 @@
             $this=$(this);
             var date=$this.attr('date');
             $this.click(function(){
+                $('.body-loading').css('display','block');
                 $.ajax({
                         url: "/render/"+date,
                         method: "GET",
                         contentType: "application/json",
                         data: JSON.stringify({}),
                         success: function (result) {
-                            $('.body-loading').css('display','block');
                             setTimeout(() => {
                                 $('.body-loading').css('display','none');
                                 $('.render-ajax').html(result);

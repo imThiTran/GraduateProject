@@ -1,8 +1,13 @@
 function cleanText(text) {
     return text.replaceAll(/\s+/g, ' ').trim();
 }
+var rating=-1;
+
+function handleRate(e){
+    rating=e.value;
+}
 $(document).ready(function () {
-    var idFilm = $('.userComment').attr('id');
+    var idFilm = $('.idFilmHidden').val();
 
 
     $(window).scroll(function () {
@@ -13,6 +18,7 @@ $(document).ready(function () {
         }
     });
 
+    //click rating
     $('.userComment').click(function () {
         var value = $('.contentComment').val();
         if (value == '') {
@@ -22,12 +28,19 @@ $(document).ready(function () {
                 showConfirmButton: false,
                 timer: 1500
             });
-        } else {
+        } else if (rating==-1) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Vui lòng đánh giá sao',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }  else {
             $.ajax({
                 url: "/user/comment",
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify({ content: value, idFilm: idFilm }),
+                data: JSON.stringify({ content: value, idFilm: idFilm,rating:rating }),
                 success: function (result) {
                     if (result == 'success') window.location.reload();
                     else {
@@ -86,12 +99,20 @@ $(document).ready(function () {
             revert();
         })
 
+
+        //save edit rating
         btnSave.click(function () {
             var $this = $(this);
-            var idCmt = $this.attr('idCmt');
+            var idRate = $this.attr('idRate');
             var content = textEdit.val().trim();
             if (content == '') {
-                deleteCmt(deleteCmtBtn);
+                // deleteCmt(deleteCmtBtn);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Không được bỏ trống nội dung',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             }
             else if (content == currentCmt.text().trim()) {
                 revert();
@@ -100,7 +121,7 @@ $(document).ready(function () {
                     url: "/user/edit-comment",
                     method: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify({ idCmt: idCmt, idFilm: idFilm, content: content }),
+                    data: JSON.stringify({ idRate: idRate, idFilm: idFilm, content: content }),
                     success: function (result) {
                         $this.html(`<div class="spinner-border text-warning spinner-save" role="status"></div>`);
                         setTimeout(() => {
@@ -117,38 +138,38 @@ $(document).ready(function () {
         })
     })
 
-    $('.deleteCmt').each(function () {
-        var $this = $(this);
-        $this.click(function () {
-            deleteCmt($this);
-        })
+    // $('.deleteCmt').each(function () {
+    //     var $this = $(this);
+    //     $this.click(function () {
+    //         deleteCmt($this);
+    //     })
 
-    })
+    // })
 
-    function deleteCmt(element) {
-        var commentRow = element.closest('.commented');
-        var idCmt = element.attr('idCmt');
-        var editCmtBtn = element.parent().find('.editCmt')
-        Swal.fire({
-            icon: 'question',
-            title: 'Bạn có chắc chắn muốn xóa ?',
-            text: 'Bình luận này sẽ bị mất',
-            showCancelButton: true
-        }).then((confirm) => {
-            if (confirm.isConfirmed) {
-                editCmtBtn.css('display', 'none');
-                $.ajax({
-                    url: "/user/delete-comment",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ idCmt: idCmt, idFilm: idFilm }),
-                    success: function (result) {
-                        commentRow.remove();
-                    }
-                })
-            }
-        })
-    }
+    // function deleteCmt(element) {
+    //     var commentRow = element.closest('.commented');
+    //     var idCmt = element.attr('idCmt');
+    //     var editCmtBtn = element.parent().find('.editCmt')
+    //     Swal.fire({
+    //         icon: 'question',
+    //         title: 'Bạn có chắc chắn muốn xóa ?',
+    //         text: 'Bình luận này sẽ bị mất',
+    //         showCancelButton: true
+    //     }).then((confirm) => {
+    //         if (confirm.isConfirmed) {
+    //             editCmtBtn.css('display', 'none');
+    //             $.ajax({
+    //                 url: "/user/delete-comment",
+    //                 method: "POST",
+    //                 contentType: "application/json",
+    //                 data: JSON.stringify({ idCmt: idCmt, idFilm: idFilm }),
+    //                 success: function (result) {
+    //                     commentRow.remove();
+    //                 }
+    //             })
+    //         }
+    //     })
+    // }
 });
 
 function handleRadio(e) {

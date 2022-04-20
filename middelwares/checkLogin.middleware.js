@@ -4,6 +4,6 @@ module.exports = function(req,res,next){
         next();
     }
     else {
-        res.render('auth/login');
+        res.redirect('/auth/login');
     }
 }

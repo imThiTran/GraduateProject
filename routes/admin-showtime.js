@@ -6,12 +6,6 @@ var Ticket = require('../models/ticket');
 var shortId = require('shortid');
 const Room = require('../models/room');
 const TicketPrice = require('../models/ticket-price');
-var singleSeat, coupleSeat;
-
-TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
-    singleSeat = tkpr.singleSeat;
-    coupleSeat = tkpr.coupleSeat;
-})
 
 
 //loai bo khoang trang trong chuoi
@@ -24,47 +18,51 @@ router.get('/', (req, res) => {
     var times = [];
     var date = [];
     var descrb = [];
-    Film.find({}, (err, fi) => {
-        Showtime.find({}, (err, st) => {
-            Room.find({ block: 0 }, (err, ro) => {
-                fi.forEach(function (f) {
-                    descrb = [];
-                    date = [];
-                    st.forEach(function (s) {
-                        if (s.idFilm == f._id.toString())
-                            date.push(s.date);
+    TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
+        Film.find({}, (err, fi) => {
+            Showtime.find({}, (err, st) => {
+                Room.find({ block: 0 }, (err, ro) => {
+                    fi.forEach(function (f) {
+                        descrb = [];
+                        date = [];
+                        st.forEach(function (s) {
+                            if (s.idFilm == f._id.toString())
+                                date.push(s.date);
+                        })
+                        date = Array.from(new Set(date));
+                        if (date.length != 0) {
+                            date.forEach(function (d) {
+                                times = [];
+                                st.forEach(function (s) {
+                                    if (s.date == d && s.idFilm == f._id.toString())
+                                        times.push({
+                                            timeStart: s.timeStart,
+                                            closed: s.closed,
+                                            id: s._id.toString()
+                                        });
+                                })
+                                descrb.push({
+                                    nameDate: d,
+                                    times: times
+                                })
+                            })
+                            showtimeArr.push({
+                                idFilm: f._id,
+                                nameEN: f.nameEN,
+                                nameVN: f.nameVN,
+                                photo: f.photo,
+                                descrb: descrb
+                            })
+                        }
                     })
-                    date = Array.from(new Set(date));
-                    if (date.length != 0) {
-                        date.forEach(function (d) {
-                            times = [];
-                            st.forEach(function (s) {
-                                if (s.date == d && s.idFilm == f._id.toString())
-                                    times.push({
-                                        timeStart: s.timeStart,
-                                        closed: s.closed,
-                                        id: s._id.toString()
-                                    });
-                            })
-                            descrb.push({
-                                nameDate: d,
-                                times: times
-                            })
-                        })
-                        showtimeArr.push({
-                            idFilm: f._id,
-                            nameEN: f.nameEN,
-                            nameVN: f.nameVN,
-                            photo: f.photo,
-                            descrb: descrb
-                        })
-                    }
+                    res.render('admin/admin-showtime', {
+                        showtimes: showtimeArr,
+                        films: fi,
+                        rooms: ro,
+                        singleSeat: tkpr.singleSeat,
+                        coupleSeat: tkpr.coupleSeat,
+                    });
                 })
-                res.render('admin/admin-showtime', {
-                    showtimes: showtimeArr,
-                    films: fi,
-                    rooms: ro
-                });
             })
         })
     })
@@ -357,10 +355,10 @@ router.post('/load-edit', (req, res) => {
     var typeRoom;
     Showtime.findById(idSt, (err, st) => {
         Room.find({}, (err, ro) => {
-            ro.forEach(function(roFe){
-                if (roFe._id==st.idRoom) typeRoom=roFe.type;
+            ro.forEach(function (roFe) {
+                if (roFe._id == st.idRoom) { typeRoom = roFe.type; return false }
             });
-            ro=ro.filter(roFt => (roFt.type==typeRoom));
+            ro = ro.filter(roFt => (roFt.type == typeRoom));
             Film.findOne({ id: st.idFilm }, (err, fi) => {
                 var hour = st.timeStart.split(':')[0];
                 var minute = st.timeStart.split(':')[1];
@@ -372,7 +370,7 @@ router.post('/load-edit', (req, res) => {
                     hour: hour,
                     minute: minute,
                     room: st.idRoom,
-                    rooms:ro
+                    rooms: ro
                 })
             })
         })
@@ -462,59 +460,63 @@ router.get('/search-time', (req, res) => {
     var descrb = [];
     df = new Date(datefrom);
     dt = new Date(dateto);
-    Room.find({ block: 0 }, async (err, ro) => {
-        var st = await Showtime.find({});
-        var fi;
-        if (datefrom == '') {
-            fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
-        } else if (name == '') {
-            fi = await Film.find({});
-            st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
-        } else {
-            fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
-            st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
-        }
-        fi.forEach(function (f) {
-            descrb = [];
-            date = [];
-            st.forEach(function (s) {
-                if (s.idFilm == f._id.toString())
-                    date.push(s.date);
-            })
-            date = Array.from(new Set(date));
-            if (date.length != 0) {
-                date.forEach(function (d) {
-                    times = [];
-                    st.forEach(function (s) {
-                        if (s.date == d && s.idFilm == f._id.toString())
-                            times.push({
-                                timeStart: s.timeStart,
-                                closed: s.closed,
-                                id: s._id.toString()
-                            });
-                    })
-                    descrb.push({
-                        nameDate: d,
-                        times: times
-                    })
-                })
-                showtimeArr.push({
-                    idFilm: f._id,
-                    nameEN: f.nameEN,
-                    nameVN: f.nameVN,
-                    photo: f.photo,
-                    descrb: descrb
-                })
+    TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
+        Room.find({ block: 0 }, async (err, ro) => {
+            var st = await Showtime.find({});
+            var fi;
+            if (datefrom == '') {
+                fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
+            } else if (name == '') {
+                fi = await Film.find({});
+                st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
+            } else {
+                fi = await Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] });
+                st = st.filter(stFt => compareDate(df, dt, stFt.date, stFt.timeStart));
             }
+            fi.forEach(function (f) {
+                descrb = [];
+                date = [];
+                st.forEach(function (s) {
+                    if (s.idFilm == f._id.toString())
+                        date.push(s.date);
+                })
+                date = Array.from(new Set(date));
+                if (date.length != 0) {
+                    date.forEach(function (d) {
+                        times = [];
+                        st.forEach(function (s) {
+                            if (s.date == d && s.idFilm == f._id.toString())
+                                times.push({
+                                    timeStart: s.timeStart,
+                                    closed: s.closed,
+                                    id: s._id.toString()
+                                });
+                        })
+                        descrb.push({
+                            nameDate: d,
+                            times: times
+                        })
+                    })
+                    showtimeArr.push({
+                        idFilm: f._id,
+                        nameEN: f.nameEN,
+                        nameVN: f.nameVN,
+                        photo: f.photo,
+                        descrb: descrb
+                    })
+                }
+            })
+            res.render('admin/admin-showtime', {
+                showtimes: showtimeArr,
+                films: fi,
+                rooms: ro,
+                name: name,
+                datefrom: datefrom,
+                dateto: dateto,
+                singleSeat:tkpr.singleSeat,
+                coupleSeat:tkpr.coupleSeat
+            });
         })
-        res.render('admin/admin-showtime', {
-            showtimes: showtimeArr,
-            films: fi,
-            rooms: ro,
-            name: name,
-            datefrom: datefrom,
-            dateto: dateto
-        });
     })
 })
 

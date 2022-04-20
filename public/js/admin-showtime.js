@@ -322,10 +322,10 @@ $('.btnSearchTime').click(function (e) {
     var check = true;
     var title;
     if (name == '' && datefrom == '' && dateto == '') {
-        title = 'Vui lòng nhập tên hoặc chọn ngày hoàn chỉnh';
+        title = 'Vui lòng nhập tên hoặc chọn ngày';
         check = false
     } else if ((datefrom == '' && dateto != '') || (datefrom != '' && dateto == '')) {
-        title = 'Bạn chưa chọn đủ thông tin';
+        title = 'Bạn chưa chọn đủ thông tin của ngày';
         check = false;
     } else if (new Date(datefrom) > new Date(dateto)) {
         title = 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc';

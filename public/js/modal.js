@@ -340,4 +340,55 @@ $('#btnEditCT').on('click', () => {
         })
     })
 })
+$("#formEditFilm").submit(function(e){
+  var idCat=[]
+  for(let i=0;i<$('.selectedit').length;i++){
+    idCat.push($('.selectedit').eq(i).val())
+  }   
+  e.preventDefault();
+  var form = $(this);
+  var formData = new FormData(this); 
+  formData.append('idCat',idCat) 
+  var actionUrl = form.attr('action');  
+  $.ajax({
+      type: "POST",
+      url: actionUrl,
+      data: formData,
+      success: function(data)
+      {
+        if(data.edit){          
+          if(data.imgEdit!=""){
+            $(`.${data.oldslug}`).find('.avt').attr('src', data.imgEdit);
+          }
+          $(`.${data.oldslug}`).find('.nameenedit').html(data.filmEdit.nameEN)
+          $(`.${data.oldslug}`).find('.namevnedit').html(data.filmEdit.nameVN)
+          $(`.${data.oldslug}`).find('.directorsedit').html(data.filmEdit.directors)
+          $(`.${data.oldslug}`).find('.premiereedit').html(data.filmEdit.premiere)
+          $(`.${data.oldslug}`).find('.categories').html(data.filmEdit.cat)          
+          $(`.${data.oldslug}`).find('.statusedit').html(data.filmEdit.status)
+          $(`.${data.oldslug}`).find('.btnEditFilm').val(data.filmEdit.slug)
+          $(`.${data.oldslug}`).find('.btnDeleteFilm').val(data.filmEdit.slug)
+          if(data.filmEdit.slug!=data.oldslug){
+            $(`.${data.oldslug}`).addClass(data.filmEdit.slug);
+            $(`.${data.oldslug}`).removeClass(data.oldslug);
+          }          
+          editFilm()
+          deleteFilm()
+          Swal.fire({
+            icon: 'success',
+            title: data.msg               
+          })
+        }else{
+          Swal.fire({
+            icon: 'warning',
+            title: data.msg
+          })
+        }
+      },
+      cache: false,
+      processData: false,
+      contentType: false
+  });
+  
+});
   
