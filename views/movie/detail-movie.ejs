@@ -279,7 +279,8 @@
 
     <section class="comment-section" id="app">
         <div class="container container-comment">
-            <div class="comment-side">Bình luận</div>
+            <%if (film.ratings.length!=0){%>
+                <div class="comment-side">Đánh giá</div>
             <%film.ratings.forEach(function(rate){%>
                 <div class="commented">
                     <div class="user-comt">
@@ -360,6 +361,10 @@
                     </div>
                 </div> 
             <%})%>
+            <%} else {%>
+                <div class="comment-side">Chưa có đánh giá nào</div>
+            <%}%>
+            
             <%if (user==""){%>
                 <a href="/auth/login">
                     <button class='primaryContained float-right' type="submit">Đăng nhập để đánh giá</button>
