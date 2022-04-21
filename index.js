@@ -60,12 +60,15 @@ var port=process.env.PORT || 3000;
 server.listen(port,function(){
     console.log('connected to port ' + port);
 });
+var checkPayment = require('./fcServer/checkPayment')
+checkPayment
 
 var auth = require('./routes/auth');
 var user = require('./routes/user');
 var movie = require('./routes/movie');
 var site = require('./routes/site');
 var order = require('./routes/order');
+var payment = require('./routes/payment')
 
 var adminFilm = require('./routes/admin-film');
 var adminShowtime = require('./routes/admin-showtime');
@@ -86,6 +89,7 @@ app.use('/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurr
 app.use('/movie',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,movie);
 app.use('/order',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,order);
 app.use('/',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,site);
+app.use('/payment',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,payment);
 
 app.use('/admin/film',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);
 app.use('/admin/showtime',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminShowtime);

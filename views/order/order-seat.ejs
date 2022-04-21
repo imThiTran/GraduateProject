@@ -29,7 +29,8 @@
 
 
                     <div class="screen"></div>
-                    <input type="hidden" class="idSt" value="<%=idSt%>" name="" id="">
+            <form method="post" action="/order/ticket">
+                    <input type="hidden" class="idSt" value="<%=idSt%>" name="idSt" id="">
                     <table>
                         <tr class="row rowSeat">
                             <%if (room.type==114){%>
@@ -38,7 +39,7 @@
                                         <%for (var j=0;j<a[i].length;j++){%>
                                             <%if(i!=9){%>
                                                 <%if (j==1 || j==9){%>
-                                                    <input type="checkbox" class="btn-check"
+                                                    <input type="checkbox" class="btn-check" name="ticket" value="<%=a[i][j]._id%>"
                                                         id="btn-check-<%=a[i][j].name%>" autocomplete="off" <%if
                                                         (a[i][j].available==0){%>disabled<%}%>>
                                                         <label class="btn btn-primary btn-seat"
@@ -51,7 +52,7 @@
                                                             style="opacity: 0;"></label>
                                                         <%}else {%>
                                                             <input type="checkbox" class="btn-check"
-                                                                id="btn-check-<%=a[i][j].name%>" autocomplete="off" <%if
+                                                                id="btn-check-<%=a[i][j].name%>" name="ticket" value="<%=a[i][j]._id%>" autocomplete="off" <%if
                                                                 (a[i][j].available==0){%>disabled<%}%>>
                                                                 <label class="btn btn-primary btn-seat"
                                                                     for="btn-check-<%=a[i][j].name%>">
@@ -61,7 +62,7 @@
                                                                     <%}else{%>
                                                                         <%if (j==0 || j==4){%>
                                                                             <input type="checkbox"
-                                                                                class="btn-check couple"
+                                                                                class="btn-check couple" name="ticket" value="<%=a[i][j]._id%>"
                                                                                 id="btn-check-<%=a[i][j].name%>"
                                                                                 autocomplete="off" <%if
                                                                                 (a[i][j].available==0){%>disabled<%}%>>
@@ -77,7 +78,7 @@
                                                                                     for="btn-check-a2"
                                                                                     style="opacity: 0;"></label>
                                                                                 <%}else {%>
-                                                                                    <input type="checkbox"
+                                                                                    <input type="checkbox" name="ticket" value="<%=a[i][j]._id%>"
                                                                                         class="btn-check couple"
                                                                                         id="btn-check-<%=a[i][j].name%>"
                                                                                         autocomplete="off" <%if
@@ -99,7 +100,7 @@
                                                 <td class="td-order td-order-small">
                                                     <%for (var j=0;j<a[i].length;j++){%>
                                                         <%if(i!=8){%>
-                                                            <input type="checkbox" class="btn-check"
+                                                            <input type="checkbox" class="btn-check" name="ticket" value="<%=a[i][j]._id%>"
                                                                 id="btn-check-<%=a[i][j].name%>" autocomplete="off" <%if
                                                                 (a[i][j].available==0){%>disabled<%}%>>
                                                                 <label class="btn btn-primary btn-seat btn-seat-small"
@@ -107,9 +108,9 @@
                                                                     <%=a[i][j].name%>
                                                                 </label>
                                                                 <%}else{%>
-                                                                    <input type="checkbox" class="btn-check couple"
-                                                                        id="btn-check-<%=a[i][j].name%>"
-                                                                        autocomplete="off" <%if
+                                                                    <input type="checkbox" class="btn-check couple" 
+                                                                        id="btn-check-<%=a[i][j].name%>" name="ticket" value="<%=a[i][j]._id%>"
+                                                                        autocomplete="off" <%if 
                                                                         (a[i][j].available==0){%>disabled<%}%>>
                                                                         <label
                                                                             class="btn btn-primary btn-couple btn-seat btn-seat-small"
@@ -147,14 +148,14 @@
                                 Trở lại
                             </button>
                         </a>
-                        <a href="detail-combo.html" style="color: #333;">
-                            <button type="button" class="btn btn-buy btn-order">
-                                Tiếp tục
-                            </button>
-                        </a>
+                        
+                        <button type="submit" class="btn btn-buy btn-order">
+                            Tiếp tục
+                        </button>
+                        
                     </div>
                 </div>
-
+            </form>
 
 
     </body>
