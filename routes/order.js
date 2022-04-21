@@ -4,6 +4,7 @@ var Ticket = require('../models/ticket');
 var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 var Category = require('../models/category');
+var User = require('../models/user');
 const Room = require('../models/room');
 
 router.get('/', (req, res) => {
@@ -76,22 +77,22 @@ router.post('/reload', (req, res) => {
                     for (var j = 0; j < a[i].length; j++) {
                         if (i != 9) {
                             if (j == 1 || j == 9) {
-                                htmlSend = htmlSend + `<input type="checkbox" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off"` + ((a[i][j].available == 0) ? `disabled` : ``) + ` >
+                                htmlSend = htmlSend + `<input type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off"` + ((a[i][j].available == 0) ? `disabled` : ``) + ` >
                                             <label class="btn btn-primary btn-seat" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>
                                             <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
                                             <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>`;
                             } else {
-                                htmlSend = htmlSend + `<input type="checkbox" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                                htmlSend = htmlSend + `<input type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-seat" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>`;
                             }
                         } else {
                             if (j == 0 || j == 4) {
-                                htmlSend = htmlSend + `<input type="checkbox" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                                htmlSend = htmlSend + `<input type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-couple btn-seat" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>
                                             <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
                                             <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>`;
                             } else {
-                                htmlSend = htmlSend + `<input type="checkbox" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                                htmlSend = htmlSend + `<input type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-couple btn-seat" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>`
                             }
                         }
@@ -104,10 +105,10 @@ router.post('/reload', (req, res) => {
                     htmlSend = htmlSend + `<td class="td-order td-order-small">`;
                     for (var j = 0; j < a[i].length; j++) {
                         if (i != 8) {
-                            htmlSend = htmlSend + `<input type="checkbox" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                            htmlSend = htmlSend + `<input type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-seat btn-seat-small" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>`;
                         } else {
-                            htmlSend = htmlSend + `<input type="checkbox" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                            htmlSend = htmlSend + `<input type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-couple btn-seat btn-seat-small" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>`
                         }
                     }
@@ -122,5 +123,44 @@ router.post('/reload', (req, res) => {
     })
 })
 
+router.post('/ticket', (req, res) => {
+    var{ticket,idSt} =req.body    
+    User.findOne({email : req.session.user},function(err,us){        
+        Showtime.findById(idSt, function(err,st){
+            Film.findById(st.idFilm, function(err,film){
+                Room.findById(st.idRoom,function(err,room){
+                    if (err) return console.log(err);
+                    if(ticket=='string'){
+                        Ticket.findById(ticket, function(err,tk){
+                            res.render('payment/detail-check',{
+                                st:st,
+                                tk:tk,
+                                total:tk[0].price,
+                                film:film,
+                                room:room,
+                                user:us
+                            })
+                        })
+                    }else{
+                        Ticket.find({"_id": {"$in" : ticket}}, function(err, tk){
+                            var total=0
+                            tk.forEach(ticket => {
+                                total+=ticket.price
+                            })                       
+                            res.render('payment/detail-check',{
+                                st:st,
+                                tk:tk,
+                                total:total,
+                                film:film,
+                                room:room,
+                                user:us
+                            })
+                        })
+                    }
+                })
+            })        
+        })
+    })    
+})
 
 module.exports = router;
