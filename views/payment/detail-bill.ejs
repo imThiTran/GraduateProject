@@ -89,46 +89,50 @@
                 <h2>Đặt hàng thành công</h2>
                 <div class="bill-text">
                     <div class="name-bill">Tên khách hàng: </div>
-                    <span>Diệu Ny</span>
+                    <span><%= bill.fullname %></span>
                 </div>
                 <div class="bill-text">
                     <div class="name-bill">Số điện thoại: </div>
-                    <span>12345678910</span>
+                    <span><%= bill.phone %></span>
                 </div>
                 <div class="bill-text">
                     <div class="name-bill">Email: </div>
-                    <span>dieuny2603@gmail.com</span>
+                    <span><%= bill.user %></span>
                 </div>
                 <div class="showtime-bill">
                     <div class="bill-text" style="display: flex;">
                         <div class="name-bill">Tên phim: </div>
                         <div>
-                            <div>ETERNAL</div>
-                            <div>Chủng tộc bất tử</div>
+                            <div><%= film.nameEN %></div>
+                            <div><%= film.nameVN %></div>
                         </div>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Suất chiếu </div>
-                        <span>24/05/2022 19:30PM</span>
+                        <span><%= st.date %> <%= st.timeStart %></span>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Rạp: </div>
-                        <span>CINEMA 1</span>
+                        <span><%= room.name %></span>
                     </div>
                     <div class="bill-text">
-                        <div class="name-bill">Ghế: </div>
-                        <span>H7, H8</span>
+                        <div class="name-bill">Ghế: </div>                        
+                        <span>                            
+                            <% bill.ticket.forEach(function(tk) { %>
+                                <%= tk.name %>
+                            <% }); %>                            
+                        </span>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Combo: </div> 
-                        <span>1 x Bắp, 1 x Nước</span>
+                        <span>Ăn uống gì tầm này</span>
                     </div>
                 </div>
                 <div class="note-bill">*Vui lòng đến rạp trước 15 phút để làm thủ tục soát vé</div>
 
             </div>
             <div class="bill-code">
-                <div qrvalue="<%=billid%>" id="qrcode"></div>
+                <div qrvalue="" id="qrcode"></div>
             </div>
         </div>
     </div>
