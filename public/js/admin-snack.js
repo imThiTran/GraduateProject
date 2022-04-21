@@ -16,6 +16,8 @@ $('.close-snack').on('click', function () {
   $('.typeAdd').val('Đồ ăn');
   $('.priceAdd').val('');
   imgInputAdd.val(null);
+  $('.alertEdit').text('');
+  $('.alertAdd').text('');
   modalAddSnack.style.display = "none";
   modalEditSnack.style.display = "none";
 });
@@ -125,12 +127,17 @@ $('.saveEdit').click(function () {
     contentType: false,
     data: data,
     success: function (result) {
+      if (typeof result == 'object') {
       nameShow.innerText=result.name;
       typeShow.innerText=result.type;
       priceShow.innerText=formatNumber(result.price)+' VNĐ';
       photoShow.setAttribute('src',result.photo);
       $('.body-loading').css('display', 'none');
       modalEditSnack.style.display = "none";
+      }else {
+        $('.body-loading').css('display', 'none');
+        $('.alertEdit').html(result);
+      }
     }
   })
 })
