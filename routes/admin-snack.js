@@ -18,7 +18,7 @@ router.post('/add-snack', (req, res) => {
     price = parseInt(price);
     if (req.files != null) imageFile = req.files.image;
     else imageFile = "";
-    Snack.findOne({ name: name }, (err, sn) => { 
+    Snack.findOne({ name: name }, (err, sn) => {
         if (sn) res.send('Món này đã tồn tại');
         else {
             if (imageFile != "") {
@@ -46,62 +46,67 @@ router.post('/add-snack', (req, res) => {
     })
 })
 
-router.post('/load-edit/:id',(req,res)=>{
-    var id=req.params.id;
-    Snack.findById(id,(err,sn)=>{
+router.post('/load-edit/:id', (req, res) => {
+    var id = req.params.id;
+    Snack.findById(id, (err, sn) => {
         if (err) throw err;
         res.send(sn);
     })
 })
 
-router.post('/block',(req,res)=>{
-    var {idSnack,block}=req.body;
-    Snack.findById(idSnack,(err,sn)=>{
+router.post('/block', (req, res) => {
+    var { idSnack, block } = req.body;
+    Snack.findById(idSnack, (err, sn) => {
         if (err) throw err;
-        sn.block=block;
-        sn.save(function(err){
+        sn.block = block;
+        sn.save(function (err) {
             res.send('success');
         })
     })
 })
 
-router.get('/delete-snack/:id',(req,res)=>{
-    var idSnack=req.params.id;
-    Snack.findByIdAndRemove(idSnack,(err)=>{
+router.get('/delete-snack/:id', (req, res) => {
+    var idSnack = req.params.id;
+    Snack.findByIdAndRemove(idSnack, (err) => {
         if (err) throw err;
         res.send('success');
     })
 })
 
-router.post('/edit-snack',(req,res)=>{
+router.post('/edit-snack', (req, res) => {
     var { name, type, price, pimage, idSnack } = req.body;
     if (req.files != null) imageFile = req.files.image;
     else imageFile = "";
-    Snack.findById(idSnack,(err,sn)=>{
-        sn.name=name;
-        sn.type=type;
-        sn.price=parseInt(price);
-        if (imageFile!=""){
-            cloudinary.uploader.upload(imageFile.tempFilePath, { folder: "cinema/snacks/" + name }, function (err, rs) {
-                if (err) throw err;
-                    sn.photo=rs.url,
-                    sn.photoDrop= rs.public_id
-                })
-                fs.unlink(imageFile.tempFilePath, function (err) {
-                    if (err) throw err;
-                })
-                cloudinary.uploader.destroy(pimage,function(err,rs){
-                    if (err) throw err;
+    Snack.findOne({ name: name, _id: { $ne: idSnack } }, (err, snExist) => {
+        if (snExist) res.send('Món này đã tồn tại');
+        else {
+            Snack.findById(idSnack, (err, sn) => {
+                sn.name = name;
+                sn.type = type;
+                sn.price = parseInt(price);
+                if (imageFile != "") {
+                    cloudinary.uploader.upload(imageFile.tempFilePath, { folder: "cinema/snacks/" + name }, function (err, rs) {
+                        if (err) throw err;
+                        sn.photo = rs.url,
+                            sn.photoDrop = rs.public_id
                     })
-                sn.save(function (err, result) {
-                    if (err) throw err;
-                    res.send(result);
-                });
-        } else {
-            sn.save(function (err, result) {
-                if (err) throw err;
-                res.send(result);
-            });
+                    fs.unlink(imageFile.tempFilePath, function (err) {
+                        if (err) throw err;
+                    })
+                    cloudinary.uploader.destroy(pimage, function (err, rs) {
+                        if (err) throw err;
+                    })
+                    sn.save(function (err, result) {
+                        if (err) throw err;
+                        res.send(result);
+                    });
+                } else {
+                    sn.save(function (err, result) {
+                        if (err) throw err;
+                        res.send(result);
+                    });
+                }
+            })
         }
     })
 })
