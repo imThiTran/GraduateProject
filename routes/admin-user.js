@@ -53,7 +53,8 @@ router.get('/search', (req, res) => {
     var name = req.query.name;
     User.find({ $or: [{ email: { $regex: name, $options: "$i" } }, { fullname: { $regex: name, $options: "$i" } }] }, function (err, us) {
         res.render('admin/admin-user', {
-            users: us
+            users: us,
+            value:name
         })
     })
 })
