@@ -17,7 +17,7 @@ var BillSchema = mongoose.Schema({
        type: String,
        default: '0'
    },
-   status:{
+   checkin:{
        type: String,
        default: '0'
    },
@@ -28,6 +28,12 @@ var BillSchema = mongoose.Schema({
        type:String
    },
    user:{
+       type:String
+   },
+   fullname:{
+       type: String
+   },
+   phone:{
        type:String
    }
 })

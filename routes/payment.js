@@ -3,6 +3,9 @@ var router = express.Router();
 const crypto = require('crypto');
 var Bill = require('../models/bill')
 var Ticket = require('../models/ticket');
+var Film = require('../models/film');
+var Showtime = require('../models/showtime');
+var Room = require('../models/room');
 
 var partnerCode = process.env.partnerCode
 var accessKey = process.env.accessKey
@@ -16,7 +19,7 @@ var extraData = "";
 
 
 router.post('/', (request, response) => {
-    var {ticket} = request.body
+    var {ticket, fullname, phone} = request.body    
     var check=true
     Ticket.find({"_id": {"$in" : ticket}}, function(err, tk){
         tk.forEach(ticketcheck => {
@@ -36,7 +39,9 @@ router.post('/', (request, response) => {
             var bill = new Bill({
                 ticket: tk,
                 total: total,
-                user: request.session.user
+                user: request.session.user,
+                fullname:fullname,
+                phone:phone
             })
             bill.save(function(err,bill){
                 var orderId = bill._id;
@@ -125,8 +130,19 @@ router.get('/confirm', (req, res) => {
                 bill.payment=1;
                 bill.save(function (err) {
                     if (err) throw err;           
-                });
-                res.send("Đặt thành công nha")
+                });                
+                Showtime.findById(bill.ticket[0].idShowtime, function(err,st){
+                    Film.findById(st.idFilm, function(err,film){
+                        Room.findById(st.idRoom,function(err,room){
+                            res.render('payment/detail-bill',{
+                                bill:bill,
+                                st:st,
+                                film:film,
+                                room:room
+                            })
+                        })
+                    })
+                })                
             })
         }else{
             res.send('Thanh toán thất bại')
