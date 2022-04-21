@@ -158,9 +158,16 @@
                 <div class="detail-side">
                     <div class="detail-img">
                         <a href="#"><img class="poster-movie" src="<%=film.photo%>"></a>
-                        <button id="btn-buy" type="button" class="btn btn-buy" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Mua vé
-                        </button>
+                        <%if (film.status=='Sắp khởi chiếu'){%>
+                            <button disabled id="btn-buy" type="button" class="btn btn-buy" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Sắp khởi chiếu
+                            </button>
+                        <%} else {%>
+                            <button id="btn-buy" type="button" class="btn btn-buy" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Mua vé
+                            </button>
+                        <%}%>
+                        
                     </div>
 
                     <!-- bảng pop up  -->
@@ -174,35 +181,40 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <form action="/order" method="get">
-                                    <div class="modal-body">
-                                        <h6 class="modal-title">Chọn ngày</h6>
-                                        <div class="form-group">
-                                            <select id="dateShow" class="dateChange form-select"
-                                                aria-label="Default select example">
-                                                <% dateSts.sort() %>
-                                                    <option value="none">Chọn ngày chiếu</option>
-                                                <%dateSts.forEach(function(dateSt){%>
-                                                    <option value="<%=dateSt%>"><%=convertDate(dateSt) %></option>
-                                                <%})%> 
+                                    <%if (dateSts.length>0){%>
+                                        <div class="modal-body">
+                                            <h6 class="modal-title">Chọn ngày</h6>
+                                            <div class="form-group">
+                                                <select id="dateShow" class="dateChange form-select"
+                                                    aria-label="Default select example">
+                                                    <% dateSts.sort() %>
+                                                        <option value="none">Chọn ngày chiếu</option>
+                                                    <%dateSts.forEach(function(dateSt){%>
+                                                        <option value="<%=dateSt%>"><%=convertDate(dateSt) %></option>
+                                                    <%})%> 
+                                                    
+                                                </select>
+                                                <span class="span-error" id="birth_error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6 class="modal-title">Chọn suất chiếu</h6>
+                                            <div id="showtime" class="flex-time-detail">
                                                 
-                                            </select>
-                                            <span class="span-error" id="birth_error"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h6 class="modal-title">Chọn suất chiếu</h6>
-                                        <div id="showtime" class="flex-time-detail">
-                                            
+                                        <div class="container-input-hidden">
+                                            <input class='inputHidden' type="hidden" name="idShowtime">
                                         </div>
-                                    </div>
-                                    <div class="container-input-hidden">
-                                        
-                                    </div>
-                                    <div class="modal-footer" style="    height: 90px;">
-                                        <p style="color: red;  margin-right: 90px;" class="alert span-error"></p>
-                                        <button style="    position: absolute;" type="submit"
-                                            class="btn btn-outline-warning btn-submit">Tiếp tục</button>
-                                    </div>
+                                        <div class="modal-footer" style="    height: 90px;">
+                                            <p style="color: red;  margin-right: 90px;" class="alert span-error"></p>
+                                            <button style="    position: absolute;" type="submit"
+                                                class="btn btn-outline-warning btn-submit">Tiếp tục</button>
+                                        </div>
+                                    <%} else {%>
+                                        <p>Hiện phim này chưa có suất chiếu nào</p>
+                                    <%}%>
+                                    
                                    
                                 </form>
                             </div>
@@ -276,123 +288,125 @@
         </div>
         <input type="hidden" name="" class="idFilmHidden" value="<%= film._id %>" id="">
     </div>
-
-    <section class="comment-section" id="app">
-        <div class="container container-comment">
-            <%if (film.ratings.length!=0){%>
-                <div class="comment-side">Đánh giá</div>
-            <%film.ratings.forEach(function(rate){%>
-                <div class="commented">
-                    <div class="user-comt">
-                        <%if (rate.photoUser!=''){%>
-                            <img src="<%=rate.photoUser%>" alt="">
-                        <%} else {%>
-                            <img src="/img/no_img.webp" alt="">
-                        <%}%>
-                        
-                        <div class="name-comt"><%=rate.nameUser%></div>
-                    </div>
-                    
-                    <div class="star-text">
-                    
-                    
-                    <%if (rate.idUser==user._id){%>
-                        <div class="btn-comt">
-                            <button id="btn-suacomt"  class='btn-sua editCmt' type="submit">Sửa</button>
-                            <!-- <button id="btn-xoacomt" idRate="<%=rate.idRate%>" class='btn-xoa deleteCmt' type="submit">Xóa</button> -->
-                        </div> 
-                    <%}%>
-                        
-                        <fieldset class="rating rating-comt">
-                            <%if (rate.rating==1){%>
-                                <span class = "full" for="star5" title="Awesome - 5 stars"></span>
-                                <span class = "full" for="star4" title="Pretty good - 4 stars"></span>
-                                <span class = "full" for="star3" title="Meh - 3 stars"></span>
-                                <span class = "full" for="star2" title="Kinda bad - 2 stars"></span>
-                                <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
-                            <%} else if (rate.rating==2) {%>
-                                <span class = "full" for="star5" title="Awesome - 5 stars"></span>
-                                <span class = "full" for="star4" title="Pretty good - 4 stars"></span>
-                                <span class = "full" for="star3" title="Meh - 3 stars"></span>
-                                <span class = "full fulled" for="star2" title="Kinda bad - 2 stars"></span>
-                                <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
-                            <%} else if (rate.rating==3) {%>
-                                <span class = "full" for="star5" title="Awesome - 5 stars"></span>
-                                <span class = "full" for="star4" title="Pretty good - 4 stars"></span>
-                                <span class = "full fulled" for="star3" title="Meh - 3 stars"></span>
-                                <span class = "full fulled" for="star2" title="Kinda bad - 2 stars"></span>
-                                <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
-                            <%} else if (rate.rating==4){%>
-                                <span class = "full" for="star5" title="Awesome - 5 stars"></span>
-                                <span class = "full fulled" for="star4" title="Pretty good - 4 stars"></span>
-                                <span class = "full fulled" for="star3" title="Meh - 3 stars"></span>
-                                <span class = "full fulled" for="star2" title="Kinda bad - 2 stars"></span>
-                                <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
+    <%if (film.status!='Sắp khởi chiếu'){%>
+        <section class="comment-section" id="app">
+            <div class="container container-comment">
+                <%if (film.ratings.length!=0){%>
+                    <div class="comment-side">Đánh giá</div>
+                <%film.ratings.forEach(function(rate){%>
+                    <div class="commented">
+                        <div class="user-comt">
+                            <%if (rate.photoUser!=''){%>
+                                <img src="<%=rate.photoUser%>" alt="">
                             <%} else {%>
-                                <span class = "full fulled" for="star5" title="Awesome - 5 stars"></span>
-                                <span class = "full fulled" for="star4" title="Pretty good - 4 stars"></span>
-                                <span class = "full fulled" for="star3" title="Meh - 3 stars"></span>
-                                <span class = "full fulled" for="star2" title="Kinda bad - 2 stars"></span>
-                                <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
+                                <img src="/img/no_img.webp" alt="">
                             <%}%>
-                                
-                            </fieldset>
-                        <div class="comment" id="commentp">
-                            <div v-for="items in item" v-text="items"><%=rate.content%></div>
+                            
+                            <div class="name-comt"><%=rate.nameUser%></div>
                         </div>
-                        <textarea id="text-sua" type="text" class="input"  ></textarea>
-                        <div class="btn-group">
-                            <button id="btn-save" class='btn-sua' idRate="<%=rate.idRate%>" type="submit" value="Lưu">
-                                Lưu
-                            </button>
-                            <button id="btn-huy" class='btn-sua' type="submit" value="Hủy">
-                                Hủy
-                            </button>
-                        </div>
-                        <div class="time-comt">
-                            <%var time=rate.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;%>
-                            <%var date=rate.date.toLocaleDateString('en-GB'); %>
-                            <% if (rate.edited==0){ %>
-                                <%=time%> <%=date%>
-                            <%} else {%>
-                                Đã chỉnh sửa lúc <%=time%> <%=date%>
-                            <%}%> 
-                        </div>
-                    </div>
-                </div> 
-            <%})%>
-            <%} else {%>
-                <div class="comment-side">Chưa có đánh giá nào</div>
-            <%}%>
-            
-            <%if (user==""){%>
-                <a href="/auth/login">
-                    <button class='primaryContained float-right' type="submit">Đăng nhập để đánh giá</button>
-                </a>
-                
-            <%} else { %>
-                <div class="comment-text commented-text">
-                        <%if (checkRating==true){%>
-                            <span>Cảm ơn bạn đã đánh giá</span>
-                        <%}else {%>
-                            <textarea type="text" class="contentComment input" placeholder="Viết bình luận của bạn ở đây" v-model="newItem"
-                        @keyup.enter="addItem()"></textarea>
-                    <div class="star-comment">
-                        <fieldset class="rating rating-choose">
-                            <input type="radio" id="star5" onclick="handleRate(this);" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                            <input type="radio" id="star4" onclick="handleRate(this);" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                            <input type="radio" id="star3" onclick="handleRate(this);" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                            <input type="radio" id="star2" onclick="handleRate(this);" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                            <input type="radio" id="star1" onclick="handleRate(this);" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                        </fieldset>
-                            <button class='userComment primaryContained float-right' type="submit">Đánh giá</button>
+                        
+                        <div class="star-text">
+                        
+                        
+                        <%if (rate.idUser==user._id){%>
+                            <div class="btn-comt">
+                                <button id="btn-suacomt"  class='btn-sua editCmt' type="submit">Sửa</button>
+                                <!-- <button id="btn-xoacomt" idRate="<%=rate.idRate%>" class='btn-xoa deleteCmt' type="submit">Xóa</button> -->
+                            </div> 
                         <%}%>
+                            
+                            <fieldset class="rating rating-comt">
+                                <%if (rate.rating==1){%>
+                                    <span class = "full" for="star5" title="Awesome - 5 stars"></span>
+                                    <span class = "full" for="star4" title="Pretty good - 4 stars"></span>
+                                    <span class = "full" for="star3" title="Meh - 3 stars"></span>
+                                    <span class = "full" for="star2" title="Kinda bad - 2 stars"></span>
+                                    <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
+                                <%} else if (rate.rating==2) {%>
+                                    <span class = "full" for="star5" title="Awesome - 5 stars"></span>
+                                    <span class = "full" for="star4" title="Pretty good - 4 stars"></span>
+                                    <span class = "full" for="star3" title="Meh - 3 stars"></span>
+                                    <span class = "full fulled" for="star2" title="Kinda bad - 2 stars"></span>
+                                    <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
+                                <%} else if (rate.rating==3) {%>
+                                    <span class = "full" for="star5" title="Awesome - 5 stars"></span>
+                                    <span class = "full" for="star4" title="Pretty good - 4 stars"></span>
+                                    <span class = "full fulled" for="star3" title="Meh - 3 stars"></span>
+                                    <span class = "full fulled" for="star2" title="Kinda bad - 2 stars"></span>
+                                    <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
+                                <%} else if (rate.rating==4){%>
+                                    <span class = "full" for="star5" title="Awesome - 5 stars"></span>
+                                    <span class = "full fulled" for="star4" title="Pretty good - 4 stars"></span>
+                                    <span class = "full fulled" for="star3" title="Meh - 3 stars"></span>
+                                    <span class = "full fulled" for="star2" title="Kinda bad - 2 stars"></span>
+                                    <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
+                                <%} else {%>
+                                    <span class = "full fulled" for="star5" title="Awesome - 5 stars"></span>
+                                    <span class = "full fulled" for="star4" title="Pretty good - 4 stars"></span>
+                                    <span class = "full fulled" for="star3" title="Meh - 3 stars"></span>
+                                    <span class = "full fulled" for="star2" title="Kinda bad - 2 stars"></span>
+                                    <span class = "full fulled" for="star1" title="Sucks big time - 1 star"></span>
+                                <%}%>
+                                    
+                                </fieldset>
+                            <div class="comment" id="commentp">
+                                <div v-for="items in item" v-text="items"><%=rate.content%></div>
+                            </div>
+                            <textarea id="text-sua" type="text" class="input"  ></textarea>
+                            <div class="btn-group">
+                                <button id="btn-save" class='btn-sua' idRate="<%=rate.idRate%>" type="submit" value="Lưu">
+                                    Lưu
+                                </button>
+                                <button id="btn-huy" class='btn-sua' type="submit" value="Hủy">
+                                    Hủy
+                                </button>
+                            </div>
+                            <div class="time-comt">
+                                <%var time=rate.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;%>
+                                <%var date=rate.date.toLocaleDateString('en-GB'); %>
+                                <% if (rate.edited==0){ %>
+                                    <%=time%> <%=date%>
+                                <%} else {%>
+                                    Đã chỉnh sửa lúc <%=time%> <%=date%>
+                                <%}%> 
+                            </div>
+                        </div>
+                    </div> 
+                <%})%>
+                <%} else {%>
+                    <div class="comment-side">Chưa có đánh giá nào</div>
+                <%}%>
+                
+                <%if (user==""){%>
+                    <a href="/auth/login">
+                        <button class='primaryContained float-right' type="submit">Đăng nhập để đánh giá</button>
+                    </a>
+                    
+                <%} else { %>
+                    <div class="comment-text commented-text">
+                            <%if (checkRating==true){%>
+                                <span>Cảm ơn bạn đã đánh giá</span>
+                            <%}else {%>
+                                <textarea type="text" class="contentComment input" placeholder="Viết bình luận của bạn ở đây" v-model="newItem"
+                            @keyup.enter="addItem()"></textarea>
+                        <div class="star-comment">
+                            <fieldset class="rating rating-choose">
+                                <input type="radio" id="star5" onclick="handleRate(this);" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="star4" onclick="handleRate(this);" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="star3" onclick="handleRate(this);" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input type="radio" id="star2" onclick="handleRate(this);" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="star1" onclick="handleRate(this);" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                            </fieldset>
+                                <button class='userComment primaryContained float-right' type="submit">Đánh giá</button>
+                            <%}%>
+                        </div>
+        
                     </div>
+                <%}%>
+            </div>
+        </section>
+    <%}%>
     
-                </div>
-            <%}%>
-        </div>
-    </section>
 <script src="/js/detail-movie.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

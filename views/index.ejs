@@ -44,13 +44,14 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="time-section">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                <div class="owl-time owl-carousel owl-theme slide-time">
-                                    <%dayArrs.forEach(function(dayArr){%>
+                                <div class="owl-time owl-carousel owl-theme slide-time containerActive">
+                                    <%dayArrs.forEach(function(dayArr,index){%>
                                         <%var date=(dayArr.getDate()<10)?('0'+dayArr.getDate()):(dayArr.getDate())%>
                                         <%  var month=((dayArr.getMonth()+1)<10)?('0'+(dayArr.getMonth()+1)):(dayArr.getMonth()+1) %>
                                         <%  var day=dayArr.getDay() %>
                                         <%  var time = dayArr.getTime() %>
-                                        <div class="chooseDate item btn btn-outline-dark btn-time-index"
+                                        
+                                        <div class="chooseDate <%if (index==0){%>active<%}%> %> item btn btn-outline-dark btn-time-index"
                                             date="<%=time%>" >
                                         <%switch (day) { case 0:%>
                                         <div>SUNDAY</div>
@@ -139,86 +140,30 @@
                         <div class="container">
                             <div class="row row-coming">
                                 <div class="coming-side">
-                                    <div class="coming-movie">
-                                        <a class="a-coming" href="#">
-                                            <div class="flex-img" style="padding-bottom: 0px;">
-                                                <img class="poster-movie" src="/img/P1.jpg">
-                                            </div>
-                                            <div class="flex-cs">
-                                                <div class="english-title">
-                                                    <div class="h6-poster">
-                                                        ETERNAL
-                                                    </div>
-                                                    <div class="cs">
-                                                        <img class="img-cs" src="/img/cs13.png">
-                                                    </div>
+                                    <%filmSkcs.forEach(function(fiskc){%>
+                                        <div class="coming-movie">
+                                            <a class="a-coming" href="/movie/<%=fiskc.slug%>">
+                                                <div class="flex-img" style="padding-bottom: 0px;">
+                                                    <img class="poster-movie" src="<%=fiskc.photo%>">
                                                 </div>
-                                                <div class="side-poster">
-                                                    CHỦNG TỘC BẤT TỬ
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="coming-movie">
-                                        <a href="#">
-                                            <div class="flex-img">
-                                                <img class="poster-movie" src="/img/P1.jpg">
-                                            </div>
-                                            <div class="flex-cs">
-                                                <div class="english-title">
-                                                    <div class="h6-poster">
-                                                        ETERNAL
+                                                <div class="flex-cs">
+                                                    <div class="english-title">
+                                                        <div class="h6-poster">
+                                                            <%=fiskc.nameEN%>
+                                                        </div>
+                                                        <div class="cs">
+                                                            <img class="img-cs" src="/img/cs<%=fiskc.ageLimit%>.png">
+                                                        </div>
                                                     </div>
-                                                    <div class="cs">
-                                                        <img class="img-cs" src="/img/cs13.png">
+                                                    <div class="side-poster">
+                                                        <%=fiskc.nameVN%>
                                                     </div>
                                                 </div>
-                                                <div class="side-poster">
-                                                    CHỦNG TỘC BẤT TỬ
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="coming-movie">
-                                        <a href="#">
-                                            <div class="flex-img">
-                                                <img class="poster-movie" src="/img/P1.jpg">
-                                            </div>
-                                            <div class="flex-cs">
-                                                <div class="english-title">
-                                                    <div class="h6-poster">
-                                                        ETERNAL
-                                                    </div>
-                                                    <div class="cs">
-                                                        <img class="img-cs" src="/img/cs13.png">
-                                                    </div>
-                                                </div>
-                                                <div class="side-poster">
-                                                    CHỦNG TỘC BẤT TỬ
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="coming-movie">
-                                        <a href="#">
-                                            <div class="flex-img">
-                                                <img class="poster-movie" src="/img/P1.jpg">
-                                            </div>
-                                            <div class="flex-cs">
-                                                <div class="english-title">
-                                                    <div class="h6-poster">
-                                                        ETERNAL
-                                                    </div>
-                                                    <div class="cs">
-                                                        <img class="img-cs" src="/img/cs13.png">
-                                                    </div>
-                                                </div>
-                                                <div class="side-poster">
-                                                    CHỦNG TỘC BẤT TỬ
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </div>
+                                    <%})%>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -352,8 +297,10 @@
     <script>
         $('.chooseDate').each(function(){
             $this=$(this);
+            var container=$(this).closest('.containerActive');
             var date=$this.attr('date');
             $this.click(function(){
+                var this2=$(this)
                 $('.body-loading').css('display','block');
                 $.ajax({
                         url: "/render/"+date,
@@ -364,6 +311,8 @@
                             setTimeout(() => {
                                 $('.body-loading').css('display','none');
                                 $('.render-ajax').html(result);
+                                container.find('.active').removeClass('active');
+                                this2.addClass('active');
                             }, 100); 
                         }
                 })

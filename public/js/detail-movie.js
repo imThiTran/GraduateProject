@@ -138,6 +138,20 @@ $(document).ready(function () {
         })
     })
 
+
+    $('.btn-buy').click(function(){
+        $('.inputHidden').val('')
+    })
+
+    $('.btn-submit').click(function(e){
+        if ($('.dateChange').val()=='none'){
+            e.preventDefault();
+            $('.alert').text('Vui lòng chọn ngày')
+        } else if ($('.inputHidden').val()=='') {
+            e.preventDefault()
+            $('.alert').text('Vui lòng chọn giờ chiếu')
+        }
+    })
     // $('.deleteCmt').each(function () {
     //     var $this = $(this);
     //     $this.click(function () {
@@ -174,5 +188,5 @@ $(document).ready(function () {
 
 function handleRadio(e) {
     var idSt = $(e).attr('idSt');
-    $('.container-input-hidden').html(` <input type="hidden" value=` + idSt + ` name="idShowtime">`);
+    $('.inputHidden').val(idSt);
 }

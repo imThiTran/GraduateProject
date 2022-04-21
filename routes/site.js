@@ -28,6 +28,7 @@ router.get("/",function(req,res){
           for (var i=0;i<fi.length;i++){
             fi[i].stArr=[]
           }
+      const fiSkc = await Film.find({status:'Sắp khởi chiếu'});
           for (var i=0;i<fi.length;i++){
             for (var j=0;j<st.length;j++){
               if (fi[i]._id.toString()== st[j].idFilm){
@@ -42,7 +43,8 @@ router.get("/",function(req,res){
             res.render('index',{
               dayArrs:dayArr,
               cats: cats,
-              filmArrs:fi
+              filmArrs:fi,
+              filmSkcs:fiSkc
       });
   })
 })

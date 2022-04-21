@@ -28,7 +28,7 @@ router.get('/:slug', (req, res) => {
         } else {
             film.avgRate = 0;
         }
-        Showtime.find({ idFilm: film._id.toString(), date: { $gte: today } }, function (err, st) {
+        Showtime.find({ idFilm: film._id.toString(), date: { $gte: today },closed:0 }, function (err, st) {
             var dateSt = [];
             for (var i = 0; i < st.length; i++) {
                 dateSt.push(st[i].date);
@@ -97,24 +97,61 @@ router.get('/category/:slug', (req, res) => {
     })
 })
 
+router.post('/search-rating/:title',(req,res)=>{
+    var value=req.body.value;
+    var title=req.params.title;
+    value=parseFloat(value);
+    var { slug } = req.params
+    var fis = [];
+    var avgRates=[];
+    Category.findOne({title: title }, function (err, cat) {
+        Film.find({}, function (err, films) {
+            films.forEach((film) => {
+                if (film.idCat.includes(cat._id)) {
+                    var sumRate = 0;
+                    var avgRate;
+                    if (film.ratings.length != 0) {
+                        film.ratings.forEach(function (rateFe) {
+                            sumRate = sumRate + rateFe.rating;
+                        })
+                        avgRate = roundHalf(sumRate / (film.ratings.length));
+                    } else {
+                        avgRate = 0;
+                    }
+                    if (avgRate>=value){
+                        avgRates.push(avgRate);
+                        fis.push(film)
+                    }
+                }
+            })
+            res.send({
+                films: fis,
+                avgRates:avgRates,
+            })
+        })
+    })
+})
+
 router.post('/load-time', (req, res) => {
     var { date, idFilm } = req.body;
     if (date != 'none') {
         var hmtlSend = '';
-        Showtime.find({ date: date, idFilm: idFilm }).sort({ timeStart: 1 }).exec((err, sts) => {
+        Showtime.find({ date: date, idFilm: idFilm,closed:0 }).sort({ timeStart: 1 }).exec((err, sts) => {
             var i = 1;
-            sts.forEach(function (st) {
-                var newSt = st.timeStart.split(':');
-                if (st.closed == 0) {
-                    hmtlSend = hmtlSend + `<div class="time-btn">
-            <input type="radio" class="btn-check" idSt=${st._id}  onclick="handleRadio(this);" id="btn-check${i}" name="timeStart"
-                autocomplete="off">
-            <label class="btn btn-outline-warning btn-time" for="btn-check${i}">${st.timeStart + ((newSt[0] < 12) ? ` AM` : ` PM`)}
-                </label>
-        </div>`
-                    i++;
-                }
-            })
+            if (sts.length>0){
+                sts.forEach(function (st) {
+                    var newSt = st.timeStart.split(':');
+                        hmtlSend = hmtlSend + `<div class="time-btn">
+                <input type="radio" class="btn-check" idSt=${st._id}  onclick="handleRadio(this);" id="btn-check${i}" name="timeStart"
+                    autocomplete="off">
+                <label class="btn btn-outline-warning btn-time" for="btn-check${i}">${st.timeStart + ((newSt[0] < 12) ? ` AM` : ` PM`)}
+                    </label>
+            </div>`
+                        i++;
+                })
+            } else {
+                hmtlSend='Suất chiếu trong ngày đã hết';
+            }
             res.send(hmtlSend);
         })
     } else {
