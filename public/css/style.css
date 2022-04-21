@@ -1850,6 +1850,9 @@ button.primaryContained:hover {
     margin-right: 10px;
     margin-top: 5px;
 }
+.spinner-edit{
+    color: #333 !important;
+}
 .commented-text{
     text-align: right;
 }
@@ -2498,6 +2501,7 @@ button.primaryContained:hover {
     height: 43px;
 }
 .close-AC{
+    width: 90px;
     height: 43px;
     padding: 0 10px !important;
 }
