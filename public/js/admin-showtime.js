@@ -197,7 +197,7 @@ function showtimeDetail(thisE) {
         contentType: "application/json",
         data: JSON.stringify({ idSt: idSt }),
         success: function (result) {
-            $('.nameEdit').val(result.nameEN);
+            $('.nameEdit').text(result.nameEN);
             $('.dateEdit').text(new Date(result.date).toLocaleDateString('en-GB'));
             $('.closedEdit').prop('checked', result.closed == 0);
             $('.hourEdit').val(result.hour);

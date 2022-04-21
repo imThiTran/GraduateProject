@@ -4,7 +4,7 @@ var imgAdd = $('.imgAddPreview');
 var imgInputAdd = $('.imgChangeAdd');
 var imgEdit = $('.imgEditPreview');
 var imgInputEdit = $('.imageChangeEdit');
-var photoShow,nameShow,typeShow,priceShow;
+var photoShow, nameShow, typeShow, priceShow;
 
 $('#btnAddSnack').on('click', function () {
   modalAddSnack.style.display = "block";
@@ -85,11 +85,13 @@ $('.saveAdd').click(function () {
 
 //load when u click button edit
 function loadEdit(th) {
+  $('.body-loading').css('display', 'block');
+  modalEditSnack.style.display = "block";
   var idSnack = th.getAttribute('id')
-  nameShow=th.closest('.trClosest').querySelector('.nameShow');
-  typeShow=th.closest('.trClosest').querySelector('.typeShow');
-  priceShow=th.closest('.trClosest').querySelector('.priceShow');
-  photoShow=th.closest('.trClosest').querySelector('.photoShow')
+  nameShow = th.closest('.trClosest').querySelector('.nameShow');
+  typeShow = th.closest('.trClosest').querySelector('.typeShow');
+  priceShow = th.closest('.trClosest').querySelector('.priceShow');
+  photoShow = th.closest('.trClosest').querySelector('.photoShow')
   $.ajax({
     url: "/admin/snack/load-edit/" + idSnack,
     method: "POST",
@@ -101,10 +103,9 @@ function loadEdit(th) {
       $('.nameEdit').val(result.name);
       $('.typeEdit').val(result.type);
       $('.priceEdit').val(result.price);
-      $('.body-loading2').css('display', 'none');
       $('.pimage').val(result.photoDrop);
       $('.idHidden').val(result._id);
-      modalEditSnack.style.display = "block";
+      $('.body-loading').css('display', 'none');
     }
   })
 }
@@ -113,33 +114,52 @@ function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
+var checkChange = false; //check event change edit
+$('.nameEdit').change(function () {
+  checkChange = true;
+});
+$('.typeEdit').change(function () {
+  checkChange = true;
+});
+$('.priceEdit').change(function () {
+  checkChange = true;
+});
+
 //save edit
 $('.saveEdit').click(function () {
-  $('.body-loading').css('display', 'block');
-  var formm = $('.formEdit')[0];
-  var data = new FormData(formm);
-  $.ajax({
-    url: "/admin/snack/edit-snack",
-    type: "POST",
-    enctype: "multipart/form-data",
-    cache: false,
-    processData: false,
-    contentType: false,
-    data: data,
-    success: function (result) {
-      if (typeof result == 'object') {
-      nameShow.innerText=result.name;
-      typeShow.innerText=result.type;
-      priceShow.innerText=formatNumber(result.price)+' VNĐ';
-      photoShow.setAttribute('src',result.photo);
-      $('.body-loading').css('display', 'none');
-      modalEditSnack.style.display = "none";
-      }else {
-        $('.body-loading').css('display', 'none');
-        $('.alertEdit').html(result);
+  $('.alertEdit').html(null);
+  if (checkChange == true) {
+    $(this).html(`<div class="spinner-border text-warning spinner-save spinner-edit" role="status"></div>`);
+    var formm = $('.formEdit')[0];
+    var data = new FormData(formm);
+    $.ajax({
+      url: "/admin/snack/edit-snack",
+      type: "POST",
+      enctype: "multipart/form-data",
+      cache: false,
+      processData: false,
+      contentType: false,
+      data: data,
+      success: function (result) {
+        $('.saveEdit').html('Xác nhận')
+        if (typeof result == 'object') {
+          checkChange = false;
+          nameShow.innerText = result.name;
+          typeShow.innerText = result.type;
+          priceShow.innerText = formatNumber(result.price) + ' VNĐ';
+          photoShow.setAttribute('src', result.photo);
+          $('.body-loading').css('display', 'none');
+          modalEditSnack.style.display = "none";
+        } else {
+          $('.body-loading').css('display', 'none');
+          $('.alertEdit').html(result);
+        }
       }
-    }
-  })
+    })
+  } else {
+    modalEditSnack.style.display = "none";
+  }
+
 })
 
 function blockBtnHandle(th) {
