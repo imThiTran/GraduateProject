@@ -406,7 +406,7 @@ router.post('/edit-showtime', (req, res) => {
                     } else {
                         Showtime.updateOne({ _id: idSt },
                             {
-                                $set: { closed: closed, timeStart: timeStart, idRoom: room }
+                                $set: { closed: closed, blockByRoom:0, timeStart: timeStart, idRoom: room }
                             }, function (err, result) {
                                 if (err) throw err;
                                 res.send({

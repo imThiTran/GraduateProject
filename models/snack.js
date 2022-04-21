@@ -11,7 +11,7 @@ var SnackSchema = mongoose.Schema({
     },
     block:{
         type:Number,
-        default:1,
+        default:0,
     },
     price:{
         type:Number,

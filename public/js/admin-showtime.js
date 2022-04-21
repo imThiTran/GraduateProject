@@ -137,10 +137,12 @@ $('.saveDelete').click(function () {
 
 //click save edit
 $('.saveEdit').click(function () {
+    $(this).html(`<div class="spinner-border text-warning spinner-save spinner-edit" role="status"></div>`);
     $('.alertEdit').html(null);
     var idSt = $(this).closest('.contain-edit').find('.idHidden').val();
     if (checkFormChange) saveEdit(idSt);
     else {
+        $('.saveEdit').html('Xác nhận')
         modalEditShowTime.style.display = "none";
         checkFormChange = false;
     }
@@ -160,6 +162,7 @@ function saveEdit(idSt) {
         contentType: false,
         data: data,
         success: function (result) {
+            $('.saveEdit').html('Xác nhận');
             if (typeof result == 'string') {
                 $('.alertEdit').html(result);
             } else {
@@ -207,7 +210,6 @@ function showtimeDetail(thisE) {
                 ${room.name}
             </option>`
             });
-            console.log(roomHtml.join(' '));
             $('.roomEdit').html(roomHtml.join(' '));
             $('.roomEdit').val(result.room);
             $('.body-loading').css('display','none');

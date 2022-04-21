@@ -94,7 +94,7 @@
                                 <td><%=room.type%></td>
                                 <td>
                                     <div class="form-check form-switch" style="padding-left: 2.5rem;">
-                                        <input <%if (room.block==0){%> checked <%}%> class="swclosed form-check-input" id="" type="checkbox" role="switch" />
+                                        <input onclick="handleBlock(this,event);" <%if (room.block==0){%> checked <%}%> class="swclosed form-check-input" id="<%=room._id%>" type="checkbox" role="switch" />
                                         <label class="form-check-label" for="flexSwitchCheckChecked"></label>
                                     </div>
                                 </td>

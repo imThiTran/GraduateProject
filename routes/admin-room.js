@@ -54,4 +54,31 @@ router.get('/search-room', (req, res) => {
     })
 })
 
+router.post('/block-room',(req,res)=>{
+    var {idRoom,block}=req.body;
+    Room.findById(idRoom,(err,ro)=>{
+        ro.block=block;
+        ro.save((err)=>{
+            if (block==1){
+                Showtime.updateMany({ idRoom: ro._id.toString(),closed:{$ne:"1"} },
+            {
+                $set: { closed: block,blockByRoom:block }
+            }, function (err, result) {
+                if (err) throw err;
+                    res.send('success');
+            })
+            }else {
+                Showtime.updateMany({ idRoom: ro._id.toString(),blockByRoom:1 },
+                {
+                    $set: { closed: block,blockByRoom:block }
+                }, function (err, result) {
+                    if (err) throw err;
+                    res.send('success');
+                })
+            }
+        })
+        
+    })
+})
+
 module.exports = router;

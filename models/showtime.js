@@ -28,6 +28,10 @@ var ShowtimeSchema = mongoose.Schema({
     createAt:{
         type:Date,
         default: new Date(),
+    },
+    blockByRoom:{
+        type:Number,
+        default:0
     }
 })
 

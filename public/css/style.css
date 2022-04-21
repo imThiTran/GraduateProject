@@ -1385,7 +1385,7 @@ a:hover {
     height: 284vh;
     position: fixed;
     background-color: rgb(133 131 131 / 88%);
-    z-index: 999;
+    z-index: 99999;
     display: none;
 }
 
@@ -1842,6 +1842,7 @@ button.primaryContained:hover {
     transition: all .4 ease;
     animation: face .3s ease-in-out;
 }
+
 .spinner-save{
     display: inline-block;
     width: 20px;

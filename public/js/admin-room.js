@@ -23,14 +23,14 @@ $('.saveAdd').click(function () {
     contentType: "application/json",
     data: JSON.stringify({ name: name, type: type }),
     success: function (result) {
-      modalAddRoom.style.display = "none";
-      Swal.fire({
-        icon: 'success',
-        title: 'Thêm thành công',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      $(`<tr class="contain-row">
+        modalAddRoom.style.display = "none";
+        Swal.fire({
+          icon: 'success',
+          title: 'Thêm thành công',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        $(`<tr class="contain-row">
       <th scope="row" class="count" style="width: 1%">
          ${(count.length + 1)} 
       </th>
@@ -83,11 +83,63 @@ function handleDelete(element) {
               icon: 'success',
               title: 'Xóa thành công',
               showConfirmButton: false,
-              timer: 1500
+              timer: 1000
             })
           }
         }
       })
     }
   })
+}
+
+function handleBlock(t,e){
+  var check=t.checked;
+  var idRoom=t.getAttribute('id');
+  if (!check){
+    Swal.fire({
+      icon: 'question',
+      title: 'Bạn có chắc chắn muốn đóng?',
+      text: 'Tất cả các suất chiếu của phòng này sẽ bị đóng',
+      showCancelButton: true
+    }).then((confirm) => {
+      if (confirm.isConfirmed) {
+        $.ajax({
+          url: "/admin/room/block-room/",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            idRoom:idRoom,block:1
+          }),
+          success: function (result) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Đã đóng',
+              showConfirmButton: false,
+              timer: 1000
+            })
+          }
+        })
+      }else {
+        t.checked=true;
+      }
+    })
+  } else {
+    $.ajax({
+      url: "/admin/room/block-room/",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({
+        idRoom:idRoom,block:0
+      }),
+      success: function (result) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Đã mở',
+          showConfirmButton: false,
+          timer: 1000
+        })
+      }
+    })
+  }
+  
 }
