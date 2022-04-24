@@ -251,7 +251,8 @@
                                                             <label class="btn-common btn-bold" id="btn-edit-img-item"
                                                                 for="img3">Chọn
                                                                 ảnh</label>
-                                                            <input type="hidden" class="imgavted" name="imgEdit">    
+                                                            <input type="hidden" class="imgavted" name="imgEdit">
+                                                            <input type="hidden" class="avteditshow">
                                                         </div>
                                                         <div class="line-img"></div>
                                                         <div class="col-5 img-add">
@@ -266,6 +267,7 @@
                                                             <label class="btn-common btn-bold" id="btn-edit-img-item"
                                                                 for="img4">Chọn
                                                                 ảnh</label>
+                                                            <input type="hidden" class="bgeditshow">
                                                         </div>
                                                     </div>
                                                     <div class="modal-right">
@@ -420,23 +422,27 @@
             }
         }
         var imgavtedit = document.getElementsByClassName('imgavtedit')[0]
+           
         function imgAvtEdit() {
+            let avtedit = document.getElementsByClassName('avteditshow')[0].value     
             if (event.target.files.length > 0) {
                 let src = URL.createObjectURL(event.target.files[0]);
                 document.getElementsByClassName('imgavted')[0].value = src
                 imgavtedit.src = src;
             }else{
-                imgavtedit.src='../img/no_img.webp'
+                imgavtedit.src=avtedit
                 document.getElementsByClassName('imgavted')[0].value = ''
             }
         }
         var imgbgedit = document.getElementsByClassName('imgbgedit')[0]
+        
         function imgBgEdit() {
+            let bgedit = document.getElementsByClassName('bgeditshow')[0].value
             if (event.target.files.length > 0) {
                 let src = URL.createObjectURL(event.target.files[0]);
                 imgbgedit.src = src;
             }else{
-                imgbgedit.src='../img/no_img.webp'
+                imgbgedit.src=bgedit
             }
         }
     </script>

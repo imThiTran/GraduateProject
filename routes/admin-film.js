@@ -163,6 +163,7 @@ router.get('/delete/:slug', (req, res) => {
 router.post('/edit', (req, res) => {    
     var { nameEN, nameVN, directors, cast, premiere, time, detail, trailer, idCat, ageLimit, status, avtimg, bgimg, idFilm, imgEdit } = req.body;    
     var idTrailer = trailer.split('/');    
+    var oldslug=''
     if(idCat.includes(',')){
         idCat=idCat.split(',')
     }    
@@ -179,6 +180,7 @@ router.post('/edit', (req, res) => {
         backgroundFile = "";
     }
     Film.findById(idFilm, (err, film) => {
+        oldslug=film.slug
         Film.findOne({$and:[{slug:slug},{slug: {'$ne':film.slug}}]}, function(err,fi){            
             if(fi){
                 res.send({
@@ -202,7 +204,7 @@ router.post('/edit', (req, res) => {
                             imgEdit: imgEdit,
                             filmEdit:filmEdit,
                             edit:true,
-                            oldslug:film.slug
+                            oldslug:oldslug
                         })
                     })
                 }else{
@@ -229,7 +231,7 @@ router.post('/edit', (req, res) => {
                             imgEdit: imgEdit,
                             filmEdit:filmEdit,
                             edit:true,
-                            oldslug:film.slug
+                            oldslug:oldslug
                         })
                     })
                 }

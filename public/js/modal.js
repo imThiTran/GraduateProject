@@ -35,6 +35,8 @@ function editFilm(){
           editform.find("input[name=ageLimit][value=" + result.film.ageLimit + "]").prop('checked', true);
           editform.find('.detail').val(result.film.detail);
           editform.find('.trailer').val('https://youtu.be/' + result.film.trailer);
+          editform.find('.bgeditshow').val(result.film.background);
+          editform.find('.avteditshow').val(result.film.photo);
           var htmlObj = $('#form-editCT');
           $('.sleditadd').remove()
           if(result.film.idCat.length==1){
@@ -242,17 +244,17 @@ $("#formAddFilm").submit(function(e){
           var tr=
           `<tr class="${data.filmAdd.slug}">
               <th scope="row" style="width: 15%">
-                  <img style="width: 100%" src="${data.imgAdd}" alt="">
+                  <img style="width: 100%" class="poster-admin-film avt" src="${data.imgAdd}" alt="">
               </th>                                
               <td style="width: 20%;">
-                  <div>${data.filmAdd.nameEN}</div>
-                  <div>${data.filmAdd.nameVN}</div>
+                <div class="nameenedit">${data.filmAdd.nameEN}</div>
+                <div class="namevnedit">${data.filmAdd.nameVN}</div>
               </td>
-              <td>${data.filmAdd.directors}</td>
-              <td>${data.filmAdd.premiere}</td>
-              <td>${data.filmAdd.cat}</td>                                
+              <td class="directorsedit">${data.filmAdd.directors}</td>
+              <td class="premiereedit">${data.filmAdd.premiere}</td>
+              <td class="categories">${data.filmAdd.cat}</td>                                
               <td>
-                  <div>${data.filmAdd.status}</div>
+                <div class="statusedit">${data.filmAdd.status}</div>
               </td>
               <td>
                   <div class="btn-mode">
@@ -360,11 +362,11 @@ $("#formEditFilm").submit(function(e){
           if(data.imgEdit!=""){
             $(`.${data.oldslug}`).find('.avt').attr('src', data.imgEdit);
           }
-          $(`.${data.oldslug}`).find('.nameenedit').html(data.filmEdit.nameEN)
+          $(`.${data.oldslug}`).find('.nameenedit').html(data.filmEdit.nameEN)          
           $(`.${data.oldslug}`).find('.namevnedit').html(data.filmEdit.nameVN)
           $(`.${data.oldslug}`).find('.directorsedit').html(data.filmEdit.directors)
           $(`.${data.oldslug}`).find('.premiereedit').html(data.filmEdit.premiere)
-          $(`.${data.oldslug}`).find('.categories').html(data.filmEdit.cat)          
+          $(`.${data.oldslug}`).find('.categories').html(data.filmEdit.cat)
           $(`.${data.oldslug}`).find('.statusedit').html(data.filmEdit.status)
           $(`.${data.oldslug}`).find('.btnEditFilm').val(data.filmEdit.slug)
           $(`.${data.oldslug}`).find('.btnDeleteFilm').val(data.filmEdit.slug)
@@ -382,6 +384,8 @@ $("#formEditFilm").submit(function(e){
           Swal.fire({
             icon: 'warning',
             title: data.msg
+          }).then((value) => {
+            modalEditFilm.style.display = "none";
           })
         }
       },
