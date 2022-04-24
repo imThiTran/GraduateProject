@@ -18,7 +18,7 @@
                             <th scope="col">Tình trạng</th>
                             <th scope="col" style="width: 1%;">
                                 <div class="btn-admin">
-                                    <button type="button" id="btnAddSnack" class="btn-common btn-buy" data-toggle="modal"
+                                    <button type="button" id="btnAddSnack" class="btn-common btn-buy btn btn-add-film" data-toggle="modal"
                                         data-target=".bd-example-modal-lg"><i class="fa fa-plus" aria-hidden="true"></i>
                                         Thêm mới</button>
                                     <form class="formAdd" action="" method="">
@@ -63,11 +63,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
+                                                <div class="modal-footer footer-add">
                                                     <p class="alertAdd"></p>
-                                                    <button type="button"
-                                                        class="btn btn-secondary close-snack">Đóng</button>
-                                                    <button type="button" class="saveAdd btn-common">Thêm</button>
+                                                    <div class="footer-add-btn">
+                                                        <button type="button"
+                                                        class="btn btn-secondary close-snack close-CL">Đóng</button>
+                                                        <button type="button" class="btn-common saveAdd close-AC">Thêm</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,7 +165,7 @@
                                     <div class="modal-footer">
                                         <p class="alertEdit"></p>
                                         <button type="button" class="btn btn-secondary close-snack">Đóng</button>
-                                        <button type="button" class="saveEdit btn-common">Xác nhận</button>
+                                        <button type="button" class="saveEdit btn-common close-AC">Xác nhận</button>
                                     </div>
                                 </div>
                             </div>
