@@ -293,6 +293,26 @@ $('#btnAddSC').on('click', () => {
     })
 })
 
+//Add element price
+$('#btnAddPR').on('click', () => {
+    var htmlObj = $('#form-addPR');
+    htmlObj.append(`
+    <div class="price-seat price-choose-day">
+        `+ $('.first-row-addPR').html() + `
+        <div class="close-pr">
+            <button type="button" class="btnDelPR"> <i class="fa fa-times close-pr" aria-hidden="true"></i></button>
+        </div>
+    </div>`);
+    $('.btnDelPR').each(function () {
+        var $this = $(this);
+        var rowAddSt = $this.closest('.price-seat');
+        $this.click(function (e) {
+            e.preventDefault();
+            rowAddSt.remove();
+        })
+    })
+})
+
 
 //Choose price seat
 

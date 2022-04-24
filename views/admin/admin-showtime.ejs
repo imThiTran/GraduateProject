@@ -23,14 +23,14 @@
                                     </div>
                                     <!-- Add price -->
                                     <form class="formAddPrice" action="" method="">
-                                        <div id="modalAddPrice" class="modal">
+                                        <div id="modalAddPrice" class="modal model-price">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Thay đổi giá vé</h4>
                                                     <button type="button" class="close-showTime close"
                                                         data-dismiss="modal">&times;</button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body modal-body-price">
                                                     <div class="wrapModal">
                                                         <ul class="headprice nav nav-tabs menu-status ">
                                                             <li class="nav-item">
@@ -45,15 +45,27 @@
                                                                     href="#price2" data-bs-toggle="tab"
                                                                     data-bs-target="#price2" role="tab"
                                                                     aria-controls="status" aria-selected="true">Giá vé
-                                                                    theo giờ</a>
+                                                                    theo ngày lễ</a>
                                                             </li>
                                                         </ul>
                                                         <div class="tab-content">
-                                                            <div class="tab-pane active infor-change" id="price1"
+                                                            <div class="tab-pane active infor-change price-line" id="price1"
                                                                 role="tabpanel">
                                                                 <form action="" method="" class="userInfo-details"
                                                                     enctype="">
                                                                     <div class="price-seat" id="">
+                                                                        <p class="price-day">*Các ngày trong tuần</p>
+                                                                        <div class="price-ticket-time datetime-price">
+                                                                            <label style="width: 100px;" for="">Chọn giờ</label>
+                                                                            <input style="width: 150px !important;" type="time"
+                                                                                class="form-control input-datetime"
+                                                                                id="">
+                                                                            <i style="margin-top: 10px;" class="fa fa-arrow-right"
+                                                                                aria-hidden="true"></i>
+                                                                            <input style="width: 150px !important;" type="time"
+                                                                                class="form-control input-datetime"
+                                                                                id="">
+                                                                        </div>
                                                                         <div class="price-ticket">
                                                                             <label for="seat-normal">Ghế thường</label>
                                                                             <input type="text" value="<%=singleSeat%>"
@@ -67,11 +79,15 @@
                                                                             <span>VNĐ</span>
                                                                         </div>
                                                                     </div>
+<<<<<<< HEAD
                                                                 </form>
                                                             </div>
                                                             <div class="tab-pane" id="price2" role="tabpanel">
                                                                 <form action="" class="" method="">
                                                                     <div class="price-seat">
+=======
+                                                                    <div class="price-seat" id="">
+>>>>>>> f5bd36144cc36a4e110454c6bc5b46f9a282412f
                                                                         <div class="price-ticket-time datetime-price">
                                                                             <label style="width: 100px;" for="">Chọn giờ</label>
                                                                             <input style="width: 150px !important;" type="time"
@@ -84,18 +100,111 @@
                                                                                 id="">
                                                                         </div>
                                                                         <div class="price-ticket">
-                                                                            <label for="">Ghế thường</label>
-                                                                            <input type="text"
-                                                                                class="form-control seat-change" id="">
+                                                                            <label for="seat-normal">Ghế thường</label>
+                                                                            <input type="text" value=""
+                                                                                class="form-control seat-normal" id="">
                                                                             <span>VNĐ</span>
                                                                         </div>
                                                                         <div class="price-ticket">
-                                                                            <label for="">Ghế couple</label>
-                                                                            <input type="text"
-                                                                                class="form-control seat-change" id="">
+                                                                            <label for="seat-normal">Ghế couple</label>
+                                                                            <input type="text" value=""
+                                                                                class="form-control seat-normal" id="">
                                                                             <span>VNĐ</span>
                                                                         </div>
                                                                     </div>
+                                                                    <span class="span-detail span-price"></span>
+                                                                    <div class="price-seat" style="margin-top: 30px;" id="">
+                                                                        <p class="price-day">*T7, Chủ nhật</p>
+                                                                        <div class="price-ticket-time datetime-price">
+                                                                            <label style="width: 100px;" for="">Chọn giờ</label>
+                                                                            <input style="width: 150px !important;" type="time"
+                                                                                class="form-control input-datetime"
+                                                                                id="">
+                                                                            <i style="margin-top: 10px;" class="fa fa-arrow-right"
+                                                                                aria-hidden="true"></i>
+                                                                            <input style="width: 150px !important;" type="time"
+                                                                                class="form-control input-datetime"
+                                                                                id="">
+                                                                        </div>
+                                                                        <div class="price-ticket">
+                                                                            <label for="seat-normal">Ghế thường</label>
+                                                                            <input type="text" value=""
+                                                                                class="form-control seat-normal" id="">
+                                                                            <span>VNĐ</span>
+                                                                        </div>
+                                                                        <div class="price-ticket">
+                                                                            <label for="seat-normal">Ghế couple</label>
+                                                                            <input type="text" value=""
+                                                                                class="form-control seat-normal" id="">
+                                                                            <span>VNĐ</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="price-seat" id="">
+                                                                        <div class="price-ticket-time datetime-price">
+                                                                            <label style="width: 100px;" for="">Chọn giờ</label>
+                                                                            <input style="width: 150px !important;" type="time"
+                                                                                class="form-control input-datetime"
+                                                                                id="">
+                                                                            <i style="margin-top: 10px;" class="fa fa-arrow-right"
+                                                                                aria-hidden="true"></i>
+                                                                            <input style="width: 150px !important;" type="time"
+                                                                                class="form-control input-datetime"
+                                                                                id="">
+                                                                        </div>
+                                                                        <div class="price-ticket">
+                                                                            <label for="seat-normal">Ghế thường</label>
+                                                                            <input type="text" value=""
+                                                                                class="form-control seat-normal" id="">
+                                                                            <span>VNĐ</span>
+                                                                        </div>
+                                                                        <div class="price-ticket">
+                                                                            <label for="seat-normal">Ghế couple</label>
+                                                                            <input type="text" value=""
+                                                                                class="form-control seat-normal" id="">
+                                                                            <span>VNĐ</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="tab-pane price-line" id="price2" role="tabpanel">
+                                                                <form action="" class="formEdit" method="">
+                                                                    <div id="form-addPR">
+                                                                        <div class="first-row-addPR price-seat price-choose-day" >
+                                                                            <div class="price-ticket-time datetime-price">
+                                                                                <label style="width: 100px;" for="">Chọn ngày</label>
+                                                                                <input type="date" class="form-control input-datetime">
+                                                                            </div>
+                                                                            
+                                                                            <div class="price-ticket-time datetime-price">
+                                                                                <label style="width: 100px;" for="">Chọn giờ</label>
+                                                                                <input style="width: 150px !important;" type="time"
+                                                                                    class="form-control input-datetime"
+                                                                                    id="">
+                                                                                <i style="margin-top: 10px;" class="fa fa-arrow-right"
+                                                                                    aria-hidden="true"></i>
+                                                                                <input style="width: 150px !important;" type="time"
+                                                                                    class="form-control input-datetime"
+                                                                                    id="">
+                                                                            </div>
+                                                                            <div class="price-ticket">
+                                                                                <label for="seat-normal">Ghế thường</label>
+                                                                                <input type="text" value=""
+                                                                                    class="form-control seat-normal" id="">
+                                                                                <span>VNĐ</span>
+                                                                            </div>
+                                                                            <div class="price-ticket">
+                                                                                <label for="seat-normal">Ghế couple</label>
+                                                                                <input type="text" value=""
+                                                                                    class="form-control seat-normal" id="">
+                                                                                <span>VNĐ</span>
+                                                                            </div>
+                                                                            <span class="span-detail span-price"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <button class="btn-SC" id="btnAddPR" type="button">
+                                                                        Thêm ngày
+                                                                    </button>
                                                                 </form>
                                                             </div>
                                                         </div>

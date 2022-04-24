@@ -2274,7 +2274,7 @@ button.primaryContained:hover {
   .btn-SC:hover{
     background: #f5e3c1;
   }
-  .saveDelete, .btnDelSC{
+  .saveDelete, .btnDelSC, .btnDelPR{
       margin-left: 10px;
       border: none;
       background-color: transparent;
@@ -2461,6 +2461,9 @@ button.primaryContained:hover {
 .price-seat{
     width: 100%;
     margin-top: 20px;
+    position: relative;
+    transition: all .3 ease;
+    animation: face .4s ease-in-out;
 }
 .price-ticket label, .price-ticket span, .price-ticket-time label, .price-ticket-time i{
     color: #333 !important;
@@ -2544,6 +2547,36 @@ button.primaryContained:hover {
     align-items: flex-end;
     position: absolute;
     right: 30px;
+}
+.price-day{
+    color: #333;
+    font-size: 15px;
+    font-style: italic;
+}
+.model-price{
+    padding-top: 50px !important;
+}
+.modal-body-price{
+    overflow-y: auto;
+    max-height: calc(100vh - 260px);
+}
+.price-line{
+    position: relative;
+}
+.span-price{
+    position: absolute;
+    background-color: #848484;
+    height: 1px;
+    margin: 10px;
+}
+.close-pr{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+}
+.price-choose-day{
+    margin-top: 30px !important;
 }
   /*FILM MANAGEMENT*/
   .img-add{
