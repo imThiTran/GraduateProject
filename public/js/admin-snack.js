@@ -105,6 +105,7 @@ function loadEdit(th) {
       $('.priceEdit').val(result.price);
       $('.pimage').val(result.photoDrop);
       $('.idHidden').val(result._id);
+      $('.photoHidden').val(result.photo);
       $('.body-loading').css('display', 'none');
     }
   })
