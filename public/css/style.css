@@ -2111,6 +2111,14 @@ button.primaryContained:hover {
 /*ADMIN*/
 
 /*SHOWTIME MANAGEMENT*/
+.headprice{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+}
+.headprice li .active, .headprice li a{
+    color: #333 !important;
+}
 .btn-admin{
     cursor: pointer;
 }
@@ -2428,10 +2436,14 @@ button.primaryContained:hover {
 }
 .price-seat{
     width: 100%;
+    margin-top: 20px;
+}
+.price-ticket label, .price-ticket span, .price-ticket-time label, .price-ticket-time i{
+    color: #333 !important;
 }
 .price-ticket-time{
     display: flex;
-    margin-left: 0px;
+    margin-left: 20px;
 }
 .input-datetime{
     width: 240px !important;
@@ -2439,13 +2451,7 @@ button.primaryContained:hover {
     position: relative;
 }
 .datetime-price{
-    padding-top: 10px;
     padding-bottom: 20px;
-}
-.fa-arrow-right{
-    position: absolute;
-    left: 296px;
-    top: 48px;
 }
 .del1{
     font-size: 1rem;
@@ -2500,11 +2506,7 @@ button.primaryContained:hover {
     margin-right: 10px;
     height: 43px;
 }
-.close-AC{
-    width: 90px;
-    height: 43px;
-    padding: 0 10px !important;
-}
+
 .footer-add-btn{
     display: flex;
     justify-content: flex-end;
