@@ -70,7 +70,7 @@
                                                                 </form>
                                                             </div>
                                                             <div class="tab-pane" id="price2" role="tabpanel">
-                                                                <form action="" class="formEdit" method="">
+                                                                <form action="" class="" method="">
                                                                     <div class="price-seat">
                                                                         <div class="price-ticket-time datetime-price">
                                                                             <label style="width: 100px;" for="">Chọn giờ</label>
@@ -310,27 +310,15 @@
 
 
                                                                                                     <div>
-                                                                                                        <%date.times.sort(function(a,b){
-                                                                                                            %>
-                                                                                                            <% if(a.timeStart.toLowerCase()<b.timeStart.toLowerCase()){return-1;}
-                                                                                                                %>
-                                                                                                                <% if
-                                                                                                                    (a.timeStart.toLowerCase()>
-                                                                                                                    b.timeStart.toLowerCase())
-                                                                                                                    {return
-                                                                                                                    1;}
-                                                                                                                    %>
-                                                                                                                    <% return
-                                                                                                                        0;
-                                                                                                                        %>
-                                                                                                                        <%});
-                                                                                                                            %>
+                                                                                                        <%date.times.sort(function(a,b){                                                                                                      %>
+                                                                                                            <% if(a.timeStart.toLowerCase()<b.timeStart.toLowerCase()){return-1;}  %>
+                                                                                                                <% if (a.timeStart.toLowerCase()> b.timeStart.toLowerCase()) {return 1;}   %>
+                                                                                                                    <% return 0;   %>
+                                                                                                                        <%}); %>
                                                                                                                             <%date.times.forEach(function(time){%>
                                                                                                                                 <%newSt=time.timeStart.split(':');%>
-                                                                                                                                    <%if (newSt[0]<12){
-                                                                                                                                        %>
-                                                                                                                                        <%if
-                                                                                                                                            (time.closed==0){%>
+                                                                                                                                    <%if (newSt[0]<12){  %>
+                                                                                                                                        <%if (time.closed==0){%>
                                                                                                                                             <button
                                                                                                                                                 onclick="showtimeDetail(this);"
                                                                                                                                                 type="button"
@@ -339,48 +327,37 @@
                                                                                                                                                 <%=time.timeStart%>
                                                                                                                                                     AM
                                                                                                                                             </button>
-                                                                                                                                            <%} else
-                                                                                                                                                {%>
+                                                                                                                                            <%} else {%>
                                                                                                                                                 <button
                                                                                                                                                     onclick="showtimeDetail(this);"
                                                                                                                                                     id="<%=time.id%>"
                                                                                                                                                     style="opacity: 0.5;"
                                                                                                                                                     type="button"
                                                                                                                                                     class="btnShowTimeDetail">
-                                                                                                                                                    <%=time.timeStart%>
-                                                                                                                                                        AM
+                                                                                                                                                    <%=time.timeStart%> AM
                                                                                                                                                 </button>
                                                                                                                                                 <%}%>
+                                                                                                                                                    <%} else{ %>
 
-
-                                                                                                                                                    <%} else{
-                                                                                                                                                        %>
-
-                                                                                                                                                        <%if
-                                                                                                                                                            (time.closed==0){%>
+                                                                                                                                                        <%if (time.closed==0){%>
                                                                                                                                                             <button
                                                                                                                                                                 onclick="showtimeDetail(this);"
                                                                                                                                                                 id="<%=time.id%>"
                                                                                                                                                                 type="button"
                                                                                                                                                                 class="btnShowTimeDetail">
-                                                                                                                                                                <%=time.timeStart%>
-                                                                                                                                                                    PM
+                                                                                                                                                                <%=time.timeStart%>  PM
                                                                                                                                                             </button>
-                                                                                                                                                            <%} else
-                                                                                                                                                                {%>
+                                                                                                                                                            <%} else {%>
                                                                                                                                                                 <button
                                                                                                                                                                     onclick="showtimeDetail(this);"
                                                                                                                                                                     id="<%=time.id%>"
                                                                                                                                                                     style="opacity: 0.5;"
                                                                                                                                                                     type="button"
                                                                                                                                                                     class="btnShowTimeDetail">
-                                                                                                                                                                    <%=time.timeStart%>
-                                                                                                                                                                        PM
+                                                                                                                                                                    <%=time.timeStart%>  PM
                                                                                                                                                                 </button>
                                                                                                                                                                 <%}%>
-
                                                                                                                                                                     <%}%>
-
                                                                                                                                                                         <%})%>
                                                                                                     </div>
                                                                                                 </div>

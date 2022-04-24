@@ -16,6 +16,7 @@ $('.close-snack').on('click', function () {
   $('.typeAdd').val('Đồ ăn');
   $('.priceAdd').val('');
   imgInputAdd.val(null);
+  imgInputEdit.val(null);
   $('.alertEdit').text('');
   $('.alertAdd').text('');
   modalAddSnack.style.display = "none";
@@ -25,7 +26,7 @@ $('.close-snack').on('click', function () {
 
 
 $('.saveAdd').click(function () {
-  $('.body-loading').css('display', 'block');
+  $(this).html(`<div class="spinner-border text-warning spinner-save spinner-edit" role="status"></div>`);
   var formm = $('.formAdd')[0];
   var data = new FormData(formm);
   var trContain = $('.trClosest');
@@ -38,6 +39,7 @@ $('.saveAdd').click(function () {
     contentType: false,
     data: data,
     success: function (result) {
+      $('.saveAdd').html('Thêm');
       if (typeof result == 'object') {
         imgAdd.attr('src', '/img/no_img.webp');
         $('.nameAdd').val('');
@@ -76,7 +78,6 @@ $('.saveAdd').click(function () {
                                   </td>
                               </tr>`).insertAfter(trContain[trContain.length - 1]);
       } else {
-        $('.body-loading').css('display', 'none');
         $('.alertAdd').html(result);
       }
     }
@@ -125,9 +126,13 @@ $('.typeEdit').change(function () {
 $('.priceEdit').change(function () {
   checkChange = true;
 });
+ $('.imageChangeEdit').change(function(){
+  checkChange = true;
+ })
 
 //save edit
 $('.saveEdit').click(function () {
+  imgAdd.attr('src', '/img/no_img.webp');
   $('.alertEdit').html(null);
   if (checkChange == true) {
     $(this).html(`<div class="spinner-border text-warning spinner-save spinner-edit" role="status"></div>`);
@@ -142,17 +147,22 @@ $('.saveEdit').click(function () {
       contentType: false,
       data: data,
       success: function (result) {
-        $('.saveEdit').html('Xác nhận')
+        $('.saveEdit').html('Xác nhận');
+        imgInputEdit.val(null);
         if (typeof result == 'object') {
           checkChange = false;
           nameShow.innerText = result.name;
           typeShow.innerText = result.type;
           priceShow.innerText = formatNumber(result.price) + ' VNĐ';
           photoShow.setAttribute('src', result.photo);
-          $('.body-loading').css('display', 'none');
+          Swal.fire({
+            icon: 'success',
+            title: 'Sửa thành công',
+            showConfirmButton: false,
+            timer: 1000
+          })
           modalEditSnack.style.display = "none";
         } else {
-          $('.body-loading').css('display', 'none');
           $('.alertEdit').html(result);
         }
       }

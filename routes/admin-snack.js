@@ -67,9 +67,14 @@ router.post('/block', (req, res) => {
 
 router.get('/delete-snack/:id', (req, res) => {
     var idSnack = req.params.id;
-    Snack.findByIdAndRemove(idSnack, (err) => {
-        if (err) throw err;
-        res.send('success');
+    Snack.findById(idSnack,(err,sn)=>{
+        cloudinary.uploader.destroy(sn.photoDrop, function (err, rs) {
+            if (err) throw err;
+        })
+        Snack.findByIdAndRemove(idSnack, (err) => {
+            if (err) throw err;
+            res.send('success');
+        })
     })
 })
 
@@ -89,17 +94,17 @@ router.post('/edit-snack', (req, res) => {
                         if (err) throw err;
                         sn.photo = rs.url,
                             sn.photoDrop = rs.public_id
-                    })
-                    fs.unlink(imageFile.tempFilePath, function (err) {
-                        if (err) throw err;
+                        fs.unlink(imageFile.tempFilePath, function (err) {
+                            if (err) throw err;
+                        })
+                        sn.save(function (err, result) {
+                            if (err) throw err;
+                            res.send(result);
+                        });
                     })
                     cloudinary.uploader.destroy(pimage, function (err, rs) {
                         if (err) throw err;
                     })
-                    sn.save(function (err, result) {
-                        if (err) throw err;
-                        res.send(result);
-                    });
                 } else {
                     sn.save(function (err, result) {
                         if (err) throw err;
