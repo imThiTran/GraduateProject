@@ -198,7 +198,8 @@ a {
 }
 
 .admin-login {
-    color:  var(--first-color-dark)
+    color:  var(--first-color-dark);
+    cursor: pointer;
 }
 .admin-login:hover{
     color:  var(--first-color-dark) !important;

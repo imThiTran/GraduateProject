@@ -163,4 +163,13 @@ router.post('/ticket', (req, res) => {
     })    
 })
 
+router.post('/snack', (req, res) => {
+    var{ticket,idSt} =req.body
+    res.render('order/order-snack',{
+        tk:ticket,
+        idst:idSt
+    })
+})
+
+
 module.exports = router;

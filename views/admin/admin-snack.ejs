@@ -134,7 +134,7 @@
                                                 <input onchange="loadImg();" type="file" class="form-control imageChangeEdit"
                                                     name="image" id="img2"
                                                     accept="image/*"
-                                                    style="display: none;">
+                                                    style="display: none;" valueImage="" >
                                                 <label class="btn-common" id="btn-edit-img-item"
                                                     for="img2">Chọn ảnh</label>
                                             </div>
@@ -158,6 +158,7 @@
                                                     <input name="price" class="input-sua priceEdit" value="30000"
                                                         type="number">
                                             </div>
+                                            <input type="hidden" class="photoHidden" name="" id="">
                                             <input type="hidden" class="pimage" name="pimage" value="" id="">
                                             <input type="hidden" class="idHidden" name="idSnack" id="">
                                         </div>
@@ -186,6 +187,11 @@
                 let src = URL.createObjectURL(event.target.files[0]);
                 imgPrv.src=src;
                 imgEditPrv.src=src;
+            }
+            else{
+                if ($('.imageChangeEdit').val()=='') imgEditPrv.src=$('.photoHidden').val();
+                else imgEditPrv.src='/img/no_img.webp'
+                imgPrv.src='/img/no_img.webp'
             }
   }
 </script>
