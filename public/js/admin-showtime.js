@@ -346,8 +346,7 @@ $('.btnSearchTime').click(function (e) {
     var check = true;
     var title;
     if (name == '' && datefrom == '' && dateto == '') {
-        title = 'Vui lòng nhập tên hoặc chọn ngày';
-        check = false
+        $(location).attr('href','/admin/showtime');
     } else if ((datefrom == '' && dateto != '') || (datefrom != '' && dateto == '')) {
         title = 'Bạn chưa chọn đủ thông tin của ngày';
         check = false;
