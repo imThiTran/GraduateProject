@@ -59,8 +59,8 @@ router.get('/', (req, res) => {
                         showtimes: showtimeArr,
                         films: fi,
                         rooms: ro,
-                        singleSeat: tkpr.singleSeat,
-                        coupleSeat: tkpr.coupleSeat,
+                        // singleSeat: tkpr.singleSeat,
+                        // coupleSeat: tkpr.coupleSeat,
                     });
                 })
             })
@@ -89,11 +89,11 @@ router.post('/add-showtime', (req, res) => {
     var idFilm = idAndTimeArr[0];
     var time = idAndTimeArr[1];
     var today = new Date();
-    var singleSeat, coupleSeat;
-    TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
-        singleSeat = tkpr.singleSeat;
-        coupleSeat = tkpr.coupleSeat;
-    })
+    // var singleSeat, coupleSeat;
+    // TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
+    //     singleSeat = tkpr.singleSeat;
+    //     coupleSeat = tkpr.coupleSeat;
+    // })
     if (typeof roomAndType == "string") {
         var roomAndTypeArr = roomAndType.split('/');
         var room = roomAndTypeArr[0];
@@ -147,7 +147,7 @@ router.post('/add-showtime', (req, res) => {
                                         tickets.push({
                                             idShowtime: result._id,
                                             name: name + j,
-                                            price: singleSeat,
+                                            price: 45000,
                                             sorting: (12 * i) + j,
                                         })
                                     } else {
@@ -155,7 +155,7 @@ router.post('/add-showtime', (req, res) => {
                                         tickets.push({
                                             idShowtime: result._id,
                                             name: name + j,
-                                            price: coupleSeat,
+                                            price: 90000,
                                             sorting: (12 * i) + j,
                                         })
                                     }
@@ -180,7 +180,7 @@ router.post('/add-showtime', (req, res) => {
                                         tickets.push({
                                             idShowtime: result._id,
                                             name: name + j,
-                                            price: singleSeat,
+                                            price: 45000,
                                             sorting: (10 * i) + j,
                                         })
                                     } else {
@@ -188,7 +188,7 @@ router.post('/add-showtime', (req, res) => {
                                         tickets.push({
                                             idShowtime: result._id,
                                             name: name + j,
-                                            price: coupleSeat,
+                                            price: 90000,
                                             sorting: (10 * i) + j,
                                         })
                                     }
@@ -290,7 +290,7 @@ router.post('/add-showtime', (req, res) => {
                                                 tickets.push({
                                                     idShowtime: st._id,
                                                     name: name + j,
-                                                    price: singleSeat,
+                                                    price: 45000,
                                                     sorting: (12 * i) + j,
                                                 })
                                             } else {
@@ -298,7 +298,7 @@ router.post('/add-showtime', (req, res) => {
                                                 tickets.push({
                                                     idShowtime: st._id,
                                                     name: name + j,
-                                                    price: coupleSeat,
+                                                    price: 90000,
                                                     sorting: (12 * i) + j,
                                                 })
                                             }
@@ -323,7 +323,7 @@ router.post('/add-showtime', (req, res) => {
                                                 tickets.push({
                                                     idShowtime: st._id,
                                                     name: name + j,
-                                                    price: singleSeat,
+                                                    price: 45000,
                                                     sorting: (10 * i) + j,
                                                 })
                                             } else {
@@ -331,7 +331,7 @@ router.post('/add-showtime', (req, res) => {
                                                 tickets.push({
                                                     idShowtime: st._id,
                                                     name: name + j,
-                                                    price: coupleSeat,
+                                                    price: 90000,
                                                     sorting: (10 * i) + j,
                                                 })
                                             }
