@@ -297,7 +297,7 @@ $('#btnAddSC').on('click', () => {
 $('#btnAddPR').on('click', () => {
     var htmlObj = $('#form-addPR');
     htmlObj.append(`
-    <div class="price-seat price-choose-day">
+    <div class="price-choose-day">
         `+ $('.first-row-addPR').html() + `
         <div class="close-pr">
             <button type="button" class="btnDelPR"> <i class="fa fa-times close-pr" aria-hidden="true"></i></button>
@@ -305,7 +305,7 @@ $('#btnAddPR').on('click', () => {
     </div>`);
     $('.btnDelPR').each(function () {
         var $this = $(this);
-        var rowAddSt = $this.closest('.price-seat');
+        var rowAddSt = $this.closest('.price-choose-day');
         $this.click(function (e) {
             e.preventDefault();
             rowAddSt.remove();

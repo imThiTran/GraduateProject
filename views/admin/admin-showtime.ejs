@@ -160,11 +160,19 @@
                                                             </div>
                                                             <div class="tab-pane price-line" id="price2" role="tabpanel">
                                                                 <form action="" class="" method="">
-                                                                    <div id="form-addPR">
-                                                                        <div class="first-row-addPR price-seat price-choose-day" >
+                                                                        <div class="price-seat" >
                                                                             <div class="price-ticket-time datetime-price">
-                                                                                <label style="width: 100px;" for="">Chọn ngày</label>
-                                                                                <input type="date" class="form-control input-datetime">
+                                                                                <label style="width: 100px; flex:2" for="">Chọn ngày</label>
+                                                                                <div class="add-price">
+                                                                                    <div id="form-addPR" class="form-addPR">
+                                                                                        <div class="first-row-addPR price-choose-day">
+                                                                                            <input type="date" class="form-control input-datetime date-price">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <button class="btn-PR" id="btnAddPR" type="button">
+                                                                                        +
+                                                                                     </button>
+                                                                                </div>
                                                                             </div>
                                                                             
                                                                             <div class="price-ticket-time datetime-price">
@@ -190,13 +198,7 @@
                                                                                     class="form-control seat-normal" id="">
                                                                                 <span>VNĐ</span>
                                                                             </div>
-                                                                            <span class="span-detail span-price"></span>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <button class="btn-SC" id="btnAddPR" type="button">
-                                                                        Thêm ngày
-                                                                    </button>
                                                                 </form>
                                                             </div>
                                                         </div>

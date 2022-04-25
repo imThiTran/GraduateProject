@@ -2571,12 +2571,35 @@ button.primaryContained:hover {
 }
 .close-pr{
     position: absolute;
-    top: 10px;
+    top: 7px;
     right: 10px;
     font-size: 20px;
 }
+.btn-PR{
+    width: 50px;
+    border-radius: 5px;
+    background: #f6efe2;
+    border: none;
+    line-height: 2rem;
+    margin-top: 10px;
+    margin-left: 1rem;
+}
 .price-choose-day{
-    margin-top: 30px !important;
+    position: relative;
+    width: 265px;
+    margin-bottom: 10px;
+}
+.add-price{
+    display: block;
+    flex: 11;
+}
+.form-addPR{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.date-price{
+    width: 200px !important;
 }
   /*FILM MANAGEMENT*/
   .img-add{
