@@ -2053,7 +2053,7 @@ button.primaryContained:hover {
 .btn-order-section{
     display: flex;
     justify-content: space-between;
-    padding-top: 30px;
+    padding: 30px 120px;
 }
 .btn-back{
     background: #eee;
