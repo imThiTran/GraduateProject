@@ -259,10 +259,10 @@ a:hover {
 .index-navbar {
     color: #eee !important;
     text-align: center;
-    width: 100px;
     margin: 0 25px !important;
     font-size: 20px;
     height: 60px;
+    width: 100%;
 }
 
 .index-navbar:hover {
@@ -920,7 +920,14 @@ a:hover {
     background-color: rgb(254 199 88);
     border: none !important;
 }
-
+.nav-sub{
+    width: 170px;
+}
+.img-search{
+    height: 70px;
+    object-fit: cover;
+    object-position: 50% 20%;
+}
 .menu-status {
     border-bottom: 2px solid #fdc85b;
 }
@@ -2561,13 +2568,14 @@ button.primaryContained:hover {
     max-height: calc(100vh - 260px);
 }
 .price-line{
-    position: relative;
+    position: relative !important;
 }
 .span-price{
     position: absolute;
     background-color: #848484;
     height: 1px;
     margin: 10px;
+    width: 100%;
 }
 .close-pr{
     position: absolute;
@@ -2600,6 +2608,12 @@ button.primaryContained:hover {
 }
 .date-price{
     width: 200px !important;
+}
+.price-t7{
+    margin-bottom: 0.5rem;
+}
+.price {
+    display: flex;
 }
   /*FILM MANAGEMENT*/
   .img-add{
@@ -3010,4 +3024,17 @@ button.primaryContained:hover {
     font-size: 24px;
     font-weight: 700;
     padding-bottom: 15px;
+}
+/* snack */
+.photoShow{
+    width: 150px !important;
+    height: 150px;
+    object-fit: cover;
+    object-position: 50% 20%;
+}
+.imgAddPreview, .imgEditPreview{
+    width: 150px !important;
+    height: 200px;
+    object-fit: cover;
+    object-position: 50% 20%;
 }

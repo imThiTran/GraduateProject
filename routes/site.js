@@ -133,7 +133,7 @@ router.post('/search-film-ajax',(req,res)=>{
       htmlSend=htmlSend+`<li><a class="dropdown-item" href="/movie/`+fiFe.slug+`">
       <div class="search-option">
           <div class="img-option">
-              <img src="`+fiFe.photo+`" alt="phim1">
+              <img class="img-search" src="`+fiFe.photo+`" alt="phim1">
           </div>
           <div class="title-option">
               <div class="rating-flex">
