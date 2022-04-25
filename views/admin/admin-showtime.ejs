@@ -79,15 +79,7 @@
                                                                             <span>VNĐ</span>
                                                                         </div>
                                                                     </div>
-<<<<<<< HEAD
-                                                                </form>
-                                                            </div>
-                                                            <div class="tab-pane" id="price2" role="tabpanel">
-                                                                <form action="" class="" method="">
-                                                                    <div class="price-seat">
-=======
                                                                     <div class="price-seat" id="">
->>>>>>> f5bd36144cc36a4e110454c6bc5b46f9a282412f
                                                                         <div class="price-ticket-time datetime-price">
                                                                             <label style="width: 100px;" for="">Chọn giờ</label>
                                                                             <input style="width: 150px !important;" type="time"
@@ -167,7 +159,7 @@
                                                                 </form>
                                                             </div>
                                                             <div class="tab-pane price-line" id="price2" role="tabpanel">
-                                                                <form action="" class="formEdit" method="">
+                                                                <form action="" class="" method="">
                                                                     <div id="form-addPR">
                                                                         <div class="first-row-addPR price-seat price-choose-day" >
                                                                             <div class="price-ticket-time datetime-price">
@@ -357,6 +349,7 @@
                                         </form>
                                     </div>
                                     <table class="table table-striped table-bordered" style="font-size: 15px;">
+                                        <%if (showtimes.length!=0){%>
                                         <thead>
                                             <tr>
                                                 <th scope="col" style="width: 1%;">STT</th>
@@ -367,6 +360,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="containTr">
+                                            
                                             <form class="formDeleteAll" action="" method="post">
                                                 <!-- Each film's show time -->
                                                 <%var i=1;%>
@@ -497,8 +491,13 @@
 
                                                             <!-- End each film's show time -->
                                             </form>
+                                            
                                         </tbody>
+                                        
                                         </thead>
+                                        <%}else{%>
+                                            <h1>Không có suất chiếu nào</h1>
+                                        <%}%>
                                         <!-- Edit show time-->
                                         <form class="formEdit" action="" method="">
                                             <div id="modalEditShowTime" class="modal">

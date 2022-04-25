@@ -2736,7 +2736,7 @@ button.primaryContained:hover {
       height: 40px;
   }
   /* USER MANAGEMENT */
-  .span-error{
+  .span-error,.span-error-add,.span-error-edit{
     font-size: 12px;
     color: #f93838;
     font-style: italic;

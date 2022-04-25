@@ -205,7 +205,7 @@
                                         <%= film.directors %>
                                     </td>
                                     <td class="premiereedit">
-                                        <%= film.premiere %>
+                                        <%= new Date(film.premiere).toLocaleDateString('en-GB') %>
                                     </td>
                                     <td class="categories">
                                         <%= film.idCat %>

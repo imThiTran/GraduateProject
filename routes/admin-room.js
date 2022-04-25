@@ -21,12 +21,18 @@ router.get('/', (req, res) => {
 router.post('/add-room', (req, res) => {
     var { name, type } = req.body;
     type = parseInt(type);
-    var room = new Room({
-        name: cleanText(name),
-        type: type
-    })
-    room.save(function (err,result) {
-        res.send(result);
+    Room.findOne({ name: name }, (err, ro) => {
+        if (ro) {
+            res.send('Phòng này đã tồn tại');
+        } else {
+            var room = new Room({
+                name: cleanText(name),
+                type: type
+            })
+            room.save(function (err, result) {
+                res.send(result);
+            })
+        }
     })
 })
 
@@ -54,30 +60,30 @@ router.get('/search-room', (req, res) => {
     })
 })
 
-router.post('/block-room',(req,res)=>{
-    var {idRoom,block}=req.body;
-    Room.findById(idRoom,(err,ro)=>{
-        ro.block=block;
-        ro.save((err)=>{
-            if (block==1){
-                Showtime.updateMany({ idRoom: ro._id.toString(),closed:{$ne:"1"} },
-            {
-                $set: { closed: block,blockByRoom:block }
-            }, function (err, result) {
-                if (err) throw err;
-                    res.send('success');
-            })
-            }else {
-                Showtime.updateMany({ idRoom: ro._id.toString(),blockByRoom:1 },
-                {
-                    $set: { closed: block,blockByRoom:block }
-                }, function (err, result) {
-                    if (err) throw err;
-                    res.send('success');
-                })
+router.post('/block-room', (req, res) => {
+    var { idRoom, block } = req.body;
+    Room.findById(idRoom, (err, ro) => {
+        ro.block = block;
+        ro.save((err) => {
+            if (block == 1) {
+                Showtime.updateMany({ idRoom: ro._id.toString(), closed: { $ne: "1" } },
+                    {
+                        $set: { closed: block, blockByRoom: block }
+                    }, function (err, result) {
+                        if (err) throw err;
+                        res.send('success');
+                    })
+            } else {
+                Showtime.updateMany({ idRoom: ro._id.toString(), blockByRoom: 1 },
+                    {
+                        $set: { closed: block, blockByRoom: block }
+                    }, function (err, result) {
+                        if (err) throw err;
+                        res.send('success');
+                    })
             }
         })
-        
+
     })
 })
 

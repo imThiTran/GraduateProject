@@ -38,6 +38,7 @@
             <div class="category-span"></div>
         
             <div class="movie-side">
+                <%if (films.length!=0){%>
                 <% films.forEach(function(film,idx){ %>
                     <div class="coming-movie-cate">
                         <a class="a-coming" href="/movie/<%= film.slug%>">
@@ -184,6 +185,9 @@
                         </a>
                     </div>
                 <% }); %>   
+                <%} else {%>
+                    <h1 style="color:white">Không có phim nào phù hợp yêu cầu</h1>
+                <%}%>
             </div>
         </div>
     </div>

@@ -151,13 +151,32 @@ router.post('/search-film-ajax',(req,res)=>{
   })
 })
 
+function roundHalf(num) {
+  return Math.round(num * 2) / 2;
+}
+
 router.get('/search-film',(req,res)=>{
   var name=req.query.name;
+  var avgRates=[];
     Category.find({}, function(err,cats){
       Film.find({$or:[{nameEN:{$regex:name,$options:"$i"}},{nameVN:{$regex:name,$options:"$i"}}]}, function(err,films){
+        films.forEach((film) => {
+              var sumRate = 0;
+              var avgRate;
+              if (film.ratings.length != 0) {
+                  film.ratings.forEach(function (rateFe) {
+                      sumRate = sumRate + rateFe.rating;
+                  })
+                  avgRate = roundHalf(sumRate / (film.ratings.length));
+              } else {
+                  avgRate = 0;
+              }
+              avgRates.push(avgRate);
+      })
           res.render('movie/categories',{
               cats: cats,
               films:films,
+              avgRates:avgRates,
               type:'Tìm kiếm phim'
           })
       }) 
