@@ -6,6 +6,8 @@ var Ticket = require('../models/ticket');
 var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 var Room = require('../models/room');
+var Snack = require('../models/snack')
+var Category = require('../models/category');
 
 var partnerCode = process.env.partnerCode
 var accessKey = process.env.accessKey
@@ -17,9 +19,40 @@ var ipnUrl = "https://callback.url/notify";
 var requestType = "captureWallet"
 var extraData = "";
 
-
+var snacklist = []
+Snack.find({}, function (err, snacks) {
+    snacklist = snacks
+})
+var cats = []
+Category.find({}, function (err, categories) {
+    cats = categories
+})
 router.post('/', (request, response) => {
     var { ticket, fullname, phone } = request.body
+    var body = request.body    
+    var snacks=[]
+    for (key in body ) {
+        if(key!="ticket" && key!="idst"){
+            if(body[key]!='0'){
+                let snack={id:key,value:body[key]}
+                snacks.push(snack)
+            }
+        }
+    }
+    var snackarr=[]
+    snacks.forEach(snack => {
+        snacklist.forEach(sn => {
+            if(snack.id==sn._id){
+                let item={
+                    id:snack.id,
+                    name:sn.name,
+                    price:sn.price,
+                    quantity:snack.value
+                }
+                snackarr.push(item)
+            }
+        })
+    })
     var check = true
     Ticket.find({ "_id": { "$in": ticket } }, function (err, tk) {
         tk.forEach(ticketcheck => {
@@ -27,13 +60,26 @@ router.post('/', (request, response) => {
                 check = false
             }
         })
+        snacks.forEach(snack => {
+            snacklist.forEach(sn => {
+                if(snack.id==sn._id && sn.block==1){
+                    check = false         
+                }
+            })
+        })
         if (check) {
             var total = 0
             if (ticket == "string") {
                 total = tk
+                snackarr.forEach(item => {
+                    total+=item.price*item.quantity
+                })
             } else {
                 tk.forEach(ticket => {
                     total += ticket.price
+                })
+                snackarr.forEach(item => {
+                    total+=item.price*item.quantity
                 })
             }
             var bill = new Bill({
@@ -41,7 +87,8 @@ router.post('/', (request, response) => {
                 total: total,
                 user: request.session.user,
                 fullname: fullname,
-                phone: phone
+                phone: phone,
+                snack:snackarr
             })
             bill.save(function (err, bill) {
                 var orderId = bill._id;
@@ -101,7 +148,7 @@ router.post('/', (request, response) => {
                 req.end();
             })
         } else {
-            response.send("Vé đẵ được đặt bởi ai đó")
+            response.send("Đã có lỗi xảy ra")
         }
 
     })
@@ -127,22 +174,29 @@ router.get('/confirm', (req, res) => {
     if (signature === crypto.createHmac('sha256', secretkey).update(rawSignaturenew).digest('hex')) {
         if (query.resultCode == 0) {
             Bill.findById(query.orderId, function (err, bill) {
-                bill.payment = 1;
-                bill.save(function (err) {
-                    if (err) throw err;
-                });
-                Showtime.findById(bill.ticket[0].idShowtime, function (err, st) {
-                    Film.findById(st.idFilm, function (err, film) {
-                        Room.findById(st.idRoom, function (err, room) {
-                            res.render('payment/detail-bill', {
-                                bill: bill,
-                                st: st,
-                                film: film,
-                                room: room
+                if(bill.payment == '1'){
+                    res.status(404).render('error', {
+                        mes: 'Page Not Found'
+                    });
+                }else{
+                    bill.payment = 1;
+                    bill.save(function (err) {
+                        if (err) throw err;
+                    });
+                    Showtime.findById(bill.ticket[0].idShowtime, function (err, st) {
+                        Film.findById(st.idFilm, function (err, film) {
+                            Room.findById(st.idRoom, function (err, room) {
+                                res.render('payment/detail-bill', {
+                                    bill: bill,
+                                    st: st,
+                                    film: film,
+                                    room: room,
+                                    cats:cats
+                                })
                             })
                         })
                     })
-                })
+                }                
             })
         } else {
             res.send('Thanh toán thất bại')
