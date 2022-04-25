@@ -6,6 +6,12 @@ var Showtime = require('../models/showtime');
 var Category = require('../models/category');
 var User = require('../models/user');
 const Room = require('../models/room');
+var Snack = require('../models/snack')
+
+var cats = []
+Category.find({}, function (err, categories) {
+    cats = categories
+})
 
 router.get('/', (req, res) => {
     var idSt = req.query.idShowtime;
@@ -123,8 +129,37 @@ router.post('/reload', (req, res) => {
     })
 })
 
+var snacklist = []
+Snack.find({}, function (err, snacks) {
+    snacklist = snacks
+})
+
 router.post('/ticket', (req, res) => {
     var{ticket,idSt} =req.body    
+    var body = req.body    
+    var snacks=[]
+    for (key in body ) {
+        if(key!="ticket" && key!="idst"){
+            if(body[key]!='0'){
+                let snack={id:key,value:body[key]}
+                snacks.push(snack)
+            }
+        }
+    }
+    var snackarr=[]
+    snacks.forEach(snack => {
+        snacklist.forEach(sn => {
+            if(snack.id==sn._id){
+                let item={
+                    id:snack.id,
+                    name:sn.name,
+                    price:sn.price,
+                    quantity:snack.value
+                }
+                snackarr.push(item)
+            }
+        })
+    })
     User.findOne({email : req.session.user},function(err,us){        
         Showtime.findById(idSt, function(err,st){
             Film.findById(st.idFilm, function(err,film){
@@ -132,28 +167,39 @@ router.post('/ticket', (req, res) => {
                     if (err) return console.log(err);
                     if(ticket=='string'){
                         Ticket.findById(ticket, function(err,tk){
+                            let total=0
+                            snackarr.forEach(item => {
+                                total+=item.price*item.quantity
+                            })
                             res.render('payment/detail-check',{
                                 st:st,
                                 tk:tk,
-                                total:tk[0].price,
+                                total:tk[0].price+total,
                                 film:film,
                                 room:room,
-                                user:us
+                                user:us,
+                                snack:snackarr,
+                                cats:cats
                             })
                         })
                     }else{
                         Ticket.find({"_id": {"$in" : ticket}}, function(err, tk){
-                            var total=0
+                            let total=0
                             tk.forEach(ticket => {
                                 total+=ticket.price
-                            })                       
+                            })
+                            snackarr.forEach(item => {
+                                total+=item.price*item.quantity
+                            })    
                             res.render('payment/detail-check',{
                                 st:st,
                                 tk:tk,
                                 total:total,
                                 film:film,
                                 room:room,
-                                user:us
+                                user:us,
+                                snack:snackarr,
+                                cats:cats
                             })
                         })
                     }
@@ -164,10 +210,16 @@ router.post('/ticket', (req, res) => {
 })
 
 router.post('/snack', (req, res) => {
-    var{ticket,idSt} =req.body
-    res.render('order/order-snack',{
-        tk:ticket,
-        idst:idSt
+    var{ticket,idSt} = req.body
+    Snack.find({block:{'$ne':1}},async function(err,snacks){
+        Ticket.find({"_id": {"$in" : ticket}}, function(err, tk){                 
+            res.render('order/order-snack',{
+                tk:tk,
+                idst:idSt,
+                snacks:snacks,
+                cats:cats
+            })
+        })
     })
 })
 
