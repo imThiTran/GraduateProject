@@ -6,11 +6,26 @@ var imgEdit = $('.imgEditPreview');
 var imgInputEdit = $('.imageChangeEdit');
 var photoShow, nameShow, typeShow, priceShow;
 
+function ClearSpanerror() {
+  $('.span-error-add').each(function () {
+    $(this).text('');
+  })
+  $('.span-error-edit').each(function () {
+    $(this).text('');
+  })
+}
+
+isRequired($('.nameAdd'), 'add');
+isRequired($('.priceAdd'), 'add');
+isRequired($('.nameEdit'), 'edit');
+isRequired($('.priceEdit'), 'edit');
+
 $('#btnAddSnack').on('click', function () {
   modalAddSnack.style.display = "block";
 });
 
 $('.close-snack').on('click', function () {
+  ClearSpanerror();
   imgAdd.attr('src', '/img/no_img.webp');
   $('.nameAdd').val('');
   $('.typeAdd').val('Đồ ăn');
@@ -26,35 +41,42 @@ $('.close-snack').on('click', function () {
 
 
 $('.saveAdd').click(function () {
-  $(this).html(`<div class="spinner-border text-warning spinner-save spinner-edit" role="status"></div>`);
-  var formm = $('.formAdd')[0];
-  var data = new FormData(formm);
-  var trContain = $('.trClosest');
-  $.ajax({
-    url: "/admin/snack/add-snack",
-    type: "POST",
-    enctype: "multipart/form-data",
-    cache: false,
-    processData: false,
-    contentType: false,
-    data: data,
-    success: function (result) {
-      $('.saveAdd').html('Thêm');
-      if (typeof result == 'object') {
-        imgAdd.attr('src', '/img/no_img.webp');
-        $('.nameAdd').val('');
-        $('.typeAdd').val('Đồ ăn');
-        $('.priceAdd').val('');
-        imgInputAdd.val(null);
-        modalAddSnack.style.display = "none";
-        $('.body-loading').css('display', 'none');
-        Swal.fire({
-          icon: 'success',
-          title: 'Thêm thành công',
-          showConfirmButton: false,
-          timer: 1000
-        })
-        $(`<tr class="trClosest">
+  var check = true;
+  checkform([$('.nameAdd'), $('.priceAdd'), $('.imgChangeAdd')], 'add', 'Vui lòng nhập trường này');
+  $('.span-error-add').each(function () {
+    if ($(this).text() != '') { check = false; return false; }
+  })
+  if (check == true) {
+    $(this).html(`<div class="spinner-border text-warning spinner-save spinner-edit" role="status"></div>`);
+    var formm = $('.formAdd')[0];
+    var data = new FormData(formm);
+    var trContain = $('.trClosest');
+    $.ajax({
+      url: "/admin/snack/add-snack",
+      type: "POST",
+      enctype: "multipart/form-data",
+      cache: false,
+      processData: false,
+      contentType: false,
+      data: data,
+      success: function (result) {
+        $('.saveAdd').html('Thêm');
+        if (typeof result == 'object') {
+          ClearSpanerror();
+          imgAdd.attr('src', '/img/no_img.webp');
+          $('.nameAdd').val('');
+          $('.typeAdd').val('Đồ ăn');
+          $('.priceAdd').val('');
+          imgInputAdd.val(null);
+          modalAddSnack.style.display = "none";
+          $('.body-loading').css('display', 'none');
+          Swal.fire({
+            icon: 'success',
+            title: 'Thêm thành công',
+            showConfirmButton: false,
+            timer: 1000
+          })
+          $(`<tr class="trClosest">
                                   <th scope="row" style="width: 10%">
                                       <img style="width: 100%" src="${result.photo}" alt="">
                                   </th>
@@ -77,11 +99,12 @@ $('.saveAdd').click(function () {
                                       </div>
                                   </td>
                               </tr>`).insertAfter(trContain[trContain.length - 1]);
-      } else {
-        $('.alertAdd').html(result);
+        } else {
+          $('.alertAdd').html(result);
+        }
       }
-    }
-  })
+    })
+  }
 })
 
 //load when u click button edit
@@ -126,51 +149,57 @@ $('.typeEdit').change(function () {
 $('.priceEdit').change(function () {
   checkChange = true;
 });
- $('.imageChangeEdit').change(function(){
+$('.imageChangeEdit').change(function () {
   checkChange = true;
- })
+})
 
 //save edit
 $('.saveEdit').click(function () {
   imgAdd.attr('src', '/img/no_img.webp');
-  $('.alertEdit').html(null);
-  if (checkChange == true) {
-    $(this).html(`<div class="spinner-border text-warning spinner-save spinner-edit" role="status"></div>`);
-    var formm = $('.formEdit')[0];
-    var data = new FormData(formm);
-    $.ajax({
-      url: "/admin/snack/edit-snack",
-      type: "POST",
-      enctype: "multipart/form-data",
-      cache: false,
-      processData: false,
-      contentType: false,
-      data: data,
-      success: function (result) {
-        $('.saveEdit').html('Xác nhận');
-        imgInputEdit.val(null);
-        if (typeof result == 'object') {
-          checkChange = false;
-          nameShow.innerText = result.name;
-          typeShow.innerText = result.type;
-          priceShow.innerText = formatNumber(result.price) + ' VNĐ';
-          photoShow.setAttribute('src', result.photo);
-          Swal.fire({
-            icon: 'success',
-            title: 'Sửa thành công',
-            showConfirmButton: false,
-            timer: 1000
-          })
-          modalEditSnack.style.display = "none";
-        } else {
-          $('.alertEdit').html(result);
+  var check = true;
+  $('.span-error-edit').each(function () {
+    if ($(this).text() != '') { check = false; return false; }
+  })
+  if (check == true) {
+    $('.alertEdit').html(null);
+    if (checkChange == true) {
+      $(this).html(`<div class="spinner-border text-warning spinner-save spinner-edit" role="status"></div>`);
+      var formm = $('.formEdit')[0];
+      var data = new FormData(formm);
+      $.ajax({
+        url: "/admin/snack/edit-snack",
+        type: "POST",
+        enctype: "multipart/form-data",
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (result) {
+          $('.saveEdit').html('Xác nhận');
+          imgInputEdit.val(null);
+          if (typeof result == 'object') {
+            ClearSpanerror();
+            checkChange = false;
+            nameShow.innerText = result.name;
+            typeShow.innerText = result.type;
+            priceShow.innerText = formatNumber(result.price) + ' VNĐ';
+            photoShow.setAttribute('src', result.photo);
+            Swal.fire({
+              icon: 'success',
+              title: 'Sửa thành công',
+              showConfirmButton: false,
+              timer: 1000
+            })
+            modalEditSnack.style.display = "none";
+          } else {
+            $('.alertEdit').html(result);
+          }
         }
-      }
-    })
-  } else {
-    modalEditSnack.style.display = "none";
+      })
+    } else {
+      modalEditSnack.style.display = "none";
+    }
   }
-
 })
 
 function blockBtnHandle(th) {

@@ -34,7 +34,7 @@
                                                         <div class="col-5 img-add">
                                                             <img id="img-edit-item" class="imgAddPreview"
                                                                 src="/img/no_img.webp" style="width: 100%;">
-                                                            <input onchange="loadImg();" type="file" class="form-control imgChangeAdd"
+                                                            <input onchange="loadImg(this);" type="file" class="form-control imgChangeAdd"
                                                                 name="image" id="img1"
                                                                 accept="image/*"
                                                                 style="display: none;">
@@ -134,12 +134,13 @@
                                             <div class="col-5 img-add">
                                                 <img id="img-edit-item" class="imgEditPreview"
                                                     src="/img/no_img.webp" style="width: 100%;">
-                                                <input onchange="loadImg();" type="file" class="form-control imageChangeEdit"
+                                                <input onchange="loadImg(this);" type="file" class="form-control imageChangeEdit"
                                                     name="image" id="img2"
                                                     accept="image/*"
                                                     style="display: none;" valueImage="" >
                                                 <label class="btn-common" id="btn-edit-img-item"
                                                     for="img2">Chọn ảnh</label>
+                                                    <span class="span-error-edit"></span>
                                             </div>
                                         </div>
                                         <div class="modal-right">
@@ -147,6 +148,7 @@
                                                 <label class="label-chitiet" for="">Tên</label>
                                                     <input name="name" class="input-sua nameEdit" value="CoCa CoLa"
                                                         type="text">
+                                                        <span class="span-error-edit"></span>
                                             </div>
                                             <div class="ad-phim">
                                                 <label class="label-chitiet" for="">Loại</label>
@@ -160,6 +162,7 @@
                                                 <label class="label-chitiet" for="">Giá bán</label>
                                                     <input name="price" class="input-sua priceEdit" value="30000"
                                                         type="number">
+                                                        <span class="span-error-edit"></span>
                                             </div>
                                             <input type="hidden" class="photoHidden" name="" id="">
                                             <input type="hidden" class="pimage" name="pimage" value="" id="">
@@ -178,6 +181,7 @@
                 </table>
         </div>
     </div>
+    <script src="/js/validate-thitran.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/admin-snack.js"></script>
@@ -185,7 +189,8 @@
 <script>
     var imgPrv = document.querySelector('.imgAddPreview');
     var imgEditPrv = document.querySelector('.imgEditPreview');
-        function loadImg(){
+        function loadImg(e){
+           if (e.parentElement.querySelector('.span-error-add'))  e.parentElement.querySelector('.span-error-add').innerText='';
             if (event.target.files.length > 0) {
                 let src = URL.createObjectURL(event.target.files[0]);
                 imgPrv.src=src;

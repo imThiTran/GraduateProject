@@ -16,10 +16,10 @@ $('.close-room').on('click', function () {
 });
 isRequired($('.nameRoom'), 'add');
 $('.saveAdd').click(function () {
-  var check = false;
+  var check = true;
   checkform([$('.nameRoom')], 'add', 'Vui lòng nhập trường này');
   $('.span-error-add').each(function () {
-    if ($(this).text() == '') { check = true; return false; }
+    if ($(this).text() != '') { check = false; return false; }
   })
   if (check == true) {
     var name = $('.nameRoom').val();
