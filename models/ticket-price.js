@@ -1,15 +1,13 @@
 var mongoose = require('mongoose')
 
 var TkPriceSchema = mongoose.Schema({
-    singleSeat:{
-        type:Number,
-        required:true
+    timeSlot1:{
+        type:Object,
     },
-    coupleSeat:{
-        type:Number,
-        required:true
+    timeSlot2:{
+        type:Object,
     },
-    purpose:{
+    type:{
         type:String
     }
 })

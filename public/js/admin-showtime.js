@@ -9,7 +9,28 @@ var checkFormChange; //check form change
 
 
 $('#btnAddPrice').on('click', function () {
-    modalAddPrice.style.display = "block";
+    $.ajax({
+        url: "/admin/showtime/load-price/",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({  }),
+        success: function (result) {
+            $('.fromTime1').val(result.timeSlot1.fromTime);
+            $('.toTime1').val(result.timeSlot1.toTime);
+            $('.fromTime2').val(result.timeSlot2.fromTime);
+            $('.toTime2').val(result.timeSlot2.toTime);
+            $('.singleNormal1').val(result.timeSlot1.normalDay.singleSeat);
+            $('.coupleNormal1').val(result.timeSlot1.normalDay.coupleSeat);
+            $('.singleWeek1').val(result.timeSlot1.weekend.singleSeat);
+            $('.coupleWeek1').val(result.timeSlot1.weekend.coupleSeat);
+            $('.singleNormal2').val(result.timeSlot2.normalDay.singleSeat);
+            $('.coupleNormal2').val(result.timeSlot2.normalDay.coupleSeat);
+            $('.singleWeek2').val(result.timeSlot2.weekend.singleSeat);
+            $('.coupleWeek2').val(result.timeSlot2.weekend.coupleSeat);
+            modalAddPrice.style.display = "block";
+        }
+    })
+    
 });
 
 $('#btnAddShowTime').on('click', function () {
@@ -146,6 +167,33 @@ $('.saveEdit').click(function () {
         modalEditShowTime.style.display = "none";
         checkFormChange = false;
     }
+})
+
+
+//save change default price
+$('.saveDefaultPrice').click(function(){
+    var formm = $('.fromDefaultPrice')[0];
+    var data = new FormData(formm);
+    $.ajax({
+        url: "/admin/showtime/change-default-price",
+        type: "POST",
+        enctype: "multipart/form-data",
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (result) {
+            if (result=='success'){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đã lưu',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                modalAddPrice.style.display = "none";
+            }
+        }
+    })
 })
 
 //function save Edit
@@ -363,4 +411,17 @@ $('.btnSearchTime').click(function (e) {
             timer: 1000
         })
     }
+})
+
+$('.toTime1').change(function(){
+    var toTime1=$(this).val();
+    var timeArr=toTime1.split(':');
+    var minute2,hour2=timeArr[0];
+    if (timeArr[1]==59){
+        minute2='00';
+        hour2=parseInt(hour2)+1;
+    }
+    else minute2=parseInt(timeArr[1])+1;
+    var fromTime2=hour2+':'+((minute2<10)?('0'+minute2):(minute2));
+    $('.fromTime2').val(fromTime2);
 })

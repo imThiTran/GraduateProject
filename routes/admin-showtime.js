@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
     var times = [];
     var date = [];
     var descrb = [];
-    TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
         Film.find({ status: 'Đang khởi chiếu' }, (err, fi) => {
             Showtime.find({}, (err, st) => {
                 Room.find({ block: 0 }, (err, ro) => {
@@ -59,13 +58,10 @@ router.get('/', (req, res) => {
                         showtimes: showtimeArr,
                         films: fi,
                         rooms: ro,
-                        // singleSeat: tkpr.singleSeat,
-                        // coupleSeat: tkpr.coupleSeat,
                     });
                 })
             })
         })
-    })
 })
 
 function transferTimeEnd(timeStart, time) {
@@ -82,6 +78,55 @@ function transferTimeEnd(timeStart, time) {
     return ((newHour < 10) ? ('0' + newHour) : newHour) + ':' + ((newMinute < 10) ? ('0' + newMinute) : newMinute);
 }
 
+//load modal priceTicket
+router.post('/load-price',(req,res)=>{
+    TicketPrice.findOne({type:"defaultPrice"},(err,tkpr)=>{
+        res.send(tkpr);
+    })
+})
+//change defaul price
+router.post('/change-default-price',(req,res)=>{
+    var {fromTime1,toTime1,singleNormal1,coupleNormal1,singleWeek1,coupleWeek1,fromTime2,toTime2,singleNormal2,coupleNormal2,singleWeek2,coupleWeek2}=req.body;
+    var timeSlot1={
+        fromTime:fromTime1,
+        toTime:toTime1,
+        normalDay:{
+            singleSeat:singleNormal1,
+            coupleSeat:coupleNormal1
+        },
+        weekend:{
+            singleSeat:singleWeek1,
+            coupleSeat:coupleWeek1
+        }
+    };
+    var timeSlot2={
+        fromTime:fromTime2,
+        toTime:toTime2,
+        normalDay:{
+            singleSeat:singleNormal2,
+            coupleSeat:coupleNormal2
+        },
+        weekend:{
+            singleSeat:singleWeek2,
+            coupleSeat:coupleWeek2
+        }
+    }
+    TicketPrice.findOne({type:"defaultPrice"},(err,tkpr)=>{
+        tkpr.timeSlot1=timeSlot1;
+        tkpr.timeSlot2=timeSlot2;
+        tkpr.save(function(err,result){
+            if (err) throw err;
+            res.send('success');
+        })
+    })
+})
+
+function checkDayWeekend(date){
+    if(date.getDay() == 6 || date.getDay() == 0) return true;
+    return false;
+}
+
+
 router.post('/add-showtime', (req, res) => {
     const { date, idAndTime, hour, minute, roomAndType } = req.body;
     var timeStart;
@@ -89,11 +134,6 @@ router.post('/add-showtime', (req, res) => {
     var idFilm = idAndTimeArr[0];
     var time = idAndTimeArr[1];
     var today = new Date();
-    // var singleSeat, coupleSeat;
-    // TicketPrice.findOne({ purpose: 'price' }, (err, tkpr) => {
-    //     singleSeat = tkpr.singleSeat;
-    //     coupleSeat = tkpr.coupleSeat;
-    // })
     if (typeof roomAndType == "string") {
         var roomAndTypeArr = roomAndType.split('/');
         var room = roomAndTypeArr[0];
@@ -127,6 +167,25 @@ router.post('/add-showtime', (req, res) => {
                     })
                     showtime.save(function (err, result) {
                         if (err) return console.log(err);
+                        TicketPrice.findOne({type:'defaultPrice'},(err,tkpr)=>{
+                            var singleSeat,coupleSeat;
+                            if (timeStart<=tkpr.timeSlot1.toTime && timeStart>=tkpr.timeSlot1.fromTime){
+                                if (checkDayWeekend(newDay)){
+                                    singleSeat=tkpr.timeSlot1.weekend.singleSeat;
+                                    coupleSeat=tkpr.timeSlot1.weekend.coupleSeat;
+                                }else {
+                                    singleSeat=tkpr.timeSlot1.normalDay.singleSeat;
+                                    coupleSeat=tkpr.timeSlot1.normalDay.coupleSeat;
+                                }
+                            } else {
+                                if (checkDayWeekend(newDay)){
+                                    singleSeat=tkpr.timeSlot2.weekend.singleSeat;
+                                    coupleSeat=tkpr.timeSlot2.weekend.coupleSeat;
+                                }else {
+                                    singleSeat=tkpr.timeSlot2.normalDay.singleSeat;
+                                    coupleSeat=tkpr.timeSlot2.normalDay.coupleSeat;
+                                }
+                            }
                         if (typeRoom == 114) {
                             for (var i = 0; i <= 9; i++) {
                                 switch (i) {
@@ -147,7 +206,7 @@ router.post('/add-showtime', (req, res) => {
                                         tickets.push({
                                             idShowtime: result._id,
                                             name: name + j,
-                                            price: 45000,
+                                            price: singleSeat,
                                             sorting: (12 * i) + j,
                                         })
                                     } else {
@@ -155,7 +214,7 @@ router.post('/add-showtime', (req, res) => {
                                         tickets.push({
                                             idShowtime: result._id,
                                             name: name + j,
-                                            price: 90000,
+                                            price: coupleSeat,
                                             sorting: (12 * i) + j,
                                         })
                                     }
@@ -180,7 +239,7 @@ router.post('/add-showtime', (req, res) => {
                                         tickets.push({
                                             idShowtime: result._id,
                                             name: name + j,
-                                            price: 45000,
+                                            price: singleSeat,
                                             sorting: (10 * i) + j,
                                         })
                                     } else {
@@ -188,7 +247,7 @@ router.post('/add-showtime', (req, res) => {
                                         tickets.push({
                                             idShowtime: result._id,
                                             name: name + j,
-                                            price: 90000,
+                                            price: coupleSeat,
                                             sorting: (10 * i) + j,
                                         })
                                     }
@@ -197,6 +256,8 @@ router.post('/add-showtime', (req, res) => {
                         }
                         Ticket.insertMany(tickets);
                         res.send('success');
+                    })
+                        
                     })
                 }
             })
