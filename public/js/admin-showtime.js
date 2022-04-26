@@ -13,7 +13,7 @@ $('#btnAddPrice').on('click', function () {
         url: "/admin/showtime/load-price/",
         method: "POST",
         contentType: "application/json",
-        data: JSON.stringify({  }),
+        data: JSON.stringify({}),
         success: function (result) {
             $('.fromTime1').val(result.timeSlot1.fromTime);
             $('.toTime1').val(result.timeSlot1.toTime);
@@ -30,8 +30,88 @@ $('#btnAddPrice').on('click', function () {
             modalAddPrice.style.display = "block";
         }
     })
-    
+
 });
+
+function checkEmpty(valArr) {
+    for (var i = 0; i < valArr.length; i++) {
+        if (valArr[i].val() == '') return true;
+    }
+    return false;
+}
+var checkFormPriceChange;
+
+function checkEventChange(val){
+    checkFormPriceChange=false;
+    for (var i = 0; i < val.length; i++) {
+        if (checkFormPriceChange==true) break;
+        val[i].change(function(){
+            checkFormPriceChange=true;
+        })
+    }
+}
+checkEventChange([$('.fromTime1'), $('.toTime1'), $('.fromTime2'), $('.toTime2'), $('.singleNormal1'), 
+    $('.coupleNormal1'), $('.singleWeek1'), $('.coupleWeek1'), $('.singleNormal2'), $('.coupleNormal2'), 
+    $('.singleWeek2'), $('.coupleWeek2')])
+
+
+//save change default price
+$('.saveDefaultPrice').click(function () {
+    if ($('.toTime1').val() <= '08:00' || $('.toTime1').val() >= '23:00') {
+        $('.alertAdd').html('Thời gian khung giờ không hợp lệ')
+    } else if (checkEmpty(
+        [$('.fromTime1'), $('.toTime1'), $('.fromTime2'), $('.toTime2'), $('.singleNormal1'), 
+    $('.coupleNormal1'), $('.singleWeek1'), $('.coupleWeek1'), $('.singleNormal2'), $('.coupleNormal2'), 
+    $('.singleWeek2'), $('.coupleWeek2')]
+    )) 
+    {
+        $('.alertAdd').html('Vui lòng nhập đầy đủ thông tin');
+    } 
+    else if (!checkFormPriceChange){
+        modalAddPrice.style.display = "none";
+    }
+    else {
+        var formm = $('.fromDefaultPrice')[0];
+        var data = new FormData(formm);
+        $.ajax({
+            url: "/admin/showtime/change-default-price",
+            type: "POST",
+            enctype: "multipart/form-data",
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (result) {
+                if (result == 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đã lưu',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    $('.alertAdd').html(null);
+                    checkFormPriceChange=false;
+                    modalAddPrice.style.display = "none";
+                }
+            }
+        })
+    }
+})
+
+//auto change fromTime2
+$('.toTime1').change(function () {
+    var toTime1 = $(this).val();
+    var timeArr = toTime1.split(':');
+    var minute2, hour2 = timeArr[0];
+    if (timeArr[1] == 59) {
+        minute2 = 0;
+        if (hour2 == 23) hour2 = '00';
+        else hour2 = parseInt(hour2) + 1;
+    }
+    else minute2 = parseInt(timeArr[1]) + 1;
+    var fromTime2 = hour2 + ':' + ((minute2 < 10) ? ('0' + minute2) : (minute2));
+    $('.fromTime2').val(fromTime2);
+})
 
 $('#btnAddShowTime').on('click', function () {
     modalAddShowTime.style.display = "block";
@@ -169,33 +249,6 @@ $('.saveEdit').click(function () {
     }
 })
 
-
-//save change default price
-$('.saveDefaultPrice').click(function(){
-    var formm = $('.fromDefaultPrice')[0];
-    var data = new FormData(formm);
-    $.ajax({
-        url: "/admin/showtime/change-default-price",
-        type: "POST",
-        enctype: "multipart/form-data",
-        cache: false,
-        processData: false,
-        contentType: false,
-        data: data,
-        success: function (result) {
-            if (result=='success'){
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Đã lưu',
-                    showConfirmButton: false,
-                    timer: 1000
-                })
-                modalAddPrice.style.display = "none";
-            }
-        }
-    })
-})
-
 //function save Edit
 function saveEdit(idSt) {
     var thisE = $(`#${idSt}`);
@@ -236,7 +289,7 @@ function saveEdit(idSt) {
 
 //click button edit
 function showtimeDetail(thisE) {
-    $('.body-loading').css('display','block');
+    $('.body-loading').css('display', 'block');
     modalEditShowTime.style.display = "block";
     var idSt = thisE.getAttribute('id');
     $.ajax({
@@ -253,14 +306,14 @@ function showtimeDetail(thisE) {
             $('.idHidden').val(idSt);
             $('.timeHidden').val(result.time);
             $('.dateHidden').val(result.date);
-            var roomHtml=result.rooms.map((room)=>{
+            var roomHtml = result.rooms.map((room) => {
                 return `<option value="${room._id}">
                 ${room.name}
             </option>`
             });
             $('.roomEdit').html(roomHtml.join(' '));
             $('.roomEdit').val(result.room);
-            $('.body-loading').css('display','none');
+            $('.body-loading').css('display', 'none');
         }
     })
 }
@@ -394,7 +447,7 @@ $('.btnSearchTime').click(function (e) {
     var check = true;
     var title;
     if (name == '' && datefrom == '' && dateto == '') {
-        $(location).attr('href','/admin/showtime');
+        $(location).attr('href', '/admin/showtime');
     } else if ((datefrom == '' && dateto != '') || (datefrom != '' && dateto == '')) {
         title = 'Bạn chưa chọn đủ thông tin của ngày';
         check = false;
@@ -413,15 +466,3 @@ $('.btnSearchTime').click(function (e) {
     }
 })
 
-$('.toTime1').change(function(){
-    var toTime1=$(this).val();
-    var timeArr=toTime1.split(':');
-    var minute2,hour2=timeArr[0];
-    if (timeArr[1]==59){
-        minute2='00';
-        hour2=parseInt(hour2)+1;
-    }
-    else minute2=parseInt(timeArr[1])+1;
-    var fromTime2=hour2+':'+((minute2<10)?('0'+minute2):(minute2));
-    $('.fromTime2').val(fromTime2);
-})
