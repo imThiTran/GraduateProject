@@ -186,7 +186,10 @@
                     </div>
                 <% }); %>   
                 <%} else {%>
-                    <h1 style="color:white">Không có phim nào phù hợp yêu cầu</h1>
+                    <div class="no-show" style="margin-left: 100px;">
+                        <h1>Không có phim nào phù hợp yêu cầu</h1>
+                        <img src="/img/movie.gif" alt="">
+                    </div>
                 <%}%>
             </div>
         </div>
@@ -352,7 +355,11 @@
                     </div>`;
                         })
                         } else {
-                            htmlCode='<h1 style="color:white">Không có phim nào phù hợp yêu cầu</h1>'
+                            htmlCode=
+                            `<div class="no-show" style="margin-left: 100px;">
+                                <h1>Không có phim nào phù hợp yêu cầu</h1>
+                                <img src="/img/movie.gif" alt="">
+                            </div>`
                         }   
                         $('.movie-side').html(htmlCode);
                     }
