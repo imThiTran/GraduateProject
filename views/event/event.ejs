@@ -2,10 +2,11 @@
 <body>
     <%- include ('../layouts/sub-header') %>
     <div class="container">
-        <ul class="nav nav-tabs tab-phim" id="myTab" role="tablist">
+        <ul class="nav nav-tabs tab-phim" id="myTab" role="tablist" style="margin-top: 30px;">
             <li class="nav-item " role="presentation">
                 <button class="nav-link tab-movie category-tab tab-show active" id="home-tab" data-bs-toggle="tab"
-                    data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                    data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"
+                    style="text-transform: uppercase;">
                     Sự kiện
                 </button>
             </li>
@@ -16,14 +17,14 @@
                     <a href="/event/<%= event.slug %>">
                         <div class="sukien-about">
                             <div class="sukien-img">
-                                <img src="<%= event.photo %>" style="width:400px">
+                                <img src="<%= event.photo %>">
                             </div>
                             <div class="sukien-info">
+                                <div class="sukien-sub">
+                                    <%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%> bởi <%=event.author%>
+                                </div>
                                 <div class="sukien-tt">
                                     <%= event.title %>
-                                </div>
-                                <div class="sukien-sub">
-                                    <%- event.content %>
                                 </div>
                             </div>
                         </div>
@@ -31,16 +32,16 @@
                 <% } else{ %>
                     <a href="/event/<%= event.slug %>">
                         <div class="sukien-about">
-                            <div class="sukien-info" style="padding:0px; padding-right:20px">
+                            <div class="sukien-img">
+                                <img src="<%= event.photo %>">
+                            </div>
+                            <div class="sukien-info">
+                                <div class="sukien-sub">
+                                    <%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%> bởi <%=event.author%>
+                                </div>
                                 <div class="sukien-tt">
                                     <%= event.title %>
                                 </div>
-                                <div class="sukien-sub">
-                                    <%- event.content %>
-                                </div>
-                            </div>
-                            <div class="sukien-img" style="margin-right: 20px;">
-                                <img src="<%= event.photo %>" style="width:400px;">
                             </div>
                         </div>
                     </a>
@@ -49,5 +50,5 @@
         </div>
     </div>
 </body>
-
+<%- include ('../layouts/footer') %>
 </html>

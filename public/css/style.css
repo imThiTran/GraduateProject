@@ -2911,6 +2911,9 @@ button.primaryContained:hover {
 
 .gia-price {
     padding: 50px 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .sukien {
@@ -2919,11 +2922,6 @@ button.primaryContained:hover {
     justify-content: flex-start;
     margin-bottom: 30px;
     padding-top: 20px;
-}
-
-.sukien-img {
-    width: 400px;
-    flex: 1;
 }
 
 .sukien-img1 {
@@ -2936,19 +2934,22 @@ button.primaryContained:hover {
     color: #eee;
     padding: 0px 50px 50px 0px;
     font-size: 15px;
+    flex: 7;
 }
 
+.sukien-film{
+    flex: 1;
+}
 .sukien-title {
     font-size: 24px;
     font-weight: 700;
 }
 
 .sukien-sub {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    opacity: 0.5;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 10px;
+    opacity: .6;
 }
 
 #sukien_sub1 {
@@ -2958,22 +2959,28 @@ button.primaryContained:hover {
 
 }
 .event-title{
-    padding-top: 50px;
+    padding-top: 80px;
 }
 .event-title h4{
     font-weight: 600;
     color: #eee;
+    text-transform: uppercase;
+    font-size: 35px;
 }
 .event-body{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 60px;
 }
 .event-img{
     text-align: center;
-    padding: 40px 0px;
+    padding-bottom: 40px;
 }
 .event-img img{
     width: 500px;
+    height: 300px;
+    object-fit: cover;
+    object-position: 50% 20%;
 }
 .container-event{
     max-width: 1300px;
@@ -2994,18 +3001,34 @@ button.primaryContained:hover {
 .event-about-text h6{
     color: #eee;
     font-weight: 700;
+    text-transform: uppercase;
 }
 .event-about{
     padding-top: 10px;
     padding-bottom: 20px;
 }
 .event-about:hover{
-    opacity: .8;
     transition: all .5 ease;
+}
+.event-about-img{
+    height: 200px; 
+    overflow: hidden;
+}
+.event-about-img img{
+    width: 350px;
+    height: 200px;
+    object-fit: cover;
+    object-position: 50% 20%;
+    transition: transform .3s ease;
+}
+.event-about-img:hover img{
+    transform: scale(1.1);
 }
 .h6-other{
     font-weight: 700;
     color: #eee;
+    font-size: 25px;
+    margin-bottom: 20px;
 }
 .date-event{
     font-style: italic;
@@ -3036,19 +3059,42 @@ button.primaryContained:hover {
 }
 .sukien-about{
     display: flex;
-    justify-content: space-between;
-    padding-bottom: 50px;
+    justify-content: flex-start;
+    margin: 20px 0;
+    flex-direction: column;
 }
-.sukien-info{
-    padding-left: 30px;
+.gia-price > a:nth-child(3n){
+    margin-right: 0px;
+}
+.gia-price > a{
+    margin-right: 20px;
+}
+.sukien-img{
+    position: relative;
+    height: 250px; 
+    overflow: hidden; 
+}
+.sukien-img img{
+    width: 350px;
+    flex: 1;
+    height: 250px;
+    object-fit: cover;
+    object-position: 50% 20%;
+    transition: transform .3s ease;
+}
+.sukien-img:hover img{
+    transform: scale(1.1);
 }
 .gia-price a:hover{
-    color: #a4a3a3 !important;
+    color: #eee !important;
+    
 }
 .sukien-tt{
     font-size: 24px;
     font-weight: 700;
     padding-bottom: 15px;
+    text-transform: uppercase;
+    font-family: 'Saira Semi Condensed', sans-serif;
 }
 /* snack */
 .photoShow{
