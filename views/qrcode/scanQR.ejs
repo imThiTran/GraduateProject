@@ -77,7 +77,11 @@
                     </div>
           `)
                     } else {
-                        $('.container-bill').html(`<h1 style="color:white">${result}</h1>`);
+                        $('.container-bill').html(`<div class="no-show">
+                        <h1 style="color:white">${result}</h1>
+                        <img src="/img/movie.gif" alt="">
+                    </div>   
+                    <a href='/qrcode/scan-qrcode'>Quay lại scan</a>`);
                     }
                 }
             })
