@@ -1,0 +1,57 @@
+<%- include ('../layouts/header') %>
+<body>
+    <%- include ('../layouts/sub-header') %> 
+    <div class="container container-event">
+        <div class="event-title">
+            <h4><%=event.title%></h4>
+            <div class="span-detail"></div>
+        </div>
+        <div class="event-body">
+
+            <!-- PHẦN ĐỂ HIỂN THỊ FORMAT EVENT MÀ ADMIN NHẬP VÀO LÚC CREATE EVENT MỚI  -->
+
+            <div class="sukien-text">
+                <div class="date-event">
+                    Đã đăng ngày <%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%> bởi <%=event.author%>
+                </div>
+                <div class="sukien">
+                    <div class="event-img">
+                        <img src="<%=event.photo%>">
+                    </div>
+                    <div>
+                        <%-event.content%>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PHẦN HIỂN THỊ CÁC SỰ KIỆN KHÁC ĐANG MỞ ĐỂ NGƯỜI DÙNG THAM KHẢO -->
+            <div class="sukien-film">
+                <h6 class="h6-other">SỰ KIỆN KHÁC</h6>
+                <% events.forEach( function(event){ %>
+                    <div class="event-about">
+                        <a href="/event/<%= event.slug %>">
+                            <div class="event-about-text">
+                                <div class="span-event"></div>
+                                <h6><%= event.title %></h6>
+                            </div>
+                            <div class="event-about-img">
+                                <img src="<%= event.photo %>">
+                            </div>
+                        </a>
+                    </div>
+                <% }); %>
+                <div class="event-btn">
+                    <a href="/event">
+                        <button class="btn-viewmore">
+                            Xem thêm
+                            <i class="fa-solid fa-caret-right"></i>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
