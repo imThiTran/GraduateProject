@@ -2060,7 +2060,7 @@ button.primaryContained:hover {
 .btn-order-section{
     display: flex;
     justify-content: space-between;
-    padding: 30px 120px;
+    width: 100%;
 }
 .btn-back{
     background: #eee;
@@ -2089,14 +2089,16 @@ button.primaryContained:hover {
 }
 .seat-color{
     margin-right: 50px;
+    flex: 1;
 }
-.seat-color span{
+.name-color{
     color: #eee;
     font-style: italic;
 }
 .note-seat{
     padding-top: 30px;
     display: flex;
+    justify-content: space-around;
 }
 .fancy-border {
     border: 4px dashed #fdc85b;
@@ -2138,7 +2140,15 @@ button.primaryContained:hover {
 .td-order-small{
     justify-content: center;
 }
-
+.tamtinh{
+    background: #272727;
+    padding: 10px 20px;
+    flex: 1;
+    border-radius: 10px;
+}
+.btn-snack-order{
+    justify-content: space-around;
+}
 /*ADMIN*/
 
 /*SHOWTIME MANAGEMENT*/
@@ -2811,6 +2821,7 @@ button.primaryContained:hover {
 .bill-section h2{
     font-family: 'Saira Semi Condensed', sans-serif;
     font-weight: 800;
+    margin-bottom: 30px;
 }
 .bill-section{
     flex: 6;
@@ -2823,22 +2834,35 @@ button.primaryContained:hover {
     align-items: center;
 }
 .name-bill{
-    width: 120px;
+    width: 150px;
     display: inline-block;
 }
 .showtime-bill{
     padding: 20px;
     border: 2px dashed;
-    background: #a4a3a3;
+    background: #f5f5f5a6;
     color: currentColor;
     width: 100%;
     max-width: 300px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 20px 0px;
 }
 .note-bill{
     font-style: italic;
     font-size: 12px;
+}
+.bill-text{
+    display: flex;
+}
+.snack-name{
+    font-style: italic;
+    font-size: 15px;
+}
+.date-film{
+    position: relative;
+}
+.date-film i{
+    margin-left: 15px;
+    margin-right: -3px;
 }
 
 /* check order */
@@ -2865,6 +2889,7 @@ button.primaryContained:hover {
     border-radius: 20px;
     padding: 2px 10px;
 }
+
 
 /* event */
 .h5-detail {

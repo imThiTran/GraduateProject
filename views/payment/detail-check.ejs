@@ -29,8 +29,11 @@
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Suất chiếu </div>
-                        <span><%= st.date%></span>
-                        <span> <%= st.timeStart%></span>
+                        <div class="date-film">
+                            <span><%= st.date%></span>
+                            <i class="fa-solid fa-film"></i>
+                            <span><%= st.timeStart%></span>
+                        </div>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Rạp: </div>
@@ -45,11 +48,11 @@
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Combo: </div> 
-                        <span>
+                        <div style="flex: 5;">
                             <% snack.forEach( function(sn){ %>
-                                <span><%= sn.quantity %> x <%= sn.name %></span>
+                                <span class="snack-name"><%= sn.quantity %> x <%= sn.name %></span>
                             <% }); %>
-                        </span>
+                        </div>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Tổng tiền: </div> 
@@ -59,14 +62,13 @@
                 </div>
                 <div class="payment">
                     <div class="bill-text check-text">
-                        <div class="name-bill" style="width: 172px;">Mã khuyến mãi: </div>
-                        <input class="check-input" type="text" style="width: 195px;">
+                        <div class="name-bill" style="width: 218px;">Mã khuyến mãi: </div>
+                        <input class="check-input" type="text" style="width: 233px;">
                     </div>
                     <div class="bill-text check-text">
                         <div style="display: inline-block; margin-right: 20px;">Phương thức thanh toán </div>
                         <select class="select-pay" name="payment">
                             <option value="1">Thanh toán bằng Momo</option>
-                            <option value="1">Thanh toán bằng thẻ</option>
                         </select>
                     </div>
                     <div class="btn-order-section" style="padding-top: 0px;">
