@@ -121,6 +121,30 @@ router.post('/change-default-price', (req, res) => {
     })
 })
 
+//change price ticket
+router.post('/change-price-ticket', (req, res) => {
+    var { date, fromTime, toTime, singleSeat, coupleSeat } = req.body;
+    var dateArr=[];
+    if (typeof date=='string') dateArr.push(date);
+    else dateArr=date;
+    Showtime.find({$and:[{date:{$in:dateArr}},{timeStart: { $gte: fromTime }},{timeStart: { $lte: toTime }}] }, (err, st) => {
+        var idShowtimes = st.map(s => s._id);
+        Ticket.updateMany({ idShowtime: { $in: idShowtimes }, name: { $regex: 'K', $options: "$i" } },
+            {
+                $set: { price: parseInt(coupleSeat) }
+            }, function (err, result) {
+                if (err) throw err;
+                Ticket.updateMany({ idShowtime: { $in: idShowtimes }, name: {$not:{ $regex: 'K', $options: "$i" }} },
+                    {
+                        $set: { price: parseInt(singleSeat) }
+                    }, function (err, result) {
+                        if (err) throw err;
+                        res.send('success');
+                    })
+            })
+    })
+})
+
 function checkDayWeekend(date) {
     if (date.getDay() == 6 || date.getDay() == 0) return true;
     return false;
@@ -336,7 +360,7 @@ router.post('/add-showtime', (req, res) => {
                                 result.forEach(function (st, index) {
                                     var singleSeat, coupleSeat;
                                     if (st.timeStart <= tkpr.timeSlot1.toTime && st.timeStart >= tkpr.timeSlot1.fromTime) {
-                                        if (checkDayWeekend(generateDate(st.date,st.timeStart))) {
+                                        if (checkDayWeekend(generateDate(st.date, st.timeStart))) {
                                             singleSeat = tkpr.timeSlot1.weekend.singleSeat;
                                             coupleSeat = tkpr.timeSlot1.weekend.coupleSeat;
                                         } else {
@@ -344,7 +368,7 @@ router.post('/add-showtime', (req, res) => {
                                             coupleSeat = tkpr.timeSlot1.normalDay.coupleSeat;
                                         }
                                     } else {
-                                        if (checkDayWeekend(generateDate(st.date,st.timeStart))) {
+                                        if (checkDayWeekend(generateDate(st.date, st.timeStart))) {
                                             singleSeat = tkpr.timeSlot2.weekend.singleSeat;
                                             coupleSeat = tkpr.timeSlot2.weekend.coupleSeat;
                                         } else {

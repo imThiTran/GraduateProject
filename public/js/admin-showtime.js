@@ -34,25 +34,30 @@ $('#btnAddPrice').on('click', function () {
 });
 
 function checkEmpty(valArr) {
+    var check = false;
     for (var i = 0; i < valArr.length; i++) {
-        if (valArr[i].val() == '') return true;
+        if (valArr[i].length > 1) {
+            valArr[i].each(function () {
+                if ($(this).val() == '') { check = true; return false; }
+            })
+        } else if (valArr[i].val() == '') check = true;
     }
-    return false;
+    return check;
 }
 var checkFormPriceChange;
 
-function checkEventChange(val){
-    checkFormPriceChange=false;
+function checkEventChange(val) {
+    checkFormPriceChange = false;
     for (var i = 0; i < val.length; i++) {
-        if (checkFormPriceChange==true) break;
-        val[i].change(function(){
-            checkFormPriceChange=true;
+        if (checkFormPriceChange == true) break;
+        val[i].change(function () {
+            checkFormPriceChange = true;
         })
     }
 }
-checkEventChange([$('.fromTime1'), $('.toTime1'), $('.fromTime2'), $('.toTime2'), $('.singleNormal1'), 
-    $('.coupleNormal1'), $('.singleWeek1'), $('.coupleWeek1'), $('.singleNormal2'), $('.coupleNormal2'), 
-    $('.singleWeek2'), $('.coupleWeek2')])
+checkEventChange([$('.fromTime1'), $('.toTime1'), $('.fromTime2'), $('.toTime2'), $('.singleNormal1'),
+$('.coupleNormal1'), $('.singleWeek1'), $('.coupleWeek1'), $('.singleNormal2'), $('.coupleNormal2'),
+$('.singleWeek2'), $('.coupleWeek2')])
 
 
 //save change default price
@@ -60,14 +65,13 @@ $('.saveDefaultPrice').click(function () {
     if ($('.toTime1').val() <= '08:00' || $('.toTime1').val() >= '23:00') {
         $('.alertAdd').html('Thời gian khung giờ không hợp lệ')
     } else if (checkEmpty(
-        [$('.fromTime1'), $('.toTime1'), $('.fromTime2'), $('.toTime2'), $('.singleNormal1'), 
-    $('.coupleNormal1'), $('.singleWeek1'), $('.coupleWeek1'), $('.singleNormal2'), $('.coupleNormal2'), 
-    $('.singleWeek2'), $('.coupleWeek2')]
-    )) 
-    {
+        [$('.fromTime1'), $('.toTime1'), $('.fromTime2'), $('.toTime2'), $('.singleNormal1'),
+        $('.coupleNormal1'), $('.singleWeek1'), $('.coupleWeek1'), $('.singleNormal2'), $('.coupleNormal2'),
+        $('.singleWeek2'), $('.coupleWeek2')]
+    )) {
         $('.alertAdd').html('Vui lòng nhập đầy đủ thông tin');
-    } 
-    else if (!checkFormPriceChange){
+    }
+    else if (!checkFormPriceChange) {
         modalAddPrice.style.display = "none";
     }
     else {
@@ -90,7 +94,7 @@ $('.saveDefaultPrice').click(function () {
                         timer: 1000
                     })
                     $('.alertAdd').html(null);
-                    checkFormPriceChange=false;
+                    checkFormPriceChange = false;
                     modalAddPrice.style.display = "none";
                 }
             }
@@ -111,6 +115,52 @@ $('.toTime1').change(function () {
     else minute2 = parseInt(timeArr[1]) + 1;
     var fromTime2 = hour2 + ':' + ((minute2 < 10) ? ('0' + minute2) : (minute2));
     $('.fromTime2').val(fromTime2);
+})
+
+function checkIfDuplicateExists(arr) {
+    return new Set(arr).size !== arr.length
+}
+
+//save change price 
+$('.saveChangePrice').click(function () {
+    var date = $('.date')
+    if (checkEmpty([date, $('.fromTime'), $('.toTime'), $('.singleSeat'), $('.coupleSeat')]))
+        $('.alertAdd').html('Vui lòng nhập đầy đủ thông tin');
+    else if ($('.fromTime').val() > $('.toTime').val()) {
+        $('.alertAdd').html('Khung thời gian không hợp lệ')
+    }
+    else {
+        var ArrValue=[];
+        date.each(function(){
+            ArrValue.push($(this).val());
+        })
+        if (checkIfDuplicateExists(ArrValue)) $('.alertAdd').html('Ngày bị lặp lại')
+        else {
+            var formm = $('.formChangePrice')[0];
+            var data = new FormData(formm);
+            $.ajax({
+                url: "/admin/showtime/change-price-ticket",
+                type: "POST",
+                enctype: "multipart/form-data",
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (result) {
+                    if (result == 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        $('.alertAdd').html(null);
+                        modalAddPrice.style.display = "none";
+                    }
+                }
+            })
+        }
+    }
 })
 
 $('#btnAddShowTime').on('click', function () {
