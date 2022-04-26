@@ -68,7 +68,8 @@ var user = require('./routes/user');
 var movie = require('./routes/movie');
 var site = require('./routes/site');
 var order = require('./routes/order');
-var payment = require('./routes/payment')
+var payment = require('./routes/payment');
+var qrcode=require('./routes/qrcode');
 
 var adminFilm = require('./routes/admin-film');
 var adminShowtime = require('./routes/admin-showtime');
@@ -90,6 +91,7 @@ app.use('/movie',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,m
 app.use('/order',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,order);
 app.use('/',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,site);
 app.use('/payment',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,payment);
+app.use('/qrcode',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,qrcode);
 
 app.use('/admin/film',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);
 app.use('/admin/showtime',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminShowtime);
