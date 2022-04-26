@@ -88,7 +88,7 @@
                                     <th scope="row" class="count" style="width: 1%">
                                         <%=i++%>
                                     </th>
-                                    <td style="width: 20%;">
+                                    <td class="nameRoomTable" style="width: 20%;">
                                         <%=room.name%>
                                     </td>
                                     <td><%=room.type%></td>
@@ -100,7 +100,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-mode">
-                                            <button type="button" id="btnEditRoom"><i class="btnEditRoom fa fa-pencil-square-o"
+                                            <button type="button" id="<%=room._id%>" onclick="loadEdit(this);" id="btnEditRoom"><i class="btnEditRoom fa fa-pencil-square-o"
                                                     aria-hidden="true"></i></button>
                                             <button type="button"><i id="<%=room._id%>" onclick="handleDelete(this);" class="btnDeleteRoom fa fa-times" aria-hidden="true"></i></button>
                                         </div>
@@ -130,24 +130,25 @@
                                             <div class="rowST">
                                                 <label style="width: 150px;" for="">Tên phòng chiếu</label>
                                                 <div class="form-user">
-                                                    <input name="" id=""
+                                                    <input name="name" id=""
                                                         value="CINEMA 1"
-                                                        class="date-lc dateAdd form-select"
+                                                        class="date-lc nameEdit form-select"
                                                         style="background-image: none;" type="text"
                                                         style="width:100%">
-                                                        <span class="span-error"></span>
+                                                        <span class="span-error-edit"></span>
                                                 </div>
+                                                <input type="hidden" class="idHidden" name="" id="">
                                             </div>
                                         </div>
                                         <div class="rowShowTime">
                                             <label style="width: 150px;" for="">Số ghế</label>
                                             <div class="rowST">
-                                                <select name="" id="" class="form-select">
+                                                <select disabled name="" id="" class="form-select typeEdit">
                                                     Chọn số ghế
-                                                    <option value="">
-                                                        123
+                                                    <option value="114">
+                                                        114
                                                     </option>
-                                                    <option value="">
+                                                    <option value="85">
                                                         85
                                                     </option>
                                                 </select>
@@ -157,11 +158,11 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer footer-add">
-                                    <p class="alertAdd"></p>
+                                    <p class="alertEdit"></p>
                                     <div class="footer-add-btn">
                                         <button type="button"
                                         class="btn btn-secondary close-CL close-room">Đóng</button>
-                                        <button type="button" class="btn-common close-AC close-room ">Xác nhận</button>
+                                        <button type="button" class="btn-common close-AC saveEdit">Xác nhận</button>
                                     </div>
                                 </div>
                             </div>

@@ -4,9 +4,7 @@ modalEditRoom = document.getElementById("modalEditRoom");
 $('#btnAddRoom').on('click', function () {
   modalAddRoom.style.display = "block";
 });
-$('#btnEditRoom').on('click', function () {
-  modalEditRoom.style.display = "block";
-});
+
 $('.close-room').on('click', function () {
   $('.alertAdd').html(null);
   $('.nameRoom').val('');
@@ -15,6 +13,7 @@ $('.close-room').on('click', function () {
   modalEditRoom.style.display = "none";
 });
 isRequired($('.nameRoom'), 'add');
+isRequired($('.nameEdit'), 'edit');
 $('.saveAdd').click(function () {
   var check = true;
   checkform([$('.nameRoom')], 'add', 'Vui lòng nhập trường này');
@@ -66,6 +65,58 @@ $('.saveAdd').click(function () {
           $('.nameRoom').val('');
         } else {
           $('.alertAdd').html(result);
+        }
+      }
+    })
+  }
+})
+
+var nameEdit;
+//load edit
+function loadEdit(th) {
+  var idRoom = th.getAttribute('id');
+  nameEdit = th.closest('.contain-row').querySelector('.nameRoomTable');
+  $.ajax({
+    url: "/admin/room/load-edit/" + idRoom,
+    method: "GET",
+    contentType: "application/json",
+    data: JSON.stringify(),
+    success: function (result) {
+      $('.nameEdit').val(result.name);
+      $('.typeEdit').val(result.type);
+      $('.idHidden').val(idRoom);
+      modalEditRoom.style.display = "block";
+    }
+  })
+}
+
+//save Edit
+$('.saveEdit').click(function () {
+  var check = true;
+  $('.span-error-add').each(function () {
+    if ($(this).text() != '') { check = false; return false; }
+  })
+  if (check == true) {
+    var name = $('.nameEdit').val();
+    var id = $('.idHidden').val();
+    $.ajax({
+      url: "/admin/room/edit-room",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ name: name, id: id }),
+      success: function (result) {
+        if (typeof result == 'object') {
+          $('.alertEdit').html(null);
+          Swal.fire({
+            icon: 'success',
+            title: 'Sửa thành công',
+            showConfirmButton: false,
+            timer: 1000
+          })
+          nameEdit.innerText=result.name;
+          modalEditRoom.style.display = "none";
+        } else {
+          $('.alertEdit').html(result);
         }
       }
     })

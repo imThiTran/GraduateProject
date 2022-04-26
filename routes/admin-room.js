@@ -87,4 +87,28 @@ router.post('/block-room', (req, res) => {
     })
 })
 
+router.get('/load-edit/:id', (req, res) => {
+    var idRoom = req.params.id;
+    Room.findById(idRoom, (err, ro) => {
+        res.send(ro);
+    })
+})
+
+router.post('/edit-room', (req, res) => {
+    var { name, id } = req.body;
+    name = cleanText(name);
+    Room.findOne({ name: name, _id: { $ne: id } }, (err, roExist) => {
+        if (roExist) res.send('Phòng này đã tồn tại');
+        else {
+            Room.findById(id, (err, ro) => {
+                ro.name = name;
+                ro.save(function (err, result) {
+                    if (err) throw err;
+                    res.send(result);
+                })
+            })
+        }
+    })
+})
+
 module.exports = router;
