@@ -3141,7 +3141,8 @@ button.primaryContained:hover {
 .qr-bill{
     width: 350px;
     border: 1px solid;
-    margin: 50px;
+    margin: 50px 0px;
+    font-size: 15px;
 }
 .btn-print{
     width: 50%;

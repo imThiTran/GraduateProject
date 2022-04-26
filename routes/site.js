@@ -3,13 +3,16 @@ var router = express.Router();
 var User = require('../models/user');
 var Film = require('../models/film');
 var Showtime = require('../models/showtime');
-
+var Event = require('../models/event')
 var Category = require('../models/category');
 var fi=[];
 Film.find({},(err,films)=>{
   fi=films;
 })
-
+var cats = []
+Category.find({}, function (err, categories) {
+    cats = categories
+})
 router.get("/",function(req,res){
   Category.find({},async function(err,cats){
       var today=new Date();
@@ -186,4 +189,25 @@ router.get('/search-film',(req,res)=>{
   })
 })
 
+router.get('/event',function(req,res){
+  Event.find({},function(err,events){
+    res.render('event/event',{
+      events:events,
+      cats:cats
+    })
+  })
+})
+
+router.get('/event/:slug',function(req,res){
+  var {slug} = req.params
+  Event.findOne({slug:slug},function(err,event){
+    Event.aggregate([{ $match: { slug: {'$ne':slug}}},{ $sample: { size: 3 } }],function(err,events){
+      res.render('event/eventdetail',{
+        event:event,
+        cats:cats,
+        events:events
+      })
+    })    
+  })
+})
 module.exports = router;

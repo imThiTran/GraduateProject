@@ -12,8 +12,7 @@
                     <button class="submitsearch btn btn-buy btnSearchTime" type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
-            <span class="line-detail"></span>
-            <form action="">
+            <span class="line-detail"></span>            
                 <table class="table table-striped  table-bordered" style="font-size: 15px;">
                     <thead>
                         <tr>
@@ -27,7 +26,7 @@
                                         data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"
                                             aria-hidden="true"></i>
                                         Thêm mới</button>
-                                    <form action="" method="">
+                                    <form action="/admin/event/add" method="post" enctype="multipart/form-data">
                                         <div id="modalAddEvent" class="modal">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -38,10 +37,10 @@
                                                 <div class="modal-body-plus">
                                                     <div class="modal-left">
                                                         <div class="col-5 img-add">
-                                                            <img id="img-edit-item" class="imgAddPreview"
-                                                                src="../img/no_img.png" style="width: 100%;">
+                                                            <img id="img-edit-item" class="imgAddPreview imgadd"
+                                                            src="../img/no_img.webp" style="width: 100%;">
                                                             <input type="file" class="form-control imgChangeAdd"
-                                                                name="image" id="img1"
+                                                                name="photo" id="img1" onchange="imgAdd()"
                                                                 accept="image/png, image/jpeg, image/jpg"
                                                                 style="display: none;">
                                                             <label class="btn-common" id="btn-edit-img-item"
@@ -51,16 +50,16 @@
                                                     <div class="modal-right">
                                                         <label class="label-chitiet" for="">Tiêu đề</label>
                                                         <div class="input-ten">
-                                                            <input style="width: 100% !important;" class="input-sua" placeholder="Tiêu đề" type="text">
+                                                            <input style="width: 100% !important;" class="input-sua" placeholder="Tiêu đề" type="text" name="title">
                                                         </div>
                                                         <label class="label-chitiet" for="">Nội dung</label>
-                                                        <textarea class="input-sua" id="eventContent"></textarea>
+                                                        <textarea class="input-sua" id="eventContent" name="content"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button"
                                                         class="btn btn-secondary close-event">Đóng</button>
-                                                    <button type="button" class="btn-common close-event">Thêm</button>
+                                                    <button type="submit" class="btn-common close-event">Thêm</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -102,9 +101,9 @@
                                                 <img id="img-edit-item" class="imgAddPreview" src="../img/no_img.png"
                                                     style="width: 100%;">
                                                 <input type="file" class="form-control imgChangeAdd" name="image"
-                                                    id="img1" accept="image/png, image/jpeg, image/jpg"
+                                                    id="img2" accept="image/png, image/jpeg, image/jpg"
                                                     style="display: none;">
-                                                <label class="btn-common" id="btn-edit-img-item" for="img1">Chọn
+                                                <label class="btn-common" id="btn-edit-img-item" for="img2">Chọn
                                                     ảnh</label>
                                             </div>
                                         </div>
@@ -126,13 +125,22 @@
                         </form>
                     </tbody>
                 </table>
-
-            </form>
         </div>
     </div>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../ckeditor/ckeditor.js"></script>
     <script src="/js/admin-event.js"></script>
 </body>
-
+<script>
+    var imgavtadd = document.getElementsByClassName('imgadd')[0]
+    console.log(imgavtadd)
+    function imgAdd() {
+        if (event.target.files.length > 0) {
+            let src = URL.createObjectURL(event.target.files[0]);            
+            imgavtadd.src = src;
+        }else{
+            imgavtadd.src='../img/no_img.webp'            
+        }
+    }
+</script>
 </html>
