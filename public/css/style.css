@@ -1353,6 +1353,10 @@ a:hover {
     flex-wrap: wrap;
 }
 
+.movie-side > .coming-movie-cate:nth-child(3n){
+    margin-right: 0px;
+}
+
 .category-span {
     width: 2px;
     background: #f0c673;
@@ -1368,9 +1372,9 @@ a:hover {
 
 .coming-movie-cate {
     width: 250px;
-    margin-right: 35px;
+    margin-right: 59px;
     transition: all .3 ease;
-    animation: BottomToTop .5s ease-in-out;
+    animation: face .5s ease-in-out;
 }
 
 .h5-poster {
