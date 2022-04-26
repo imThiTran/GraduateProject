@@ -208,25 +208,4 @@ router.get('/confirm', (req, res) => {
     }
 })
 
-router.post('/scan-bill', (req, res) => {
-    var qrcode = req.body.qrcode;
-    Bill.findById(qrcode, (err, bi) => {
-        if (bi) {
-            if (bi.checkin == 0) res.send(bi);
-            else {
-                res.send('Bill đã được sử dụng')
-            }
-        }
-        else {
-            res.send('Mã QR không hợp lệ')
-        }
-    })
-})
-
-router.get('/qrcode', (req, res) => {
-    res.render('scanQR',{
-        cats:cats
-    });
-})
-
 module.exports = router;

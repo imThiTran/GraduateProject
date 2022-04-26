@@ -13,80 +13,85 @@
             </div>
             <span class="line-detail"></span>
             <form action="">
-                <table class="table table-striped  table-bordered" style="font-size: 15px; margin-top: 10px;">
-                    <thead>
-                        <tr>
-                            <th scope="col">STT</th>
-                            <th scope="col">Gmail</th>
-                            <th scope="col">Tên người dùng</th>
-                            <th scope="col">Số điện thoại</th>
-                            <th scope="col">Giới tính</th>
-                            <th scope="col">Ngày sinh</th>
-                            <th scope="col">Vai trò</th>
-                            <th scope="col">Khóa tài khoản</th>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% var i=1%>
-                        <%users.forEach(function(user){%>
+                <%if (users.length!=0){%>
+                    <table class="table table-striped  table-bordered" style="font-size: 15px; margin-top: 10px;">
+                        <thead>
                             <tr>
-                                <th scope="row" style="width: 5%">
-                                    <%=i++%>
+                                <th scope="col">STT</th>
+                                <th scope="col">Gmail</th>
+                                <th scope="col">Tên người dùng</th>
+                                <th scope="col">Số điện thoại</th>
+                                <th scope="col">Giới tính</th>
+                                <th scope="col">Ngày sinh</th>
+                                <th scope="col">Vai trò</th>
+                                <th scope="col">Khóa tài khoản</th>
                                 </th>
-                                <td style="width: 20%;">
-                                    <div><%=user.email%></div>
-                                </td>
-                                <td><%=user.fullname%></td>
-                                <td><%=user.phone%></td>
-                                <%if (user.gender=='male'){%>
-                                    <td>Nam</td>
-                                <%} else if (user.gender=='female'){%>
-                                    <td>Nữ</td>
-                                <%} else {%>
-                                    <td>Khác</td>
-                                <%}%>
-                                <td><%=(new Date(user.birthday)).toLocaleDateString('en-GB')%></td>
-                                <td>
-                                    <select idUser="<%=user._id%>" class="userPosition-select decentralize" name="" id="">
-                                        <option class="option" <%if (user.actor=='staff'){%> selected <%}%> value="staff">Nhân viên</option>
-                                        <option class="option" <%if (user.actor=='guest'){%> selected <%}%> value="guest">Khách hàng</option>
-                                        <option class="option" <%if (user.actor=='admin'){%> selected <%}%> value="admin">Admin</option>
-                                    </select>
-                                </td>
-                                <td class="container" style="width: 16%;">
-                                    <div class="active-user" style="    display: flex;">
-                                        <div class=" form-switch">
-                                            <input idUser="<%=user._id%>" class="form-check-input block-switch" 
-                                            <%if (user.block.type!=0){%>checked<%}%> type="checkbox" role="switch"
-                                                id="flexSwitchCheckChecked" >
-                                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                                        </div>
-                                        <select class="userPosition-select selectTime sl-active " name="" idUser="<%=user._id%>">
-                                            <option  <% if(user.block.type==-1){%> selected <%}%> value="-1">Đến khi mở chặn</option>
-                                            <option  <% if(user.block.type==1){%> selected <%}%> value="1">1 ngày</option>
-                                            <option  <% if(user.block.type==3){%> selected <%}%> value="3">3 ngày</option>
-                                            <option  <% if(user.block.type==7){%> selected <%}%> value="7">7 ngày</option>
-                                            <option  <% if(user.block.type==30){%> selected <%}%> value="30">30 ngày</option>
-                                            <option  <% if(user.block.type==90){%> selected <%}%> value="90">90 ngày</option>
-                                        </select>
-                                    </div>
-                                    <%if (user.block.type!=0 && user.block.type!=-1){%>
-                                        <%var time=user.block.dateto.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;%>
-                                        <%var date=user.block.dateto.toLocaleDateString('en-GB'); %>
-                                        <div class="span-error">Bị chặn đến <%=date%> <%=time%></div>
-                                    <%} else if (user.block.type==-1) {%>
-                                        <div class="span-error">Bị chặn đến khi mở lại</div>
-                                    <%} else {%>
-                                        <div class="span-error"></div>
-                                    <%}%>
-                                    
-                                </td>
                             </tr>
-                        <%})%>           
-                    </tbody>
-                </table>
-
+                        </thead>
+                        <tbody>
+                            <% var i=1%>
+                            <%users.forEach(function(user){%>
+                                <tr>
+                                    <th scope="row" style="width: 5%">
+                                        <%=i++%>
+                                    </th>
+                                    <td style="width: 20%;">
+                                        <div><%=user.email%></div>
+                                    </td>
+                                    <td><%=user.fullname%></td>
+                                    <td><%=user.phone%></td>
+                                    <%if (user.gender=='male'){%>
+                                        <td>Nam</td>
+                                    <%} else if (user.gender=='female'){%>
+                                        <td>Nữ</td>
+                                    <%} else {%>
+                                        <td>Khác</td>
+                                    <%}%>
+                                    <td><%=(new Date(user.birthday)).toLocaleDateString('en-GB')%></td>
+                                    <td>
+                                        <select idUser="<%=user._id%>" class="userPosition-select decentralize" name="" id="">
+                                            <option class="option" <%if (user.actor=='staff'){%> selected <%}%> value="staff">Nhân viên</option>
+                                            <option class="option" <%if (user.actor=='guest'){%> selected <%}%> value="guest">Khách hàng</option>
+                                            <option class="option" <%if (user.actor=='admin'){%> selected <%}%> value="admin">Admin</option>
+                                        </select>
+                                    </td>
+                                    <td class="container" style="width: 16%;">
+                                        <div class="active-user" style="    display: flex;">
+                                            <div class=" form-switch">
+                                                <input idUser="<%=user._id%>" class="form-check-input block-switch" 
+                                                <%if (user.block.type!=0){%>checked<%}%> type="checkbox" role="switch"
+                                                    id="flexSwitchCheckChecked" >
+                                                <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                            </div>
+                                            <select class="userPosition-select selectTime sl-active " name="" idUser="<%=user._id%>">
+                                                <option  <% if(user.block.type==-1){%> selected <%}%> value="-1">Đến khi mở chặn</option>
+                                                <option  <% if(user.block.type==1){%> selected <%}%> value="1">1 ngày</option>
+                                                <option  <% if(user.block.type==3){%> selected <%}%> value="3">3 ngày</option>
+                                                <option  <% if(user.block.type==7){%> selected <%}%> value="7">7 ngày</option>
+                                                <option  <% if(user.block.type==30){%> selected <%}%> value="30">30 ngày</option>
+                                                <option  <% if(user.block.type==90){%> selected <%}%> value="90">90 ngày</option>
+                                            </select>
+                                        </div>
+                                        <%if (user.block.type!=0 && user.block.type!=-1){%>
+                                            <%var time=user.block.dateto.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;%>
+                                            <%var date=user.block.dateto.toLocaleDateString('en-GB'); %>
+                                            <div class="span-error">Bị chặn đến <%=date%> <%=time%></div>
+                                        <%} else if (user.block.type==-1) {%>
+                                            <div class="span-error">Bị chặn đến khi mở lại</div>
+                                        <%} else {%>
+                                            <div class="span-error"></div>
+                                        <%}%>
+                                        
+                                    </td>
+                                </tr>
+                            <%})%>           
+                        </tbody>
+                    </table>
+    
+                <%} else {%>
+                    <h1>HAHAHA KHONG CO AI</h1>   
+                 <%}%>
+                
             </form>
         </div>
     </div>
