@@ -39,7 +39,7 @@
                                         <%for (var j=0;j<a[i].length;j++){%>
                                             <%if(i!=9){%>
                                                 <%if (j==1 || j==9){%>
-                                                    <input type="checkbox" class="btn-check" name="ticket" value="<%=a[i][j]._id%>"
+                                                    <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" class="btn-check" name="ticket" value="<%=a[i][j]._id%>"
                                                         id="btn-check-<%=a[i][j].name%>" autocomplete="off" <%if
                                                         (a[i][j].available==0){%>disabled<%}%>>
                                                         <label class="btn btn-primary btn-seat"
@@ -51,7 +51,7 @@
                                                         <label class="btn btn-primary btn-seat" for="btn-check-a2"
                                                             style="opacity: 0;"></label>
                                                         <%}else {%>
-                                                            <input type="checkbox" class="btn-check"
+                                                            <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" class="btn-check"
                                                                 id="btn-check-<%=a[i][j].name%>" name="ticket" value="<%=a[i][j]._id%>" autocomplete="off" <%if
                                                                 (a[i][j].available==0){%>disabled<%}%>>
                                                                 <label class="btn btn-primary btn-seat"
@@ -61,7 +61,7 @@
                                                                 <%}%>
                                                                     <%}else{%>
                                                                         <%if (j==0 || j==4){%>
-                                                                            <input type="checkbox"
+                                                                            <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox"
                                                                                 class="btn-check couple" name="ticket" value="<%=a[i][j]._id%>"
                                                                                 id="btn-check-<%=a[i][j].name%>"
                                                                                 autocomplete="off" <%if
@@ -78,7 +78,7 @@
                                                                                     for="btn-check-a2"
                                                                                     style="opacity: 0;"></label>
                                                                                 <%}else {%>
-                                                                                    <input type="checkbox" name="ticket" value="<%=a[i][j]._id%>"
+                                                                                    <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" name="ticket" value="<%=a[i][j]._id%>"
                                                                                         class="btn-check couple"
                                                                                         id="btn-check-<%=a[i][j].name%>"
                                                                                         autocomplete="off" <%if
@@ -100,7 +100,7 @@
                                                 <td class="td-order td-order-small">
                                                     <%for (var j=0;j<a[i].length;j++){%>
                                                         <%if(i!=8){%>
-                                                            <input type="checkbox" class="btn-check" name="ticket" value="<%=a[i][j]._id%>"
+                                                            <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" class="btn-check" name="ticket" value="<%=a[i][j]._id%>"
                                                                 id="btn-check-<%=a[i][j].name%>" autocomplete="off" <%if
                                                                 (a[i][j].available==0){%>disabled<%}%>>
                                                                 <label class="btn btn-primary btn-seat btn-seat-small"
@@ -108,7 +108,7 @@
                                                                     <%=a[i][j].name%>
                                                                 </label>
                                                                 <%}else{%>
-                                                                    <input type="checkbox" class="btn-check couple" 
+                                                                    <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" class="btn-check couple" 
                                                                         id="btn-check-<%=a[i][j].name%>" name="ticket" value="<%=a[i][j]._id%>"
                                                                         autocomplete="off" <%if 
                                                                         (a[i][j].available==0){%>disabled<%}%>>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="tamtinh">
                             <div class="name-color">Tạm tính: </div>
-                            <div class="name-color">120.000 VND</div>
+                            <div class="name-color"><span class="totalPrice">0</span> VND</div>
                         </div>
                     </div>
                     <div class="btn-order-section">
@@ -207,5 +207,13 @@
         }
 
         setInterval(() => { ajaxRequest() }, 3000);
-
+        function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+       function orderSeatHandle(th){
+           var thisPrice=parseInt(th.getAttribute('price'));
+           var totalPrice=parseInt($('.totalPrice').text());
+           if (th.checked) $('.totalPrice').text(totalPrice+thisPrice)  ;
+            else $('.totalPrice').text(totalPrice-thisPrice)  ;
+        }
     </script>
