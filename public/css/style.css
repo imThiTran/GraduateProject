@@ -3038,3 +3038,42 @@ button.primaryContained:hover {
     object-fit: cover;
     object-position: 50% 20%;
 }
+/* ADMIN STATISTICAL */
+.wrap-headerAd{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.menu-stat{
+    margin-top: 20px;
+    margin-left: 100px;
+}
+.menu-stat li{
+    width: 100px;
+}
+.menu-stat li a{
+    font-size: 1rem;
+    color: #333 !important;
+}
+.btn-menustat{
+    margin-top: 20px;
+    border: 2px solid #fdc85b;
+    border-radius: 5px;
+    width: 100%;
+    padding: 0.45rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+}
+.btn-menustat:hover{
+    background: rgb(253, 198, 88)
+}
+.dropstat .dropdown-item:hover{
+    background: #fbd485 !important;
+    color: #333 !important;
+}
+.ipgetmonth, .ipgetyear {
+    padding: 5px;
+    margin: 10px 10px 20px;
+    border: 1px solid #00000057;
+    border-radius: 5px;
+}
