@@ -20,7 +20,7 @@
                 data: JSON.stringify({ qrcode: qrCodeMessage }),
                 success: function (result) {
                     if (typeof result == 'object') {
-                        $('.container-bill').html(`<form>
+                        $('.container-bill').html(`<form style="display: flex; justify-content: center;">
                 <div class="qr-bill">
                     <div class="qr-info">
                         <div class="qr-bill-section">
