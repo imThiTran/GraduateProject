@@ -224,7 +224,9 @@ router.post('/scan-bill', (req, res) => {
 })
 
 router.get('/qrcode', (req, res) => {
-    res.render('scanQR');
+    res.render('scanQR',{
+        cats:cats
+    });
 })
 
 module.exports = router;
