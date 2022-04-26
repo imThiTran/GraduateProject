@@ -3102,3 +3102,69 @@ button.primaryContained:hover {
     border: 1px solid #00000057;
     border-radius: 5px;
 }
+
+/* qr */
+.result {
+    background-color: green !important;
+    color: #fff !important;
+    padding: 20px;
+}
+
+.qr-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.qr-info{
+    text-align: left;
+    width: 100%;
+    background: antiquewhite;
+    padding: 10px 20px;
+}
+.qr-bill-section h2{
+    font-family: 'Saira Semi Condensed', sans-serif;
+    font-weight: 800;
+    text-align: center;
+}
+.name-qr{
+    width: 100px;
+}
+.bill-qr{
+    margin-right: 10px;
+    display: inline-block;
+}
+.container-qr{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.qr-bill{
+    width: 350px;
+    border: 1px solid;
+    margin: 50px;
+}
+.btn-print{
+    width: 50%;
+    color: #333;
+    font-weight: 600
+}
+.btn-print:hover{
+    background-color: #f0c6739d;
+}
+.print-section{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+@media print {
+    .noPrint{
+      display:none;
+    }
+    .qr-bill{
+        width: 320px;
+        height: 100%;
+    }
+  }
+.show-qr{
+    max-width: 300px;
+}
