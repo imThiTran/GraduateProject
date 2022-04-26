@@ -3187,7 +3187,7 @@ button.primaryContained:hover {
 .qr-bill{
     width: 350px;
     border: 1px solid;
-    margin: 50px 0px;
+    margin-top: 50px;
     font-size: 15px;
 }
 .btn-print{
@@ -3208,14 +3208,26 @@ button.primaryContained:hover {
       display:none;
     }
     .qr-bill{
-        width: 320px;
+        width: 350px;
         height: 100%;
     }
   }
 .show-qr{
     max-width: 300px;
 }
-
+.container-bill{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.btn-backQR{
+    margin: 30px;
+    width: 200px;
+}
+.btn-backQR > a{
+    color: #333 !important;
+}
 
 
 .no-show{
