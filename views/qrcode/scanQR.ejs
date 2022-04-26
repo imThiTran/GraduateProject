@@ -1,16 +1,19 @@
 <script src="/js/html5-qrcode.min.js"></script>
 <%- include ('../layouts/header') %>
-<body>
-    <%- include ('../layouts/sub-header') %>
 
-    <div class="container-bill">
-        <div class="col qr-container noPrint">
-            <div style="width:500px;" id="reader"></div>
-        </div>
-        <div class="container container-qr warning ">
-            <div class="result-bill" id="result"></div>
-        </div>
-    </div>
+    <body>
+        <%- include ('../layouts/sub-header') %>
+
+            <div class="container-bill">
+                <div class="col qr-container noPrint">
+                    <div style="width:500px;" id="reader"></div>
+                </div>
+                <div class="container container-qr warning ">
+                    <div class="result-bill" id="result"></div>
+                </div>
+            </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         function onScanSuccess(qrCodeMessage) {
             $.ajax({
@@ -20,57 +23,61 @@
                 data: JSON.stringify({ qrcode: qrCodeMessage }),
                 success: function (result) {
                     if (typeof result == 'object') {
-                        $('.container-bill').html(`<form>
+                        $('.container-bill').html(`
                 <div class="qr-bill">
                     <div class="qr-info">
                         <div class="qr-bill-section">
                             <h2>Hóa đơn</h2>
                             <div class="bill-text">
                                 <div class="bill-qr">ID: </div>
-                                <span style="font-style: italic;">315471624812</span>
+                                <span class='idBill' style="font-style: italic;">${result.id}</span>
                             </div>
                             <div class="bill-text">
                                 <div class="bill-qr">Thời gian xuất: </div>
-                                <span style="font-style: italic;">24/05/2022 15:43</span>
+                                <span style="font-style: italic;">${result.timePrint}</span>
                             </div>
                             <div class="bill-text">
                                 <div class="bill-qr">Tên khách hàng: </div>
-                                <span style="font-style: italic;">Diệu Ny</span>
+                                <span style="font-style: italic;">${result.fullname}</span>
                             </div>
                             <div class="showtime-bill show-qr">
                                 <div class="bill-text" style="display: flex;">
                                     <div class="name-bill name-qr">Tên phim: </div>
                                     <div>
-                                        <div>ETERNAL</div>
-                                        <div>Chủng tộc bất tử</div>
+                                        <div>${result.nameEN}</div>
+                                        <div>${result.nameVN}</div>
                                     </div>
                                 </div>
                                 <div class="bill-text">
                                     <div class="name-bill name-qr">Suất chiếu: </div>
-                                    <span style="font-weight: 600;">24/05/2022 19:30PM</span>
+                                    <span style="font-weight: 600;">${result.date} ${result.time}</span>
                                 </div>
                                 <div class="bill-text">
                                     <div class="name-bill name-qr">Rạp: </div>
-                                    <span style="font-weight: 600;">CINEMA 1</span>
+                                    <span style="font-weight: 600;">${result.room}</span>
                                 </div>
                                 <div class="bill-text">
                                     <div class="name-bill name-qr">Ghế: </div>
-                                    <span style="font-weight: 600;">H7, H8</span>
+                                    <span style="font-weight: 600;">${result.ticket}</span>
                                 </div>
                                 <div class="bill-text">
                                     <div class="name-bill name-qr">Combo: </div> 
-                                    <span>1 x Bắp, 1 x Nước</span>
+                                    <span>${result.snack}</span>
                                 </div>
                             </div>
                             <div class="print-section">
-                                <button class="form-control btn-print noPrint" onclick="window.print()">Sử dụng</button>
+                                <button class="form-control btn-print noPrint" onclick="checkInBill(this)">Sử dụng</button>
+                                <button class="form-control btn-print noPrint" onclick="window.print()">In</button>
                             </div>
                         </div>
                     </div>
                 </div>
-          </form>`)
+                <div>
+                    <a href='/qrcode/scan-qrcode'>Quay lại scan</a>
+                    </div>
+          `)
                     } else {
-                        $('.warning').html(result);
+                        $('.container-bill').html(`<h1 style="color:white">${result}</h1>`);
                     }
                 }
             })
@@ -81,6 +88,34 @@
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", { fps: 10, qrbox: 250 });
         html5QrcodeScanner.render(onScanSuccess, onScanError);
-    </script>
 
-</body>
+        function checkInBill(th) {
+            var idBill = $('.idBill').text();
+            Swal.fire({
+                icon: 'question',
+                title: 'Bạn có chắc chắn sử dụng bill này ?',
+                text: 'Mỗi mã QR chỉ sử dụng được 1 lần',
+                showCancelButton: true
+            }).then((confirm) => {
+                if (confirm.isConfirmed) {
+                    $.ajax({
+                        url: "/qrcode/check-in",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ idBill: idBill }),
+                        success: function (result) {
+                            if (result=='success') {
+                                th.disabled = true;
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công',
+                                    showConfirmButton: false,
+                                    timer: 1000
+                                })
+                            }
+                        }
+                    })
+                }
+            })
+        }
+    </script>

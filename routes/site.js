@@ -119,7 +119,10 @@ router.get('/render/:time',async (req,res)=>{
                   
             };
           });
-          if (check==false){hmtlSend=hmtlSend+`<h1>Không có suất chiếu nào trong ngày</h1>`}
+          if (check==false){hmtlSend=hmtlSend+`<div class="no-show">
+          <h1>Không có suất chiếu nào trong ngày</h1>
+          <img src="/img/movie.gif" alt="">
+      </div>`}
           res.send(hmtlSend);
 })
 
