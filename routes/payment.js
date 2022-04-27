@@ -148,7 +148,9 @@ router.post('/', (request, response) => {
                 req.end();
             })
         } else {
-            response.send("Đã có lỗi xảy ra")
+            response.render('alert', {
+                mes: 'Đã có lỗi xảy ra. Đang điều hướng về trang chủ...'
+            });
         }
 
     })
@@ -199,7 +201,9 @@ router.get('/confirm', (req, res) => {
                 }                
             })
         } else {
-            res.send('Thanh toán thất bại')
+            res.render('alert', {
+                mes: 'Thanh toán thất bại. Đang điều hướng về trang chủ'
+            });
         }
     } else {
         res.status(404).render('error', {
