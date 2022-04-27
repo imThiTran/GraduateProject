@@ -27,6 +27,31 @@ $('#btnAddPrice').on('click', function () {
             $('.coupleNormal2').val(result.timeSlot2.normalDay.coupleSeat);
             $('.singleWeek2').val(result.timeSlot2.weekend.singleSeat);
             $('.coupleWeek2').val(result.timeSlot2.weekend.coupleSeat);
+            $('.singleSeat').val(result.holiday.singleSeat);
+            $('.coupleSeat').val(result.holiday.coupleSeat);
+            var htmlAddpr = result.holiday.date.map(d =>
+                `<div class="price-choose-day">
+                <input type="date" name="date" value=${d} class="date form-control input-datetime date-price">
+                <div class="close-pr">
+                <button type="button" class="btnDelPR"> <i class="fa fa-times close-pr" aria-hidden="true"></i></button>
+                </div>
+            </div>`
+            ).join(' ');
+            $('#form-addPR').html(htmlAddpr);
+            $('.btnDelPR').each(function () {
+                var $this = $(this);
+                var rowAddSt = $this.closest('.price-choose-day');
+                $this.click(function (e) {
+                    checkHolidayChange = true;
+                    e.preventDefault();
+                    rowAddSt.remove();
+                })
+            })
+            $('.date').each(function () {
+                $(this).on('input',function () {
+                    checkHolidayChange = true;
+                })
+            });
             modalAddPrice.style.display = "block";
         }
     })
@@ -121,45 +146,63 @@ function checkIfDuplicateExists(arr) {
     return new Set(arr).size !== arr.length
 }
 
+var checkHolidayChange = false;
+$('.singleSeat').change(function () {
+    checkHolidayChange = true;
+})
+$('.coupleSeat').change(function () {
+    checkHolidayChange = true;
+})
+
 //save change price 
-$('.saveChangePrice').click(function () {
-    var date = $('.date')
-    if (checkEmpty([date, $('.fromTime'), $('.toTime'), $('.singleSeat'), $('.coupleSeat')]))
-        $('.alertAdd').html('Vui lòng nhập đầy đủ thông tin');
-    else if ($('.fromTime').val() > $('.toTime').val()) {
-        $('.alertAdd').html('Khung thời gian không hợp lệ')
-    }
-    else {
-        var ArrValue=[];
-        date.each(function(){
-            ArrValue.push($(this).val());
+$('.saveHoliday').click(function () {
+    if (checkHolidayChange) {
+        var date = $('.date');
+        var checkExpire = false;
+        date.each(function () {
+            if (new Date($(this).val()) < new Date()) checkExpire = true;
         })
-        if (checkIfDuplicateExists(ArrValue)) $('.alertAdd').html('Ngày bị lặp lại')
+        if (checkEmpty([date, $('.singleSeat'), $('.coupleSeat')]))
+            $('.alertAdd').html('Vui lòng nhập đầy đủ thông tin');
         else {
-            var formm = $('.formChangePrice')[0];
-            var data = new FormData(formm);
-            $.ajax({
-                url: "/admin/showtime/change-price-ticket",
-                type: "POST",
-                enctype: "multipart/form-data",
-                cache: false,
-                processData: false,
-                contentType: false,
-                data: data,
-                success: function (result) {
-                    if (result == 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Thành công',
-                            showConfirmButton: false,
-                            timer: 1000
-                        })
-                        $('.alertAdd').html(null);
-                        modalAddPrice.style.display = "none";
-                    }
-                }
+            var ArrValue = [];
+            date.each(function () {
+                ArrValue.push($(this).val());
             })
+            if (checkIfDuplicateExists(ArrValue)) $('.alertAdd').html('Ngày bị lặp lại')
+            else if (checkExpire) {
+                $('.alertAdd').html('Tồn tại ngày nhỏ hơn thời gian hiện tại');
+            }
+            else {
+                var formm = $('.formChangeHoliday')[0];
+                var data = new FormData(formm);
+                $.ajax({
+                    url: "/admin/showtime/change-holiday-price",
+                    type: "POST",
+                    enctype: "multipart/form-data",
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (result) {
+                        if (result == 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thành công',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                            $('.alertAdd').html(null);
+                            modalAddPrice.style.display = "none";
+                            checkHolidayChange=false;
+                        }
+                    }
+                })
+            }
         }
+    } else {
+        modalAddPrice.style.display = "none";
+        $('.alertAdd').html(null);
     }
 })
 
@@ -438,6 +481,7 @@ $('#btnAddSC').on('click', () => {
         var $this = $(this);
         var rowAddSt = $this.closest('.lc-suatchieu');
         $this.click(function (e) {
+            checkHolidayChange = true;
             e.preventDefault();
             rowAddSt.remove();
         })
@@ -446,10 +490,11 @@ $('#btnAddSC').on('click', () => {
 
 //Add element price
 $('#btnAddPR').on('click', () => {
+    checkHolidayChange=true;
     var htmlObj = $('#form-addPR');
     htmlObj.append(`
     <div class="price-choose-day">
-        `+ $('.first-row-addPR').html() + `
+    <input type="date" name="date" class="date form-control input-datetime date-price">
         <div class="close-pr">
             <button type="button" class="btnDelPR"> <i class="fa fa-times close-pr" aria-hidden="true"></i></button>
         </div>

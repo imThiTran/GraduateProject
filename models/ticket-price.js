@@ -9,6 +9,9 @@ var TkPriceSchema = mongoose.Schema({
     },
     type:{
         type:String
+    },
+    holiday:{
+        type:Object,
     }
 })
 

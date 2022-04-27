@@ -152,7 +152,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="tab-pane price-line" id="price2" role="tabpanel">
-                                                                <form action="" class="formChangePrice" method="">
+                                                                <form action="" class="formChangeHoliday" method="">
                                                                         <div class="price-seat" >
                                                                             <div class="price-ticket-time datetime-price">
                                                                                 <label style="width: 100px; flex:2" for="">Chọn ngày</label>
@@ -161,6 +161,9 @@
                                                                                         <div class="first-row-addPR price-choose-day">
                                                                                             <input type="date" name="date" class="date form-control input-datetime date-price">
                                                                                         </div>
+                                                                                        <div class="close-pr">
+                                                                                            <button type="button" class="btnDelPR"> <i class="fa fa-times close-pr" aria-hidden="true"></i></button>
+                                                                                        </div>
                                                                                     </div>    
                                                                                     <button class="btn-PR" id="btnAddPR" type="button">
                                                                                         +
@@ -168,17 +171,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             
-                                                                            <div class="price-ticket-time datetime-price">
-                                                                                <label style="width: 100px;" for="">Chọn giờ</label>
-                                                                                <input style="width: 150px !important;" name="fromTime" type="time"
-                                                                                    class="form-control input-datetime fromTime"
-                                                                                    id="">
-                                                                                <i style="margin-top: 10px;" class="fa fa-arrow-right"
-                                                                                    aria-hidden="true"></i>
-                                                                                <input style="width: 150px !important;" name="toTime" type="time"
-                                                                                    class="form-control input-datetime toTime"
-                                                                                    id="">
-                                                                            </div>
+                                                                            
                                                                             <div class="price-ticket">
                                                                                 <label for="seat-normal">Ghế thường</label>
                                                                                 <input name="singleSeat" type="text" value=""
@@ -198,7 +191,7 @@
                                                                                 <p class="alertAdd"></p>
                                                                                 <button type="button"
                                                                                     class="btn btn-secondary close-showTime close-CL">Đóng</button>
-                                                                                <button type="button" class="btn-common close-AC saveChangePrice">Xác nhận đổi giá
+                                                                                <button type="button" class="btn-common close-AC saveHoliday">Xác nhận đổi giá
                                                                                 </button>
                                                                             </div>
                                                                         </div>

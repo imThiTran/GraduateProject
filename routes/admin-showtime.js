@@ -122,26 +122,22 @@ router.post('/change-default-price', (req, res) => {
 })
 
 //change price ticket
-router.post('/change-price-ticket', (req, res) => {
-    var { date, fromTime, toTime, singleSeat, coupleSeat } = req.body;
-    var dateArr=[];
-    if (typeof date=='string') dateArr.push(date);
-    else dateArr=date;
-    Showtime.find({$and:[{date:{$in:dateArr}},{timeStart: { $gte: fromTime }},{timeStart: { $lte: toTime }}] }, (err, st) => {
-        var idShowtimes = st.map(s => s._id);
-        Ticket.updateMany({ idShowtime: { $in: idShowtimes }, name: { $regex: 'K', $options: "$i" } },
-            {
-                $set: { price: parseInt(coupleSeat) }
-            }, function (err, result) {
-                if (err) throw err;
-                Ticket.updateMany({ idShowtime: { $in: idShowtimes }, name: {$not:{ $regex: 'K', $options: "$i" }} },
-                    {
-                        $set: { price: parseInt(singleSeat) }
-                    }, function (err, result) {
-                        if (err) throw err;
-                        res.send('success');
-                    })
-            })
+router.post('/change-holiday-price', (req, res) => {
+    var { date, singleSeat, coupleSeat } = req.body;
+    var dateArr = [];
+    if (typeof date == 'string') dateArr.push(date);
+    else if (typeof date != 'undefined') dateArr = date;
+    TicketPrice.findOne({type:'defaultPrice'},(err,tkpr)=>{
+        var holiday={
+            date:dateArr,
+            singleSeat:singleSeat,
+            coupleSeat:coupleSeat
+        }
+        tkpr.holiday=holiday;
+        tkpr.save(function(err){
+            if (err) throw err;
+            res.send('success');
+        })
     })
 })
 
@@ -197,21 +193,26 @@ router.post('/add-showtime', (req, res) => {
                         if (err) return console.log(err);
                         TicketPrice.findOne({ type: 'defaultPrice' }, (err, tkpr) => {
                             var singleSeat, coupleSeat;
-                            if (timeStart <= tkpr.timeSlot1.toTime && timeStart >= tkpr.timeSlot1.fromTime) {
-                                if (checkDayWeekend(newDay)) {
-                                    singleSeat = tkpr.timeSlot1.weekend.singleSeat;
-                                    coupleSeat = tkpr.timeSlot1.weekend.coupleSeat;
-                                } else {
-                                    singleSeat = tkpr.timeSlot1.normalDay.singleSeat;
-                                    coupleSeat = tkpr.timeSlot1.normalDay.coupleSeat;
-                                }
+                            if (tkpr.holiday.date.includes(date)) {
+                                singleSeat = tkpr.holiday.singleSeat;
+                                coupleSeat = tkpr.holiday.coupleSeat;
                             } else {
-                                if (checkDayWeekend(newDay)) {
-                                    singleSeat = tkpr.timeSlot2.weekend.singleSeat;
-                                    coupleSeat = tkpr.timeSlot2.weekend.coupleSeat;
+                                if (timeStart <= tkpr.timeSlot1.toTime && timeStart >= tkpr.timeSlot1.fromTime) {
+                                    if (checkDayWeekend(newDay)) {
+                                        singleSeat = tkpr.timeSlot1.weekend.singleSeat;
+                                        coupleSeat = tkpr.timeSlot1.weekend.coupleSeat;
+                                    } else {
+                                        singleSeat = tkpr.timeSlot1.normalDay.singleSeat;
+                                        coupleSeat = tkpr.timeSlot1.normalDay.coupleSeat;
+                                    }
                                 } else {
-                                    singleSeat = tkpr.timeSlot2.normalDay.singleSeat;
-                                    coupleSeat = tkpr.timeSlot2.normalDay.coupleSeat;
+                                    if (checkDayWeekend(newDay)) {
+                                        singleSeat = tkpr.timeSlot2.weekend.singleSeat;
+                                        coupleSeat = tkpr.timeSlot2.weekend.coupleSeat;
+                                    } else {
+                                        singleSeat = tkpr.timeSlot2.normalDay.singleSeat;
+                                        coupleSeat = tkpr.timeSlot2.normalDay.coupleSeat;
+                                    }
                                 }
                             }
                             if (typeRoom == 114) {
@@ -359,21 +360,27 @@ router.post('/add-showtime', (req, res) => {
                             TicketPrice.findOne({ type: 'defaultPrice' }, (err, tkpr) => {
                                 result.forEach(function (st, index) {
                                     var singleSeat, coupleSeat;
-                                    if (st.timeStart <= tkpr.timeSlot1.toTime && st.timeStart >= tkpr.timeSlot1.fromTime) {
-                                        if (checkDayWeekend(generateDate(st.date, st.timeStart))) {
-                                            singleSeat = tkpr.timeSlot1.weekend.singleSeat;
-                                            coupleSeat = tkpr.timeSlot1.weekend.coupleSeat;
+                                    if (tkpr.holiday.date.includes(st.date)) {
+                                        singleSeat = tkpr.holiday.singleSeat;
+                                        coupleSeat = tkpr.holiday.coupleSeat;
+                                    }
+                                    else {
+                                        if (st.timeStart <= tkpr.timeSlot1.toTime && st.timeStart >= tkpr.timeSlot1.fromTime) {
+                                            if (checkDayWeekend(generateDate(st.date, st.timeStart))) {
+                                                singleSeat = tkpr.timeSlot1.weekend.singleSeat;
+                                                coupleSeat = tkpr.timeSlot1.weekend.coupleSeat;
+                                            } else {
+                                                singleSeat = tkpr.timeSlot1.normalDay.singleSeat;
+                                                coupleSeat = tkpr.timeSlot1.normalDay.coupleSeat;
+                                            }
                                         } else {
-                                            singleSeat = tkpr.timeSlot1.normalDay.singleSeat;
-                                            coupleSeat = tkpr.timeSlot1.normalDay.coupleSeat;
-                                        }
-                                    } else {
-                                        if (checkDayWeekend(generateDate(st.date, st.timeStart))) {
-                                            singleSeat = tkpr.timeSlot2.weekend.singleSeat;
-                                            coupleSeat = tkpr.timeSlot2.weekend.coupleSeat;
-                                        } else {
-                                            singleSeat = tkpr.timeSlot2.normalDay.singleSeat;
-                                            coupleSeat = tkpr.timeSlot2.normalDay.coupleSeat;
+                                            if (checkDayWeekend(generateDate(st.date, st.timeStart))) {
+                                                singleSeat = tkpr.timeSlot2.weekend.singleSeat;
+                                                coupleSeat = tkpr.timeSlot2.weekend.coupleSeat;
+                                            } else {
+                                                singleSeat = tkpr.timeSlot2.normalDay.singleSeat;
+                                                coupleSeat = tkpr.timeSlot2.normalDay.coupleSeat;
+                                            }
                                         }
                                     }
                                     if (type[index] == 114) {
@@ -515,11 +522,42 @@ router.post('/edit-showtime', (req, res) => {
                             {
                                 $set: { closed: closed, blockByRoom: 0, timeStart: timeStart, idRoom: room }
                             }, function (err, result) {
-                                if (err) throw err;
-                                res.send({
-                                    timeStart: timeStart,
-                                    closed: closed
-                                });
+                                TicketPrice.findOne({ type: 'defaultPrice' }, (err, tkpr) => {
+                                    var singleSeat, coupleSeat;
+                                    if (timeStart <= tkpr.timeSlot1.toTime && timeStart >= tkpr.timeSlot1.fromTime) {
+                                        if (checkDayWeekend(generateDate(date, timeStart))) {
+                                            singleSeat = tkpr.timeSlot1.weekend.singleSeat;
+                                            coupleSeat = tkpr.timeSlot1.weekend.coupleSeat;
+                                        } else {
+                                            singleSeat = tkpr.timeSlot1.normalDay.singleSeat;
+                                            coupleSeat = tkpr.timeSlot1.normalDay.coupleSeat;
+                                        }
+                                    } else {
+                                        if (checkDayWeekend(generateDate(date, timeStart))) {
+                                            singleSeat = tkpr.timeSlot2.weekend.singleSeat;
+                                            coupleSeat = tkpr.timeSlot2.weekend.coupleSeat;
+                                        } else {
+                                            singleSeat = tkpr.timeSlot2.normalDay.singleSeat;
+                                            coupleSeat = tkpr.timeSlot2.normalDay.coupleSeat;
+                                        }
+                                    }
+                                    Ticket.updateMany({ idShowtime: idSt, name: { $regex: 'K', $options: "$i" } },
+                                        {
+                                            $set: { price: parseInt(coupleSeat) }
+                                        }, function (err, result) {
+                                            if (err) throw err;
+                                            Ticket.updateMany({ idShowtime: idSt, name: { $not: { $regex: 'K', $options: "$i" } } },
+                                                {
+                                                    $set: { price: parseInt(singleSeat) }
+                                                }, function (err, result) {
+                                                    if (err) throw err;
+                                                    res.send({
+                                                        timeStart: timeStart,
+                                                        closed: closed
+                                                    });
+                                                })
+                                        })
+                                })
                             })
                     }
                 })
