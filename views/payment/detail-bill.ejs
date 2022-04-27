@@ -18,33 +18,33 @@
                     <div class="name-bill">Email: </div>
                     <span><%= bill.user %></span>
                 </div>
-                <div class="showtime-bill">
+                <div class="showtime-bill-qr">
                     <div class="bill-text" style="display: flex;">
-                        <div class="name-bill">Tên phim: </div>
+                        <div class="name-bill" style="width: 100px;">Tên phim: </div>
                         <div>
                             <div><%= film.nameEN %></div>
                             <div><%= film.nameVN %></div>
                         </div>
                     </div>
                     <div class="bill-text">
-                        <div class="name-bill">Suất chiếu </div>
-                        <span><%= st.date %> <%= st.timeStart %></span>
+                        <div class="name-bill" style="width: 100px;">Suất chiếu </div>
+                        <span style="font-weight: 600;"><%= st.date %> <%= st.timeStart %></span>
                     </div>
                     <div class="bill-text">
-                        <div class="name-bill">Rạp: </div>
-                        <span><%= room.name %></span>
+                        <div class="name-bill" style="width: 100px;">Rạp: </div>
+                        <span style="font-weight: 600;"><%= room.name %></span>
                     </div>
                     <div class="bill-text">
-                        <div class="name-bill">Ghế: </div>                        
-                        <span>                            
+                        <div class="name-bill" style="width: 100px;">Ghế: </div>                        
+                        <span style="font-weight: 600;">                            
                             <% bill.ticket.forEach(function(tk) { %>
                                 <%= tk.name %>
                             <% }); %>                            
                         </span>
                     </div>
-                    <div class="bill-text">
-                        <div class="name-bill">Combo: </div> 
-                        <span>
+                    <div class="bill-text" >
+                        <div class="name-bill" style="width: 100px;flex: 2;">Combo: </div> 
+                        <span style="flex: 5">
                             <% var snacksarr=[] %>
                             <% bill.snack.forEach( function(sn){ %>
                                 <%
@@ -56,10 +56,9 @@
                     </div>
                 </div>
                 <div class="note-bill">*Vui lòng đến rạp trước 15 phút để làm thủ tục soát vé</div>
-
             </div>
             <div class="bill-code">
-                <div qrvalue="" id="qrcode"></div>
+                <div qrvalue="<%= bill._id %>" id="qrcode"></div>
             </div>
         </div>
     </div>

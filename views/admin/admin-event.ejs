@@ -47,11 +47,22 @@
                                                                 for="img1">Thêm ảnh</label>
                                                         </div>
                                                     </div>
-                                                    <div class="modal-right">
-                                                        <label class="label-chitiet" for="">Tiêu đề</label>
+                                                    <div class="modal-right">                                                                                                               
+                                                        <label class="label-chitiet" for="">Tiêu đề</label>                                                                                                                
                                                         <div class="input-ten">
                                                             <input style="width: 100% !important;" class="input-sua" placeholder="Tiêu đề" type="text" name="title">
                                                         </div>
+                                                        <label class="label-chitiet" for="">Thể loại</label> 
+                                                        <div>
+                                                            <select name="type" class="selecttype" onchange="checkchange()">                                                            
+                                                                <option value="Tin tức">Tin tức</option>
+                                                                <option value="Khuyến mãi">Khuyến mãi</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="display: none;" class="inputkhuyenmai">
+                                                            <input type="text" placeholder="Mã khuyến mã" name="code"/>
+                                                            <input type="number" placeholder="Giá trị(%)" name="value"/>
+                                                        </div>                                                        
                                                         <label class="label-chitiet" for="">Nội dung</label>
                                                         <textarea class="input-sua" id="eventContent" name="content"></textarea>
                                                     </div>
@@ -132,8 +143,7 @@
     <script src="/js/admin-event.js"></script>
 </body>
 <script>
-    var imgavtadd = document.getElementsByClassName('imgadd')[0]
-    console.log(imgavtadd)
+    var imgavtadd = document.getElementsByClassName('imgadd')[0]    
     function imgAdd() {
         if (event.target.files.length > 0) {
             let src = URL.createObjectURL(event.target.files[0]);            
@@ -142,5 +152,13 @@
             imgavtadd.src='../img/no_img.webp'            
         }
     }
+    function checkchange(){
+        if($("option:selected").val()=="Khuyến mãi"){            
+            document.getElementsByClassName("inputkhuyenmai")[0].style.display = "block";                
+        }else{
+            document.getElementsByClassName("inputkhuyenmai")[0].style.display = "none";
+        }        
+    }
+    
 </script>
 </html>

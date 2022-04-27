@@ -5,6 +5,7 @@ var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 var Category = require('../models/category');
 var User = require('../models/user');
+var Voucher = require('../models/voucher')
 const Room = require('../models/room');
 var Snack = require('../models/snack')
 
@@ -174,32 +175,35 @@ router.post('/ticket', (req, res) => {
                             res.render('payment/detail-check',{
                                 st:st,
                                 tk:tk,
-                                total:tk[0].price+total,
                                 film:film,
                                 room:room,
                                 user:us,
                                 snack:snackarr,
-                                cats:cats
+                                cats:cats,
+                                totalticket:tk[0].price,
+                                totalsn:total
                             })
                         })
                     }else{
                         Ticket.find({"_id": {"$in" : ticket}}, function(err, tk){
-                            let total=0
+                            var totaltk=0
                             tk.forEach(ticket => {
-                                total+=ticket.price
+                                totaltk+=ticket.price
                             })
+                            var totalsn=0
                             snackarr.forEach(item => {
-                                total+=item.price*item.quantity
+                                totalsn+=item.price*item.quantity
                             })    
                             res.render('payment/detail-check',{
                                 st:st,
-                                tk:tk,
-                                total:total,
+                                tk:tk,                                
                                 film:film,
                                 room:room,
                                 user:us,
                                 snack:snackarr,
-                                cats:cats
+                                cats:cats,
+                                totalticket:totaltk,
+                                totalsn:totalsn
                             })
                         })
                     }
@@ -223,5 +227,13 @@ router.post('/snack', (req, res) => {
     })
 })
 
-
+router.get('/uservoucher', (req,res) => {
+    var {code} =req.query
+    Voucher.findOne({code:code},function(err,voucher){
+        if(voucher){
+            res.send(voucher.value)
+        }
+    })
+   
+})
 module.exports = router;

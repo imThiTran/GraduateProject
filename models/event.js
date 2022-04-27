@@ -26,6 +26,9 @@ var EventSchema = mongoose.Schema({
    },
    author:{
        type:String
+   },
+   type:{
+       type:String
    }
 })
 
