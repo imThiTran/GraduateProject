@@ -178,8 +178,8 @@ router.get('/confirm', (req, res) => {
         if (query.resultCode == 0) {
             Bill.findById(query.orderId, function (err, bill) {
                 if(bill.payment == '1'){
-                    res.status(404).render('error', {
-                        mes: 'Page Not Found'
+                    res.render('alert', {
+                        mes: 'Đã có lỗi xảy ra. Đang điều hướng về trang chủ...'
                     });
                 }else{
                     bill.payment = 1;
@@ -203,7 +203,7 @@ router.get('/confirm', (req, res) => {
             })
         } else {
             res.render('alert', {
-                mes: 'Thanh toán thất bại. Đang điều hướng về trang chủ'
+                mes: 'Thanh toán thất bại. Đang điều hướng về trang chủ...'
             });
         }
     } else {
