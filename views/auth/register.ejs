@@ -58,7 +58,7 @@
                                 id="exampleInputPassword1">
                                 <span class="span-error-add"></span>
                         </div>
-                        <div class="login-input">
+                        <div class="login-input confirmPass-contain">
                             <i class="fa-solid fa-lock"></i>
                             <input type="password" placeholder="Nhập lại mật khẩu" class="confirmPass form-control email-input"
                                 id="exampleInputPassword1">
@@ -102,6 +102,8 @@
         isGmail($("[name='email']"), 'add');
         isName($("[name='fullname']"), 'add');
         isPhone($("[name='phone']"),'add');
+        isPassword($("[name='password']"), 'add');
+        isMatchPass($(".confirmPass"), 'add',$("[name='password']"));
         isRequired($("[name='email']"), 'add');
         isRequired($("[name='fullname']"), 'add');
         isRequired($("[name='phone']"), 'add');

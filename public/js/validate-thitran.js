@@ -68,5 +68,29 @@ function isPhone(elements,methodd){
     })
 }
 
+function isPassword(elements,methodd){
+    var spanerror = elements.parent().find('.span-error-' + methodd);
+    elements.blur(function (e) {
+        var regex=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+        if (checkRegex(elements.val(),regex)==false ) spanerror.text('Mật khẩu từ 8 đến 15 ký tự và có ít nhất một chữ cái thường, một chữ hoa, một chữ số, một ký tự đặc biệt');
+        else if (elements.val()!=$('.confirmPass').val()) $('.confirmPass-contain').find('.span-error-add').text('Mật khẩu nhập lại không khớp');
+    })
+    elements.on('input', function (e) {
+        if ($('.confirmPass-contain').find('.span-error-add'))
+        $('.confirmPass-contain').find('.span-error-add').html(null);
+        spanerror.html(null);
+    })
+}
+
+function isMatchPass(elements,methodd,elementMatch){
+    var spanerror = elements.parent().find('.span-error-' + methodd);
+    elements.blur(function (e) {
+        if (elements.val()!=elementMatch.val() ) spanerror.text('Mật khẩu nhập lại không khớp');
+    })
+    elements.on('input', function (e) {
+        spanerror.html(null);
+    })
+}
+
 
 
