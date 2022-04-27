@@ -1,78 +1,97 @@
 <%- include ('../layouts/header')%>
 
-<body>
+    <body>
 
-    <div class="">
-        <div class="login-section">
-            <div class="col-6 side-img">
-                <div class="poster-index login-poster">
-                    <div id="owl-demo" class="owl-carousel owl-theme">
-                        <a href="#"><img class="poster-slide login-slide" src="/img/P1.jpg" alt="Owl Image"></a>
-                        <a href="#"><img class="poster-slide login-slide" src="/img/P2.jpg" alt="Owl Image"></a>
-                        <a href="#"><img class="poster-slide login-slide" src="/img/P3.jpg" alt="Owl Image"></a>
+        <div class="">
+            <div class="login-section">
+                <div class="col-6 side-img">
+                    <div class="poster-index login-poster">
+                        <div id="owl-demo" class="owl-carousel owl-theme">
+                            <a href="#"><img class="poster-slide login-slide" src="/img/P1.jpg" alt="Owl Image"></a>
+                            <a href="#"><img class="poster-slide login-slide" src="/img/P2.jpg" alt="Owl Image"></a>
+                            <a href="#"><img class="poster-slide login-slide" src="/img/P3.jpg" alt="Owl Image"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5 side-login">
+                    <div class="login-form">
+                        <a href="/"><img src="/img/logo.gif" alt="logo"></a>
+                        <h2 class="login-h1">Đăng nhập</h2>
+                        <form action="/auth/login" method="post" class="form-signin">
+                            <% if (typeof mes!="undefined" ){%>
+                                <div class="alert alert-danger error-alert" role="alert">
+                                    <%=mes%>
+                                </div>
+                                <%} %>
+                                    <div class="login-input">
+                                        <i class="fa-solid fa-circle-user"></i>
+                                        <input type="email" name="email" placeholder="Email"
+                                            class="form-control email-input" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" value=<% if (typeof value!="undefined" ){%>
+                                        <%=value%>
+                                            <%} %>
+                                                >
+                                                <span class="span-error-add"></span>
+                                    </div>
+                                    <div class="login-input">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <input type="password" name="password" placeholder="Mật khẩu"
+                                            class="form-control email-input" id="exampleInputPassword1">
+                                        <span class="span-error-add"></span>
+                                    </div>
+                                    <button type="submit" class="btn-login">
+                                        Đăng nhập
+                                    </button>
+                                    <i><a href="/auth/forget">Quên mật khẩu?</a></i>
+                                    <span style="color: #f0c673">Chưa có tài khoản? <i><a href="/auth/register">Đăng ký
+                                                ngay!</a></i></span>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="col-5 side-login">
-                <div class="login-form">
-                    <a href="/"><img src="/img/logo.gif" alt="logo"></a>
-                    <h2 class="login-h1">Đăng nhập</h2>
-                    <form action="/auth/login" method="post" class="form-signin">
-                        <%  if (typeof mes!="undefined"){%>
-                            <div class="alert alert-danger error-alert" role="alert"><%=mes%></div>
-                        <%} %>
-                        <div class="login-input">
-                            <i class="fa-solid fa-circle-user"></i>
-                            <input type="email" name="email" placeholder="Email" class="form-control email-input" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" value=
-                                <% if (typeof value!="undefined"){%>
-                                    <%=value%>
-                                <%} %>
-                                >
-                                <span class="error">thông báo lỗi</span>
-                        </div>
-                        <div class="login-input">
-                            <i class="fa-solid fa-lock"></i>
-                            <input type="password" name="password" placeholder="Mật khẩu" class="form-control email-input" id="exampleInputPassword1">
-                            <span class="error">thông báo lỗi</span>
-                        </div>
-                        <button type="submit" class="btn-login">
-                            Đăng nhập
-                        </button>
-                        <i><a href="/auth/forget">Quên mật khẩu?</a></i>
-                        <span style="color: #f0c673">Chưa có tài khoản? <i><a href="/auth/register">Đăng ký ngay!</a></i></span>
-                    </form>
-                </div>
-            </div>
         </div>
-    </div>
 
 
+        <script src="/js/validate-thitran.js"></script>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/owl.carousel.min.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/owl.carousel.js"></script>
+        <link rel="stylesheet" href="/css/owl.carousel.css">
+        <link rel="stylesheet" href="/css/owl.theme.css">
 
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/popper.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/owl.carousel.js"></script>
-    <link rel="stylesheet" href="/css/owl.carousel.css">
-    <link rel="stylesheet" href="/css/owl.theme.css">
+        <script>
+            $("#owl-demo").owlCarousel({
+                animateOut: 'fadeOut',
+                dots: false,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                items: 1,
+                itemsDesktop: [1199, 3],
+                itemsDesktopSmall: [979, 3]
 
-    <script>
-        $("#owl-demo").owlCarousel({
-            animateOut: 'fadeOut',
-            dots: false,
-            loop: true,
-            autoplay: true,
-            autoplayTimeout: 4000,
-            items: 1,
-            itemsDesktop: [1199, 3],
-            itemsDesktopSmall: [979, 3]
+            });
 
-        });
+            isGmail($("[name='email']"), 'add');
+            isRequired($("[name='email']"), 'add');
+            isRequired($("[name='password']"), 'add');
+            
 
-    </script>
+            $('.btn-login').click(function (e) {
+                var check = true;
+                checkform([$("[name='email']"), $("[name='password']")], 'add', 'Vui lòng nhập trường này');
+                $('.span-error-add').each(function () {
+                    if ($(this).text() != '') { check = false; return false; }
+                })
+                if (check == false) {
+                    e.preventDefault();
+                }
+            })
+        </script>
+    </body>
+    <!-- <%- include ('../layouts/footer') %> -->
 
-</body>
-<!-- <%- include ('../layouts/footer') %> -->
-</html>
+    </html>

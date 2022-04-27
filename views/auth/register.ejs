@@ -25,47 +25,46 @@
                         <div class="login-input">
                             <i class="fa-solid fa-circle-user"></i>
                             <input type="text" name="fullname" value="<%=fullname%>" placeholder="Họ tên" class="form-control email-input">
-                            <span class="error">thông báo lỗi</span>
+                            <span class="span-error-add"></span>
                         </div>
                         <div class="login-input">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="email" name="email" placeholder="Email" value="<%=email%>" class="form-control email-input"
+                            <input type="email" name="email" placeholder="Gmail" value="<%=email%>" class="form-control email-input"
                                 id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <span class="error">thông báo lỗi</span>
+                                <span class="span-error-add"></span>
                         </div>
                         <div class="login-input">
                             <i class="fa-solid fa-circle-user"></i>
                             <input type="text" name="phone" placeholder="Số điện thoại" value="<%=phone%>" class="form-control email-input">
-                            <span class="error">thông báo lỗi</span>
+                            <span class="span-error-add"></span>
                         </div>
                         <div class="login-input">
                             <i class="fa-solid fa-calendar-days"></i>
                             <input type="date" name="birthday" placeholder="Ngày sinh" value="<%=birthday%>" class="form-control email-input">
-                            <span class="error">thông báo lỗi</span>
+                            <span class="span-error-add"></span>
                         </div>
                         <div class="login-input">
                             <i class="fa-solid fa-venus-mars"></i>
                             <select name="gender" class="form-select email-input" aria-label="Default select example">
                                 <option class="gender" value="male">Nam</option>
                                 <option class="gender" value="female">Nữ</option>
-                                <option class="gender" value="other">Khác</option>
                               </select>
-                            <span class="error">thông báo lỗi</span>
+                              <span class="span-error-add"></span>
                         </div>
 
                         <div class="login-input">
                             <i class="fa-solid fa-lock"></i>
                             <input name="password" type="password" placeholder="Mật khẩu" class="form-control email-input"
                                 id="exampleInputPassword1">
-                            <span class="error">thông báo lỗi</span>
+                                <span class="span-error-add"></span>
                         </div>
                         <div class="login-input">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" placeholder="Nhập lại mật khẩu" class="form-control email-input"
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="confirmPass form-control email-input"
                                 id="exampleInputPassword1">
-                            <span class="error">thông báo lỗi</span>
+                                <span class="span-error-add"></span>
                         </div>
-                        <button type="submit" class="btn-login">
+                        <button type="submit" class="register-btn btn-login">
                             Đăng ký
                         </button>
                         <span style="color: #f0c673; padding-bottom: 30px;">Đã có tài khoản? <i><a href="/auth/login">Đăng nhập
@@ -77,7 +76,7 @@
     </div>
 
 
-
+    <script src="/js/validate-thitran.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -100,6 +99,28 @@
 
         });
 
+        isGmail($("[name='email']"), 'add');
+        isName($("[name='fullname']"), 'add');
+        isPhone($("[name='phone']"),'add');
+        isRequired($("[name='email']"), 'add');
+        isRequired($("[name='fullname']"), 'add');
+        isRequired($("[name='phone']"), 'add');
+        isRequired($("[name='birthday']"), 'add');
+        isRequired($("[name='password']"), 'add');
+        isRequired($(".confirmPass"), 'add');
+
+        $('.register-btn').click(function (e) {
+            console.log($("[name='birthday']").val());
+                var check = true;
+                checkform([$("[name='email']"), $("[name='password']"),$(".confirmPass"),$("[name='birthday']"),
+                $("[name='phone']"),$("[name='fullname']")], 'add', 'Vui lòng nhập trường này');
+                $('.span-error-add').each(function () {
+                    if ($(this).text() != '') { check = false; return false; }
+                })
+                if (check == false) {
+                    e.preventDefault();
+                }
+            })
     </script>
 
 </body>

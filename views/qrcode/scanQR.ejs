@@ -81,7 +81,9 @@
                         <h1 style="color:white">${result}</h1>
                         <img src="/img/movie.gif" alt="">
                     </div>   
-                    <a href='/qrcode/scan-qrcode'>Quay lại scan</a>`);
+                    <button class="form-control btn-print btn-backQR noPrint">
+                    <a href='/qrcode/scan-qrcode'>Quay lại scan</a>
+                    </button>`);
                     }
                 }
             })
@@ -97,7 +99,7 @@
             var idBill = $('.idBill').text();
             Swal.fire({
                 icon: 'question',
-                title: 'Bạn có chắc chắn sử dụng bill này ?',
+                title: 'Bạn có chắc chắn hành động này ?',
                 text: 'Mỗi mã QR chỉ sử dụng được 1 lần',
                 showCancelButton: true
             }).then((confirm) => {
