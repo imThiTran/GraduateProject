@@ -12,7 +12,7 @@ var Category = require('../models/category');
 var partnerCode = process.env.partnerCode
 var accessKey = process.env.accessKey
 var secretkey = process.env.secretkey
-var requestId = partnerCode + new Date().getTime();
+var requestId;
 var orderInfo = "Thanh toán đơn hàng Megas";
 var redirectUrl = process.env.CLIENT_URL + "/payment/confirm";
 var ipnUrl = "https://callback.url/notify";
@@ -93,6 +93,7 @@ router.post('/', (request, response) => {
             bill.save(function (err, bill) {
                 var orderId = bill._id;
                 var amount = bill.total;
+                requestId = partnerCode + new Date().getTime();
                 var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType
                 var signature = crypto.createHmac('sha256', secretkey)
                     .update(rawSignature)
