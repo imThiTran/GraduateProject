@@ -14,7 +14,9 @@
                             <tr class="book-sub">
                                 <td>
                                     <div class="book-info">MEGAS ĐÀ NẴNG | PHÒNG <%=room.name%> | Số ghế: <span
-                                                class="countAvailable"><%=countAvailable%></span>/<%=countAll%>
+                                                class="countAvailable">
+                                                <%=countAvailable%>
+                                            </span>/<%=countAll%>
                                     </div>
                                     <div class="book-info">PHIM: <%=nameEN%> - <%=nameVN%>
                                     </div>
@@ -29,139 +31,164 @@
 
 
                     <div class="screen"></div>
-            <form method="post" action="/order/snack">
-                    <input type="hidden" class="idSt" value="<%=idSt%>" name="idSt" id="">
-                    <table>
-                        <tr class="row rowSeat">
-                            <%if (room.type==114){%>
-                                <%for (var i=0;i<a.length;i++){%>
-                                    <td class="td-order">
-                                        <%for (var j=0;j<a[i].length;j++){%>
-                                            <%if(i!=9){%>
-                                                <%if (j==1 || j==9){%>
-                                                    <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" class="btn-check" name="ticket" value="<%=a[i][j]._id%>"
-                                                        id="btn-check-<%=a[i][j].name%>" autocomplete="off" <%if
-                                                        (a[i][j].available==0){%>disabled<%}%>>
-                                                        <label class="btn btn-primary btn-seat"
-                                                            for="btn-check-<%=a[i][j].name%>">
-                                                            <%=a[i][j].name%>
-                                                        </label>
-                                                        <input type="checkbox" class="btn-check" id="btn-check-a2"
-                                                            autocomplete="off" disabled>
-                                                        <label class="btn btn-primary btn-seat" for="btn-check-a2"
-                                                            style="opacity: 0;"></label>
-                                                        <%}else {%>
-                                                            <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" class="btn-check"
-                                                                id="btn-check-<%=a[i][j].name%>" name="ticket" value="<%=a[i][j]._id%>" autocomplete="off" <%if
-                                                                (a[i][j].available==0){%>disabled<%}%>>
-                                                                <label class="btn btn-primary btn-seat"
-                                                                    for="btn-check-<%=a[i][j].name%>">
-                                                                    <%=a[i][j].name%>
-                                                                </label>
-                                                                <%}%>
-                                                                    <%}else{%>
-                                                                        <%if (j==0 || j==4){%>
-                                                                            <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox"
-                                                                                class="btn-check couple" name="ticket" value="<%=a[i][j]._id%>"
-                                                                                id="btn-check-<%=a[i][j].name%>"
-                                                                                autocomplete="off" <%if
-                                                                                (a[i][j].available==0){%>disabled<%}%>>
-                                                                                <label
-                                                                                    class="btn btn-primary btn-couple btn-seat"
-                                                                                    for="btn-check-<%=a[i][j].name%>">
-                                                                                    <%=a[i][j].name%>
-                                                                                </label>
-                                                                                <input type="checkbox" class="btn-check"
-                                                                                    id="btn-check-a2" autocomplete="off"
-                                                                                    disabled>
-                                                                                <label class="btn btn-primary btn-seat"
-                                                                                    for="btn-check-a2"
-                                                                                    style="opacity: 0;"></label>
-                                                                                <%}else {%>
-                                                                                    <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" name="ticket" value="<%=a[i][j]._id%>"
-                                                                                        class="btn-check couple"
-                                                                                        id="btn-check-<%=a[i][j].name%>"
-                                                                                        autocomplete="off" <%if
-                                                                                        (a[i][j].available==0){%>disabled
-                                                                                    <%}%>>
-                                                                                        <label
-                                                                                            class="btn btn-primary btn-couple btn-seat"
-                                                                                            for="btn-check-<%=a[i][j].name%>">
-                                                                                            <%=a[i][j].name%>
-                                                                                        </label>
-                                                                                        <%}%>
+                    <form method="post" action="/order/snack">
+                        <input type="hidden" class="idSt" value="<%=idSt%>" name="idSt" id="">
+                        <table>
+                            <tr class="row rowSeat">
+                                <%if (room.type==114){%>
+                                    <%for (var i=0;i<a.length;i++){%>
+                                        <td class="td-order">
+                                            <%for (var j=0;j<a[i].length;j++){%>
+                                                <%if(i!=9){%>
+                                                    <%if (j==1 || j==9){%>
+                                                        <input onclick="orderSeatHandle(this)"
+                                                            price="<%=a[i][j].price%>" type="checkbox" class="btn-check"
+                                                            name="ticket" value="<%=a[i][j]._id%>"
+                                                            id="btn-check-<%=a[i][j].name%>" autocomplete="off" <%if
+                                                            (a[i][j].available==0){%>disabled<%}%>>
+                                                            <label class="btn btn-primary btn-seat"
+                                                                for="btn-check-<%=a[i][j].name%>">
+                                                                <%=a[i][j].name%>
+                                                            </label>
+                                                            <input type="checkbox" class="btn-check" id="btn-check-a2"
+                                                                autocomplete="off" disabled>
+                                                            <label class="btn btn-primary btn-seat" for="btn-check-a2"
+                                                                style="opacity: 0;"></label>
+                                                            <%}else {%>
+                                                                <input onclick="orderSeatHandle(this)"
+                                                                    price="<%=a[i][j].price%>" type="checkbox"
+                                                                    class="btn-check" id="btn-check-<%=a[i][j].name%>"
+                                                                    name="ticket" value="<%=a[i][j]._id%>"
+                                                                    autocomplete="off" <%if
+                                                                    (a[i][j].available==0){%>disabled<%}%>>
+                                                                    <label class="btn btn-primary btn-seat"
+                                                                        for="btn-check-<%=a[i][j].name%>">
+                                                                        <%=a[i][j].name%>
+                                                                    </label>
+                                                                    <%}%>
+                                                                        <%}else{%>
+                                                                            <%if (j==0 || j==4){%>
+                                                                                <input onclick="orderSeatHandle(this)"
+                                                                                    price="<%=a[i][j].price%>"
+                                                                                    type="checkbox"
+                                                                                    class="btn-check couple"
+                                                                                    name="ticket"
+                                                                                    value="<%=a[i][j]._id%>"
+                                                                                    id="btn-check-<%=a[i][j].name%>"
+                                                                                    autocomplete="off" <%if
+                                                                                    (a[i][j].available==0){%>disabled
+                                                                                <%}%>>
+                                                                                    <label
+                                                                                        class="btn btn-primary btn-couple btn-seat"
+                                                                                        for="btn-check-<%=a[i][j].name%>">
+                                                                                        <%=a[i][j].name%>
+                                                                                    </label>
+                                                                                    <input type="checkbox"
+                                                                                        class="btn-check"
+                                                                                        id="btn-check-a2"
+                                                                                        autocomplete="off" disabled>
+                                                                                    <label
+                                                                                        class="btn btn-primary btn-seat"
+                                                                                        for="btn-check-a2"
+                                                                                        style="opacity: 0;"></label>
+                                                                                    <%}else {%>
+                                                                                        <input
+                                                                                            onclick="orderSeatHandle(this)"
+                                                                                            price="<%=a[i][j].price%>"
+                                                                                            type="checkbox"
+                                                                                            name="ticket"
+                                                                                            value="<%=a[i][j]._id%>"
+                                                                                            class="btn-check couple"
+                                                                                            id="btn-check-<%=a[i][j].name%>"
+                                                                                            autocomplete="off" <%if
+                                                                                            (a[i][j].available==0){%>disabled
+                                                                                        <%}%>>
+                                                                                            <label
+                                                                                                class="btn btn-primary btn-couple btn-seat"
+                                                                                                for="btn-check-<%=a[i][j].name%>">
+                                                                                                <%=a[i][j].name%>
+                                                                                            </label>
                                                                                             <%}%>
-
                                                                                                 <%}%>
-                                    </td>
-                                    <%}%>
-                                        <%} else {%>
-                                            <%for (var i=0;i<a.length;i++){%>
-                                                <td class="td-order td-order-small">
-                                                    <%for (var j=0;j<a[i].length;j++){%>
-                                                        <%if(i!=8){%>
-                                                            <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" class="btn-check" name="ticket" value="<%=a[i][j]._id%>"
-                                                                id="btn-check-<%=a[i][j].name%>" autocomplete="off" <%if
-                                                                (a[i][j].available==0){%>disabled<%}%>>
-                                                                <label class="btn btn-primary btn-seat btn-seat-small"
-                                                                    for="btn-check-<%=a[i][j].name%>">
-                                                                    <%=a[i][j].name%>
-                                                                </label>
-                                                                <%}else{%>
-                                                                    <input onclick="orderSeatHandle(this)" price="<%=a[i][j].price%>" type="checkbox" class="btn-check couple" 
-                                                                        id="btn-check-<%=a[i][j].name%>" name="ticket" value="<%=a[i][j]._id%>"
-                                                                        autocomplete="off" <%if 
-                                                                        (a[i][j].available==0){%>disabled<%}%>>
-                                                                        <label
-                                                                            class="btn btn-primary btn-couple btn-seat btn-seat-small"
-                                                                            for="btn-check-<%=a[i][j].name%>">
-                                                                            <%=a[i][j].name%>
-                                                                        </label>
-                                                                        <%}%>
 
+                                                                                                    <%}%>
+                                        </td>
+                                        <%}%>
+                                            <%} else {%>
+                                                <%for (var i=0;i<a.length;i++){%>
+                                                    <td class="td-order td-order-small">
+                                                        <%for (var j=0;j<a[i].length;j++){%>
+                                                            <%if(i!=8){%>
+                                                                <input onclick="orderSeatHandle(this)"
+                                                                    price="<%=a[i][j].price%>" type="checkbox"
+                                                                    class="btn-check" name="ticket"
+                                                                    value="<%=a[i][j]._id%>"
+                                                                    id="btn-check-<%=a[i][j].name%>" autocomplete="off"
+                                                                    <%if (a[i][j].available==0){%>disabled<%}%>>
+                                                                    <label
+                                                                        class="btn btn-primary btn-seat btn-seat-small"
+                                                                        for="btn-check-<%=a[i][j].name%>">
+                                                                        <%=a[i][j].name%>
+                                                                    </label>
+                                                                    <%}else{%>
+                                                                        <input onclick="orderSeatHandle(this)"
+                                                                            price="<%=a[i][j].price%>" type="checkbox"
+                                                                            class="btn-check couple"
+                                                                            id="btn-check-<%=a[i][j].name%>"
+                                                                            name="ticket" value="<%=a[i][j]._id%>"
+                                                                            autocomplete="off" <%if
+                                                                            (a[i][j].available==0){%>disabled<%}%>>
+                                                                            <label
+                                                                                class="btn btn-primary btn-couple btn-seat btn-seat-small"
+                                                                                for="btn-check-<%=a[i][j].name%>">
+                                                                                <%=a[i][j].name%>
+                                                                            </label>
                                                                             <%}%>
-                                                </td>
-                                                <%}%>
+
+                                                                                <%}%>
+                                                    </td>
                                                     <%}%>
+                                                        <%}%>
 
-                        </tr>
+                            </tr>
 
-                    </table>
-                    <div class="note-seat">
-                        <div class="seat-color">
-                            <div>
-                                <div class="color-choice" style="background: #fdc85b;"></div>
-                                <div class="color-choice" style="background: indianred;"></div>
+                        </table>
+                        <div class="note-seat">
+                            <div class="seat-color">
+                                <div>
+                                    <div class="color-choice" style="background: #fdc85b;"></div>
+                                    <div class="color-choice" style="background: indianred;"></div>
+                                </div>
+                                <div class="name-color">Ghế chưa chọn</div>
                             </div>
-                            <div class="name-color">Ghế chưa chọn</div>
+                            <div class="seat-color">
+                                <div class="color-choice" style="background: white;"></div>
+                                <div class="name-color">Ghế đang chọn</div>
+                            </div>
+                            <div class="seat-color">
+                                <div class="color-choice" style="background: rgb(116, 116, 116);"></div>
+                                <div class="name-color">Ghế đã chọn</div>
+                            </div>
+                            <div class="tamtinh">
+                                <input type="hidden" name="" class="totalPriceHidden" id="" value="0">
+                                <div class="name-color">Tạm tính: </div>
+                                <div class="name-color"><span class="totalPrice">0</span> VND</div>
+                            </div>
                         </div>
-                        <div class="seat-color">
-                            <div class="color-choice" style="background: white;"></div>
-                            <div class="name-color">Ghế đang chọn</div>
-                        </div>
-                        <div class="seat-color">
-                            <div class="color-choice" style="background: rgb(116, 116, 116);"></div>
-                            <div class="name-color">Ghế đã chọn</div>
-                        </div>
-                        <div class="tamtinh">
-                            <div class="name-color">Tạm tính: </div>
-                            <div class="name-color"><span class="totalPrice">0</span> VND</div>
-                        </div>
-                    </div>
-                    <div class="btn-order-section">
-                        <a href="" style="color: #333;">
-                            <button type="button" class="btn btn-buy btn-back">
-                                Trở lại
+                        <div class="btn-order-section">
+                            <a href="" style="color: #333;">
+                                <button type="button" class="btn btn-buy btn-back">
+                                    Trở lại
+                                </button>
+                            </a>
+
+                            <button type="submit" class="btn btn-buy btn-order">
+                                Tiếp tục
                             </button>
-                        </a>
-                        
-                        <button type="submit" class="btn btn-buy btn-order">
-                            Tiếp tục
-                        </button>
-                        
-                    </div>
+
+                        </div>
                 </div>
-            </form>
+                </form>
 
 
     </body>
@@ -208,12 +235,20 @@
 
         setInterval(() => { ajaxRequest() }, 3000);
         function formatNumber(num) {
-        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
-       function orderSeatHandle(th){
-           var thisPrice=parseInt(th.getAttribute('price'));
-           var totalPrice=parseInt($('.totalPrice').text());
-           if (th.checked) $('.totalPrice').text(totalPrice+thisPrice)  ;
-            else $('.totalPrice').text(totalPrice-thisPrice)  ;
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+        function orderSeatHandle(th) {
+            var totalPriceHidden=$('.totalPriceHidden');
+            var thisPrice = parseInt(th.getAttribute('price'));
+
+            var totalPrice = parseInt(totalPriceHidden.val());
+            if (th.checked) {
+                totalPriceHidden.val(totalPrice + thisPrice);
+                $('.totalPrice').text(formatNumber(totalPriceHidden.val()));
+            }
+            else {
+                totalPriceHidden.val(totalPrice - thisPrice);
+                $('.totalPrice').text(formatNumber(totalPriceHidden.val()));
+            }
         }
     </script>
