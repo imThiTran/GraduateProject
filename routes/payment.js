@@ -149,9 +149,9 @@ router.post('/', (request, response) => {
                 req.end();
             })
         } else {
-            response.render('alert', {
-                mes: 'Đã có lỗi xảy ra. Đang điều hướng về trang chủ...'
-            });
+            res.render('auth/auth-notify',{
+                mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
+            })
         }
 
     })
@@ -178,9 +178,9 @@ router.get('/confirm', (req, res) => {
         if (query.resultCode == 0) {
             Bill.findById(query.orderId, function (err, bill) {
                 if(bill.payment == '1'){
-                    res.render('alert', {
-                        mes: 'Đã có lỗi xảy ra. Đang điều hướng về trang chủ...'
-                    });
+                    res.render('auth/auth-notify',{
+                        mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
+                    })
                 }else{
                     bill.payment = 1;
                     bill.save(function (err) {
@@ -202,9 +202,9 @@ router.get('/confirm', (req, res) => {
                 }                
             })
         } else {
-            res.render('alert', {
-                mes: 'Thanh toán thất bại. Đang điều hướng về trang chủ...'
-            });
+            res.render('auth/auth-notify',{
+                mes:'Thanh toán thất bại, đang điều hướng về trang chủ',
+            })
         }
     } else {
         res.status(404).render('error', {

@@ -1147,6 +1147,8 @@ a:hover {
 
 .login-input {
     margin-top: 20px;
+    width: 300px;
+    line-height: 1.2;
 }
 
 .email-input {
@@ -1647,6 +1649,8 @@ a:hover {
 
 .time-btn {
     margin: 0 1px;
+    transition: all .3 ease;
+    animation: face .3s ease-in-out;
 }
 
 .flex-time-detail {
@@ -2830,12 +2834,21 @@ button.primaryContained:hover {
 .bill-section{
     flex: 6;
     padding-left: 20px;
+    font-size: 15px;
 }
 .bill-code{
     flex: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.showtime-bill-qr{
+    padding: 20px;
+    border: 2px dashed;
+    background: #f5f5f5a6;
+    color: currentColor;
+    width: 100%;
+    margin: 20px 0px;
 }
 .name-bill{
     width: 150px;
@@ -3066,6 +3079,8 @@ button.primaryContained:hover {
     justify-content: flex-start;
     margin: 20px 0;
     flex-direction: column;
+    transition: all .3 ease;
+    animation: face .3s ease-in-out;
 }
 .gia-price > a:nth-child(3n){
     margin-right: 0px;
