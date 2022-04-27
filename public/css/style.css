@@ -3268,3 +3268,8 @@ button.primaryContained:hover {
     filter: grayscale(1);
     opacity: .5;
 }
+.btn-check:disabled+.btn, .btn-check[disabled]+.btn{
+    pointer-events: none;
+    filter: grayscale(1);
+    opacity: .65;
+}
