@@ -6,6 +6,9 @@ $('#btnAddRoom').on('click', function () {
 });
 
 $('.close-room').on('click', function () {
+  $('.span-error-edit').each(function () {
+    $(this).html(null);
+  })
   $('.alertAdd').html(null);
   $('.nameRoom').val('');
   $('.alertEdit').html(null);
@@ -90,36 +93,46 @@ function loadEdit(th) {
   })
 }
 
+
+var checkChange = false;
+$('.nameEdit').change(function () {
+  checkChange = true;
+})
 //save Edit
 $('.saveEdit').click(function () {
   var check = true;
-  $('.span-error-add').each(function () {
+  $('.span-error-edit').each(function () {
     if ($(this).text() != '') { check = false; return false; }
   })
   if (check == true) {
-    var name = $('.nameEdit').val();
-    var id = $('.idHidden').val();
-    $.ajax({
-      url: "/admin/room/edit-room",
-      method: "POST",
-      contentType: "application/json",
-      data: JSON.stringify({ name: name, id: id }),
-      success: function (result) {
-        if (typeof result == 'object') {
-          $('.alertEdit').html(null);
-          Swal.fire({
-            icon: 'success',
-            title: 'Sửa thành công',
-            showConfirmButton: false,
-            timer: 1000
-          })
-          nameEdit.innerText=result.name;
-          modalEditRoom.style.display = "none";
-        } else {
-          $('.alertEdit').html(result);
+    if (checkChange == true) {
+      var name = $('.nameEdit').val();
+      var id = $('.idHidden').val();
+      $.ajax({
+        url: "/admin/room/edit-room",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ name: name, id: id }),
+        success: function (result) {
+          if (typeof result == 'object') {
+            $('.alertEdit').html(null);
+            Swal.fire({
+              icon: 'success',
+              title: 'Sửa thành công',
+              showConfirmButton: false,
+              timer: 1000
+            })
+            nameEdit.innerText = result.name;
+            modalEditRoom.style.display = "none";
+          } else {
+            $('.alertEdit').html(result);
+          }
         }
-      }
-    })
+      })
+    } else {
+      $('.alertEdit').html(null);
+      modalEditRoom.style.display = "none";
+    }
   }
 })
 
