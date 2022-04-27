@@ -49,9 +49,13 @@
                     <div class="bill-text">
                         <div class="name-bill">Combo: </div> 
                         <div style="flex: 5;">
+                            <% var snacksarr=[] %>
                             <% snack.forEach( function(sn){ %>
-                                <span class="snack-name"><%= sn.quantity %> x <%= sn.name %></span>
+                                <%
+                                    snacksarr.push(sn.quantity+" x "+sn.name)
+                                %>
                             <% }); %>
+                            <span class="snack-name"><%= snacksarr.join(', ') %></span>
                         </div>
                     </div>
                     <div class="bill-text">
