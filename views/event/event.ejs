@@ -12,40 +12,22 @@
             </li>
         </ul>
         <div class="gia-price" style="padding: 50px 0;">
-            <% events.forEach( function(event,index){ %>
-                <%if(index%2==0) {%>
-                    <a href="/event/<%= event.slug %>">
-                        <div class="sukien-about">
-                            <div class="sukien-img">
-                                <img src="<%= event.photo %>">
+            <% events.forEach( function(event){ %>                
+                <a href="/event/<%= event.slug %>">
+                    <div class="sukien-about">
+                        <div class="sukien-img">
+                            <img src="<%= event.photo %>">
+                        </div>
+                        <div class="sukien-info">
+                            <div class="sukien-sub">
+                                <%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%> bởi <%=event.author%>
                             </div>
-                            <div class="sukien-info">
-                                <div class="sukien-sub">
-                                    <%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%> bởi <%=event.author%>
-                                </div>
-                                <div class="sukien-tt">
-                                    <%= event.title %>
-                                </div>
+                            <div class="sukien-tt">
+                                <%= event.title %>
                             </div>
                         </div>
-                    </a>
-                <% } else{ %>
-                    <a href="/event/<%= event.slug %>">
-                        <div class="sukien-about">
-                            <div class="sukien-img">
-                                <img src="<%= event.photo %>">
-                            </div>
-                            <div class="sukien-info">
-                                <div class="sukien-sub">
-                                    <%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%> bởi <%=event.author%>
-                                </div>
-                                <div class="sukien-tt">
-                                    <%= event.title %>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                <% } %>                
+                    </div>
+                </a>     
             <% }); %>
         </div>
     </div>

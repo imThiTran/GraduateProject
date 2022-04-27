@@ -192,6 +192,7 @@
 
 
     </body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         var checked = [];
         $('.btn-check').each(function () {
@@ -251,4 +252,13 @@
                 $('.totalPrice').text(formatNumber(totalPriceHidden.val()));
             }
         }
+        $('.btn-order').click(function (e) {            
+            if($('input[type="checkbox"]:checked').length<1){
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: "Bạn chưa chọn chỗ ngồi."
+                })
+            }  
+        })
     </script>
