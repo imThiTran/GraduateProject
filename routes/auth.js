@@ -269,7 +269,6 @@ router.post('/forget', (req, res) => {
                          ">Reset</a>
                     </div>
                 </div>
-                    
                 `
             }
             transporter.sendMail(data, function (err, info) {

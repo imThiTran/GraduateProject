@@ -9,7 +9,8 @@ var Room = require('../models/room');
 var Snack = require('../models/snack')
 var Category = require('../models/category');
 var Voucher = require('../models/voucher')
-
+var transporter = require('../config/nodemailer')
+var QRCode = require('qrcode')
 var partnerCode = process.env.partnerCode
 var accessKey = process.env.accessKey
 var secretkey = process.env.secretkey
@@ -216,8 +217,23 @@ router.get('/confirm', (req, res) => {
                     })
                 }else{
                     bill.payment = 1;
-                    bill.save(function (err) {
+                    bill.save(function (err,bill) {
                         if (err) throw err;
+                        QRCode.toDataURL(`${bill._id}`, function (err, url) { 
+                            const data = {                  
+                                to: bill.user,
+                                subject: 'Vé xem phim của MEGAS',
+                                attachDataUrls: true,
+                                html:`<img src="${url}">`
+                            }
+                            transporter.sendMail(data, function (err, info) {
+                                if (err) {
+                                    console.log(err);                            
+                                } else {
+                                    console.log('Message sent: ' + info.response);                                                      
+                                }
+                            });
+                        })
                     });
                     Showtime.findById(bill.ticket[0].idShowtime, function (err, st) {
                         Film.findById(st.idFilm, function (err, film) {
