@@ -35,6 +35,9 @@ var BillSchema = mongoose.Schema({
    },
    phone:{
        type:String
+   },
+   totalbill:{
+       type:String
    }
 })
 

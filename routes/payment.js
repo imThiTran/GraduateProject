@@ -8,6 +8,7 @@ var Showtime = require('../models/showtime');
 var Room = require('../models/room');
 var Snack = require('../models/snack')
 var Category = require('../models/category');
+var Voucher = require('../models/voucher')
 
 var partnerCode = process.env.partnerCode
 var accessKey = process.env.accessKey
@@ -28,7 +29,7 @@ Category.find({}, function (err, categories) {
     cats = categories
 })
 router.post('/', (request, response) => {
-    var { ticket, fullname, phone } = request.body
+    var { ticket, fullname, phone, code } = request.body
     var body = request.body    
     var snacks=[]
     for (key in body ) {
@@ -68,92 +69,124 @@ router.post('/', (request, response) => {
             })
         })
         if (check) {
-            var total = 0
+            var totalticket = 0
+            var totalsn=0
             if (ticket == "string") {
-                total = tk
+                totalticket = tk.price
                 snackarr.forEach(item => {
-                    total+=item.price*item.quantity
+                    totalsn+=item.price*item.quantity
                 })
             } else {
                 tk.forEach(ticket => {
-                    total += ticket.price
+                    totalticket += ticket.price
                 })
                 snackarr.forEach(item => {
-                    total+=item.price*item.quantity
+                    totalsn+=item.price*item.quantity
                 })
             }
-            var bill = new Bill({
-                ticket: tk,
-                total: total,
-                user: request.session.user,
-                fullname: fullname,
-                phone: phone,
-                snack:snackarr
-            })
-            bill.save(function (err, bill) {
-                var orderId = bill._id;
-                var amount = bill.total;
-                requestId = partnerCode + new Date().getTime();
-                var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType
-                var signature = crypto.createHmac('sha256', secretkey)
-                    .update(rawSignature)
-                    .digest('hex');
-                const requestBody = JSON.stringify({
-                    partnerCode: partnerCode,
-                    accessKey: accessKey,
-                    requestId: requestId,
-                    amount: amount,
-                    orderId: orderId,
-                    orderInfo: orderInfo,
-                    redirectUrl: redirectUrl,
-                    ipnUrl: ipnUrl,
-                    extraData: extraData,
-                    requestType: requestType,
-                    signature: signature,
-                    lang: 'en'
-                });
-                //Create the HTTPS objects
-                const https = require('https');
-                const options = {
-                    hostname: 'test-payment.momo.vn',
-                    port: 443,
-                    path: '/v2/gateway/api/create',
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Content-Length': Buffer.byteLength(requestBody)
-                    }
-                }
-                const req = https.request(options, res => {
-                    res.setEncoding('utf8');
-                    res.on('data', (body) => {
-                        if (JSON.parse(body).payUrl) {
-                            Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
-                                if (err) throw err;
-                            })
-                            response.redirect(JSON.parse(body).payUrl);
-                        } else {
-                            response.status(404).render('error', {
-                                mes: 'Page Not Found'
-                            });
+            Voucher.findOne({code:code},function(err,voucher){
+                var bill;
+                var checkvoucher=true;
+                if(voucher){
+                    voucher.user.forEach(user => {
+                        if(user==request.session.user){
+                            checkvoucher=false
                         }
+                    })
+                }else{
+                    checkvoucher=false
+                }          
+                if(checkvoucher){                    
+                    bill = new Bill({
+                        ticket: tk,
+                        total: totalticket*(100-voucher.value)/100+totalsn,
+                        user: request.session.user,
+                        fullname: fullname,
+                        phone: phone,
+                        snack:snackarr,
+                        totalbill:totalticket+totalsn,
+                        discount:voucher.value
+                    })
+                    voucher.user.push(request.session.user)
+                }else{
+                    bill = new Bill({
+                        ticket: tk,
+                        total: totalticket+totalsn,
+                        user: request.session.user,
+                        fullname: fullname,
+                        phone: phone,
+                        snack:snackarr,
+                        totalbill:totalticket+totalsn
+                    })
+                }
+                bill.save(function (err, bill) {
+                    if(voucher){
+                        voucher.save(function(err,vc){
+                        })
+                    }                    
+                    var orderId = bill._id;
+                    var amount = bill.total;
+                    requestId = partnerCode + new Date().getTime();
+                    var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType
+                    var signature = crypto.createHmac('sha256', secretkey)
+                        .update(rawSignature)
+                        .digest('hex');
+                    const requestBody = JSON.stringify({
+                        partnerCode: partnerCode,
+                        accessKey: accessKey,
+                        requestId: requestId,
+                        amount: amount,
+                        orderId: orderId,
+                        orderInfo: orderInfo,
+                        redirectUrl: redirectUrl,
+                        ipnUrl: ipnUrl,
+                        extraData: extraData,
+                        requestType: requestType,
+                        signature: signature,
+                        lang: 'en'
                     });
-                    res.on('end', () => {
-
+                    //Create the HTTPS objects
+                    const https = require('https');
+                    const options = {
+                        hostname: 'test-payment.momo.vn',
+                        port: 443,
+                        path: '/v2/gateway/api/create',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Content-Length': Buffer.byteLength(requestBody)
+                        }
+                    }
+                    const req = https.request(options, res => {
+                        res.setEncoding('utf8');
+                        res.on('data', (body) => {
+                            if (JSON.parse(body).payUrl) {
+                                Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
+                                    if (err) throw err;
+                                })
+                                response.redirect(JSON.parse(body).payUrl);
+                            } else {
+                                response.status(404).render('error', {
+                                    mes: 'Page Not Found'
+                                });
+                            }
+                        });
+                        res.on('end', () => {
+    
+                        });
+                    })
+                    req.on('error', (e) => {
+                        console.log(`problem with request: ${e.message}`);
                     });
+                    req.write(requestBody);
+                    req.end();                                       
                 })
-                req.on('error', (e) => {
-                    console.log(`problem with request: ${e.message}`);
-                });
-                req.write(requestBody);
-                req.end();
             })
         } else {
             res.render('auth/auth-notify',{
-                mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
+                mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ...',
             })
         }
-
     })
 })
 
