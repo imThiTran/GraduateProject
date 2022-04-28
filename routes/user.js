@@ -3,10 +3,15 @@ var router = express.Router();
 var User = require('../models/user');
 var Category = require('../models/category');
 var Film=require('../models/film');
+var Showtime = require('../models/showtime')
+var Bill = require('../models/bill')
+var Room =  require('../models/room')
 var fs = require('fs');
 var cloudinary = require('cloudinary').v2;
 var bcrypt = require('bcrypt');
 var shortid=require('shortid');
+const bill = require('../models/bill');
+const room = require('../models/room');
 
 //loai bo khoang trang trong chuoi
 function cleanText(text){
@@ -17,6 +22,27 @@ var cats=[]
 Category.find({}, function(err,categories){
     cats=categories
 })
+var sts=[]
+Showtime.find({}, function(err,showtimes){
+    sts=showtimes
+})
+
+var films=[]
+Film.find({}, function(err,fis){
+    films=fis
+})
+
+var rooms=[]
+Room.find({}, function(err,rs){
+    rooms=rs
+})
+
+function generateDate(date, time) {
+    var newDay = new Date(date);
+    var timeArr = time.split(':');
+    newDay.setHours(timeArr[0], timeArr[1]);
+    return newDay;
+};
 
 router.get('/info', (req, res) => {
     if(req.session.user){
@@ -178,6 +204,42 @@ router.post('/edit-comment',async (req,res)=>{
     if (update.modifiedCount==1){
         res.send()
     }
+})
+
+router.get('/purchase', (req,res)=>{
+    User.findOne({email:req.session.user}, (err,us) => {
+        Bill.find({user:us.email}, (err,bills) => {           
+            if (err) console.log(err);
+            var billunuse=[]
+            var billused=[]            
+            bills=bills.reverse()
+            bills.forEach(bill => {                
+                sts.forEach(showtime => {                    
+                    films.forEach(film => {                        
+                        rooms.forEach(room => {
+                            if(bill.ticket[0].idShowtime ==  showtime._id && showtime.idFilm==film._id && showtime.idRoom == room._id){
+                                bill.film=film.nameEN
+                                bill.room=room.name
+                                bill.photo=film.photo
+                                if(bill.checkin=="0" && generateDate(showtime.date, showtime.timeStart).getTime()< (new Date()).getTime()){
+                                    billunuse.push(bill)                                    
+                                }else{
+                                    billused.push(bill)
+                                }
+                            }
+                        })
+                    })                    
+                })
+            })
+            res.render('user/UserPurchase',{
+                us:us,
+                cats:cats,
+                billunuse:billunuse,
+                billused:billused
+            })
+        })        
+    })
+    
 })
 
 module.exports = router;
