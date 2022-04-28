@@ -68,7 +68,7 @@
                     <div class="bill-text check-text">
                         <div class="name-bill" style="width: 185px;">Mã khuyến mãi: </div>
                         <input class="check-input code" type="text" style="width: 202px;" name="code">
-                        <input type="button" class="uservoucher" value="Áp dụng">
+                        <span class="alertcode"></span>                      
                     </div>
                     <div class="bill-text check-text">
                         <div style="display: inline-block; margin-right: 20px;">Phương thức thanh toán </div>                        
@@ -99,20 +99,30 @@
     </form>
     </div>
 <script>
-    $('.uservoucher').on('click',function(){
-        var code = $('.code').val()
-        $.ajax({
-            url: "/order/uservoucher",
-            method: "GET",
-            contentType: "application/json",
-            data: {code:code},
-            success: function (result) {
-                var totalticket=$('.totalticket').val()*(100-result)/100
-                $('.total').html((totalticket+parseInt($('.totalsn').val())).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
-                
-            }
-        })
-    })
+    $('.code').on('input',function(){
+        var code=$(this).val();
+        if (code!=''){
+            $.ajax({
+                url: "/order/uservoucher",
+                method: "GET",
+                contentType: "application/json",
+                data: {code:code},
+                success: function (result) {
+                    if(result.match){
+                        $('.alertcode').html('Đã áp dụng mã.');
+                        var totalticket=$('.totalticket').val()*(100-result.value)/100
+                        $('.total').html((totalticket+parseInt($('.totalsn').val())).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
+                    }else{
+                        $('.alertcode').html('Mã không hợp lệ hoặc đã sử dụng.');
+                        $('.total').html((parseInt($('.totalticket').val())+parseInt($('.totalsn').val())).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
+                    }                                    
+                }
+            })
+        } else {
+            $('.alertcode').html('');
+            $('.total').html((parseInt($('.totalticket').val())+parseInt($('.totalsn').val())).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
+        }
+    })    
 </script>
 
 

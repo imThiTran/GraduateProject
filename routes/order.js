@@ -230,8 +230,25 @@ router.post('/snack', (req, res) => {
 router.get('/uservoucher', (req,res) => {
     var {code} =req.query
     Voucher.findOne({code:code},function(err,voucher){
+        var check=true
         if(voucher){
-            res.send(voucher.value)
+            voucher.user.forEach(user => {
+                if(user==req.session.user){
+                    check=false
+                }
+            })
+        }else{
+            check=false
+        }
+        if(check){
+            res.send({
+                value:voucher.value,
+                match:true
+            })
+        }else{
+            res.send({                
+                match:false
+            })
         }
     })
    
