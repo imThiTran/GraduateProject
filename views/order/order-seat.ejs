@@ -144,6 +144,7 @@
                             <div class="name-color">Ghế đã chọn</div>
                         </div>
                         <div class="tamtinh">
+                            <input type="hidden" name="" class="totalPriceHidden" id="" value="0">
                             <div class="name-color">Tạm tính: </div>
                             <div class="name-color"><span class="totalPrice">0</span> VND</div>
                         </div>
@@ -208,10 +209,17 @@
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
        function orderSeatHandle(th){
-           var thisPrice=parseInt(th.getAttribute('price'));
-           var totalPrice=parseInt($('.totalPrice').text());
-           if (th.checked) $('.totalPrice').text(totalPrice+thisPrice)  ;
-            else $('.totalPrice').text(totalPrice-thisPrice)  ;
+        var totalPriceHidden=$('.totalPriceHidden');
+            var thisPrice = parseInt(th.getAttribute('price'));
+            var totalPrice = parseInt(totalPriceHidden.val());
+            if (th.checked) {
+                totalPriceHidden.val(totalPrice + thisPrice);
+                $('.totalPrice').text(formatNumber(totalPriceHidden.val()));
+            }
+            else {
+                totalPriceHidden.val(totalPrice - thisPrice);
+                $('.totalPrice').text(formatNumber(totalPriceHidden.val()));
+            }
         }
         $('.btn-order').click(function (e) {            
             if($('input[type="checkbox"]:checked').length<1){
