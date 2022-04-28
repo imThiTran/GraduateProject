@@ -2930,7 +2930,7 @@ button.primaryContained:hover {
     padding: 50px 100px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .sukien {
@@ -3109,6 +3109,7 @@ button.primaryContained:hover {
     
 }
 .sukien-tt{
+    width: 350px;
     font-size: 24px;
     font-weight: 700;
     padding-bottom: 15px;
