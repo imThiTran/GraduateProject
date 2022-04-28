@@ -15,6 +15,9 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
+        function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
         function onScanSuccess(qrCodeMessage) {
             $.ajax({
                 url: "/qrcode/scan-bill",
@@ -63,6 +66,10 @@
                                 <div class="bill-text">
                                     <div class="name-bill name-qr" style="flex:3">Combo: </div> 
                                     <span style="flex:5">${result.snack}</span>
+                                </div>
+                                <div class="bill-text">
+                                    <div class="name-bill name-qr" style="flex:3">Chi phí: </div> 
+                                    <span style="flex:5">${formatNumber(result.total)} VNĐ</span>
                                 </div>
                             </div>
                             <div class="print-section">

@@ -54,7 +54,8 @@ router.post('/scan-bill', (req, res) => {
                                     time: st.timeStart,
                                     room: ro.name,
                                     ticket: tickets,
-                                    snack: snacks
+                                    snack: snacks,
+                                    total:bi.total
                                 });
                             })
                         })
