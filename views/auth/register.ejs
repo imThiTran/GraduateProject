@@ -7,9 +7,9 @@
             <div class="side-img">
                 <div class="poster-index login-poster">
                     <div id="owl-demo" class="owl-carousel owl-theme">
-                        <a href="#"><img class="poster-slide register-slide" src="/img/P1.jpg" alt="Owl Image"></a>
-                        <a href="#"><img class="poster-slide register-slide" src="/img/P2.jpg" alt="Owl Image"></a>
-                        <a href="#"><img class="poster-slide register-slide" src="/img/P3.jpg" alt="Owl Image"></a>
+                        <%filmslide.forEach(function(film){%>
+                            <a href="/movie/<%=film.slug%>"><img class="poster-slide login-slide" src="<%=film.photo%>" alt="Owl Image"></a>                            
+                        <% }) %>
                     </div>
                 </div>
             </div>

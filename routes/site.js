@@ -14,7 +14,7 @@ Category.find({}, function (err, categories) {
     cats = categories
 })
 router.get("/",function(req,res){
-  Category.find({},async function(err,cats){
+  Category.find({},async function(err,cats){    
       var today=new Date();
       var timeDay = today.getTime();
       var todayStr=(today.getFullYear())+'-'+
@@ -43,11 +43,17 @@ router.get("/",function(req,res){
               } 
             }
           }
-            res.render('index',{
-              dayArrs:dayArr,
-              cats: cats,
-              filmArrs:fi,
-              filmSkcs:fiSkc
+      Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+        Event.aggregate([{ $match: {}},{ $sample: { size: 5 } }],function(err,events){
+          res.render('index',{
+            dayArrs:dayArr,
+            cats: cats,
+            filmArrs:fi,
+            filmSkcs:fiSkc,
+            filmslide:filmslide,
+            events:events
+          })
+        })                    
       });
   })
 })

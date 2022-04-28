@@ -17,9 +17,9 @@
 
         <div class="poster-index">
             <div id="owl-demo" class="owl-carousel owl-theme">
-                <a href="#"><img class="poster-slide" src="/img/sukien1.jpg" alt="Owl Image"></a>
-                <a href="#"><img class="poster-slide" src="/img/sukien2.jpg" alt="Owl Image"></a>
-                <a href="#"><img class="poster-slide" src="/img/sukien3.jpg" alt="Owl Image"></a>
+                <%filmslide.forEach(function(film){%>
+                    <a href="/movie/<%=film.slug%>"><img class="poster-slide" src="<%= film.background %>" alt="Owl Image"></a>                
+                <% }) %>
             </div>
         </div>       
 
@@ -181,50 +181,17 @@
                 <div class="container">
                     <h1 class="title-event">SỰ KIỆN</h1>
                     <div class="featured-carousel owl-carousel owl-time">
-
-                        <div class="item">
-                            <div class="work">
-                                <a href="#">
-                                    <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                        style="background-image: url(img/sukien1.jpg);">
-
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                    style="background-image: url(img/sukien2.jpg);">
-
+                        <%events.forEach(function(event){%>
+                            <div class="item">
+                                <div class="work">
+                                    <a href="/event/<%=event.slug%>">
+                                        <div class="img d-flex align-items-end justify-content-center index-img-slide"
+                                            style="background-image: url(<%=event.photo%>);">    
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                    style="background-image: url(img/sukien3.jpg);">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                    style="background-image: url(img/sukien1.jpg);">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-end justify-content-center index-img-slide"
-                                    style="background-image: url(img/sukien2.jpg);">
-
-                                </div>
-                            </div>
-                        </div>
+                        <% }) %>                        
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken')
 var User = require('../models/user');
 var bcrypt = require('bcrypt');
 var transporter = require('../config/nodemailer')
-
+var Film = require('../models/film')
 //loai bo khoang trang trong chuoi
 function cleanText(text){
     return text.replace(/\s+/g,' ').trim();
@@ -12,12 +12,15 @@ function cleanText(text){
 
 //get register
 router.get('/register', (req, res) => {
-    res.render('auth/register', {        
-        email: '',
-        fullname: '',
-        phone: '',
-        birthday: '',
-    });
+    Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+        res.render('auth/register', {        
+            email: '',
+            fullname: '',
+            phone: '',
+            birthday: '',
+            filmslide:filmslide
+        });
+    })    
 })
 
 //post register
@@ -26,13 +29,16 @@ router.post('/register', (req, res) => {
     User.findOne({ email: email }, function (err, user) {
         if (err) return console.log(err);
         if (user) {
-            res.render('auth/register', {
-                mes: 'Email đã tồn tại',
-                email: email,
-                fullname: fullname,
-                phone: phone,
-                birthday: birthday
-            })
+            Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+                res.render('auth/register', {
+                    mes: 'Email đã tồn tại',
+                    email: email,
+                    fullname: fullname,
+                    phone: phone,
+                    birthday: birthday,
+                    filmslide:filmslide
+                })
+            })            
         }
         else {
             const token = jwt.sign(req.body, process.env.RESET_PASSWORD_KEY, { expiresIn: '15m' });
@@ -149,8 +155,13 @@ router.get('/confirm-register/:token',(req,res) => {
 router.get('/login', (req, res) => {
     if (req.session.user){
         res.redirect('/');
-    } else
-    res.render('auth/login');
+    } else{
+        Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+            res.render('auth/login',{
+                filmslide:filmslide
+            });
+        })        
+    }    
 })
 
 //post login
@@ -158,48 +169,57 @@ router.post('/login', (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
     User.findOne({ email: email }, function (err, user) {
-        if (err) return console.log(err);
-        if (user) {
-                bcrypt.compare(password, user.password, (err, result) => {
-                    if (err) return console.log(err);
-                    if (result) {
-                        if (user.block.type!=0) {
-                            var mes;
-                            if (user.block.type==-1)  mes="Tài khoản của bạn bị chặn vì vi phạm chính sách, liên hệ MEGAS để được hỗ trợ";
-                            else {
-                                var time=user.block.dateto.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;
-                                var date=user.block.dateto.toLocaleDateString('en-GB');
-                                mes="Tài khoản của bạn bị chặn đến "+date+" "+time+" vì vi phạm chính sách, liên hệ MEGAS để được hỗ trợ";
-                            }
-                            res.render('auth/login',{
+        Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){        
+            if (err) return console.log(err);
+            if (user) {
+                    bcrypt.compare(password, user.password, (err, result) => {
+                        if (err) return console.log(err);
+                        if (result) {
+                            if (user.block.type!=0) {
+                                var mes;
+                                if (user.block.type==-1)  mes="Tài khoản của bạn bị chặn vì vi phạm chính sách, liên hệ MEGAS để được hỗ trợ";
+                                else {
+                                    var time=user.block.dateto.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;
+                                    var date=user.block.dateto.toLocaleDateString('en-GB');
+                                    mes="Tài khoản của bạn bị chặn đến "+date+" "+time+" vì vi phạm chính sách, liên hệ MEGAS để được hỗ trợ";
+                                }
+                                res.render('auth/login',{
+                                    value: email,
+                                    mes: mes,
+                                    filmslide:filmslide
+                                })
+                            } else{
+                                req.session.user = email;
+                                res.redirect('/')
+                            } 
+                        }
+                        else {
+                            res.render('auth/login', {
                                 value: email,
-                                mes: mes
+                                mes: 'Sai mật khẩu',
+                                filmslide:filmslide
                             })
-                        } else{
-                            req.session.user = email;
-                            res.redirect('/')
-                        } 
-                    }
-                    else {
-                        res.render('auth/login', {
-                            value: email,
-                            mes: 'Sai mật khẩu'
-                        })
-                    }
+                        }
+                    })
+            }
+            else {
+                res.render('auth/login', {
+                    value: email,
+                    mes: 'Tài khoản không tôn tại',
+                    filmslide:filmslide
                 })
-        }
-        else {
-            res.render('auth/login', {
-                value: email,
-                mes: 'Tài khoản không tôn tại'
-            })
-        }
+            }
+        })
     })
 })
 
 //get forgetPassword
 router.get('/forget', (req, res) => {
-    res.render('auth/forgetPass');
+    Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+        res.render('auth/forgetPass',{
+            filmslide:filmslide
+        });
+    })    
 })
 
 //post forgetPW
@@ -255,14 +275,21 @@ router.post('/forget', (req, res) => {
             transporter.sendMail(data, function (err, info) {
                 if (err) {
                     console.log(err);
-                    res.render('auth/forgetPass',{
-                        mes:'Gửi thất bại'
-                    });                                              
+                    Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+                        res.render('auth/forgetPass',{
+                            mes:'Gửi thất bại',
+                            filmslide:filmslide
+                        });
+                    })
+                                                                  
                 } else {
                     console.log('Message sent: ' + info.response);
-                    res.render('auth/forgetPass', {
-                        mes: 'Đã gửi link rest password đến mail'
-                    });
+                    Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+                        res.render('auth/forgetPass', {
+                            mes: 'Đã gửi link rest password đến mail',
+                            filmslide:filmslide
+                        });
+                    })                    
                 }
             });
         }
@@ -271,41 +298,48 @@ router.post('/forget', (req, res) => {
 router.get('/reset/:id/:token', (req, res) => {
     const { token, id } = req.params;
     User.findById(id, (err, us) => {
-        jwt.verify(token, process.env.RESET_PASSWORD_KEY + us.password, function (err, decodedData) {
-            if (decodedData) {
-                res.render('auth/resetPass');
-            } else {
-                res.status(404).render('error', {
-                    mes: 'Page Not Found'
-                });
-            }
-        })
+        Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+            jwt.verify(token, process.env.RESET_PASSWORD_KEY + us.password, function (err, decodedData) {
+                if (decodedData) {
+                    res.render('auth/resetPass',{
+                        filmslide:filmslide
+                    });
+                } else {
+                    res.status(404).render('error', {
+                        mes: 'Page Not Found'
+                    });
+                }
+            })
+        })        
     })
 })
 router.post('/reset/:id/:token', (req, res) => {
     const { token, id } = req.params;
     const { newpass } = req.body;
     User.findOne({ _id: id }, function (err, us) {
-        jwt.verify(token, process.env.RESET_PASSWORD_KEY + us.password, function (err, decoded) {
-            if (err) return console.log(err);
-            if (decoded) {
-                if (us) {
-                    bcrypt.hash(newpass, 10, function (err, hash) {
-                        us.password = hash;
-                        us.save(function (err) {
-                            if (err) return console.log(err);
-                            res.render('auth/resetPass', {
-                                mes: 'Đặt lại mật khẩu thành công'
-                            });
+        Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+            jwt.verify(token, process.env.RESET_PASSWORD_KEY + us.password, function (err, decoded) {
+                if (err) return console.log(err);
+                if (decoded) {
+                    if (us) {
+                        bcrypt.hash(newpass, 10, function (err, hash) {
+                            us.password = hash;
+                            us.save(function (err) {
+                                if (err) return console.log(err);
+                                res.render('auth/resetPass', {
+                                    mes: 'Đặt lại mật khẩu thành công',
+                                    filmslide:filmslide
+                                });
+                            })
                         })
-                    })
+                    }
+                } else {
+                    res.status(404).render('error', {
+                        mes: 'Page Not Found'
+                    });
                 }
-            } else {
-                res.status(404).render('error', {
-                    mes: 'Page Not Found'
-                });
-            }
-        })
+            })
+        })        
     })
 })
 
