@@ -62,6 +62,8 @@ server.listen(port,function(){
 });
 var checkPayment = require('./fcServer/checkPayment')
 checkPayment
+var resetVoucher = require('./fcServer/resetVoucher')
+resetVoucher
 
 var auth = require('./routes/auth');
 var user = require('./routes/user');

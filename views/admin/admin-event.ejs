@@ -62,6 +62,8 @@
                                                         <div style="display: none;" class="inputkhuyenmai">
                                                             <input type="text" placeholder="Mã khuyến mã" name="code"/>
                                                             <input type="number" placeholder="Giá trị(%)" name="value"/>
+                                                            Từ ngày<input type="date" name="datefrom"/>
+                                                            Đến ngày<input type="date" name="dateto"/>
                                                         </div>                                                        
                                                         <label class="label-chitiet" for="">Nội dung</label>
                                                         <textarea class="input-sua" id="eventContent" name="content"></textarea>
@@ -79,24 +81,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row" style="width: 15%">
-                                <img style="width: 100%" src="/img/no_img.webp" alt="">
-                            </th>
-                            <td style="width: 20%;">
-                                DISCOUNT 50% CHO NGUYỄN HẰNG
-                            </td>
-                            <td>20/02/2022</td>
-                            <td>DISCOUNT 50% CHO NGUYỄN...</td>
-                            <td>
-                                <div class="btn-mode">
-                                    <button type="button" id="btnEditEvent"><i class="fa fa-pencil-square-o"
-                                            aria-hidden="true"></i></button>
-                                    <button type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-
+                        <%events.forEach(function(event){%> 
+                            <tr>
+                                <th scope="row" style="width: 15%">
+                                    <img style="width: 100%" src="<%=event.photo%>" alt="">
+                                </th>
+                                <td style="width: 20%;">
+                                    <%=event.title%>
+                                </td>
+                                <td><%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%></td>
+                                <td><%-event.content%></td>
+                                <td>
+                                    <div class="btn-mode">
+                                        <button type="button" id="btnEditEvent"><i class="fa fa-pencil-square-o"
+                                                aria-hidden="true"></i></button>
+                                        <button type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <%})%>
                         <!-- form nút sửa -->
                         <form action="" method="">
                             <div id="modalEditEvent" class="modal">

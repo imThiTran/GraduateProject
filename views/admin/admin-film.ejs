@@ -8,8 +8,8 @@
                     flex-wrap: wrap;">
                         <div class="h5-detail">Quản lý phim</div>
                         <form action="" method="get" class="purchase-search search-admin" style="width: 40%; padding-left: 0 !important">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên phim" name="name">
-                            <button class="submitsearch btn btn-buy btnSearchTime" type="submit"><i class="fa fa-search"></i></button>
+                            <input type="text" class="form-control" placeholder="Tìm kiếm" name="name" id="myInput">
+                            <button class="submitsearch btn btn-buy btnSearchTime" type="button"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <span class="line-detail"></span>
@@ -446,7 +446,16 @@
             }
         }
     </script>
-
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#bodyAdd tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });        
+      });
+    });
+</script>
     
 
     </html>

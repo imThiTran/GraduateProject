@@ -32,6 +32,7 @@ Category.find({}, function (err, categories) {
 router.post('/', (request, response) => {
     var { ticket, fullname, phone, code } = request.body
     var body = request.body    
+    var today = Date.now() 
     var snacks=[]
     for (key in body ) {
         if(key!="ticket" && key!="idst"){
@@ -94,6 +95,9 @@ router.post('/', (request, response) => {
                             checkvoucher=false
                         }
                     })
+                    if(voucher.datefrom > today || voucher.dateto < today){
+                        checkvoucher=false
+                    }
                 }else{
                     checkvoucher=false
                 }          

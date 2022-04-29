@@ -12,6 +12,8 @@ var bcrypt = require('bcrypt');
 var shortid=require('shortid');
 const bill = require('../models/bill');
 const room = require('../models/room');
+var QRCode = require('qrcode')
+var transporter = require('../config/nodemailer')
 
 //loai bo khoang trang trong chuoi
 function cleanText(text){
@@ -219,11 +221,19 @@ router.get('/purchase', (req,res)=>{
                         rooms.forEach(room => {
                             if(bill.ticket[0].idShowtime ==  showtime._id && showtime.idFilm==film._id && showtime.idRoom == room._id){
                                 bill.film=film.nameEN
+                                bill.subname=film.nameVN
                                 bill.room=room.name
                                 bill.photo=film.photo
-                                if(bill.checkin=="0" && generateDate(showtime.date, showtime.timeStart).getTime()< (new Date()).getTime()){
+                                bill.date=showtime.date
+                                bill.timeStart=showtime.timeStart
+                                if(bill.checkin=="0" && generateDate(showtime.date, showtime.timeStart).getTime()> (new Date()).getTime()){
                                     billunuse.push(bill)                                    
                                 }else{
+                                    if(bill.checkin=="0"){
+                                        bill.check="0"
+                                    }else{
+                                        bill.check="1"
+                                    }
                                     billused.push(bill)
                                 }
                             }
@@ -242,4 +252,34 @@ router.get('/purchase', (req,res)=>{
     
 })
 
+router.get('/sendqr', (req,res) => {
+    var {idbill} =req.query
+    Bill.findById(idbill, function(err,bill){
+        if(bill){
+            QRCode.toDataURL(`${bill._id}`, function (err, url) { 
+                const data = {                  
+                    to: bill.user,
+                    subject: 'Vé xem phim của MEGAS',
+                    attachDataUrls: true,
+                    html:`<img src="${url}">`
+                }
+                transporter.sendMail(data, function (err, info) {
+                    if (err) {
+                        console.log(err);
+                        res.send({
+                            status:false,
+                            msg:"Gửi thất bại."
+                        })
+                    } else {
+                        console.log('Message sent: ' + info.response);  
+                        res.send({
+                            status:true,
+                            msg:"Gửi thành công về email của đơn hàng."
+                        })                                                                   
+                    }
+                });
+            })
+        }
+    })
+})
 module.exports = router;

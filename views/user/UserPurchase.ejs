@@ -27,8 +27,8 @@
 
                             <form action="" class="form-search">
                                 <div class="search-user" >
-                                    <input type="text" class="form-control input-idticket" placeholder="Tìm kiếm theo mã vé..." name="name">
-                                    <button class="btn btn-buy btnSearchTime btn-search-ticket" type="submit"><i class="fa fa-search"></i></button>
+                                    <input type="text" id="myInput" class="form-control input-idticket" placeholder="Tìm kiếm" name="name">
+                                    <button class="btn btn-buy btnSearchTime btn-search-ticket" type="button"><i class="fa fa-search"></i></button>
                                 </div>
                             </form>
 
@@ -36,7 +36,7 @@
                                 <div class="tab-pane active" id="option1" role="tabpanel">
                                     <form action="" method="get">
                                         <div class="order-common">
-                                            <div class="purchase-order">      
+                                            <div class="purchase-order" id="billun">      
                                                 <%billunuse.forEach(function(bill){%> 
                                                     <div class="purchase-film">
                                                         <a class="ticket" data-bs-toggle="collapse" href="#collapseExample<%=bill._id%>" 
@@ -51,12 +51,13 @@
                                                                         <div class="up-side">
                                                                             <div class="name-side">
                                                                                 <div class="name-EN"><%= bill.film%></div>
-                                                                                <div class="name-order-list"><%= bill.film%></div>
+                                                                                <div class="name-order-list"><%= bill.subname%></div>
                                                                             </div>
-                                                                            <button type="button" class="btn-common btn-qr">Mã QR</button>
+                                                                            <button type="button" class="btn-common btn-qr" value="<%=bill._id%>">Mã QR</button>
                                                                         </div>
                                                                         <div class="time-order">
-                                                                            <span>Đã đặt lúc 12:00 02/02/2021 </span>
+                                                                            <% var date = new Date(bill.timebooking) %>
+                                                                            <span>Đã đặt lúc <%= date.toTimeString().split(' ')[0]+" "+bill.timebooking.toJSON().slice(0,10).split('-').reverse().join('/')%> </span>
                                                                             <div class="price-order-list"><b>Tổng tiền:</b> <%= bill.total%> VNĐ</div>
                                                                         </div>
                                                                     </div>
@@ -69,7 +70,7 @@
                                                             <div class="card detail-purchase">
                                                                 <div class="row-detail">
                                                                     <div>Suất chiếu:</div>
-                                                                    <div>22/04/2022 <span style="margin-left: 10px;"><i style="margin-right: 5px;" class="fa-solid fa-film"></i>09:45 AM</span></div>
+                                                                    <div><%=bill.date.split("-").reverse().join("/");%> <span style="margin-left: 10px;"><i style="margin-right: 5px;" class="fa-solid fa-film"></i><%=bill.timeStart%></span></div>
                                                                 </div>
 
                                                                 <div class="row-detail">
@@ -92,21 +93,21 @@
                                                                     </div>                                                                    
                                                                     <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span><%=totalticket%> VNĐ</div>
                                                                 </div>
-                                                                
-                                                                <div class="row-detail">
-                                                                    <div>COMBO:</div>
-                                                                    <% var snacksarr=[] %>
-                                                                    <% var totalsn=0 %>
-                                                                    <% bill.snack.forEach( function(sn){ %>
-                                                                        <%
-                                                                            snacksarr.push(sn.name+" (x"+sn.quantity+")")
-                                                                            totalsn+=sn.price
-                                                                        %>
-                                                                    <% }); %>
-                                                                    <div><%= snacksarr.join(', ') %></div>                                                                    
-                                                                    <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span><%=totalsn%> VNĐ</div>
-                                                                </div>
-    
+                                                                <% var snacksarr=[] %>
+                                                                <% var totalsn=0 %>
+                                                                <% bill.snack.forEach( function(sn){ %>
+                                                                    <%
+                                                                        snacksarr.push(sn.name+" (x"+sn.quantity+")")
+                                                                        totalsn+=sn.price
+                                                                    %>
+                                                                <% }); %>
+                                                                <% if(snacksarr.length!=0){ %>
+                                                                    <div class="row-detail">
+                                                                        <div>COMBO:</div>                                                                    
+                                                                        <div><%= snacksarr.join(', ') %></div>                                                                    
+                                                                        <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span><%=totalsn%> VNĐ</div>
+                                                                    </div>
+                                                                <% } %>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -118,7 +119,7 @@
                                 <div class="tab-pane" id="option2" role="tabpanel">
                                     <form action="" method="get">
                                         <div class="order-common">
-                                            <div class="purchase-order">
+                                            <div class="purchase-order" id="billuse">
                                                 <%billused.forEach(function(bill){%> 
                                                     <div class="purchase-film">
                                                         <a class="ticket" data-bs-toggle="collapse" href="#collapseExample<%=bill._id%>" 
@@ -133,12 +134,19 @@
                                                                         <div class="up-side">
                                                                             <div class="name-side">
                                                                                 <div class="name-EN"><%= bill.film%></div>
-                                                                                <div class="name-order-list"><%= bill.film%></div>
+                                                                                <div class="name-order-list"><%= bill.subname%></div>
                                                                             </div>
-                                                                            <span class="ticket-used">Đã sử dụng</span>
+                                                                            <span class="ticket-used">
+                                                                                <% if(bill.check=="0"){ %>
+                                                                                    Đã hết hạn
+                                                                                <% } else{ %>  
+                                                                                    Đã sử dụng
+                                                                                <% } %>
+                                                                            </span>
                                                                         </div>
                                                                         <div class="time-order">
-                                                                            <span>Đã đặt lúc 12:00 02/02/2021 </span>
+                                                                            <% var date = new Date(bill.timebooking) %>
+                                                                            <span>Đã đặt lúc <%= date.toTimeString().split(' ')[0]+" "+bill.timebooking.toJSON().slice(0,10).split('-').reverse().join('/')%> </span>
                                                                             <div class="price-order-list"><b>Tổng tiền:</b> <%= bill.total%> VNĐ</div>
                                                                         </div>
                                                                     </div>
@@ -151,7 +159,7 @@
                                                             <div class="card detail-purchase">
                                                                 <div class="row-detail">
                                                                     <div>Suất chiếu:</div>
-                                                                    <div>22/04/2022 <span style="margin-left: 10px;"><i style="margin-right: 5px;" class="fa-solid fa-film"></i>09:45 AM</span></div>
+                                                                    <div><%=bill.date.split("-").reverse().join("/");%> <span style="margin-left: 10px;"><i style="margin-right: 5px;" class="fa-solid fa-film"></i><%=bill.timeStart%></span></div>
                                                                 </div>
 
                                                                 <div class="row-detail">
@@ -174,10 +182,7 @@
                                                                     </div>                                                                    
                                                                     <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span><%=totalticket%> VNĐ</div>
                                                                 </div>
-                                                                
-                                                                <div class="row-detail">
-                                                                    <div>COMBO:</div>
-                                                                    <% var snacksarr=[] %>
+                                                                <% var snacksarr=[] %>
                                                                     <% var totalsn=0 %>
                                                                     <% bill.snack.forEach( function(sn){ %>
                                                                         <%
@@ -185,10 +190,13 @@
                                                                             totalsn+=sn.price
                                                                         %>
                                                                     <% }); %>
-                                                                    <div><%= snacksarr.join(', ') %></div>                                                                    
-                                                                    <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span><%=totalsn%> VNĐ</div>
-                                                                </div>
-    
+                                                                <% if(snacksarr.length!=0){ %>
+                                                                    <div class="row-detail">
+                                                                        <div>COMBO:</div>                                                                    
+                                                                        <div><%= snacksarr.join(', ') %></div>                                                                    
+                                                                        <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span><%=totalsn%> VNĐ</div>
+                                                                    </div>
+                                                                <% } %> 
                                                             </div>
                                                         </div>
                                                     </div>
@@ -207,4 +215,43 @@
     </section>
 </body>
 <%- include ('../layouts/footer') %>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(".btn-qr").click(function (e) {
+        var idbill = $(this).val()          
+        $.ajax({
+                url: "/user/sendqr",
+                method: "GET",
+                contentType: "application/json",
+                data: {idbill:idbill},
+                success: function (result) {
+                    console.log(result)
+                    if(result.status){
+                        Swal.fire({
+                            icon: 'success',
+                            title: result.msg
+                        })
+                    }else{
+                        Swal.fire({
+                            icon: 'warning',
+                            title: result.msg
+                        })
+                    }        
+                }
+            }) 
+    })
+</script>
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#billun").find("> div").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+        $("#billuse").find("> div").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
 </html>

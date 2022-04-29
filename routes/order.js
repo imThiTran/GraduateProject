@@ -229,6 +229,7 @@ router.post('/snack', (req, res) => {
 
 router.get('/uservoucher', (req,res) => {
     var {code} =req.query
+    var today = Date.now()    
     Voucher.findOne({code:code},function(err,voucher){
         var check=true
         if(voucher){
@@ -237,6 +238,9 @@ router.get('/uservoucher', (req,res) => {
                     check=false
                 }
             })
+            if(voucher.datefrom > today || voucher.dateto < today){
+                check=false
+            }
         }else{
             check=false
         }
