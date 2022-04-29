@@ -13,12 +13,12 @@
                 </form>
             </div>
             <span class="line-detail"></span>            
-                <table class="table table-striped  table-bordered" style="font-size: 15px;">
+                <table class="table table-bordered" style="font-size: 15px;">
                     <thead>
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Tiêu đề</th>
-                            <th scope="col">Ngày tạo</th>
+                            <th scope="col" style="width: 9%;">Ngày tạo</th>
                             <th scope="col">Nội dung</th>
                             <th scope="col" style="width: 1%;">
                                 <div class="btn-admin">
@@ -28,51 +28,65 @@
                                         Thêm mới</button>
                                     <form action="/admin/event/add" method="post" enctype="multipart/form-data">
                                         <div id="modalAddEvent" class="modal">
-                                            <div class="modal-content">
+                                            <div class="modal-content content-event">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Thêm sự kiện</h4>
                                                     <button type="button" class="close-event close"
                                                         data-dismiss="modal">&times;</button>
                                                 </div>
-                                                <div class="modal-body-plus">
-                                                    <div class="modal-left">
-                                                        <div class="col-5 img-add">
-                                                            <img id="img-edit-item" class="imgAddPreview imgadd"
-                                                            src="../img/no_img.webp" style="width: 100%;">
-                                                            <input type="file" class="form-control imgChangeAdd"
-                                                                name="photo" id="img1" onchange="imgAdd()"
-                                                                accept="image/png, image/jpeg, image/jpg"
-                                                                style="display: none;">
-                                                            <label class="btn-common" id="btn-edit-img-item"
-                                                                for="img1">Thêm ảnh</label>
+                                                <div class="modal-body-plus modal-body-event">
+                                                    <div class="event-up">
+                                                        <div class="modal-left">
+                                                            <div class="col-5 img-add img-event">
+                                                                <img id="img-edit-item" class="imgAddPreview imgadd"
+                                                                src="../img/no_img.webp" style="width: 100%;">
+                                                                <input type="file" class="form-control imgChangeAdd"
+                                                                    name="photo" id="img1" onchange="imgAdd()"
+                                                                    accept="image/png, image/jpeg, image/jpg"
+                                                                    style="display: none;">
+                                                                <label class="btn-common" id="btn-edit-img-item"
+                                                                    for="img1">Thêm ảnh</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-right" style="padding-top: 19px;">                                                                                                               
+                                                            <label class="label-chitiet" for="">Tiêu đề</label>                                                                                                                
+                                                            <div class="input-ten">
+                                                                <input style="width: 100% !important;padding: 10px;" class="form-control input-sua" placeholder="Tiêu đề" type="text" name="title">
+                                                            </div>
+                                                            <label class="label-chitiet" for="">Thể loại</label> 
+                                                            <div>
+                                                                <select name="type" class="form-control selecttype" onchange="checkchange()">                                                            
+                                                                    <option value="Tin tức">Tin tức</option>
+                                                                    <option value="Khuyến mãi">Khuyến mãi</option>
+                                                                </select>
+                                                            </div>
+                                                            <div style="display: none;" class="inputkhuyenmai">
+                                                                <div class="add-km">
+                                                                    <input class="form-control idkm" type="text" placeholder="Mã khuyến mã" name="code"/>
+                                                                    <input class="form-control valuekm" type="number" placeholder="Giá trị(%)" name="value"/>
+                                                                </div>
+                                                                <div class="add-km" style="margin-top: 5px;">
+                                                                    <div class="time-km" style="margin-right: 5px;">
+                                                                        Từ ngày<input class="form-control date-from-km" type="date" name="datefrom"/>
+                                                                    </div>
+                                                                    <div class="time-km">
+                                                                        Đến ngày<input class="form-control date-to-km" type="date" name="dateto"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>        
                                                         </div>
                                                     </div>
-                                                    <div class="modal-right">                                                                                                               
-                                                        <label class="label-chitiet" for="">Tiêu đề</label>                                                                                                                
-                                                        <div class="input-ten">
-                                                            <input style="width: 100% !important;" class="input-sua" placeholder="Tiêu đề" type="text" name="title">
-                                                        </div>
-                                                        <label class="label-chitiet" for="">Thể loại</label> 
-                                                        <div>
-                                                            <select name="type" class="selecttype" onchange="checkchange()">                                                            
-                                                                <option value="Tin tức">Tin tức</option>
-                                                                <option value="Khuyến mãi">Khuyến mãi</option>
-                                                            </select>
-                                                        </div>
-                                                        <div style="display: none;" class="inputkhuyenmai">
-                                                            <input type="text" placeholder="Mã khuyến mã" name="code"/>
-                                                            <input type="number" placeholder="Giá trị(%)" name="value"/>
-                                                            Từ ngày<input type="date" name="datefrom"/>
-                                                            Đến ngày<input type="date" name="dateto"/>
-                                                        </div>                                                        
+                                                    <div class="event-down">
                                                         <label class="label-chitiet" for="">Nội dung</label>
                                                         <textarea class="input-sua" id="eventContent" name="content"></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button"
-                                                        class="btn btn-secondary close-event">Đóng</button>
-                                                    <button type="submit" class="btn-common close-event">Thêm</button>
+                                                <div class="modal-footer footer-add">
+                                                    <div class="footer-add-btn">
+                                                        <button type="button"
+                                                        class="btn btn-secondary close-event  close-CL">Đóng</button>
+                                                        <button type="submit" class="btn-common close-event  close-AC">Thêm</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,13 +98,13 @@
                         <%events.forEach(function(event){%> 
                             <tr>
                                 <th scope="row" style="width: 15%">
-                                    <img style="width: 100%" src="<%=event.photo%>" alt="">
+                                    <img class="event-image" src="<%=event.photo%>" alt="">
                                 </th>
-                                <td style="width: 20%;">
+                                <td class="event-tit">
                                     <%=event.title%>
                                 </td>
                                 <td><%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%></td>
-                                <td><%-event.content%></td>
+                                <td class="event-des"><%-event.content%></td>
                                 <td>
                                     <div class="btn-mode">
                                         <button type="button" id="btnEditEvent"><i class="fa fa-pencil-square-o"
