@@ -79,6 +79,7 @@ var adminUser = require('./routes/admin-user');
 var adminRoom = require('./routes/admin-room');
 var adminEvent = require('./routes/admin-event');
 var adminSnack = require('./routes/admin-snack');
+var adminStatistical = require('./routes/admin-statistical')
 
 var checkUser = require('./middelwares/checkUser.middleware');
 var checkLogin = require('./middelwares/checkLogin.middleware');
@@ -101,6 +102,7 @@ app.use('/admin/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,che
 app.use('/admin/room',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminRoom);
 app.use('/admin/event',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminEvent);
 app.use('/admin/snack',adminSnack);
+app.use('/admin/statistical',checkLogin,checkUser,checkAdmin,adminStatistical);
 
 app.use((req, res, next) => {
   res.status(404).render('error',{

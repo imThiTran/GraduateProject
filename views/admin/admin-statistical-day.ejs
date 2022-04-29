@@ -1,0 +1,159 @@
+    <div class="wrapper-index">
+        <div class="ad-movie">
+            <div class="wrap-headerAd">
+                <div class="h5-detail">Thống kê doanh thu</div>
+            </div>
+            <span class="line-detail"></span>
+            <div style="display: flex;">
+                <select name="" class="form-select" style="width: 25%; margin: 20px 0;">
+                    <option>Chọn kiểu thống kê</option>
+                    <option href="" value="">Thống kê theo ngày </option>
+                    <option href="" value="">Thống kê theo tháng </option>
+                    <option href="" value="">Thống kê theo phim</option>
+                    <option href="" value="">Thống kê theo đồ ăn vặt</option>
+                </select>
+                <ul class="nav nav-tabs menu-stat">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#stat-day1" data-bs-toggle="tab" data-bs-target="#stat-day1" role="tab"
+                            aria-controls="status" aria-selected="true">Báo cáo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: #eee;" class="nav-link" href="#stat-day2" data-bs-toggle="tab"
+                            data-bs-target="#stat-day2" role="tab" aria-controls="status" aria-selected="true">Biểu đồ</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="stat-day1" role="tabpanel">
+                    <table class="table table-striped  table-bordered" style="font-size: 15px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Ngày</th>
+                                <th scope="col">SL vé đơn</th>
+                                <th scope="col">SL vé couple</th>
+                                <th scope="col">Doanh thu</th>
+                                <th scope="col">Khuyến mãi</th>
+                                <th scope="col">Thực thu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% 
+                                const reducer = (accumulator, curr) => accumulator + curr;
+                            %>
+                            <tr>
+                                <th scope="row" >
+                                    Tổng
+                                </th>
+                                <th style="width: 20%;">
+                                    <%= tk1.reduce(reducer)%>
+                                </th>
+                                <th>
+                                    <%= tk2.reduce(reducer)%>
+                                </th>
+                                <th>
+                                    <%= datamonthfull.reduce(reducer).toLocaleString('de-DE')%> VNĐ
+                                </th>
+                                <th>
+                                    <%= (datamonthfull.reduce(reducer)-datamonth.reduce(reducer)).toLocaleString('de-DE')%> VNĐ
+                                </th>
+                                <th>
+                                    <%= datamonth.reduce(reducer).toLocaleString('de-DE')%> VNĐ
+                                </th>
+                            </tr>  
+                            <% for(var i=0; i<days; i++) {%>
+                                <% if(datamonthfull[i]!=0){ %>
+                                    <tr>
+                                        <td scope="row">
+                                            <%=i+1%>/<%=month%>/<%=year%>
+                                        </td>
+                                        <td style="width: 20%;">
+                                            <%= tk1[i] %>
+                                        </td>
+                                        <td>
+                                            <%= tk2[i] %>
+                                        </td>
+                                        <td>
+                                            <%=datamonthfull[i].toLocaleString('de-DE')%> VNĐ
+                                        </td>
+                                        <td>
+                                            <%= (datamonthfull[i]-datamonth[i]).toLocaleString('de-DE')%> VNĐ
+                                        </td>
+                                        <td>
+                                            <%=datamonth[i].toLocaleString('de-DE')%> VNĐ
+                                        </td>
+                                    </tr>  
+                                <% } %>                                                              
+                            <% } %>                 
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="stat-day2" role="tabpanel">
+                    <div class="container">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <form action="" method="" style="    text-align: center;">
+                        <input class="ipgetmonth" type="month" name="getmonth">
+                        <button class="xemngay" type="button">Xem</button>
+                    </form>
+                    <script>
+                        let myChart = document.getElementById('myChart').getContext('2d');
+                        // Global Options
+                        Chart.defaults.global.defaultFontFamily = 'sans-serif';
+                        Chart.defaults.global.defaultFontSize = 18;
+                        Chart.defaults.global.defaultFontColor = '#777';
+
+                        let massPopChart = new Chart(myChart, {
+                            type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                            data: {
+                                labels: ['01/12', '02/12', '03/12', '04/12', '05/12', '06/12',
+                                    '07/12', '08/12', '09/12', '10/12'],
+                                datasets: [{
+                                    label: 'Doanh thu',
+                                    data: [
+                                        617594,
+                                        781045,
+                                        653060,
+                                        596519,
+                                        495162,
+                                        395072,
+                                        456930,
+                                        563244,
+                                        493720
+                                    ],
+                                    backgroundColor: [
+                                        'rgb(254 199 88)',
+                                    ],
+                                }]
+                            },
+                            options: {
+                                title: {
+                                    display: true,
+                                    text: 'DOANH THU THÁNG 12',
+                                    fontSize: 25
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    labels: {
+                                        fontColor: '#000'
+                                    }
+                                },
+                                layout: {
+                                    padding: {
+                                        left: 50,
+                                        right: 0,
+                                        bottom: 0,
+                                        top: 0
+                                    }
+                                },
+                                tooltips: {
+                                    enabled: true
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    
