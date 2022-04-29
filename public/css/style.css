@@ -814,7 +814,7 @@ a:hover {
     background: #333;
     border: 2px solid #333;
     border-radius: 5px;
-    height: 600px;
+    height: 100%;
     color: #eee
 }
 
@@ -999,24 +999,42 @@ a:hover {
 }
 
 .img-order-list {
-    width: 80px;
-    height: 80px;
-    border-radius: 5px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: 50% 20%;
 }
 
 .name-order-list, .total-order-list, .price-order-list {
-    font-style: italic;
     font-size: 1rem;
 }
-
+.name-EN{
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
 .total-order-list {
     font-size: 0.8rem;
 }
-
-.price-order-list {
-    color: #fdc85b;
+.up-side{
+    display: flex;
+    justify-content: space-between;
 }
-
+.btn-qr{
+    margin-top: 0px !important;
+    height: 40px;
+    padding: 5px 10px !important;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+.price-order-list-sub {
+    float: right;
+    font-size: 16px;
+}
+.ticket:hover{
+    color: #eee!important;
+}
 .total-order {
     font-size: 16px;
     text-align: end;
@@ -1034,15 +1052,21 @@ a:hover {
 }
 
 .time-order {
-    font-style: italic;
     display: flex;
-    flex-direction: column;
-    padding-left: 20px;
-    color: #ebebeb;
-    font-size: 0.8rem;
-
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
 }
-
+.time-order span{
+    font-style: italic;
+    color: rgb(171, 171, 171);
+    font-size: 0.6rem;
+}
+.ticket-used{
+    font-style: italic;
+    color: rgb(171, 171, 171);
+    font-size: 0.8rem;
+}
 .btn-each-order {
     padding-bottom: 20px;
     padding-right: 40px;
@@ -1074,12 +1098,40 @@ a:hover {
 }
 .row-detail{
     display: flex;
+    padding-left: 10px;
+    font-size: 16px;
 }
 .row-detail div:nth-child(2){
-    width: 60%;
+    width: 50%;
+    padding-right: 10px;
 }
-.row-detail div:first-child, .row-detail div:last-child{
-    width: 20%;
+.row-detail div:first-child{
+    font-style: normal;
+}
+.row-detail div:last-child{
+    width: 35%;
+}
+.row-detail div:first-child{
+    width: 18%;
+}
+.row-detail-main{
+    display: flex;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.row-detail-sub{
+    display: flex;
+    width: 100%;
+    padding-top: 10px;
+}
+.row-collapse{
+    padding: 10px;
+}
+
+.name-ticket{
+    width: 100%;
+    padding: 0 20px;
 }
 .detail-purchase{
     background-color: transparent;
@@ -1092,6 +1144,40 @@ a:hover {
     background-color: #454545;
     cursor: pointer;
     border-radius: 5px;
+}
+.purchase-film:hover{
+    background: #545454;
+}
+.btn-ticket{
+    margin-left: 2px;
+    float: left;
+    background: #fbd485;
+    color: #333;
+    border-left: none;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0px;
+    width: 10%;
+    height: 39px;
+    border: none;
+}
+.search-user{
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    margin: 10px 0px;
+}
+.form-search{
+    display: flex;
+    justify-content: flex-end;
+}
+.btn-search-ticket{
+    width: 50px !important;
+    margin-right: 22px !important;
+    height: 36px;
+}
+.input-idticket{
+    font-size: 15px;
+    height: 36px;
 }
 /* login */
 .login-section {
@@ -1118,7 +1204,7 @@ a:hover {
 
 .login-slide {
     width: 650px !important;
-    height: 100%;
+    height: 800px;
     object-fit: cover;
     object-position: 50% 50%;
 }
