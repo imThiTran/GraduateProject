@@ -22,7 +22,8 @@ var BillSchema = mongoose.Schema({
        default: '0'
    },
    discount:{
-       type:String
+       type:String,
+       default: '0'
    },
    total:{
        type:String
