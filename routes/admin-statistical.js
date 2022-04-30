@@ -2,10 +2,23 @@ var express= require('express');
 const ticket = require('../models/ticket');
 var router=express.Router();
 var Bill = require('../models/bill')
+var Showtime = require('../models/showtime')
+var Film = require('../models/film')
+
 
 function daysInMonth(month, year){
     return new Date(year,month,0).getDate();
 }
+
+var sts=[]
+Showtime.find({}, function(err,showtimes){
+    sts=showtimes
+})
+
+var films=[]
+Film.find({}, function(err,fis){
+    films=fis
+})
 
 router.get('/',(req,res) => {
     res.render('admin/admin-statistical')
@@ -21,7 +34,7 @@ router.get('/day',(req,res)=> {
     var tk1=new Array(days)
     var tk2=new Array(days)
     var newbill1 = []
-    Bill.find({}, function(err,bills){
+    Bill.find({payment:'1'}, function(err,bills){
         bills.forEach(bill => {            
             if((bill.timebooking.getMonth()+1)==month && (bill.timebooking.getFullYear())==year) newbill1.push(bill)
         });
@@ -64,7 +77,7 @@ router.get('/month',(req,res)=> {
     var tk1=new Array(12)
     var tk2=new Array(12)
     var newbill1 = []
-    Bill.find({}, function(err,bills){
+    Bill.find({payment:'1'}, function(err,bills){
         bills.forEach(bill => {            
             if((bill.timebooking.getFullYear())==year) newbill1.push(bill)
         });
@@ -98,6 +111,36 @@ router.get('/month',(req,res)=> {
 })
 
 router.get('/film',(req,res)=> {
-    res.render('admin/admin-statistical-film')
+    var datafilm = new Array(films.length)
+    var datafilmfull = new Array(films.length)
+    var tk = new Array(films.length)
+    Bill.find({payment:'1'}, function(err,bills){        
+        for(let i=0;i<datafilm.length;i++){   
+            datafilm[i] =0
+            datafilmfull[i]=0
+            tk[i]=0
+            bills.forEach(bill => {
+                sts.forEach(st => {
+                    if(bill.ticket[0].idShowtime==st._id&&st.idFilm==films[i]._id){
+                        datafilm[i]+=parseInt(bill.total)                 
+                        datafilmfull[i]+=parseInt(bill.totalbill)
+                                                  
+                    }                          
+                })
+            })
+            sts.forEach(st => {
+                if(st.idFilm==films[i]._id){
+                    tk[i]++
+                }
+            })
+        }
+        res.render('admin/admin-statistical-film',{
+            datafilm:datafilm,
+            datafilmfull:datafilmfull,
+            tk:tk,
+            films:films
+        })    
+    })
+   
 })
 module.exports= router;

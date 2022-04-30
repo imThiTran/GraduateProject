@@ -1,3 +1,8 @@
+<script>
+    function daysInMonth(month, year){
+        return new Date(year,month,0).getDate();
+    }
+</script>
     <div class="wrapper-index">
         <div class="ad-movie">
             <div class="wrap-headerAd">
@@ -91,6 +96,9 @@
                     <div class="container">
                         <canvas id="myChart"></canvas>
                     </div>
+                    <input type="hidden" class="datamonth" value="<%= datamonth %>">
+                    <input type="hidden" class="month" value="<%= month %>">
+                    <input type="hidden" class="year" value="<%= year %>">
                     <form action="" method="" style="    text-align: center;">
                         <input class="ipgetmonth" type="month" name="getmonth">
                         <button class="xemngay" type="button">Xem</button>
@@ -101,25 +109,20 @@
                         Chart.defaults.global.defaultFontFamily = 'sans-serif';
                         Chart.defaults.global.defaultFontSize = 18;
                         Chart.defaults.global.defaultFontColor = '#777';
-
+                        var datamonth = $('.datamonth').val()
+                        var month = $('.month').val()
+                        var year = $('.year').val()
+                        var dsngay=[]
+                        for(let day=1;day<=daysInMonth(month,year);day++){
+                            dsngay.push(`${day}/${month}`);                                             
+                        }
                         let massPopChart = new Chart(myChart, {
                             type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                             data: {
-                                labels: ['01/12', '02/12', '03/12', '04/12', '05/12', '06/12',
-                                    '07/12', '08/12', '09/12', '10/12'],
+                                labels: dsngay,
                                 datasets: [{
                                     label: 'Doanh thu',
-                                    data: [
-                                        617594,
-                                        781045,
-                                        653060,
-                                        596519,
-                                        495162,
-                                        395072,
-                                        456930,
-                                        563244,
-                                        493720
-                                    ],
+                                    data: datamonth.split(','),
                                     backgroundColor: [
                                         'rgb(254 199 88)',
                                     ],
@@ -128,7 +131,7 @@
                             options: {
                                 title: {
                                     display: true,
-                                    text: 'DOANH THU THÁNG 12',
+                                    text: 'DOANH THU THÁNG '+month+'/'+year,
                                     fontSize: 25
                                 },
                                 legend: {

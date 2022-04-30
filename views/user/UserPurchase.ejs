@@ -1,5 +1,16 @@
 <%- include ('../layouts/header') %>
 <body>
+    <div class="body-loading">
+        <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <span>Loading</span>
+        </div>
+    </div>
     <%- include ('../layouts/sub-header') %>
     <section class="container userInfo-background">
         <div class="container-fluid">
@@ -218,14 +229,15 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(".btn-qr").click(function (e) {
-        var idbill = $(this).val()          
+        var idbill = $(this).val()
+        $('.body-loading').css('display','block');          
         $.ajax({
                 url: "/user/sendqr",
                 method: "GET",
                 contentType: "application/json",
                 data: {idbill:idbill},
                 success: function (result) {
-                    console.log(result)
+                    $('.body-loading').css('display','none');                    
                     if(result.status){
                         Swal.fire({
                             icon: 'success',

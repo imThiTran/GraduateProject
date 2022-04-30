@@ -223,21 +223,76 @@ router.get('/confirm', (req, res) => {
                     bill.payment = 1;
                     bill.save(function (err,bill) {
                         if (err) throw err;
-                        QRCode.toDataURL(`${bill._id}`, function (err, url) { 
-                            const data = {                  
-                                to: bill.user,
-                                subject: 'Vé xem phim của MEGAS',
-                                attachDataUrls: true,
-                                html:`<img src="${url}">`
-                            }
-                            transporter.sendMail(data, function (err, info) {
-                                if (err) {
-                                    console.log(err);                            
-                                } else {
-                                    console.log('Message sent: ' + info.response);                                                      
-                                }
-                            });
+                        var tk=[]
+                        bill.ticket.forEach(tiki => {
+                            tk.push(tiki.name)
                         })
+                        Showtime.findById(bill.ticket[0].idShowtime, function(err,st){
+                            Film.findById(st.idFilm, function(err,film){
+                                Room.findById(st.idRoom,function(err,room){
+                                    QRCode.toDataURL(`${bill._id}`, function (err, url) { 
+                                        const data = {                  
+                                            to: bill.user,
+                                            subject: 'Vé xem phim của MEGAS',
+                                            attachDataUrls: true,
+                                            html:`<div style="
+                                            width: 100%;
+                                            border-color: #fdbc3b;
+                                            background-color: #333;
+                                            align-items: center;
+                                            color: #eee;
+                                            padding: 50px 230px;
+                                            ">
+                                                <img src="https://res.cloudinary.com/dhoovijbu/image/upload/v1648484867/logo_gdjebv.gif"
+                                                style="width: 100%; max-width: 300px;margin-left: 30px;">
+                                                <div class="card-body" style="
+                                                box-shadow: 15px 10px #fdbc3b;
+                                                width: 18rem;
+                                                border: 2px solid #fdbc3b;
+                                                margin-top: 30px;
+                                                border-radius: 10px;
+                                                padding: 30px;
+                                                
+                                                ">
+                                                    <h4 style="color: #fdbc3b;margin: 0px;font-size: 24px;
+                                                    text-align: center;">Cảm ơn bạn đã đặt vé tại MEGAS CINEMA</h4>
+                                                    <div style="text-align: center;">
+                                                    <img style="width: 200px" src="${url}">
+                                                    </div>
+                                                    <div style="font-family: 'Saira Semi Condensed', sans-serif;font-size: 16px;
+                                                    line-height: 1.4;margin-top: 20px;">
+                                                        <div style="display: flex;">
+                                                            <div style="width: 100px;">Tên phim: </div>
+                                                            <div>${film.nameEN}</div>
+                                                        </div>
+                                                        <div style="display: flex;">
+                                                            <div style="width: 100px;">Suất chiếu: </div>
+                                                            <div>${st.date.split("-").reverse().join("/")}  ${st.timeStart}</div>
+                                                        </div>
+                                                        <div style="display: flex;">
+                                                            <div style="width: 100px;">Rạp: </div>
+                                                            <div>${room.name}</div>
+                                                        </div>
+                                                        <div style="display: flex;">
+                                                            <div style="width: 100px;">Ghế: </div>
+                                                            <div>${tk.join(' ,')}</d>
+                                                        </div>
+                                                    </div>
+                                                    <div style="font-size: 12px;font-style: italic;color: white;margin-top: 10px;">*Vui lòng đến quầy soát vé 15 phút trước giờ chiếu</div>
+                                                </div>
+                                            </div>`
+                                        }
+                                        transporter.sendMail(data, function (err, info) {
+                                            if (err) {
+                                                console.log(err);                            
+                                            } else {
+                                                console.log('Message sent: ' + info.response);                                                      
+                                            }
+                                        });
+                                    })
+                                })
+                            })
+                        })                        
                     });
                     Showtime.findById(bill.ticket[0].idShowtime, function (err, st) {
                         Film.findById(st.idFilm, function (err, film) {

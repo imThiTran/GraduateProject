@@ -110,37 +110,55 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <% 
+                                const reducer = (accumulator, curr) => accumulator + curr;
+                            %>
                             <tr>
-                                <th scope="row">
+                                <th scope="row" >
                                     Tổng
                                 </th>
                                 <th>
 
                                 </th>
-                                <th>60</th>
-                                <th>30,980,000 VNĐ</th>
-                                <th>980,000 VNĐ
+                                <th>
+                                    <%= tk.reduce(reducer)%>
                                 </th>
                                 <th>
-                                    30,000,000 VNĐ
+                                    <%= datafilmfull.reduce(reducer).toLocaleString('de-DE')%> VNĐ
                                 </th>
-                            </tr>
-                            <tr>
-                                <td scope="row">
-                                    <img style="width: 100%" src="../img/no_img.png" alt="Megas">
-                                </td>
-                                <td>
-                                    <div>THE DEVIL MADE ME DO IT</div>
-                                    <div>THE CONJURING: MA XUI QUỶ KHIẾN</div>
-                                </td>
-                                <td>10</td>
-                                <td>9,900,000 VNĐ</td>
-                                <td>0 VNĐ
-                                </td>
-                                <td>
-                                    9,900,000 VNĐ
-                                </td>
-                            </tr>
+                                <th>
+                                    <%= (datafilmfull.reduce(reducer)-datafilm.reduce(reducer)).toLocaleString('de-DE')%> VNĐ
+                                </th>
+                                <th>
+                                    <%= datafilm.reduce(reducer).toLocaleString('de-DE')%> VNĐ
+                                </th>
+                            </tr>                             
+                            <% for(var i=0; i<films.length; i++) {%>
+                                <% if(datafilmfull[i]!=0){ %>
+                                    <tr>
+                                        <td scope="row">
+                                            <img style="width: 100%" src="<%=films[i].photo%>" alt="Megas">
+                                        </td>
+                                        <td>
+                                            <div><%=films[i].nameEN%></div>
+                                            <div><%=films[i].nameVN%></div>
+                                        </td>
+                                        <td>
+                                            <%=tk[i]%>
+                                        </td>
+                                        <td>
+                                            <%=datafilmfull[i].toLocaleString('de-DE')%> VNĐ
+                                        </td>
+                                        <td>
+                                            <%= (datafilmfull[i]-datafilm[i]).toLocaleString('de-DE')%> VNĐ
+                                        </td>
+                                        <td>
+                                            <%=datafilm[i].toLocaleString('de-DE')%> VNĐ
+                                        </td>
+                                    </tr>                                    
+                                <% } %>                                                              
+                            <% } %>  
+                            
                         </tbody>
                     </table>
                 </div>
