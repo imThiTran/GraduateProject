@@ -327,7 +327,9 @@ a:hover {
     display: block !important;
     position: absolute;
 }
-
+.link-sat:focus-within .dropdown-menu{
+    display: block !important;
+}
 .search-part .dropdown-menu {
     max-height: 300px;
     overflow-y: scroll;
@@ -3238,6 +3240,7 @@ button.primaryContained:hover {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    border-bottom: 3px solid #fdc85b;
 }
 .menu-stat{
     margin-top: 20px;
@@ -3445,4 +3448,62 @@ button.primaryContained:hover {
 }
 .date-from-km, .date-to-km{
     flex: 1;
+}
+.drop-sat{
+    display: block;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+.sat-drop{
+    padding: 10px 0px;
+    border: none;
+    color: #333333ab ;
+    margin-left: 45px;
+    font-size: 17px;
+}
+.sat-drop:hover{
+    color: #333333ab  !important;
+    border-bottom: 1px solid #333333ab ;
+    padding: 5px;
+    font-size: 17px;
+}
+.card-body{
+    border-radius: 0px;
+    padding: 5px;
+    margin-bottom: 5px;
+    background: #eee;
+    margin-top: -25px;
+    margin-left: 27px;
+}
+.body-sat{
+    margin-top: -25px;
+}
+.tab-sat{
+    width: 17%;
+    margin-bottom: 10px;
+}
+.sat-menu-tab{
+    width: 100%;
+    margin-left: 0px;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+}
+.sat-item{
+    width: 50% !important;
+}
+.sat-content{
+    margin-top: 30px;
+}
+.btn-see{
+    background: #f0c673;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 2px 2px 3px #b1b1b1;
+}
+.btn-see:hover{
+    background: #333;
+    color: #eee;
+    box-shadow: 2px 2px 3px #b1b1b1;
 }

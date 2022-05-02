@@ -6,22 +6,22 @@
         <div class="ad-movie">
             <div class="wrap-headerAd">
                 <div class="h5-detail">Thống kê doanh thu</div>
+                <div class="tab-sat">                
+                    <ul class="nav nav-tabs menu-stat sat-menu-tab">
+                        <li class="nav-item sat-item">
+                            <a class="nav-link active" href="#stat-film1" data-bs-toggle="tab" data-bs-target="#stat-film1"
+                                role="tab" aria-controls="status" aria-selected="true">Báo cáo</a>
+                        </li>
+                        <li class="nav-item sat-item">
+                            <a style="color: #eee;" class="nav-link" href="#stat-film2" data-bs-toggle="tab"
+                                data-bs-target="#stat-film2" role="tab" aria-controls="status" aria-selected="true">Biểu
+                                đồ</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <span class="line-detail"></span>
-            <div style="display: flex;">                
-                <ul class="nav nav-tabs menu-stat">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#stat-film1" data-bs-toggle="tab" data-bs-target="#stat-film1"
-                            role="tab" aria-controls="status" aria-selected="true">Báo cáo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: #eee;" class="nav-link" href="#stat-film2" data-bs-toggle="tab"
-                            data-bs-target="#stat-film2" role="tab" aria-controls="status" aria-selected="true">Biểu
-                            đồ</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-content">
+            
+            <div class="tab-content sat-content">
                 <div class="tab-pane active" id="stat-film1" role="tabpanel">
                     <table class="table table-striped  table-bordered" style="font-size: 15px;">
                         <thead>
@@ -97,12 +97,12 @@
                         let myChart2 = document.getElementById('myChart2').getContext('2d');
                         // Global Options
                         Chart.defaults.global.defaultFontFamily = 'sans-serif';
-                        Chart.defaults.global.defaultFontSize = 10;
+                        Chart.defaults.global.defaultFontSize = 18;
                         Chart.defaults.global.defaultFontColor = '#777';
                         var datafilm = $('.datafilm').val()
                         var listnamefilm = $('.listnamefilm').val()
                         let massPopChart2 = new Chart(myChart2, {
-                            type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                            type: 'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                             data: {
                                 labels: listnamefilm.split(','),
                                 datasets: [{
@@ -141,7 +141,8 @@
                                 },
                                 tooltips: {
                                     enabled: true
-                                }
+                                },
+                                
                             }
                         });
                     </script>

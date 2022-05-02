@@ -6,21 +6,21 @@
         <div class="ad-movie">
             <div class="wrap-headerAd">
                 <div class="h5-detail">Thống kê doanh thu</div>
+                <div class="tab-sat">                
+                    <ul class="nav nav-tabs menu-stat sat-menu-tab">
+                        <li class="nav-item sat-item">
+                            <a class="nav-link active" href="#stat-month1" data-bs-toggle="tab" data-bs-target="#stat-month1" role="tab"
+                                aria-controls="status" aria-selected="true">Báo cáo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="color: #eee;" class="nav-link" href="#stat-month2" data-bs-toggle="tab"
+                                data-bs-target="#stat-month2" role="tab" aria-controls="status" aria-selected="true">Biểu đồ</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <span class="line-detail"></span>
-            <div style="display: flex;">                
-                <ul class="nav nav-tabs menu-stat">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#stat-month1" data-bs-toggle="tab" data-bs-target="#stat-month1" role="tab"
-                            aria-controls="status" aria-selected="true">Báo cáo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: #eee;" class="nav-link" href="#stat-month2" data-bs-toggle="tab"
-                            data-bs-target="#stat-month2" role="tab" aria-controls="status" aria-selected="true">Biểu đồ</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-content">
+            
+            <div class="tab-content sat-content">
                 <div class="tab-pane active" id="stat-month1" role="tabpanel">
                     <table class="table table-striped  table-bordered" style="font-size: 15px;">
                         <thead>
@@ -108,7 +108,7 @@
                                     label: 'Doanh thu',
                                     data: datayear.split(','),
                                     backgroundColor: [
-                                        'rgb(254 199 88)',
+                                    'rgb(254 199 88)',
                                     ],
                                 }]
                             },
@@ -140,9 +140,9 @@
                         });
                     </script>
                 </div>
-                <form action="/admin/statistical/month" method="POST" style="text-align: center;">
+                <form action="/admin/statistical/month" method="POST" style="text-align: center;margin-top: 30px;">
                     <input class="ipgetyear" type="number" min="1900" max="2099" step="1" value="<%=year%>" name="getyear"/>                                            
-                    <button class="xemthang" type="button">Xem</button> 
+                    <button class="xemthang btn-see" type="button">Xem</button> 
                 </form>
             </div>
         </div>
@@ -220,7 +220,7 @@
                                 label: 'Doanh thu',
                                 data: result.datayear,
                                 backgroundColor: [
-                                    'rgba(255, 99, 132, 0.6)',
+                                'rgb(254 199 88)',
                                 ],
                             }]
                         },
