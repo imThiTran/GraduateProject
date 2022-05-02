@@ -1,22 +1,19 @@
-<script>
-    function daysInMonth(month, year){
-        return new Date(year,month,0).getDate();
-    }
-</script>
+<%- include('../layouts/header') %>
+
+<body>
+    <%- include('../layouts/admin-sub-header') %>
+    <script>
+        function daysInMonth(month, year){
+            return new Date(year,month,0).getDate();
+        }
+    </script>
     <div class="wrapper-index">
         <div class="ad-movie">
             <div class="wrap-headerAd">
                 <div class="h5-detail">Thống kê doanh thu</div>
             </div>
             <span class="line-detail"></span>
-            <div style="display: flex;">
-                <select name="" class="form-select" style="width: 25%; margin: 20px 0;">
-                    <option>Chọn kiểu thống kê</option>
-                    <option href="" value="">Thống kê theo ngày </option>
-                    <option href="" value="">Thống kê theo tháng </option>
-                    <option href="" value="">Thống kê theo phim</option>
-                    <option href="" value="">Thống kê theo đồ ăn vặt</option>
-                </select>
+            <div style="display: flex;">                
                 <ul class="nav nav-tabs menu-stat">
                     <li class="nav-item">
                         <a class="nav-link active" href="#stat-day1" data-bs-toggle="tab" data-bs-target="#stat-day1" role="tab"
@@ -41,7 +38,7 @@
                                 <th scope="col">Thực thu</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datareport">
                             <% 
                                 const reducer = (accumulator, curr) => accumulator + curr;
                             %>
@@ -98,11 +95,7 @@
                     </div>
                     <input type="hidden" class="datamonth" value="<%= datamonth %>">
                     <input type="hidden" class="month" value="<%= month %>">
-                    <input type="hidden" class="year" value="<%= year %>">
-                    <form action="" method="" style="    text-align: center;">
-                        <input class="ipgetmonth" type="month" name="getmonth">
-                        <button class="xemngay" type="button">Xem</button>
-                    </form>
+                    <input type="hidden" class="year" value="<%= year %>">                    
                     <script>
                         let myChart = document.getElementById('myChart').getContext('2d');
                         // Global Options
@@ -156,7 +149,123 @@
                         });
                     </script>
                 </div>
+                <form action="/admin/statistical/day" method="POST" style="text-align: center;">
+                    <input class="ipgetmonth" type="month" name="getmonth" value="<%= year%>-<% if(month<10){ %>0<% } %><%= month%>">
+                    <button class="xemngay" type="button">Xem</button>
+                </form>
             </div>
         </div>
     </div>
-    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/trigger.js"></script>
+    <script src="../js/admin-snack.js"></script>
+    <script>            
+        const reducer = (accumulator, curr) => accumulator + curr;    
+        $(".xemngay").on('click', function(){
+            var getmonth = $(".ipgetmonth").val()         
+            $.ajax({
+                url:"/admin/statistical/day",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({getmonth:getmonth}),
+                success: function(result){
+                    var data=`
+                        <tr>
+                            <th scope="row" >
+                                Tổng
+                            </th>
+                            <th style="width: 20%;">
+                                ${result.tk1.reduce(reducer)}
+                            </th>
+                            <th>
+                                ${result.tk2.reduce(reducer)}
+                            </th>
+                            <th>
+                                ${result.datamonthfull.reduce(reducer).toLocaleString('de-DE')} VNĐ
+                            </th>
+                            <th>
+                                ${ (result.datamonthfull.reduce(reducer)-result.datamonth.reduce(reducer)).toLocaleString('de-DE')} VNĐ
+                            </th>
+                            <th>
+                                ${ result.datamonth.reduce(reducer).toLocaleString('de-DE')} VNĐ
+                            </th>
+                        </tr>
+                    `                    
+                    for(var i=0; i<result.days; i++) {
+                        if(result.datamonthfull[i]!=0){
+                            data+=`
+                            <tr>
+                                <td scope="row">
+                                    ${i+1}/${result.month}/${result.year}
+                                </td>
+                                <td style="width: 20%;">
+                                    ${result.tk1[i]}
+                                </td>
+                                <td>
+                                    ${result.tk2[i]}
+                                </td>
+                                <td>
+                                    ${result.datamonthfull[i].toLocaleString('de-DE')} VNĐ
+                                </td>
+                                <td>
+                                    ${ (result.datamonthfull[i]-result.datamonth[i]).toLocaleString('de-DE')} VNĐ
+                                </td>
+                                <td>
+                                    ${result.datamonth[i].toLocaleString('de-DE')} VNĐ
+                                </td>
+                            </tr>`  
+                        }                                                              
+                    }   
+                    $('#datareport').html(data)
+                    let dsngaynew=[]
+                    for(let day=1;day<=daysInMonth(result.month,result.year);day++){
+                        dsngaynew.push(day+'/'+result.month);                                               
+                    }
+                   massPopChart.destroy()
+                   massPopChart = new Chart(
+                       myChart, {
+                            type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                            data: {
+                                labels: dsngaynew,
+                                datasets: [{
+                                    label: 'Doanh thu',
+                                    data: result.datamonth,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.6)',
+                                    ],
+                                }]
+                            },
+                            options: {
+                                title: {
+                                    display: true,
+                                    text: 'DOANH THU THÁNG '+result.month+'/'+result.year,
+                                    fontSize: 25
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    labels: {
+                                        fontColor: '#000'
+                                    }
+                                },
+                                layout: {
+                                    padding: {
+                                        left: 50,
+                                        right: 0,
+                                        bottom: 0,
+                                        top: 0
+                                    }
+                                },
+                                tooltips: {
+                                    enabled: true
+                                }
+                            }
+                        }); 
+                    }
+            })
+        })
+    </script>
+</body>
+
+</html>
