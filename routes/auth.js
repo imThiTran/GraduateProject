@@ -85,6 +85,7 @@ router.post('/register', (req, res) => {
                     
                 `
             }
+            Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){            
             transporter.sendMail(data, function (err, info) {
                 if (err) {
                     console.log(err);
@@ -94,6 +95,7 @@ router.post('/register', (req, res) => {
                         fullname: '',
                         phone: '',
                         birthday: '',
+                        filmslide:filmslide
                     });                                              
                 } else {
                     console.log('Message sent: ' + info.response);
@@ -103,9 +105,11 @@ router.post('/register', (req, res) => {
                         fullname: '',
                         phone: '',
                         birthday: '',
+                        filmslide:filmslide
                     });
                 }
             });
+            })
         }
     })
 

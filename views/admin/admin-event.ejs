@@ -107,9 +107,9 @@
                                 <td class="event-des"><%-event.content%></td>
                                 <td>
                                     <div class="btn-mode">
-                                        <button type="button" id="btnEditEvent"><i class="fa fa-pencil-square-o"
-                                                aria-hidden="true"></i></button>
-                                        <button type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <button type="button" class="btnEditEvent" value="<%= event.slug %>"><i class="fa fa-pencil-square-o"
+                                                aria-hidden="true" ></i></button>
+                                        <button type="button"  value="<%= event.slug %>"><i class="fa fa-times" aria-hidden="true"></i></button>
                                     </div>
                                 </td>
                             </tr>
