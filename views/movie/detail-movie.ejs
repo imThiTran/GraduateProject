@@ -387,8 +387,8 @@
                     
                 <%} else { %>
                     <div class="comment-text commented-text">
-                        <%if (user.actor=='staff'){%>
-                            <span>Tài khoản nhân viên không thể đánh giá</span>
+                        <%if (user.actor=='staff' || user.actor=='admin'){%>
+                            <span>Tài khoản này không thể đánh giá</span>
                             <%}else if (checkRating==true){%>
                                 <span>Cảm ơn bạn đã đánh giá</span>
                             <%}else {%>

@@ -200,17 +200,21 @@
     </body>
     <%- include ('./layouts/footer') %>
 
+<%if (user.actor=='customer'){%>
+    <div class="zalo-chat-widget" data-oaid="2358533098341838834" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
+<%} %>
+    <!-- <a href="/qrcode/scan-qrcode">
+        <div class="qr-body">
+            <div class="qr-bubble" >
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+        </div>
+    </a> -->
 
-<div class="zalo-chat-widget" data-oaid="2358533098341838834" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
+
 
 <!-- button qét mã QR của nhân viên -->
-<a href="#">
-    <div class="qr-body">
-        <div class="qr-bubble" >
-            <i class="fa-solid fa-qrcode"></i>
-        </div>
-    </div>
-</a>
+
 
 
 <script src="https://sp.zalo.me/plugins/sdk.js"></script>
