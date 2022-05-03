@@ -200,9 +200,10 @@
     </body>
     <%- include ('./layouts/footer') %>
 
-<%if (user.actor=='customer'){%>
-    <div class="zalo-chat-widget" data-oaid="2358533098341838834" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
-<%} %>
+    <%if (user.actor=='admin' || user.actor=='staff'){%>
+    <%}else {%>
+        <div class="zalo-chat-widget" data-oaid="2358533098341838834" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
+    <%}%>
     <!-- <a href="/qrcode/scan-qrcode">
         <div class="qr-body">
             <div class="qr-bubble" >
