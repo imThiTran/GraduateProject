@@ -22,8 +22,10 @@ router.get('/',(req,res)=>{
 router.post('/add',(req,res)=>{
     var {content,title,type,code,value,datefrom,dateto} = req.body   
     datefrom=datefrom.replace("-","/")
-    dateto=datefrom.replace("-","/")    
+    dateto=datefrom.replace("-","/")     
     var slug = (cleanText(title).replace(/\s/g, '-')).toLowerCase();
+    slug=slug.replace('/','-')
+    return
     var photoFile;
     if (req.files != null) photoFile=req.files.photo;
     else photoFile="";

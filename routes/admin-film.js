@@ -47,7 +47,7 @@ router.post('/add-film', (req, res) => {
     var idTrailer = trailer.split('/');
     trailer = idTrailer[idTrailer.length - 1];
     var slug = (cleanText(nameEN).replace(/\s/g, '-')).toLowerCase();
-    
+    slug=slug.replace('/','-')
     Film.findOne({slug:slug}, function(err,film){
         if(film){
             res.send({
