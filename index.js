@@ -87,13 +87,14 @@ var checkAdmin = require('./middelwares/checkAdmin.middleware');
 var checkCurrentBlock = require('./middelwares/checkCurrentBlock.middleware');
 var checkOpenBlock = require('./middelwares/checkOpenBlock.middleware');
 var checkBlockShowtime = require('./middelwares/checkBlockShowtime');
+var checkCustomer =require('./middelwares/checkCustomer.middleware')
 
 app.use('/auth',checkOpenBlock,checkBlockShowtime,auth);
-app.use('/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,user);
+app.use('/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCustomer,checkCurrentBlock,user);
 app.use('/movie',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,movie);
-app.use('/order',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,order);
+app.use('/order',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCustomer,checkCurrentBlock,order);
 app.use('/',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,site);
-app.use('/payment',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,payment);
+app.use('/payment',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCustomer,checkCurrentBlock,payment);
 app.use('/qrcode',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,qrcode);
 
 app.use('/admin/film',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);

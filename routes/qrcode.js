@@ -6,6 +6,7 @@ var Showtime = require('../models/showtime');
 var Film = require('../models/film');
 var Category = require('../models/category');
 var Room = require('../models/room');
+const User = require('../models/user');
 var cats = []
 Category.find({}, function (err, categories) {
     cats = categories
@@ -55,7 +56,7 @@ router.post('/scan-bill', (req, res) => {
                                     room: ro.name,
                                     ticket: tickets,
                                     snack: snacks,
-                                    total:bi.total
+                                    total: bi.total
                                 });
                             })
                         })
@@ -73,9 +74,17 @@ router.post('/scan-bill', (req, res) => {
 })
 
 router.get('/scan-qrcode', (req, res) => {
-    res.render('qrcode/scanQR', {
-        cats: cats
-    });
+    User.findOne({ email: req.session.user }, (err, us) => {
+        if (us.actor == 'staff') {
+            res.render('qrcode/scanQR', {
+                cats: cats
+            });
+        } else {
+            res.render('error', {
+                mes: 'Bạn không có quyền truy cập'
+            });
+        }
+    })
 })
 
 router.post('/check-in', (req, res) => {
