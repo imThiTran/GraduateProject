@@ -194,7 +194,10 @@ router.post('/login', (req, res) => {
                                 })
                             } else{
                                 req.session.user = email;
-                                res.redirect('/')
+                                if (user.actor=='staff'){
+                                    res.redirect('/qrcode/scan-qrcode');
+                                }
+                                else res.redirect('/')
                             } 
                         }
                         else {

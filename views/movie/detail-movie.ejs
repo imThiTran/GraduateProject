@@ -387,7 +387,9 @@
                     
                 <%} else { %>
                     <div class="comment-text commented-text">
-                            <%if (checkRating==true){%>
+                        <%if (user.actor=='staff'){%>
+                            <span>Tài khoản nhân viên không thể đánh giá</span>
+                            <%}else if (checkRating==true){%>
                                 <span>Cảm ơn bạn đã đánh giá</span>
                             <%}else {%>
                                 <textarea type="text" class="contentComment input" placeholder="Viết bình luận của bạn ở đây" v-model="newItem"

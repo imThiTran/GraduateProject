@@ -1,16 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark index-nav-dark noPrint" id="navbar">
     <ul class="nav justify-content-end index-sign-nav">
         <% if (user!="") { %>
-        <div class="dropdown1">
-                <li class="nav-item">
-                    <a class="nav-link user-login">Chào <%=user.fullname%></a>
-                    <ul class="drop-menu">
-                        <li><a class="dropdown-item user-drop" href="/user/info">Hồ sơ</a></li>
-                        <li><a class="dropdown-item user-drop" href="/user/purchase">Vé đã đặt</a></li>
-                        <li><a class="dropdown-item" href="/auth/logout">Đăng xuất</a></li>
-                    </ul>
-                </li>
-        </div>
+            <% if (user.actor=='staff'){%>
+                <div class="dropdown1">
+                    <li class="nav-item">
+                        <a class="nav-link user-login">Staff: <%=user.fullname%></a>
+                        <ul class="drop-menu">
+                            <li><a class="dropdown-item user-drop" href="/qrcode/scan-qrcode">Quét mã</a></li>
+                            <li><a class="dropdown-item" href="/auth/logout">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+            </div>
+            <%}else {%>
+                <div class="dropdown1">
+                    <li class="nav-item">
+                        <a class="nav-link user-login">Chào <%=user.fullname%></a>
+                        <ul class="drop-menu">
+                            <%if (user.actor=='admin'){%>
+                            <li><a class="dropdown-item user-drop" href="/admin/film">Quản lý hệ thống</a></li>
+                            <%}%>
+                            <li><a class="dropdown-item user-drop" href="/user/info">Hồ sơ</a></li>
+                            <li><a class="dropdown-item user-drop" href="/user/purchase">Vé đã đặt</a></li>
+                            <li><a class="dropdown-item" href="/auth/logout">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+            </div>
+            <%}%>
+        
         <%} else {%>
             <li class="nav-item">
                 <a class="nav-link index-sign" aria-current="page" href="/auth/login">Đăng nhập</a>
