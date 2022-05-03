@@ -20,12 +20,11 @@ router.get('/',(req,res)=>{
 })
 
 router.post('/add',(req,res)=>{
-    var {content,title,type,code,value,datefrom,dateto} = req.body   
-    datefrom=datefrom.replace("-","/")
-    dateto=datefrom.replace("-","/")     
+    var {content,title,type,code,value,datefrom,dateto} = req.body 
+    datefrom+=" 00:00:00" 
+    dateto+=" 23:59:59"
     var slug = (cleanText(title).replace(/\s/g, '-')).toLowerCase();
-    slug=slug.replace('/','-')
-    return
+    slug=slug.replace('/','-')    
     var photoFile;
     if (req.files != null) photoFile=req.files.photo;
     else photoFile="";
@@ -44,21 +43,22 @@ router.post('/add',(req,res)=>{
                     photoDrop: rsPhoto.public_id,
                     author:user.fullname,
                     type:type
-                })                
-                event.save(function (err,ev) {
+                })                      
+                event.save(function (err,ev) {                   
                     if(type=="Khuyến mãi"){
                         var voucher = new Voucher({
                             code:code,
                             value:value,
                             idEvent:ev._id,
                             datefrom:new Date(datefrom),
-                            dateto:new Date(dateto+" 23:59:59"),
+                            dateto:new Date(dateto),
                             current:new Date().getDate()
                         })
                         voucher.save(function (err) {
-                            if (err) throw err;                                                        
+                            if (err) throw err;                            
                         });
-                    }                                                       
+                    } 
+                    res.redirect('back')                                                      
                 });
                 
             })            
@@ -66,4 +66,118 @@ router.post('/add',(req,res)=>{
     }    
 })
 
+router.get('/:slug', (req, res) => {
+    var { slug } = req.params
+    Event.findOne({slug:slug}, (err, event) => {
+        Voucher.findOne({idEvent:event._id}, (err, voucher) => {
+            res.send({
+                event: event,
+                voucher:voucher
+            })
+        })        
+    })
+})
+
+router.get('/delete/:slug', (req, res) => {
+    var { slug } = req.params
+    Event.findOneAndRemove({slug:slug}, (err1, event) => {
+        Voucher.findOneAndRemove({idEvent:event._id}, (err2, vc) => {
+            if (err1) {
+                res.send({
+                    msg: "Xóa thất bại",                
+                    delete:false
+                })
+            }else{                
+                res.send({
+                    msg: "Xóa thành công",
+                    slug: slug,
+                    delete:true
+                })                
+            }
+        })
+    })
+})
+
+router.post('/edit/:id', (req, res) => {
+    var {content,title,value,datefrom,dateto,pimg} = req.body    
+    datefrom+=" 00:00:00" 
+    dateto+=" 23:59:59"
+    var oldslug=''
+    var { id } = req.params   
+    var slug = (cleanText(title).replaceAll(' ', '-')).toLowerCase();
+    slug=slug.replace('/','-')
+    var photoFile; 
+    if (req.files != null) {
+        if (typeof req.files.photo != "undefined") photoFile = req.files.photo;
+        else photoFile = "";       
+    } else {
+        photoFile = "";       
+    }
+    Event.findById(id,(err,ev) => {         
+        oldslug=ev.slug
+        Event.findOne({$and:[{slug:slug},{slug: {'$ne':ev.slug}}]}, function(err,eventt){            
+            if(eventt){                
+                res.send({
+                    msg: "Sự kiện đã tồn tại",
+                    edit:false
+                })                
+            }else{                
+                if (photoFile != "") {                     
+                    cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/events/" + slug }, function (err, rsPhoto) {
+                        if (err) console.log(err) ;
+                        fs.unlink(photoFile.tempFilePath, function (err) {
+                            if (err) throw err;
+                        })                                  
+                        ev.content=content
+                        ev.title=title
+                        ev.slug=slug
+                        ev.photo=rsPhoto.url
+                        ev.photoDrop=rsPhoto.public_id
+                        ev.save(function (err,evt) {
+                            if(ev.type=="Khuyến mãi"){
+                                Voucher.findOne({idEvent:ev._id},(err,vouch) => {                                    
+                                    vouch.value=value,                            
+                                    vouch.datefrom=new Date(datefrom)
+                                    vouch.dateto=new Date(dateto)
+                                    vouch.save({},(err,vc)=>{                                                                          
+                                    })
+                                })
+                            }
+                            res.send({
+                                ev:ev,
+                                edit:true,
+                                oldslug:oldslug
+                            })
+                        })                                                       
+                    })
+                    if (pimg!=""){
+                        cloudinary.uploader.destroy(pimg,function(err,rs){
+                            if (err) throw err;
+                        })
+                    }
+                }else{                    
+                    ev.content=content
+                    ev.title=title
+                    ev.slug=slug                
+                    ev.save(function (err,evt) {
+                        if(ev.type=="Khuyến mãi"){
+                            Voucher.findOne({idEvent:ev._id},(err,vouch) => {                                
+                                vouch.value=value,                            
+                                vouch.datefrom=new Date(datefrom)
+                                vouch.dateto=new Date(dateto)
+                                vouch.save({},(err,vc)=>{                                                                    
+                                })
+                            })
+                        }                                              
+                        res.send({
+                            ev:ev,
+                            edit:true,
+                            oldslug:oldslug
+                        })                         
+                    })
+                }
+            }
+        }) 
+    })      
+})
 module.exports= router;

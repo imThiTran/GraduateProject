@@ -266,6 +266,16 @@ router.post('/edit', (req, res) => {
                             });
                         })
                     })
+                    if (avtimg!=""){
+                        cloudinary.uploader.destroy(avtimg,function(err,rs){
+                            if (err) throw err;
+                        })
+                    }
+                    if (bgimg!=""){
+                        cloudinary.uploader.destroy(bgimg,function(err,rs){
+                            if (err) throw err;
+                        })
+                    } 
                 }else if(photoFile!=""){
                     cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/films/" + nameEN }, function (err, rsPhoto) {
                         if (err) throw err;
