@@ -26,6 +26,12 @@
         </div>       
 
         <div">
+        <%if (user.actor=='staff'){%>
+            <input type="hidden" class="checkStaff" value="1" name="" id="">
+        <%}else {%>
+            <input type="hidden" class="checkStaff" value="0" name="" id="">
+        <%}%>
+        
             <div class="container" style="padding-top: 70px;">
                 <ul class="nav nav-tabs tab-phim" id="myTab" role="tablist">
                     <li class="nav-item " role="presentation">
@@ -112,7 +118,7 @@
                                                             <%})%>
                                                             <%film.stArr.forEach(function(st){%>
                                                                 <div class="movie-time">
-                                                                        <a href="/order?idShowtime=<%=st.idSt%>" class="btn-overtime btn btn-outline-warning btn-time">
+                                                                        <a onclick="handleShowtimeBtn(this,event)" href="/order?idShowtime=<%=st.idSt%>" class="btn-overtime btn btn-outline-warning btn-time">
                                                                             <%newSt=st.timeStart.split(':');%>
                                                                             <%if (newSt[0]<12){ %>
                                                                                 <%=st.timeStart%> AM
@@ -219,7 +225,7 @@
 
 
 <script src="https://sp.zalo.me/plugins/sdk.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/popper.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
@@ -297,6 +303,18 @@
                 })
             })
         })
+
+    function handleShowtimeBtn(th,e){
+        if ($('.checkStaff').val()==1){
+            e.preventDefault();
+            Swal.fire({
+              icon: 'warning',
+              title: 'Bạn không thể thực hiện hành động này',
+              showConfirmButton: false,
+              timer: 1000
+            })
+        }
+    }
     </script>
 
 

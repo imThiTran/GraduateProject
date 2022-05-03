@@ -114,7 +114,7 @@ router.get('/render/:time',async (req,res)=>{
                           var newSt=st.timeStart.split(':');
                           if (st.closed==0){
                             hmtlSend=hmtlSend+`<div class="movie-time">
-                              <a href="/order?idShowtime=`+st.idSt+`" class="btn-overtime btn btn-outline-warning btn-time">`+st.timeStart+((newSt[0]<12)?` AM`:` PM`)+`</a>
+                              <a href="/order?idShowtime=`+st.idSt+`" onclick="handleShowtimeBtn(this,event);" class="btn-overtime btn btn-outline-warning btn-time">`+st.timeStart+((newSt[0]<12)?` AM`:` PM`)+`</a>
                                   </div>`  
                           } else {
                             hmtlSend=hmtlSend+`<div class="movie-time">

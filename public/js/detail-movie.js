@@ -144,13 +144,22 @@ $(document).ready(function () {
     })
 
     $('.btn-submit').click(function(e){
-        if ($('.dateChange').val()=='none'){
+        if ($('.checkStaff').val()==1) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'warning',
+                title: 'Bạn không thể thực hiện hành động này',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }
+        else if ($('.dateChange').val()=='none'){
             e.preventDefault();
             $('.alert').text('Vui lòng chọn ngày')
         } else if ($('.inputHidden').val()=='') {
             e.preventDefault()
             $('.alert').text('Vui lòng chọn giờ chiếu')
-        }
+        } 
     })
     // $('.deleteCmt').each(function () {
     //     var $this = $(this);

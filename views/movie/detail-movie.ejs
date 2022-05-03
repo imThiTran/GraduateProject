@@ -6,7 +6,11 @@
         <%    return newDate.toLocaleDateString('en-GB');%>
         <%} %>
     <div class="container">
-
+        <%if (user.actor=='staff'){%>
+            <input type="hidden" class="checkStaff" value="1" name="" id="">
+        <%}else {%>
+            <input type="hidden" class="checkStaff" value="0" name="" id="">
+        <%}%>
         <div class="detail-movie">
             <div class="flex-title">
                 <div class="flex-cs-detail">
