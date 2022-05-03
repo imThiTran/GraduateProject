@@ -13,8 +13,10 @@
                 <span>Loading</span>
             </div>
         </div>
+        
         <%- include ('./layouts/sub-header') %>
-
+   
+       
         <div class="poster-index">
             <div id="owl-demo" class="owl-carousel owl-theme">
                 <%filmslide.forEach(function(film){%>
@@ -197,18 +199,20 @@
             </div>
     </body>
     <%- include ('./layouts/footer') %>
-    <script>
-        $(document).ready(function () {
-            $(window).scroll(function () {
-                if ($(this).scrollTop()) {
-                    $('nav').addClass('sticky');
-                } else {
-                    $('nav').removeClass('sticky');
-                }
-            });
-        });
-    </script>
+
+
 <div class="zalo-chat-widget" data-oaid="2358533098341838834" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
+
+<!-- button qét mã QR của nhân viên -->
+<a href="#">
+    <div class="qr-body">
+        <div class="qr-bubble" >
+            <i class="fa-solid fa-qrcode"></i>
+        </div>
+    </div>
+</a>
+
+
 <script src="https://sp.zalo.me/plugins/sdk.js"></script>
 
     <script src="/js/popper.js"></script>

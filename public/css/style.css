@@ -3468,7 +3468,7 @@ button.primaryContained:hover {
     padding: 5px;
     font-size: 17px;
 }
-.card-body{
+.card-body-ad{
     border-radius: 0px;
     padding: 5px;
     margin-bottom: 5px;
@@ -3506,4 +3506,25 @@ button.primaryContained:hover {
     background: #333;
     color: #eee;
     box-shadow: 2px 2px 3px #b1b1b1;
+}
+
+.qr-bubble i{
+    background: #f0c673 ;
+  border-radius: 50%;
+  height: 50px;
+  font-size: 24px;
+  font-weight: 600;
+  width: 52px;
+  color: #333;
+  line-height: 50px;
+}
+
+.qr-body{
+    text-align: center;
+    bottom: 53px;
+    cursor: pointer;
+    position: fixed;
+    right: 55px;
+    z-index: 999;
+    border-radius: 50px 50px 4px 4px;
 }
