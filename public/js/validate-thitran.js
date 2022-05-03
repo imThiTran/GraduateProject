@@ -38,7 +38,7 @@ function checkRegex(value,regex) {
 function isGmail(elements,methodd){
     var spanerror = elements.parent().find('.span-error-' + methodd);
     elements.blur(function (e) {
-        var regex=/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/;
+        var regex=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (checkRegex(elements.val(),regex)==false ) spanerror.text('Vui lòng nhập đúng định dạng gmail');
     })
     elements.on('input', function (e) {
