@@ -3406,7 +3406,7 @@ button.primaryContained:hover {
     width: 533px;
 }
 .event-image{
-    width: 100%;
+    width: 250px;
     height: 200px;
     object-fit: cover;
     object-position: 50% 20%;
