@@ -260,6 +260,10 @@ router.get('/sendqr', (req,res) => {
             bill.ticket.forEach(tiki => {
                 tk.push(tiki.name)
             })
+            var snack=[]
+            bill.snack.forEach(snak => {
+                snack.push(snak.name+" (x"+snak.quantity+")")
+            })
             Showtime.findById(bill.ticket[0].idShowtime, function(err,st){
                 Film.findById(st.idFilm, function(err,film){
                     Room.findById(st.idRoom,function(err,room){
@@ -309,6 +313,10 @@ router.get('/sendqr', (req,res) => {
                                             <div style="display: flex;">
                                                 <div style="width: 100px;">Ghế: </div>
                                                 <div>${tk.join(' ,')}</d>
+                                            </div>
+                                            <div style="display: flex;color: #eee;">
+                                                <div style="width: 100px;">Combo: </div>    
+                                                <div style="flex: 4;">${snack.join(' ,')}</div>
                                             </div>
                                         </div>
                                          <div style="font-size: 12px;font-style: italic;color: white;margin-top: 10px;">*Vui lòng đến quầy soát vé 15 phút trước giờ chiếu</div>

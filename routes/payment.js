@@ -231,8 +231,12 @@ router.get('/confirm', (req, res) => {
                     bill.save(function (err,bill) {
                         if (err) throw err;
                         var tk=[]
+                        var snack=[]
                         bill.ticket.forEach(tiki => {
                             tk.push(tiki.name)
+                        })
+                        bill.snack.forEach(snak => {
+                            snack.push(snak.name+" (x"+snak.quantity+")")
                         })
                         Showtime.findById(bill.ticket[0].idShowtime, function(err,st){
                             Film.findById(st.idFilm, function(err,film){
@@ -286,7 +290,7 @@ router.get('/confirm', (req, res) => {
                                                         </div>
                                                         <div style="display: flex;color: #eee;">
                                                             <div style="width: 100px;">Combo: </div>    
-                                                            <div style="flex: 4;">Bắp lớn (x1), Nước ngọt (x1), Combo Single (x1)</div>
+                                                            <div style="flex: 4;">${snack.join(' ,')}</div>
                                                         </div>
                                                     </div>
                                                     <div style="font-size: 12px;font-style: italic;color: white;margin-top: 10px;">*Vui lòng đến quầy soát vé 15 phút trước giờ chiếu</div>
