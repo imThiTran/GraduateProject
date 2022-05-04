@@ -443,6 +443,7 @@ a:hover {
 .drop-menu {
     display: none;
     animation: face .3s ease-in-out;
+    
 }
 
 .index-dropdown:hover .drop-menu {
@@ -750,6 +751,7 @@ a:hover {
 }
 
 .dropdown1:hover .drop-menu {
+    right: -10px;
     display: block;
     position: absolute;
     list-style: none;
@@ -874,7 +876,7 @@ a:hover {
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: 50px;
+    margin: 50px 15px;
 }
 
 #error-forgot{
@@ -2080,7 +2082,7 @@ button.primaryContained:hover {
   }
   .card-detail img{
     width: 100%;
-    height: 250px;
+    height: 220px;
     object-fit: cover;
     object-position: 50% 50%;
   }
@@ -2093,6 +2095,7 @@ button.primaryContained:hover {
     margin: 20px 30px;
     background: white;
     border-radius: 20px;
+    padding: 10px;
   }
   .combo{
     display: flex;
@@ -3528,3 +3531,21 @@ button.primaryContained:hover {
     z-index: 999;
     border-radius: 50px 50px 4px 4px;
 }
+.field-icon {
+    float: right;
+    margin-left: 20px;
+    margin-top: 11px;
+    position: relative;
+    z-index: 2;
+  }
+  .input-mail{
+    width: 100% !important;
+    background: transparent;
+    border: none;
+    color: #eee;
+    font-size: 16px;
+    padding: 0px 0px 5px 5px !important;
+  }
+  .input-mail:focus-visible{
+    outline: none;
+  }
