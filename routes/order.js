@@ -229,7 +229,7 @@ router.post('/snack', (req, res) => {
 
 router.get('/uservoucher', (req,res) => {
     var {code} =req.query
-    code=code.toLowerCase()
+    code=code.toUpperCase()
     var today = Date.now()    
     Voucher.findOne({code:code},function(err,voucher){
         var check=true
