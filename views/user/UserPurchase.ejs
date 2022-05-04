@@ -70,7 +70,10 @@
                                                                         <div class="time-order">
                                                                             <% var date = new Date(bill.timebooking) %>
                                                                             <span>Đã đặt lúc <%= date.toTimeString().split(' ')[0]+" "+bill.timebooking.toJSON().slice(0,10).split('-').reverse().join('/')%> </span>
-                                                                            <div class="price-order-list"><b>Tổng tiền:</b> <%= bill.total%> VNĐ</div>
+                                                                            <div class="price-order-list">
+                                                                                <div style="margin: -10px;"><b>Tổng tiền:</b> <%= bill.total%> VNĐ</div>
+                                                                                <i style="font-size: 13px;">Khuyến mãi: 45.0000 VND</i>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     
@@ -166,7 +169,10 @@
                                                                         <div class="time-order">
                                                                             <% var date = new Date(bill.timebooking) %>
                                                                             <span>Đã đặt lúc <%= date.toTimeString().split(' ')[0]+" "+bill.timebooking.toJSON().slice(0,10).split('-').reverse().join('/')%> </span>
-                                                                            <div class="price-order-list"><b>Tổng tiền:</b> <%= bill.total%> VNĐ</div>
+                                                                            <div class="price-order-list">
+                                                                                <div style="margin: -10px;"><b>Tổng tiền:</b> <%= bill.total%> VNĐ</div>
+                                                                                <i style="font-size: 13px;">Khuyến mãi: 45.0000 VND</i>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     

@@ -290,7 +290,7 @@ router.get('/confirm', (req, res) => {
                                                         </div>
                                                         <div style="display: flex;color: #eee;">
                                                             <div style="width: 100px;">Combo: </div>    
-                                                            <div style="margin-left: 43px;">${snack.join(' ,')}</div>
+                                                            <div style="width: 395px;margin-left: 43px;">${snack.join(' ,')}</div>
                                                         </div>
                                                     </div>
                                                     <div style="font-size: 12px;font-style: italic;color: white;margin-top: 10px;">*Vui lòng đến quầy soát vé 15 phút trước giờ chiếu</div>

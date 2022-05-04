@@ -1005,13 +1005,17 @@ a:hover {
 
 .img-order-list {
     width: 100px;
-    height: 100px;
+    height: 113px;
     object-fit: cover;
     object-position: 50% 20%;
 }
 
 .name-order-list, .total-order-list, .price-order-list {
     font-size: 1rem;
+}
+.price-order-list{
+    width: 200px;
+    text-align: end;
 }
 .name-EN{
     font-size: 1.2rem;
