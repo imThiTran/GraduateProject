@@ -543,7 +543,7 @@ a:hover {
 
 .english-title {
     display: flex;
-    height: 50px;
+    height: 100%;
 }
 
 .cs {
@@ -551,7 +551,7 @@ a:hover {
 }
 
 .img-cs {
-    width: 100%;
+    width: 50px
 }
 
 .btn-overtime {
@@ -712,12 +712,16 @@ a:hover {
 .coming-side {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
+    padding: 0px;
 }
-
+.coming-side .coming-movie:nth-child(4){
+    margin-right: 0px;
+}
 .coming-movie {
-    width: 300px;
+    width: 255px;
+    margin-right: 30px;
 }
 
 .flex-cs {
@@ -1495,7 +1499,7 @@ a:hover {
 }
 
 .cate-title {
-    height: 40px;
+    height: 100%;
 }
 .rating-cate{
     font-size: 18px;
@@ -3103,8 +3107,8 @@ button.primaryContained:hover {
     padding-bottom: 40px;
 }
 .event-img img{
-    width: 500px;
-    height: 300px;
+    width: 600px;
+    height: 400px;
     object-fit: cover;
     object-position: 50% 20%;
 }
@@ -3397,8 +3401,9 @@ button.primaryContained:hover {
 .event-des{
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+    height: 217px;
+    width: 533px;
 }
 .event-image{
     width: 100%;
@@ -3557,4 +3562,11 @@ button.primaryContained:hover {
     padding-right: 30px;
     padding-left: 20px;
     line-height: 1.5;
+  }
+  .price-ticket-img{
+    text-align: center;
+    margin-top: 30px;
+  }
+  .price-ticket-img img{
+      zoom: 65%;
   }

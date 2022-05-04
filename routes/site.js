@@ -216,4 +216,14 @@ router.get('/event/:slug',function(req,res){
     })    
   })
 })
+
+router.get('/price',function(req,res){
+  Event.find({},function(err,events){
+    res.render('event/price',{
+      events:events,
+      cats:cats
+    })
+  })
+})
+
 module.exports = router;
