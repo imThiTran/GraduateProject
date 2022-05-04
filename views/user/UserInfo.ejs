@@ -23,10 +23,14 @@
                                         <label style="width: 120px;">Họ tên:</label>
                                         <span><%=us.fullname%></span>
                                     </div>
-                                    <div class="info-element">
-                                        <label style="width: 120px;">Gmail:</label>
-                                        <span><%=us.email%></span>
-                                    </div>
+                                    <div class="info-element" style="display: flex;">
+                                        <label  style="width: 120px;">Gmail</label>
+                                        <div style="display: flex;">
+                                          <input class="input-mail" id="password-field" type="password" class="form-control" 
+                                          name="password" value="<%=us.email%>" readonly/>
+                                        </div>
+                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                      </div>
                                     <div class="info-element">
                                         <label style="width: 120px;">Số điện thoại:</label>
                                         <span><%=us.phone%></span>
@@ -56,6 +60,20 @@
 
         </div>
     </section>
+
+
+    <script>
+        $(".toggle-password").click(function() {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+            input.attr("type", "text");
+            } else {
+            input.attr("type", "password");
+            }
+        });
+    </script>
 </body>
 
 <%- include ('../layouts/footer') %>
