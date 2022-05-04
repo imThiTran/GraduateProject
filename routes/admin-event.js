@@ -93,8 +93,8 @@ router.post('/add',(req,res)=>{
 })
 
 router.get('/:slug', (req, res) => {
-    var { slug } = req.params
-    Event.findOne({slug:slug}, (err, event) => {
+    var { slug } = req.params    
+    Event.findOne({slug:slug}, (err, event) => {        
         Voucher.findOne({idEvent:event._id}, (err, voucher) => {
             res.send({
                 event: event,
@@ -184,8 +184,10 @@ router.post('/edit/:id', (req, res) => {
                 }else{                    
                     ev.content=content
                     ev.title=title
-                    ev.slug=slug                
+                    ev.slug=slug                                 
                     ev.save(function (err,evt) {
+                        console.log(content)
+                        console.log(err)                        
                         if(ev.type=="Khuyến mãi"){
                             Voucher.findOne({idEvent:ev._id},(err,vouch) => {                                
                                 vouch.value=value,                            

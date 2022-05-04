@@ -49,9 +49,9 @@
                                                     <div class="event-up">
                                                         <div class="modal-left">
                                                             <div class="col-5 img-add img-event">
-                                                                <img id="img-edit-item" class="imgAddPreview imgadd"
+                                                                <img id="img-edit-item" class="imgAddPreview imgadd img"
                                                                 src="../img/no_img.webp" style="width: 100%;">
-                                                                <input type="file" class="form-control imgChangeAdd"
+                                                                <input type="file" class="form-control imgChangeAdd inputimg"
                                                                     name="photo" id="img1" onchange="imgAdd()"
                                                                     accept="image/png, image/jpeg, image/jpg"
                                                                     style="display: none;">
@@ -62,11 +62,11 @@
                                                         <div class="modal-right" style="padding-top: 19px;">                                                                                                               
                                                             <label class="label-chitiet" for="">Tiêu đề</label>                                                                                                                
                                                             <div class="input-ten">
-                                                                <input style="width: 100% !important;padding: 10px;" class="form-control input-sua" placeholder="Tiêu đề" type="text" name="title">
+                                                                <input style="width: 100% !important;padding: 10px;" class="form-control input-sua title" placeholder="Tiêu đề" type="text" name="title">
                                                             </div>
                                                             <label class="label-chitiet" for="">Thể loại</label> 
                                                             <div>
-                                                                <select name="type" class="form-control selecttype sladd" onchange="checkchange()">                                                            
+                                                                <select name="type" class="form-control selecttype sladd type" onchange="checkchange()">                                                            
                                                                     <option value="Tin tức">Tin tức</option>
                                                                     <option value="Khuyến mãi">Khuyến mãi</option>
                                                                 </select>
@@ -78,10 +78,10 @@
                                                                 </div>
                                                                 <div class="add-km" style="margin-top: 5px;">
                                                                     <div class="time-km" style="margin-right: 5px;">
-                                                                        Từ ngày<input class="form-control date-from-km" type="date" name="datefrom"/>
+                                                                        Từ ngày<input class="form-control date-from-km datefrom" type="date" name="datefrom"/>
                                                                     </div>
                                                                     <div class="time-km">
-                                                                        Đến ngày<input class="form-control date-to-km" type="date" name="dateto"/>
+                                                                        Đến ngày<input class="form-control date-to-km dateto" type="date" name="dateto"/>
                                                                     </div>
                                                                 </div>
                                                             </div>        
@@ -118,9 +118,9 @@
                                 <td class="event-des contentshow"><%-event.content%></td>
                                 <td>
                                     <div class="btn-mode">
-                                        <button type="button" class="btnEditEvent" value="<%= event.slug %>"><i class="fa fa-pencil-square-o"
+                                        <button type="button" onclick="editEvent(this);" class="btnEditEvent" value="<%= event.slug %>"><i class="fa fa-pencil-square-o"
                                                 aria-hidden="true" ></i></button>
-                                        <button type="button" class="btnDeleteEvent" value="<%= event.slug %>"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <button type="button" onclick="deleteEvent(this);" class="btnDeleteEvent" value="<%= event.slug %>"><i class="fa fa-times" aria-hidden="true"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -180,7 +180,7 @@
                                         </div>
                                         <div class="event-down">
                                             <label class="label-chitiet" for="">Nội dung</label>
-                                            <textarea class="input-sua content" id="editEventContent" name="content"></textarea>
+                                            <textarea class="input-sua content" id="editEventContent" ></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer footer-add">

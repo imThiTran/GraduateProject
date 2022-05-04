@@ -217,9 +217,9 @@
                                     </td>
                                     <td>
                                         <div class="btn-mode">
-                                            <button type="button" class="btnEditFilm" value="<%= film.slug %>"><i
+                                            <button type="button"  onclick="editFilm(this);" class="btnEditFilm" value="<%= film.slug %>"><i
                                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                            <button type="button" class="btnDeleteFilm" value="<%= film.slug %>"><i
+                                            <button type="button" onclick="deleteFilm(this);" class="btnDeleteFilm" value="<%= film.slug %>"><i
                                                     class="fa fa-times" aria-hidden="true"></i></button>
                                         </div>
                                     </td>

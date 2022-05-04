@@ -16,40 +16,34 @@ function getdate(date){
   var yyyy= date.getFullYear()
   return yyyy+'-'+mm+'-'+dd
 }
-function editEvent(){
-  $('.btnEditEvent').each(function () {
-    var $this = $(this);    
-    $this.on('click', function () {      
-      $.ajax({
-        url: "/admin/event/" + $this[0].value,
-        method: "GET",
-        contentType: "application/json",
-        data: JSON.stringify({}),
-        success: function (result) {          
-          var editform = $('#modalEditEvent')
-          editform.find('.img').attr('src', result.event.photo);  
-          editform.find('.imgsrc').val(result.event.photo); 
-          editform.find('.pimg').val(result.event.photoDrop);                            
-          editform.find('.title').val(result.event.title);
-          CKEDITOR.instances['editEventContent'].setData(result.event.content);          
-          editform.find('.type').val(result.event.type);
-          editform.find('.btnsave').val(result.event._id);          
-          if(result.event.type=='Khuyến mãi'){
-            editform.find('.idkm').val(result.voucher.code);
-            editform.find('.valuekm').val(result.voucher.value);            
-            editform.find('.date-from-km').val(getdate(new Date(result.voucher.datefrom)));
-            editform.find('.date-to-km').val(getdate(new Date(result.voucher.dateto)));
-            editform.find('.inputkhuyenmaiedit').css("display","block")
-          }else{
-            editform.find('.inputkhuyenmaiedit').css("display","none")
-          }
-          modalEditEvent.style.display = "block";          
-        }
-      })
-    })
-  })
+function editEvent(e){        
+  $.ajax({
+    url: "/admin/event/" + e.value,
+    method: "GET",
+    contentType: "application/json",
+    data: JSON.stringify({}),
+    success: function (result) {          
+      var editform = $('#modalEditEvent')
+      editform.find('.img').attr('src', result.event.photo);  
+      editform.find('.imgsrc').val(result.event.photo); 
+      editform.find('.pimg').val(result.event.photoDrop);                            
+      editform.find('.title').val(result.event.title);
+      CKEDITOR.instances['editEventContent'].setData(result.event.content);          
+      editform.find('.type').val(result.event.type);
+      editform.find('#btnsave').val(result.event._id);          
+      if(result.event.type=='Khuyến mãi'){
+        editform.find('.idkm').val(result.voucher.code);
+        editform.find('.valuekm').val(result.voucher.value);            
+        editform.find('.date-from-km').val(getdate(new Date(result.voucher.datefrom)));
+        editform.find('.date-to-km').val(getdate(new Date(result.voucher.dateto)));
+        editform.find('.inputkhuyenmaiedit').css("display","block")
+      }else{
+        editform.find('.inputkhuyenmaiedit').css("display","none")
+      }
+      modalEditEvent.style.display = "block";
+    }
+  })    
 }
-editEvent()
 
 $('.close-event').on('click',function(){
     modalAddEvent.style.display = "none";
@@ -59,49 +53,43 @@ $('.close-event').on('click',function(){
 CKEDITOR.replace('eventContent');
 CKEDITOR.replace('editEventContent');
 
-function deleteEvent(){
-  $('.btnDeleteEvent').each(function () {  
-    var $this = $(this);
-    $this.on('click', function () {    
-      swal.fire({
-        icon: 'warning',
-        title: 'Bạn có chắc chắn muốn xóa?',
-        text: 'Một khi đã xóa, bạn không thể khôi phục lại được.',
-        showCancelButton: true,
-        confirmButtonColor: '#d33'
-      })
-        .then((willDelete) => {
-          if (willDelete.isConfirmed) {
-            $.ajax({
-              url: "/admin/event/delete/" + $this[0].value,
-              method: "GET",
-              contentType: "application/json",
-              data: JSON.stringify({}),
-              success: function (result) {
-                if(result.delete){
-                  swal.fire(
-                    result.msg,
-                    "",
-                    "success"
-                  ).then((value) => {
-                    $(`.${result.slug}`).remove()
-                  })
-                }else{
-                  swal.fire(
-                    result.msg,
-                    "",
-                    "warning"
-                  )
-                }
-                
-              }
-            })
-          }
-        });
-    })
+function deleteEvent(e){  
+  swal.fire({
+    icon: 'warning',
+    title: 'Bạn có chắc chắn muốn xóa?',
+    text: 'Một khi đã xóa, bạn không thể khôi phục lại được.',
+    showCancelButton: true,
+    confirmButtonColor: '#d33'
   })
+    .then((willDelete) => {
+      if (willDelete.isConfirmed) {
+        $.ajax({
+          url: "/admin/event/delete/" + e.value,
+          method: "GET",
+          contentType: "application/json",
+          data: JSON.stringify({}),
+          success: function (result) {
+            if(result.delete){
+              swal.fire(
+                result.msg,
+                "",
+                "success"
+              ).then((value) => {
+                $(`.${result.slug}`).remove()
+              })
+            }else{
+              swal.fire(
+                result.msg,
+                "",
+                "warning"
+              )
+            }
+            
+          }
+        })
+      }
+    });   
 }
-deleteEvent()
 $("#formEditEvent").submit(function(e){
   e.preventDefault();   
   var id = $('#btnsave').val()
@@ -115,18 +103,16 @@ $("#formEditEvent").submit(function(e){
     data: formData,
     success: function (result) {
       $('.body-loading').css('display','none');  
-      if(result.edit){
+      if(result.edit){       
         $(`.${result.oldslug}`).find('.imgshow').attr('src', result.ev.photo);
         $(`.${result.oldslug}`).find('.titleshow').html(result.ev.title)
         $(`.${result.oldslug}`).find('.contentshow').html(result.ev.content)
         $(`.${result.oldslug}`).find('.btnEditEvent').val(result.ev.slug)
         $(`.${result.oldslug}`).find('.btnDeleteEvent').val(result.ev.slug)
         if(result.ev.slug!=result.oldslug){
-          $(`.${result.oldslug}`).addClass(result.ev.slug);
+          $(`.${result.oldslug}`).addClass(result.ev.slug); 
           $(`.${result.oldslug}`).removeClass(result.oldslug);
-        }
-        editEvent()
-        deleteEvent()
+        }        
         Swal.fire({
           icon: 'success',
           title: "Sửa thành công"               
@@ -172,9 +158,9 @@ $("#formAddEvent").submit(function(e){
               <td class="event-des contentshow">${result.ev.content}</td>
               <td>
                   <div class="btn-mode">
-                      <button type="button" class="btnEditEvent" value="${result.ev.slug}""><i class="fa fa-pencil-square-o"
+                      <button type="button" onclick="editEvent(this);" class="btnEditEvent" value="${result.ev.slug}""><i class="fa fa-pencil-square-o"
                               aria-hidden="true" ></i></button>
-                      <button type="button" class="btnDeleteEvent" value="${result.ev.slug}""><i class="fa fa-times" aria-hidden="true"></i></button>
+                      <button type="button" onclick="deleteEvent(this);" class="btnDeleteEvent" value="${result.ev.slug}""><i class="fa fa-times" aria-hidden="true"></i></button>
                   </div>
               </td>
           </tr>
@@ -183,11 +169,21 @@ $("#formAddEvent").submit(function(e){
             'Thêm thành công',
             '',        
             'success'
-          )
-          $('#bodyAdd').append(tr)
-          modalEditEvent.style.display = "none";
-          editEvent()
-          deleteEvent()
+          ).then((value) => {
+            $('#bodyAdd').append(tr)
+            modalAddEvent.style.display = "none"; 
+            document.getElementsByClassName("inputkhuyenmai")[0].style.display = "none";
+            var addform = $('#modalAddEvent')
+            addform.find('.img').attr('src', '../img/no_img.webp');                            
+            addform.find('.title').val('');
+            addform.find('.inputimg').val('');            
+            CKEDITOR.instances['eventContent'].setData('');          
+            addform.find('.type').val('Tin tức');     
+            addform.find('.idkm').val('');
+            addform.find('.valuekm').val('');
+            addform.find('.datefrom').val('');
+            addform.find('.dateto').val('');      
+          })                   
       }else{
         Swal.fire({
           icon: 'warning',
