@@ -20,7 +20,8 @@ router.get('/',(req,res)=>{
 })
 
 router.post('/add',(req,res)=>{
-    var {content,title,type,code,value,datefrom,dateto} = req.body 
+    var {content,title,type,code,value,datefrom,dateto} = req.body
+    code=code.toLowerCase()
     datefrom+=" 00:00:00" 
     dateto+=" 23:59:59"
     var slug = (cleanText(title).replace(/\s/g, '-')).toLowerCase();

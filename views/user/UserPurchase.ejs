@@ -47,7 +47,8 @@
                                 <div class="tab-pane active" id="option1" role="tabpanel">
                                     <form action="" method="get">
                                         <div class="order-common">
-                                            <div class="purchase-order" id="billun">      
+                                            <div class="purchase-order" id="billun"> 
+                                            <%if (billunuse.length!=0){%>     
                                                 <%billunuse.forEach(function(bill){%> 
                                                     <div class="purchase-film">
                                                         <a class="ticket" data-bs-toggle="collapse" href="#collapseExample<%=bill._id%>" 
@@ -123,6 +124,12 @@
                                                         </div>
                                                     </div>
                                                 <%})%>
+                                            <%} else {%>
+                                                <div class="no-show" style="margin-left: 100px;">
+                                                    <h1>Không có phim nào phù hợp yêu cầu</h1>
+                                                    <img src="/img/movie.gif" alt="">
+                                                </div>
+                                            <%}%>
                                             </div>
                                         </div>
                                     </form>
@@ -131,6 +138,7 @@
                                     <form action="" method="get">
                                         <div class="order-common">
                                             <div class="purchase-order" id="billuse">
+                                            <%if (billunuse.length!=0){%>
                                                 <%billused.forEach(function(bill){%> 
                                                     <div class="purchase-film">
                                                         <a class="ticket" data-bs-toggle="collapse" href="#collapseExample<%=bill._id%>" 
@@ -212,6 +220,12 @@
                                                         </div>
                                                     </div>
                                                 <%})%>
+                                            <%} else {%>
+                                                <div class="no-show" style="margin-left: 100px;">
+                                                    <h1>Không có phim nào phù hợp yêu cầu</h1>
+                                                    <img src="/img/movie.gif" alt="">
+                                                </div>
+                                            <%}%>
                                             </div>
                                         </div>
                                     </form>

@@ -31,6 +31,7 @@ Category.find({}, function (err, categories) {
 })
 router.post('/', (request, response) => {
     var { ticket, fullname, phone, code } = request.body
+    code = code.toLowerCase()
     var body = request.body    
     var today = Date.now() 
     var snacks=[]
