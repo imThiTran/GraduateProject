@@ -21,6 +21,7 @@ router.get('/',(req,res)=>{
 
 router.post('/add',(req,res)=>{
     var {content,title,type,code,value,datefrom,dateto} = req.body
+    var check=true
     code=code.toUpperCase()    
     datefrom+=" 00:00:00" 
     dateto+=" 23:59:59"
@@ -29,42 +30,66 @@ router.post('/add',(req,res)=>{
     var photoFile;
     if (req.files != null) photoFile=req.files.photo;
     else photoFile="";
-    if (photoFile != "") { 
-        cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/events/" + slug }, function (err, rsPhoto) {
-            if (err) console.log(err) ;
-            fs.unlink(photoFile.tempFilePath, function (err) {
-                if (err) throw err;
-            })
-            User.findOne({email:req.session.user},function(err,user){
-                var event = new Event({
-                    title:title,
-                    slug:slug,
-                    content:content,
-                    photo: rsPhoto.url,
-                    photoDrop: rsPhoto.public_id,
-                    author:user.fullname,
-                    type:type
-                })                      
-                event.save(function (err,ev) {                   
-                    if(type=="Khuyến mãi"){
-                        var voucher = new Voucher({
-                            code:code,
-                            value:value,
-                            idEvent:ev._id,
-                            datefrom:new Date(datefrom),
-                            dateto:new Date(dateto),
-                            current:new Date().getDate()
-                        })
-                        voucher.save(function (err) {
-                            if (err) throw err;                            
-                        });
-                    } 
-                    res.redirect('back')                                                      
-                });
-                
+    Event.findOne({slug:slug},(err,ev) => {
+        if(ev){
+            check=false
+            res.send({
+                add:false,
+                msg:"Sự kiện đã tồn tại"
             })            
-        })
-    }    
+        }else if(type=="Khuyến mãi"){
+            Voucher.findOne({code:code},(err,vc)=> {
+                if(vc){
+                    check=false
+                    res.send({
+                        add:false,
+                        msg:"Mã khuyến mãi đã tồn tại"
+                    })
+                }
+            })
+        }
+        if(check){
+            if (photoFile != "") { 
+                cloudinary.uploader.upload(photoFile.tempFilePath, { folder: "cinema/events/" + slug }, function (err, rsPhoto) {
+                    if (err) console.log(err) ;
+                    fs.unlink(photoFile.tempFilePath, function (err) {
+                        if (err) throw err;
+                    })
+                    User.findOne({email:req.session.user},function(err,user){
+                        var event = new Event({
+                            title:title,
+                            slug:slug,
+                            content:content,
+                            photo: rsPhoto.url,
+                            photoDrop: rsPhoto.public_id,
+                            author:user.fullname,
+                            type:type
+                        })                      
+                        event.save(function (err,ev) {                   
+                            if(type=="Khuyến mãi"){
+                                var voucher = new Voucher({
+                                    code:code,
+                                    value:value,
+                                    idEvent:ev._id,
+                                    datefrom:new Date(datefrom),
+                                    dateto:new Date(dateto),
+                                    current:new Date().getDate()
+                                })
+                                voucher.save(function (err) {
+                                    if (err) throw err;                            
+                                });
+                            } 
+                            res.send({
+                                add:true,
+                                ev:ev
+                            })                                                   
+                        });
+                        
+                    })            
+                })
+            }
+        }
+    })
 })
 
 router.get('/:slug', (req, res) => {

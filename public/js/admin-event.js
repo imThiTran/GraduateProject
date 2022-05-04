@@ -145,3 +145,58 @@ $("#formEditEvent").submit(function(e){
     contentType: false
   })
 });
+
+$("#formAddEvent").submit(function(e){
+  e.preventDefault();
+  var formData = new FormData(this); 
+  var content = CKEDITOR.instances['eventContent'].getData();
+  formData.append('content',content) 
+  $('.body-loading').css('display','block');
+  $.ajax({
+    type: "POST",
+    url: "/admin/event/add/",    
+    data: formData,
+    success: function (result) {
+      $('.body-loading').css('display','none');  
+      if(result.add){
+        var tr=
+          `
+          <tr class="${result.ev.slug}">
+              <th scope="row" style="width: 15%">
+                  <img class="event-image imgshow" src="${result.ev.photo}" alt="">
+              </th>
+              <td class="event-tit titleshow">
+                  ${result.ev.title}
+              </td>
+              <td>${new Date(result.ev.time).toJSON().slice(0,10).split('-').reverse().join('/')}</td>
+              <td class="event-des contentshow">${result.ev.content}</td>
+              <td>
+                  <div class="btn-mode">
+                      <button type="button" class="btnEditEvent" value="${result.ev.slug}""><i class="fa fa-pencil-square-o"
+                              aria-hidden="true" ></i></button>
+                      <button type="button" class="btnDeleteEvent" value="${result.ev.slug}""><i class="fa fa-times" aria-hidden="true"></i></button>
+                  </div>
+              </td>
+          </tr>
+        `
+          Swal.fire(
+            'Thêm thành công',
+            '',        
+            'success'
+          )
+          $('#bodyAdd').append(tr)
+          modalEditEvent.style.display = "none";
+          editEvent()
+          deleteEvent()
+      }else{
+        Swal.fire({
+          icon: 'warning',
+          title: result.msg
+        })
+      }
+    },
+    cache: false,
+    processData: false,
+    contentType: false
+  })
+});
