@@ -72,7 +72,9 @@
                                                                             <span>Đã đặt lúc <%= date.toTimeString().split(' ')[0]+" "+bill.timebooking.toJSON().slice(0,10).split('-').reverse().join('/')%> </span>
                                                                             <div class="price-order-list">
                                                                                 <div style="margin: -10px;"><b>Tổng tiền:</b> <%= bill.total%> VNĐ</div>
-                                                                                <i style="font-size: 13px;">Khuyến mãi: 45.0000 VND</i>
+                                                                                <%if (bill.discount!="0"){%>     
+                                                                                    <i style="font-size: 13px;">Khuyến mãi: <%= bill.totalbill-bill.total%> VND</i>
+                                                                                <% } %>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -106,7 +108,13 @@
                                                                     <div>
                                                                         <%= ticket.join(', ') %>
                                                                     </div>                                                                    
-                                                                    <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span><%=totalticket%> VNĐ</div>
+                                                                    <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span>
+                                                                        <%if (bill.discount!="0"){%> 
+                                                                            <%=totalticket*(100-bill.discount)/100 %> VNĐ
+                                                                        <%} else {%>
+                                                                            <%=totalticket%> VNĐ
+                                                                        <% }; %>
+                                                                    </div>
                                                                 </div>
                                                                 <% var snacksarr=[] %>
                                                                 <% var totalsn=0 %>
@@ -171,7 +179,9 @@
                                                                             <span>Đã đặt lúc <%= date.toTimeString().split(' ')[0]+" "+bill.timebooking.toJSON().slice(0,10).split('-').reverse().join('/')%> </span>
                                                                             <div class="price-order-list">
                                                                                 <div style="margin: -10px;"><b>Tổng tiền:</b> <%= bill.total%> VNĐ</div>
-                                                                                <i style="font-size: 13px;">Khuyến mãi: 45.0000 VND</i>
+                                                                                <%if (bill.discount!="0"){%>     
+                                                                                    <i style="font-size: 13px;">Khuyến mãi: <%= bill.totalbill-bill.total%> VND</i>
+                                                                                <% } %>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -205,7 +215,13 @@
                                                                     <div>
                                                                         <%= ticket.join(', ') %>
                                                                     </div>                                                                    
-                                                                    <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span><%=totalticket%> VNĐ</div>
+                                                                    <div class="price-order-list-sub"><span style="font-style: normal;">Giá: </span>
+                                                                        <%if (bill.discount!="0"){%> 
+                                                                            <%=totalticket*(100-bill.discount)/100 %> VNĐ
+                                                                        <%} else {%>
+                                                                            <%=totalticket%> VNĐ
+                                                                        <% }; %>
+                                                                    </div>
                                                                 </div>
                                                                 <% var snacksarr=[] %>
                                                                     <% var totalsn=0 %>
