@@ -876,7 +876,7 @@ a:hover {
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: 50px 15px;
+    margin: 50px 40px;
 }
 
 #error-forgot{
@@ -3442,6 +3442,7 @@ button.primaryContained:hover {
 }
 .idkm{
     margin-right: 5px;
+    text-transform: uppercase;
 }
 .add-km{
     display: flex;
@@ -3548,4 +3549,9 @@ button.primaryContained:hover {
   }
   .input-mail:focus-visible{
     outline: none;
+  }
+  .event-content{
+    padding-right: 30px;
+    padding-left: 20px;
+    line-height: 1.5;
   }

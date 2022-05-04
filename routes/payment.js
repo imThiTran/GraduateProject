@@ -274,23 +274,23 @@ router.get('/confirm', (req, res) => {
                                                     line-height: 1.4;margin-top: 20px;color: #eee">
                                                         <div style="display: flex;color: #eee;">
                                                             <div style="width: 100px;">Tên phim: </div>
-                                                            <div>${film.nameEN}</div>
+                                                            <div style="flex: 4;">${film.nameEN}</div>
                                                         </div>
                                                         <div style="display: flex;color: #eee;">
                                                             <div style="width: 100px;">Suất chiếu: </div>
-                                                            <div>${st.date.split("-").reverse().join("/")}  ${st.timeStart}</div>
+                                                            <div style="flex: 4;">${st.date.split("-").reverse().join("/")}  ${st.timeStart}</div>
                                                         </div>
                                                         <div style="display: flex;color: #eee;">
                                                             <div style="width: 100px;">Rạp: </div>
-                                                            <div>${room.name}</div>
+                                                            <div style="flex: 4;">${room.name}</div>
                                                         </div>
                                                         <div style="display: flex;color: #eee;">
                                                             <div style="width: 100px;">Ghế: </div>
-                                                            <div>${tk.join(' ,')}</div>
+                                                            <div style="flex: 4;">${tk.join(' ,')}</div>
                                                         </div>
                                                         <div style="display: flex;color: #eee;">
                                                             <div style="width: 100px;">Combo: </div>    
-                                                            <div style="flex: 4;">${snack.join(' ,')}</div>
+                                                            <div style="margin-left: 43px;">${snack.join(' ,')}</div>
                                                         </div>
                                                     </div>
                                                     <div style="font-size: 12px;font-style: italic;color: white;margin-top: 10px;">*Vui lòng đến quầy soát vé 15 phút trước giờ chiếu</div>
