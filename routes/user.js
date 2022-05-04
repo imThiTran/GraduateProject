@@ -210,7 +210,7 @@ router.post('/edit-comment',async (req,res)=>{
 
 router.get('/purchase', (req,res)=>{
     User.findOne({email:req.session.user}, (err,us) => {
-        Bill.find({user:us.email}, (err,bills) => {           
+        Bill.find({$and:[{payment:'1'},{user:us.email}]}, (err,bills) => {         
             if (err) console.log(err);
             var billunuse=[]
             var billused=[]            
@@ -255,7 +255,7 @@ router.get('/purchase', (req,res)=>{
 router.get('/sendqr', (req,res) => {
     var {idbill} =req.query
     Bill.findById(idbill, function(err,bill){
-        if(bill){
+        if(bill && bill.payment=="1"){
             var tk=[]
             bill.ticket.forEach(tiki => {
                 tk.push(tiki.name)
