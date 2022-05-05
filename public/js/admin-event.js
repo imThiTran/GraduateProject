@@ -22,7 +22,10 @@ function editEvent(e){
     method: "GET",
     contentType: "application/json",
     data: JSON.stringify({}),
-    success: function (result) {          
+    success: function (result) {     
+      for(let i=0;i<$('.span-error-edit').length;i++){
+        $('.span-error-edit').eq(i).html(null)
+      }           
       var editform = $('#modalEditEvent')
       editform.find('.img').attr('src', result.event.photo);  
       editform.find('.imgsrc').val(result.event.photo); 

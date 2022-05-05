@@ -57,12 +57,14 @@
                                                                     style="display: none;">
                                                                 <label class="btn-common" id="btn-edit-img-item"
                                                                     for="img1">Thêm ảnh</label>
+                                                                    <span class="span-error-add"></span>
                                                             </div>
                                                         </div>
                                                         <div class="modal-right" style="padding-top: 19px;">                                                                                                               
                                                             <label class="label-chitiet" for="">Tiêu đề</label>                                                                                                                
                                                             <div class="input-ten">
                                                                 <input style="width: 100% !important;padding: 10px;" class="form-control input-sua title" placeholder="Tiêu đề" type="text" name="title">
+                                                                <span class="span-error-add"></span>
                                                             </div>
                                                             <label class="label-chitiet" for="">Thể loại</label> 
                                                             <div>
@@ -73,9 +75,10 @@
                                                             </div>
                                                             <div style="display: none;" class="inputkhuyenmai">
                                                                 <div class="add-km">
-                                                                    <input class="form-control idkm" type="text" placeholder="Mã khuyến mã" name="code"/>
+                                                                    <input class="form-control idkm" type="text" placeholder="Mã khuyến mã" name="code"/>                                                                    
                                                                     <input class="form-control valuekm" type="number" placeholder="Giá trị(%)" name="value"/>
-                                                                </div>
+                                                                    <span class="span-error-add"></span>
+                                                                </div>                                                                
                                                                 <div class="add-km" style="margin-top: 5px;">
                                                                     <div class="time-km" style="margin-right: 5px;">
                                                                         Từ ngày<input class="form-control date-from-km datefrom" type="date" name="datefrom"/>
@@ -83,20 +86,22 @@
                                                                     <div class="time-km">
                                                                         Đến ngày<input class="form-control date-to-km dateto" type="date" name="dateto"/>
                                                                     </div>
+                                                                    <span class="span-error-add"></span>
                                                                 </div>
                                                             </div>        
                                                         </div>
                                                     </div>
                                                     <div class="event-down">
                                                         <label class="label-chitiet" for="">Nội dung</label>
-                                                        <textarea class="input-sua" id="eventContent"></textarea>
+                                                        <span class="span-error-add"></span>
+                                                        <textarea class="input-sua" id="eventContent" name="ct"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer footer-add">
                                                     <div class="footer-add-btn">
                                                         <button type="button"
                                                         class="btn btn-secondary close-event  close-CL">Đóng</button>
-                                                        <button type="submit" class="btn-common close-event  close-AC">Thêm</button>
+                                                        <button type="submit" class="btn-common  close-AC btnadd">Thêm</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,6 +159,7 @@
                                                 <label class="label-chitiet" for="">Tiêu đề</label>                                                                                                                
                                                 <div class="input-ten">
                                                     <input style="width: 100% !important;padding: 10px;" class="form-control input-sua title" placeholder="Tiêu đề" type="text" name="title">
+                                                    <span class="span-error-edit"></span>   
                                                 </div>
                                                 <label class="label-chitiet" for="">Thể loại</label> 
                                                 <div>
@@ -166,6 +172,7 @@
                                                     <div class="add-km">
                                                         <input class="form-control idkm" type="text" placeholder="Mã khuyến mã" name="code" disabled/>
                                                         <input class="form-control valuekm" type="number" placeholder="Giá trị(%)" name="value"/>
+                                                        <span class="span-error-edit"></span>   
                                                     </div>
                                                     <div class="add-km" style="margin-top: 5px;">
                                                         <div class="time-km" style="margin-right: 5px;">
@@ -174,20 +181,22 @@
                                                         <div class="time-km">
                                                             Đến ngày<input class="form-control date-to-km" type="date" name="dateto"/>
                                                         </div>
+                                                        <span class="span-error-edit"></span>   
                                                     </div>
                                                 </div>        
                                             </div>
                                         </div>
                                         <div class="event-down">
                                             <label class="label-chitiet" for="">Nội dung</label>
-                                            <textarea class="input-sua content" id="editEventContent" ></textarea>
+                                            <span class="span-error-edit"></span>   
+                                            <textarea class="input-sua content" id="editEventContent" name="ct" ></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer footer-add">
                                         <div class="footer-add-btn">
                                             <button type="button"
                                             class="btn btn-secondary close-event  close-CL">Đóng</button>
-                                            <button type="submit" id="btnsave" class="btn-common close-event close-AC btnsave">Lưu</button>
+                                            <button type="submit" id="btnsave" class="btn-common close-AC btnsave">Lưu</button>
                                         </div>
                                     </div>
                                 </div>
@@ -239,5 +248,73 @@
         });        
       });
     });
+</script>
+<script src="/js/validate-thitran.js"></script>
+<script>   
+    timer = setInterval(updatecdt1,100);
+    function updatecdt1(){
+        var editorText =  CKEDITOR.instances['eventContent'].getData();
+        if(editorText!=""){
+            $('#eventContent').parent().find('.span-error-add').html(null)
+        }
+        $('#eventContent').val(editorText)
+    }
+    isRequired($("[name='title']").eq(1), 'add');
+    isRequired($("[name='photo']").eq(1), 'add');    
+    isRequired($("[name='code']").eq(1), 'add');
+    isRequired($("[name='value']").eq(1), 'add');
+    isRequired($("[name='datefrom']").eq(1), 'add');
+    isRequired($("[name='dateto']").eq(1), 'add');
+    isRequired($("[name='ct']").eq(1), 'add');
+    
+    $('.btnadd').click(function (e) {             
+        var check = true;
+        if($("option:selected").eq(1).val()=="Khuyến mãi"){
+            checkform([$("[name='title']").eq(1), $("[name='photo']").eq(1), $("[name='code']").eq(1)
+            , $("[name='value']").eq(1), $("[name='datefrom']").eq(1), $("[name='dateto']").eq(1),$("[name='ct']").eq(1)],
+            'add', 'Vui lòng nhập trường này');
+        }else{
+            checkform([$("[name='title']").eq(1),$("[name='photo']").eq(1),$("[name='ct']").eq(1)],
+            'add', 'Vui lòng nhập trường này');
+        }
+        $('.span-error-add').each(function () {            
+            if ($(this).text() != '') { check = false; return false; }
+        })        
+        if (!check) {
+            e.preventDefault();            
+        }
+    })
+    timer2 = setInterval(updatecdt2,100);
+    function updatecdt2(){
+        var editorText2 =  CKEDITOR.instances['editEventContent'].getData();
+        if(editorText2!=""){
+            $('#editEventContent').parent().find('.span-error-edit').html(null)
+        }
+        $('#editEventContent').val(editorText2)
+    }
+
+    isRequired($("[name='title']").eq(0), 'edit');    
+    isRequired($("[name='value']").eq(0), 'edit');
+    isRequired($("[name='datefrom']").eq(0), 'edit');
+    isRequired($("[name='dateto']").eq(0), 'edit');
+    isRequired($("[name='ct']").eq(0), 'edit');
+
+    $('.btnsave').click(function (e) {             
+        var check = true;
+        if($("option:selected").eq(0).val()=="Khuyến mãi"){
+            checkform([$("[name='title']").eq(0), $("[name='value']").eq(0), $("[name='datefrom']").eq(0),
+             $("[name='dateto']").eq(0),$("[name='ct']").eq(0)],
+            'edit', 'Vui lòng nhập trường này');
+        }else{
+            checkform([$("[name='title']").eq(0),$("[name='ct']").eq(0)],
+            'edit', 'Vui lòng nhập trường này');
+        }
+        $('.span-error-edit').each(function () {            
+            if ($(this).text() != '') { check = false; return false; }
+        })        
+        if (!check) {
+            e.preventDefault();            
+        }
+    })
 </script>
 </html>

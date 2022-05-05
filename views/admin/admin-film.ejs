@@ -51,6 +51,7 @@
 
                                                                 <label class="btn-common" id="btn-edit-img-item"
                                                                     for="img1">Chọn ảnh</label>
+                                                                    <span class="span-error-add"></span>
                                                                 <input type="hidden" class="imgtest" name="imgAdd">
                                                             </div>
                                                             <div class="line-img"></div>
@@ -65,6 +66,7 @@
                                                                     style="display: none;" name="backgroundFile">
                                                                 <label class="btn-common" id="btn-edit-img-item"
                                                                     for="img2">Chọn ảnh</label>
+                                                                    <span class="span-error-add"></span>
                                                             </div>
                                                         </div>
                                                         <div class="modal-right">
@@ -72,10 +74,11 @@
                                                                 <label class="label-chitiet" for="">Tên phim</label>
                                                                 <div class="input-ten">
                                                                     <input class="input-sua nameen"
-                                                                        placeholder="Tên tiếng anh" type="text"
+                                                                        placeholder="Tên chính" type="text"
                                                                         name="nameEN">
+                                                                        <span class="span-error-add"></span>
                                                                     <input class="input-sua namevn"
-                                                                        placeholder="Tên tiếng việt" type="text"
+                                                                        placeholder="Tên phụ" type="text"
                                                                         name="nameVN">
                                                                 </div>
                                                             </div>
@@ -83,19 +86,23 @@
                                                                 <label class="label-chitiet" for="">Đạo diễn</label>
                                                                 <input class="input-sua directors" type="text"
                                                                     name="directors">
+                                                                    <span class="span-error-add"></span>
                                                             </div>
                                                             <div class="ad-phim">
                                                                 <label class="label-chitiet " for="">Diễn viên</label>
                                                                 <input class="input-sua cast" type="text" name="cast">
+                                                                <span class="span-error-add"></span>
                                                             </div>
                                                             <div class="ad-phim">
                                                                 <label class="label-chitiet" for="">Khởi chiếu</label>
                                                                 <input class="input-sua premiere" type="date"
                                                                     name="premiere">
+                                                                    <span class="span-error-add"></span>
                                                             </div>
                                                             <div class="ad-phim">
                                                                 <label class="label-chitiet" for="">Thời gian</label>
                                                                 <input class="input-sua time" type="number" name="time">
+                                                                <span class="span-error-add"></span>
                                                             </div>
                                                             <div class="ad-phim">
                                                                 <label class="label-chitiet" for="">Thể loại</label>
@@ -166,11 +173,13 @@
                                                                 <label class="label-chitiet" for="">Chi tiết</label>
                                                                 <textarea class="input-sua-area detail" cols="20"
                                                                     rows="10" name="detail"></textarea>
+                                                                    <span class="span-error-add"></span>
                                                             </div>
                                                             <div class="ad-phim">
                                                                 <label class="label-chitiet" for="">Trailer</label>
                                                                 <input class="input-sua trailer" type="url"
                                                                     name="trailer">
+                                                                    <span class="span-error-add"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -178,7 +187,7 @@
                                                         <div class="footer-add-btn">
                                                             <button type="button"
                                                             class="btn btn-secondary close-footer close-CL">Đóng</button>
-                                                        <button class="btn btn-common btn-warning close-AC" type="submit">Thêm</button>
+                                                        <button class="btn btn-common btn-warning close-AC btnadd" type="submit">Thêm</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -277,6 +286,7 @@
                                                                 <input class="input-sua nameen"
                                                                     placeholder="Tên tiếng anh" type="text"
                                                                     name="nameEN">
+                                                                    <span class="span-error-edit"></span>
                                                                 <input class="input-sua namevn"
                                                                     placeholder="Tên tiếng việt" type="text"
                                                                     name="nameVN">
@@ -286,19 +296,23 @@
                                                             <label class="label-chitiet" for="">Đạo diễn</label>
                                                             <input class="input-sua directors" type="text"
                                                                 name="directors">
+                                                                <span class="span-error-edit"></span>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Diễn viên</label>
                                                             <input class="input-sua cast" type="text" name="cast">
+                                                            <span class="span-error-edit"></span>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Khởi chiếu</label>
                                                             <input class="input-sua premiere" type="date"
                                                                 name="premiere">
+                                                                <span class="span-error-edit"></span>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Thời gian</label>
                                                             <input class="input-sua time" type="number" name="time">
+                                                            <span class="span-error-edit"></span>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Thể loại</label>
@@ -368,10 +382,12 @@
                                                             <label class="label-chitiet" for="">Chi tiết</label>
                                                             <textarea class="input-sua-area detail" name="detail" id=""
                                                                 cols="20" rows="10"></textarea>
+                                                                <span class="span-error-edit"></span>
                                                         </div>
                                                         <div class="ad-phim">
                                                             <label class="label-chitiet" for="">Trailer</label>
                                                             <input class="input-sua trailer" type="url" name="trailer">
+                                                            <span class="span-error-edit"></span>   
                                                         </div>
                                                     </div>
                                                 </div>
@@ -456,6 +472,50 @@
       });
     });
 </script>
-    
+<script src="/js/validate-thitran.js"></script>
+<script>
+    isRequired($("[name='nameEN']").eq(1), 'add');
+    isRequired($("[name='directors']").eq(1), 'add');
+    isRequired($("[name='cast']").eq(1), 'add');
+    isRequired($("[name='premiere']").eq(1), 'add');
+    isRequired($("[name='time']").eq(1), 'add');
+    isRequired($("[name='detail']").eq(1), 'add');    
+    isRequired($("[name='photo']").eq(1), 'add');
+    isRequired($("[name='background']").eq(1), 'add');
+    isRequired($("[name='trailer']").eq(1), 'add');
+    $('.btnadd').click(function (e) {             
+        var check = true;
+        checkform([$("[name='nameEN']").eq(1), $("[name='directors']").eq(1), $("[name='cast']").eq(1)
+        , $("[name='premiere']").eq(1), $("[name='time']").eq(1), $("[name='detail']").eq(1)
+        , $("[name='photo']").eq(1), $("[name='background']").eq(1), $("[name='trailer']").eq(1)],
+         'add', 'Vui lòng nhập trường này');
+        $('.span-error-add').each(function () {
+            if ($(this).text() != '') { check = false; return false; }
+        })             
+        if (!check) {
+            e.preventDefault();            
+        }
+    })
+    isRequired($("[name='nameEN']").eq(0), 'edit');
+    isRequired($("[name='directors']").eq(0), 'edit');
+    isRequired($("[name='cast']").eq(0), 'edit');
+    isRequired($("[name='premiere']").eq(0), 'edit');
+    isRequired($("[name='time']").eq(0), 'edit');
+    isRequired($("[name='detail']").eq(0), 'edit');
+    isRequired($("[name='trailer']").eq(0), 'edit');    
+    $('.submitedit').click(function (e) {             
+        var check = true;
+        checkform([$("[name='nameEN']").eq(0), $("[name='directors']").eq(0), $("[name='cast']").eq(0)
+        , $("[name='premiere']").eq(0), $("[name='time']").eq(0), $("[name='detail']").eq(0)
+        , $("[name='trailer']").eq(0)],
+         'edit', 'Vui lòng nhập trường này');
+        $('.span-error-edit').each(function () {
+            if ($(this).text() != '') { check = false; return false; }
+        })             
+        if (!check) {
+            e.preventDefault();            
+        }
+    })
+</script>
 
-    </html>
+</html>

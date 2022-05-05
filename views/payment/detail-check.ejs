@@ -10,10 +10,12 @@
                 <div class="bill-text check-text">
                     <div class="name-bill">Tên khách hàng: </div>
                    <input class="check-input" type="text" value="<%= user.fullname %>" name="fullname">
+                   <span class="span-error-add"></span>
                 </div>
                 <div class="bill-text check-text">
                     <div class="name-bill">Số điện thoại: </div>
                     <input class="check-input" type="text" value="<%= user.phone %>" name="phone">
+                    <span class="span-error-add"></span>
                 </div>
                 <div class="bill-text check-text">
                     <div class="name-bill">Email: </div>
@@ -124,6 +126,21 @@
         }
     })    
 </script>
-
+<script src="/js/validate-thitran.js"></script>
+<script>
+    isRequired($("[name='fullname']"), 'add');
+    isRequired($("[name='phone']"), 'add');
+    isPhone($("[name='phone']"),'add');
+    $('.btn-order').click(function (e) {             
+        var check = true;
+        checkform([$("[name='fullname']"), $("[name='phone']")], 'add', 'Vui lòng nhập trường này');
+        $('.span-error-add').each(function () {
+            if ($(this).text() != '') { check = false; return false; }
+        })             
+        if (!check) {
+            e.preventDefault();            
+        }
+    })
+</script>
 
 </body>
