@@ -43,7 +43,7 @@ router.get("/",function(req,res){
               } 
             }
           }
-      Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+      Film.aggregate([{ $match: {}},{ $sample: { size: 5 } }],function(err,filmslide){
         Event.aggregate([{ $match: {}},{ $sample: { size: 5 } }],function(err,events){
           res.render('index',{
             dayArrs:dayArr,
@@ -207,7 +207,7 @@ router.get('/event',function(req,res){
 router.get('/event/:slug',function(req,res){
   var {slug} = req.params
   Event.findOne({slug:slug},function(err,event){
-    Event.aggregate([{ $match: { slug: {'$ne':slug}}},{ $sample: { size: 3 } }],function(err,events){
+    Event.aggregate([{ $match: { slug: {'$ne':slug}}},{ $sample: { size: 5 } }],function(err,events){
       res.render('event/eventdetail',{
         event:event,
         cats:cats,

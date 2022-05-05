@@ -3566,7 +3566,29 @@ button.primaryContained:hover {
   .price-ticket-img{
     text-align: center;
     margin-top: 30px;
+    position: relative;
   }
   .price-ticket-img img{
       zoom: 65%;
   }
+.daily-am, .daily-pm, .weekend-am, .weekend-pm{
+    position: absolute;
+    left: 354px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Saira Semi Condensed', sans-serif;
+}
+.dam-price-single, .dpm-price-single, .wam-price-single, .wpm-price-single{
+    position: absolute;
+    left: 533px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Saira Semi Condensed', sans-serif;
+}
+.dam-price-couple, .dpm-price-couple, .wam-price-couple, .wpm-price-couple{
+    position: absolute;
+    right: 334px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Saira Semi Condensed', sans-serif;
+}
