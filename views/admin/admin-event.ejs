@@ -82,11 +82,13 @@
                                                                 <div class="add-km" style="margin-top: 5px;">
                                                                     <div class="time-km" style="margin-right: 5px;">
                                                                         Từ ngày<input class="form-control date-from-km datefrom" type="date" name="datefrom"/>
+                                                                        <span class="span-error-add"></span>
                                                                     </div>
                                                                     <div class="time-km">
                                                                         Đến ngày<input class="form-control date-to-km dateto" type="date" name="dateto"/>
+                                                                        <span class="span-error-add"></span>
                                                                     </div>
-                                                                    <span class="span-error-add"></span>
+                                                                    
                                                                 </div>
                                                             </div>        
                                                         </div>
@@ -177,11 +179,13 @@
                                                     <div class="add-km" style="margin-top: 5px;">
                                                         <div class="time-km" style="margin-right: 5px;">
                                                             Từ ngày<input class="form-control date-from-km" type="date" name="datefrom"/>
+                                                            <span class="span-error-edit"></span>
                                                         </div>
                                                         <div class="time-km">
                                                             Đến ngày<input class="form-control date-to-km" type="date" name="dateto"/>
+                                                            <span class="span-error-edit"></span>
                                                         </div>
-                                                        <span class="span-error-edit"></span>   
+                                                        
                                                     </div>
                                                 </div>        
                                             </div>
@@ -266,7 +270,7 @@
     isRequired($("[name='datefrom']").eq(1), 'add');
     isRequired($("[name='dateto']").eq(1), 'add');
     isRequired($("[name='ct']").eq(1), 'add');
-    
+    checkDate($("[name='datefrom']").eq(1),$("[name='dateto']").eq(1),'add')
     $('.btnadd').click(function (e) {             
         var check = true;
         if($("option:selected").eq(1).val()=="Khuyến mãi"){
@@ -298,7 +302,7 @@
     isRequired($("[name='datefrom']").eq(0), 'edit');
     isRequired($("[name='dateto']").eq(0), 'edit');
     isRequired($("[name='ct']").eq(0), 'edit');
-
+    checkDate($("[name='datefrom']").eq(0),$("[name='dateto']").eq(0),'edit')
     $('.btnsave').click(function (e) {             
         var check = true;
         if($("option:selected").eq(0).val()=="Khuyến mãi"){

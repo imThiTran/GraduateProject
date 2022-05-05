@@ -92,5 +92,24 @@ function isMatchPass(elements,methodd,elementMatch){
     })
 }
 
+function checkDate(datefrom,dateto,methodd){    
+    var spanerror = datefrom.parent().find('.span-error-' + methodd);
+    datefrom.on('change',function (e) {        
+        if((new Date(datefrom.val())-new Date(dateto.val())>0)){
+            spanerror.text('Ngày không hợp lệ');                      
+        }else{
+            spanerror.html(null);            
+        }        
+    })    
+    dateto.on('change',function (e) {        
+        if((new Date(datefrom.val())-new Date(dateto.val())>0)){
+            spanerror.text('Ngày không hợp lệ');            
+        }else{
+            spanerror.html(null);            
+        }        
+    })
+    
+}
+
 
 
