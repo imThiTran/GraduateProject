@@ -25,7 +25,7 @@ router.get('/register', (req, res) => {
 
 //post register
 router.post('/register', (req, res) => {
-    const { email, fullname, phone, birthday, gender, password } = req.body;
+    const { email, fullname, phone, birthday, gender, password,url } = req.body;
     User.findOne({ email: email }, function (err, user) {
         if (err) return console.log(err);
         if (user) {
@@ -70,7 +70,7 @@ router.post('/register', (req, res) => {
                             color: #eee;
                             padding-bottom: 20px;
                         ">Đường dẫn này chỉ có thời hạn trong 15 phút</p>
-                         <a href="${process.env.CLIENT_URL}/auth/confirm-register/${token}" 
+                         <a href="${url}/auth/confirm-register/${token}" 
                          style="
                             background-color:#fdbc3b;
                             padding: 10px;
@@ -231,7 +231,7 @@ router.get('/forget', (req, res) => {
 
 //post forgetPW
 router.post('/forget', (req, res) => {
-    const { email } = req.body;
+    const { email,url } = req.body;
     User.findOne({ email: email }, function (err, user) {
         if (user) {
             //Sign token và set token sống 20 phút
@@ -264,7 +264,7 @@ router.post('/forget', (req, res) => {
                             color: #eee;
                             padding-bottom: 20px;
                         ">Đường dẫn này chỉ có thời hạn trong 15 phút, và sau khi reset password thì đường dẫn này sẽ không thể truy cập</p>
-                         <a href="${process.env.CLIENT_URL}/auth/reset/${user._id}/${token}" 
+                         <a href="${url}/auth/reset/${user._id}/${token}" 
                          style="
                             background-color:#fdbc3b;
                             padding: 10px;

@@ -69,6 +69,7 @@
                         </button>
                         <span style="color: #f0c673; padding-bottom: 30px;">Đã có tài khoản? <i><a href="/auth/login">Đăng nhập
                                     ngay!</a></i></span>
+                                    <input type="hidden" class="url" name="url" />
                     </form>
                 </div>
             </div>
@@ -87,6 +88,7 @@
     <link rel="stylesheet" href="/css/owl.theme.css">
 
     <script>
+        $('.url').val(window.location.protocol+"//"+window.location.host)
         $("#owl-demo").owlCarousel({
             animateOut: 'fadeOut',
             dots: false,

@@ -92,6 +92,7 @@
         </div>
         <input type="hidden" value="<%=totalticket%>" class="totalticket"/>
         <input type="hidden" value="<%=totalsn%>" class="totalsn"/>
+        <input type="hidden" class="url" name="url" />
         <% tk.forEach( function(ticket){ %>
             <input type="hidden" name="ticket" value="<%=ticket._id%>"/>
         <% }); %>
@@ -101,6 +102,7 @@
     </form>
     </div>
 <script>
+    $('.url').val(window.location.protocol+"//"+window.location.host)
     $('.code').on('input',function(){
         var code=$(this).val();
         if (code!=''){

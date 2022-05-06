@@ -31,6 +31,7 @@
                             Gửi
                         </button>
                         <i><a href="/auth/login">Quay lại trang Đăng nhập!</a></i>
+                        <input type="hidden" class="url" name="url" />
                     </form>
                 </div>
             </div>
@@ -49,6 +50,7 @@
     <link rel="stylesheet" href="/css/owl.theme.css">
 
     <script>
+         $('.url').val(window.location.protocol+"//"+window.location.host)
         $("#owl-demo").owlCarousel({
             animateOut: 'fadeOut',
             dots: false,

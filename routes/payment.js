@@ -16,7 +16,6 @@ var accessKey = process.env.accessKey
 var secretkey = process.env.secretkey
 var requestId;
 var orderInfo = "Thanh toán đơn hàng Megas";
-var redirectUrl = process.env.CLIENT_URL + "/payment/confirm";
 var ipnUrl = "https://callback.url/notify";
 var requestType = "captureWallet"
 var extraData = "";
@@ -30,7 +29,8 @@ Category.find({}, function (err, categories) {
     cats = categories
 })
 router.post('/', (request, response) => {
-    var { ticket, fullname, phone, code } = request.body
+    var { ticket, fullname, phone, code,url } = request.body
+    var redirectUrl = url + "/payment/confirm";
     code=code.toUpperCase()
     var body = request.body    
     var today = Date.now() 
