@@ -314,9 +314,15 @@ router.get('/sendqr', (req,res) => {
                                                 <div style="width: 100px;">Ghế: </div>
                                                 <div style="flex: 4;">${tk.join(' ,')}</div>
                                             </div>
-                                            <div style="display: flex;color: #eee;">
+                                            ${snack.length!=0 ?
+                                            `<div style="display: flex;color: #eee;">
                                                 <div style="width: 100px;">Combo: </div>    
                                                 <div style="width: 395px;margin-left: 43px;">${snack.join(' ,')}</div>
+                                            </div>`
+                                            :``}                                            
+                                            <div style="display: flex;color: #eee;">
+                                                <div style="width: 100px;">Code: </div>
+                                                <div style="flex: 4;">${bill.code}</div>
                                             </div>
                                         </div>
                                          <div style="font-size: 12px;font-style: italic;color: white;margin-top: 10px;">*Vui lòng đến quầy soát vé 15 phút trước giờ chiếu</div>
