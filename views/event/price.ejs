@@ -3,22 +3,24 @@
     <%- include ('../layouts/sub-header') %>
     <div class="container">
         <div class="price-ticket-img">
-            <span class="daily-am" style="top: 168px;">8 AM - 5 PM</span>
-            <span class="daily-pm" style="top: 218px;">5 PM - 11 PM</span>
-            <span class="weekend-am" style="bottom: 118px;">8 AM - 5 PM</span>
-            <span class="weekend-pm" style="bottom: 70px;">5 PM - 11 PM</span>
+            <span class="daily-am" style="top: 168px;"><%=tkp.timeSlot1.fromTime%> - <%=tkp.timeSlot1.toTime    .toLocaleString('de-DE')%></span>
+            <span class="daily-pm" style="top: 218px;"><%=tkp.timeSlot2.fromTime%> - <%=tkp.timeSlot2.toTime%></span>
+            <span class="weekend-am" style="bottom: 118px;"><%=tkp.timeSlot1.fromTime%> - <%=tkp.timeSlot1.toTime%></span>
+            <span class="weekend-pm" style="bottom: 70px;"><%=tkp.timeSlot2.fromTime%> - <%=tkp.timeSlot2.toTime%></span>
 
-            <span class="dam-price-single" style="top: 168px;">45.000 VNĐ</span>
-            <span class="dpm-price-single" style="top: 218px;">60.000 VNĐ</span>
-            <span class="wam-price-single" style="bottom: 118px;">60.000 VNĐ</span>
-            <span class="wpm-price-single" style="bottom: 70px;">80.000 VNĐ</span>
+            <span class="dam-price-single" style="top: 168px;"><%=tkp.timeSlot1.normalDay.singleSeat%> VNĐ</span>
+            <span class="dpm-price-single" style="top: 218px;"><%=tkp.timeSlot2.normalDay.singleSeat%> VNĐ</span>
+            <span class="wam-price-single" style="bottom: 118px;"><%=tkp.timeSlot1.weekend.singleSeat%> VNĐ</span>
+            <span class="wpm-price-single" style="bottom: 70px;"><%=tkp.timeSlot2.weekend.singleSeat%> VNĐ</span>
 
-            <span class="dam-price-couple" style="top: 168px;">90.000 VNĐ</span>
-            <span class="dpm-price-couple" style="top: 218px;">120.000 VNĐ</span>
-            <span class="wam-price-couple" style="bottom: 118px;">120.000 VNĐ</span>
-            <span class="wpm-price-couple" style="bottom: 70px;">160.000 VNĐ</span>
+            <span class="dam-price-couple" style="top: 168px;"><%=tkp.timeSlot1.normalDay.coupleSeat%> VNĐ</span>
+            <span class="dpm-price-couple" style="top: 218px;"><%=tkp.timeSlot2.normalDay.coupleSeat%> VNĐ</span>
+            <span class="wam-price-couple" style="bottom: 118px;"><%=tkp.timeSlot1.weekend.coupleSeat%> VNĐ</span>
+            <span class="wpm-price-couple" style="bottom: 70px;"><%=tkp.timeSlot2.weekend.coupleSeat%> VNĐ</span>
             <img src="/img/ticket.png" alt="">
         </div>
         
     </div>
 </body>
+<%- include ('../layouts/footer') %>
+</html>

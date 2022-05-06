@@ -5,6 +5,7 @@ var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 var Event = require('../models/event')
 var Category = require('../models/category');
+var Ticketprice = require('../models/ticket-price')
 var fi=[];
 Film.find({},(err,films)=>{
   fi=films;
@@ -197,6 +198,7 @@ router.get('/search-film',(req,res)=>{
 
 router.get('/event',function(req,res){
   Event.find({},function(err,events){
+    events=events.reverse()
     res.render('event/event',{
       events:events,
       cats:cats
@@ -218,12 +220,12 @@ router.get('/event/:slug',function(req,res){
 })
 
 router.get('/price',function(req,res){
-  Event.find({},function(err,events){
-    res.render('event/price',{
-      events:events,
-      cats:cats
-    })
-  })
+  Ticketprice.find({},(err,tkps)=>{
+    res.render('event/price',{     
+      cats:cats,
+      tkp:tkps[0]
+    })  
+  })    
 })
 
 module.exports = router;
