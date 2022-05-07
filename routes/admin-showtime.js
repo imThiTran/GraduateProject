@@ -142,7 +142,7 @@ router.post('/change-holiday-price', (req, res) => {
 })
 
 function checkDayWeekend(date) {
-    if (date.getDay() == 6 || date.getDay() == 0) return true;
+    if (date.getDay() == 6 || date.getDay() == 0 || date.getDay() == 5) return true;
     return false;
 }
 

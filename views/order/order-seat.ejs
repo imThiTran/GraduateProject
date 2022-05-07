@@ -145,6 +145,7 @@
                         </div>
                         <div class="tamtinh">
                             <input type="hidden" name="" class="totalPriceHidden" id="" value="0">
+                            <div class="name-color">Số vé đã chọn: <span class="numSelectedTicket"> 0</span> </div>
                             <div class="name-color">Tạm tính: </div>
                             <div class="name-color"><span class="totalPrice">0</span> VND</div>
                         </div>
@@ -212,13 +213,16 @@
         var totalPriceHidden=$('.totalPriceHidden');
             var thisPrice = parseInt(th.getAttribute('price'));
             var totalPrice = parseInt(totalPriceHidden.val());
+            var selectedTicket=parseInt($('.numSelectedTicket').text());
             if (th.checked) {
                 totalPriceHidden.val(totalPrice + thisPrice);
                 $('.totalPrice').text(formatNumber(totalPriceHidden.val()));
+                $('.numSelectedTicket').text(selectedTicket+1);
             }
             else {
                 totalPriceHidden.val(totalPrice - thisPrice);
                 $('.totalPrice').text(formatNumber(totalPriceHidden.val()));
+                $('.numSelectedTicket').text(selectedTicket-1);
             }
         }
         $('.btn-order').click(function (e) {            

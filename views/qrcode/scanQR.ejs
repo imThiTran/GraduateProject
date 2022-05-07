@@ -11,7 +11,11 @@
                 <div class="container container-qr warning ">
                     <div class="result-bill" id="result"></div>
                 </div>
+                <input type="text" class="codeBackup" name="" placeholder="Nhập code dự phòng" id="">
+                <button class="confirmCodeBackup" onclick="onCodeBackupSuccess();">Xác nhận</button>
             </div>
+
+            
     </body>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
@@ -80,7 +84,7 @@
                     </div>
                 </div>
                 <button class="form-control btn-print btn-backQR noPrint">
-                    <a href='/qrcode/scan-qrcode'>Quay lại scan</a>
+                    <a href='/qrcode/scan-qrcode'>Quay lại</a>
                     </button>
           `)
                     } else {
@@ -89,12 +93,13 @@
                         <img src="/img/movie.gif" alt="">
                     </div>   
                     <button class="form-control btn-print btn-backQR noPrint">
-                    <a href='/qrcode/scan-qrcode'>Quay lại scan</a>
+                    <a href='/qrcode/scan-qrcode'>Quay lại</a>
                     </button>`);
                     }
                 }
             })
         }
+        
         function onScanError(errorMessage) {
             //handle scan error
         }
@@ -128,6 +133,85 @@
                             }
                         }
                     })
+                }
+            })
+        }
+
+        function onCodeBackupSuccess(){
+            var codeBackup=$('.codeBackup').val();
+            $.ajax({
+                url: "/qrcode/code-backup",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ qrcode: codeBackup }),
+                success: function (result) {
+                    if (typeof result == 'object') {
+                        $('.container-bill').html(`
+                <div class="qr-bill">
+                    <div class="qr-info">
+                        <div class="qr-bill-section">
+                            <h2>Hóa đơn</h2>
+                            <div class="bill-text">
+                                <div class="bill-qr">ID: </div>
+                                <span class='idBill' style="font-style: italic;">${result.id}</span>
+                            </div>
+                            <div class="bill-text">
+                                <div class="bill-qr">Thời gian xuất: </div>
+                                <span style="font-style: italic;">${result.timePrint}</span>
+                            </div>
+                            <div class="bill-text">
+                                <div class="bill-qr">Tên khách hàng: </div>
+                                <span style="font-style: italic;">${result.fullname}</span>
+                            </div>
+                            <div class="showtime-bill show-qr">
+                                <div class="bill-text" style="display: flex;">
+                                    <div class="name-bill name-qr">Tên phim: </div>
+                                    <div>
+                                        <div>${result.nameEN}</div>
+                                        <div>${result.nameVN}</div>
+                                    </div>
+                                </div>
+                                <div class="bill-text">
+                                    <div class="name-bill name-qr">Suất chiếu: </div>
+                                    <span style="font-weight: 600;">${result.date} ${result.time}</span>
+                                </div>
+                                <div class="bill-text">
+                                    <div class="name-bill name-qr">Rạp: </div>
+                                    <span style="font-weight: 600;">${result.room}</span>
+                                </div>
+                                <div class="bill-text">
+                                    <div class="name-bill name-qr">Ghế: </div>
+                                    <span style="font-weight: 600;">${result.ticket}</span>
+                                </div>
+                                <div class="bill-text">
+                                    <div class="name-bill name-qr" style="flex:3">Combo: </div> 
+                                    <span style="flex:5">${result.snack}</span>
+                                </div>
+                                <div class="bill-text">
+                                    <div class="name-bill name-qr" style="flex:3">Tổng tiền: </div> 
+                                    <span style="flex:5">${formatNumber(result.total)} VNĐ</span>
+                                </div>
+                            </div>
+                            <div class="print-section">
+                                <button class="form-control btn-print noPrint" onclick="checkInBill(this)">Sử dụng</button>
+                                <button class="form-control btn-print noPrint" onclick="window.print()">In</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="form-control btn-print btn-backQR noPrint">
+                    <a href='/qrcode/scan-qrcode'>Quay lại scan</a>
+                    </button>
+          `)
+                    } else {
+                        $('.container-bill').html(`<div class="no-show">
+                        <h1 style="color:white">${result}</h1>
+                        <img src="/img/movie.gif" alt="">
+                    </div>   
+                    <button class="form-control btn-print btn-backQR noPrint">
+                    <a href='/qrcode/scan-qrcode'>Quay lại scan</a>
+                    </button>`);
+                    }
                 }
             })
         }
