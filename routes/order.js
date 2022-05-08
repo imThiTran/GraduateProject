@@ -10,8 +10,12 @@ const Room = require('../models/room');
 var Snack = require('../models/snack')
 
 var cats = []
+var films= []
 Category.find({}, function (err, categories) {
     cats = categories
+})
+Film.find({}, function (err, fis) {
+    films = fis
 })
 
 router.get('/', (req, res) => {
@@ -47,7 +51,8 @@ router.get('/', (req, res) => {
                                 countAll: tks.length,
                                 a: allRows,
                                 cats: cats,
-                                idSt: idSt
+                                idSt: idSt,
+                                filmArrs:films
                             })
                         })
                     })
@@ -181,7 +186,8 @@ router.post('/ticket', (req, res) => {
                                 snack:snackarr,
                                 cats:cats,
                                 totalticket:tk[0].price,
-                                totalsn:total
+                                totalsn:total,
+                                filmArrs:films
                             })
                         })
                     }else{
@@ -203,7 +209,8 @@ router.post('/ticket', (req, res) => {
                                 snack:snackarr,
                                 cats:cats,
                                 totalticket:totaltk,
-                                totalsn:totalsn
+                                totalsn:totalsn,
+                                filmArrs:films
                             })
                         })
                     }
@@ -221,7 +228,8 @@ router.post('/snack', (req, res) => {
                 tk:tk,
                 idst:idSt,
                 snacks:snacks,
-                cats:cats
+                cats:cats,
+                filmArrs:films
             })
         })
     })

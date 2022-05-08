@@ -136,33 +136,33 @@ router.get('/render/:time',async (req,res)=>{
           res.send(hmtlSend);
 })
 
-router.post('/search-film-ajax',(req,res)=>{
-  var name=req.body.name;
-  var htmlSend='';
-  Film.find({$or:[{nameEN:{$regex:name,$options:"$i"}},{nameVN:{$regex:name,$options:"$i"}}]},(err,fi)=>{
-    if (fi.length!=0){
-      htmlSend=htmlSend+`<ul class="dropdown-menu">`;
-    fi.forEach(function(fiFe){
-      htmlSend=htmlSend+`<li><a class="dropdown-item" href="/movie/`+fiFe.slug+`">
-      <div class="search-option">
-          <div class="img-option">
-              <img class="img-search" src="`+fiFe.photo+`" alt="phim1">
-          </div>
-          <div class="title-option">
-              <div class="rating-flex">
-                  <h5>`+fiFe.nameEN+`</h5>
-                  <img src="/img/cs`+fiFe.ageLimit+`.png" alt="">
-              </div>
-              <h6>`+fiFe.nameVN+`</h6>
-          </div>
-      </div>
-  </a></li>`
-    })
-    htmlSend=htmlSend+`</ul>`;
-    }
-    res.send(htmlSend);
-  })
-})
+// router.post('/search-film-ajax',(req,res)=>{
+//   var name=req.body.name;
+//   var htmlSend='';
+//   Film.find({$or:[{nameEN:{$regex:name,$options:"$i"}},{nameVN:{$regex:name,$options:"$i"}}]},(err,fi)=>{
+//     if (fi.length!=0){
+//       htmlSend=htmlSend+`<ul class="dropdown-menu">`;
+//     fi.forEach(function(fiFe){
+//       htmlSend=htmlSend+`<li><a class="dropdown-item" href="/movie/`+fiFe.slug+`">
+//       <div class="search-option">
+//           <div class="img-option">
+//               <img class="img-search" src="`+fiFe.photo+`" alt="phim1">
+//           </div>
+//           <div class="title-option">
+//               <div class="rating-flex">
+//                   <h5>`+fiFe.nameEN+`</h5>
+//                   <img src="/img/cs`+fiFe.ageLimit+`.png" alt="">
+//               </div>
+//               <h6>`+fiFe.nameVN+`</h6>
+//           </div>
+//       </div>
+//   </a></li>`
+//     })
+//     htmlSend=htmlSend+`</ul>`;
+//     }
+//     res.send(htmlSend);
+//   })
+// })
 
 function roundHalf(num) {
   return Math.round(num * 2) / 2;
@@ -190,6 +190,7 @@ router.get('/search-film',(req,res)=>{
               cats: cats,
               films:films,
               avgRates:avgRates,
+              filmArrs:fi,
               type:'Tìm kiếm phim'
           })
       }) 
@@ -201,7 +202,8 @@ router.get('/event',function(req,res){
     events=events.reverse()
     res.render('event/event',{
       events:events,
-      cats:cats
+      cats:cats,
+      filmArrs:fi
     })
   })
 })
@@ -213,7 +215,8 @@ router.get('/event/:slug',function(req,res){
       res.render('event/eventdetail',{
         event:event,
         cats:cats,
-        events:events
+        events:events,
+        filmArrs:fi
       })
     })    
   })
@@ -223,7 +226,8 @@ router.get('/price',function(req,res){
   Ticketprice.find({},(err,tkps)=>{
     res.render('event/price',{     
       cats:cats,
-      tkp:tkps[0]
+      tkp:tkps[0],
+      filmArrs:fi
     })  
   })    
 })

@@ -6,8 +6,12 @@ var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 var User = require('../models/user');
 var cats = []
+var films=[]
 Category.find({}, function (err, categories) {
     cats = categories
+})
+Film.find({}, function (err, fis) {
+    films = fis
 })
 
 function roundHalf(num) {
@@ -58,7 +62,8 @@ router.get('/:slug', (req, res) => {
                     cats: cats,
                     film: film,
                     dateSts: Array.from(new Set(dateSt)),
-                    checkRating: checkRating
+                    checkRating: checkRating,
+                    filmArrs:films
                 })
             })
         })
@@ -91,7 +96,8 @@ router.get('/category/:slug', (req, res) => {
                 cats: cats,
                 films: fis,
                 avgRates:avgRates,
-                type: cat.title
+                type: cat.title,
+                filmArrs:films
             })
         })
     })

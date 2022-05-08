@@ -57,7 +57,8 @@ router.get('/info', (req, res) => {
             // newUs=newUs1.concat('***',newUs2);
             res.render('user/UserInfo',{
                 us:us,
-                cats:cats
+                cats:cats,
+                filmArrs:films
             });
         })
     } else {
@@ -73,7 +74,8 @@ router.get('/change-info', (req,res) => {
             if (err) return console.log(err);
             res.render('user/change-info',{
                 us:us,
-                cats:cats
+                cats:cats,
+                filmArrs:films
             });
         })
     } else {
@@ -245,11 +247,11 @@ router.get('/purchase', (req,res)=>{
                 us:us,
                 cats:cats,
                 billunuse:billunuse,
-                billused:billused
+                billused:billused,
+                filmArrs:films
             })
         })        
     })
-    
 })
 
 router.get('/sendqr', (req,res) => {

@@ -28,6 +28,10 @@ var cats = []
 Category.find({}, function (err, categories) {
     cats = categories
 })
+var films = []
+Film.find({}, function (err, fis) {
+    films = fis
+})
 router.post('/', (request, response) => {
     var { ticket, fullname, phone, code,url } = request.body
     var redirectUrl = url + "/payment/confirm";
@@ -323,7 +327,8 @@ router.get('/confirm', (req, res) => {
                                     st: st,
                                     film: film,
                                     room: room,
-                                    cats:cats
+                                    cats:cats,
+                                    filmArrs:films
                                 })
                             })
                         })

@@ -70,9 +70,27 @@
             </ul>
             <form method="get" action="/search-film" class="d-flex index-flex">
                 <div class="search-part">
-                    <input class="form-control me-2 search-input" name="name" type="search" placeholder="Tìm kiếm tên phim"
+                    <input id="myInput" class="form-control me-2 search-input" name="name" type="search" placeholder="Tìm kiếm tên phim"
                         aria-label="Search" autocomplete="off">
-                    <div class="containSearch">  
+                    <div class="containSearch">
+                        <ul id="myTable" class="dropdown-menu">
+                        <%filmArrs.forEach(function(film){%>
+                            <li><a class="dropdown-item" href="/movie/<%=film.slug%>">
+                                <div class="search-option">
+                                    <div class="img-option">
+                                        <img class="img-search" src="<%=film.photo%>" alt="phim1">
+                                    </div>
+                                    <div class="title-option">
+                                        <div class="rating-flex">
+                                            <h5><%=film.nameEN%></h5>
+                                            <img src="/img/cs<%=film.ageLimit%>.png" alt="">
+                                        </div>
+                                        <h6><%=film.nameVN%></h6>
+                                    </div>
+                                </div>
+                            </a></li>
+                        <%})%>
+                    </ul>
                     </div>
                 </div>
                 <button class="btn btn-outline-success index-search" type="submit">
@@ -83,22 +101,30 @@
     </div>
 </nav>
 <script>
-    $('.search-input').on('input',function(){
-        var name=$(this).val();
-        if (name!=''){
-                $.ajax({
-                url: "/search-film-ajax",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({name:name}),
-                success: function (result) {
-                    $('.containSearch').html(result);
-                }
-            })
-        } else {
-            $('.containSearch').html('');
-        }
-    })
+    // $('.search-input').on('input',function(){
+    //     var name=$(this).val();
+    //     if (name!=''){
+    //             $.ajax({
+    //             url: "/search-film-ajax",
+    //             method: "POST",
+    //             contentType: "application/json",
+    //             data: JSON.stringify({name:name}),
+    //             success: function (result) {
+    //                 $('.containSearch').html(result);
+    //             }
+    //         })
+    //     } else {
+    //         $('.containSearch').html('');
+    //     }
+    // })
+    $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    });
 </script>
 <script>
       $(window).scroll(function () {
