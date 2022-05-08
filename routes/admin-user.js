@@ -10,7 +10,7 @@ function cleanText(text) {
 router.get('/', (req, res) => {
     User.find({ email: { '$ne': req.session.user } }, function (err, us) {
         res.render('admin/admin-user', {
-            users: us
+            users: us.reverse()
         })
     })
 })

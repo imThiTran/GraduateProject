@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
                     }
                 })
                 res.render('admin/admin-showtime', {
-                    showtimes: showtimeArr,
+                    showtimes: showtimeArr.reverse(),
                     films: fi,
                     rooms: ro,
                 });

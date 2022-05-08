@@ -13,7 +13,7 @@ function cleanText(text) {
 router.get('/', (req, res) => {
     Room.find({}, (err, ro) => {
         res.render('admin/admin-room', {
-            rooms: ro
+            rooms: ro.reverse()
         });
     })
 })

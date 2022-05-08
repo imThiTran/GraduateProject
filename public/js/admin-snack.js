@@ -98,7 +98,7 @@ $('.saveAdd').click(function () {
                                           <button id="${result._id}" onclick="handleDelete(this)" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
                                       </div>
                                   </td>
-                              </tr>`).insertAfter(trContain[trContain.length - 1]);
+                              </tr>`).insertBefore(trContain[0]);
         } else {
           $('.alertAdd').html(result);
         }

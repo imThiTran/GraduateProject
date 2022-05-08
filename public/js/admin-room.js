@@ -63,7 +63,12 @@ $('.saveAdd').click(function () {
                 <button type="button"><i id="${result._id}" onClick="handleDelete(this)" class="btnDeleteRoom fa fa-times" aria-hidden="true"></i></button>
             </div>
         </td>
-    </tr>`).insertAfter(containRow[containRow.length - 1]);
+    </tr>`).insertBefore(containRow[0]);
+          var counts = $('.count');
+          var i = 1;
+          counts.each(function () {
+            $(this).text(i++)
+          })
           $('.alertAdd').html(null);
           $('.nameRoom').val('');
         } else {

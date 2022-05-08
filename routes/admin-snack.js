@@ -8,7 +8,7 @@ const Snack = require('../models/snack');
 router.get('/', (req, res) => {
     Snack.find({}, (err, sn) => {
         res.render('admin/admin-snack', {
-            snacks: sn
+            snacks: sn.reverse()
         });
     })
 })
