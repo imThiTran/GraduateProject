@@ -38,7 +38,7 @@
 
                             <form action="" class="form-search">
                                 <div class="search-user" >
-                                    <input type="text" id="myInput" class="form-control input-idticket" placeholder="Tìm kiếm" name="name">
+                                    <input type="text" id="myInput1" class="form-control input-idticket" placeholder="Tìm kiếm" name="name">
                                     <button class="btn btn-buy btnSearchTime btn-search-ticket" type="button"><i class="fa fa-search"></i></button>
                                 </div>
                             </form>
@@ -56,14 +56,14 @@
                                                         
                                                             <div class="row-detail-main">
                                                                 <div>
-                                                                    <img class="img-order-list" src="<%= bill.photo%>">
+                                                                    <img class="img-order-list" src="<%= bill.film.photo%>">
                                                                 </div>
                                                                 <div class="row-detail-sub">
                                                                     <div class="name-ticket">
                                                                         <div class="up-side">
                                                                             <div class="name-side">
-                                                                                <div class="name-EN"><%= bill.film%></div>
-                                                                                <div class="name-order-list"><%= bill.subname%></div>
+                                                                                <div class="name-EN"><%= bill.film.nameEN %></div>
+                                                                                <div class="name-order-list"><%= bill.film.nameVN %></div>
                                                                             </div>
                                                                             <button type="button" class="btn-common btn-qr" value="<%=bill._id%>">Mã QR</button>
                                                                         </div>
@@ -87,7 +87,7 @@
                                                             <div class="card detail-purchase">
                                                                 <div class="row-detail">
                                                                     <div>Suất chiếu:</div>
-                                                                    <div><%=bill.date.split("-").reverse().join("/");%> <span style="margin-left: 10px;"><i style="margin-right: 5px;" class="fa-solid fa-film"></i><%=bill.timeStart%></span></div>
+                                                                    <div><%=bill.showtime.date.split("-").reverse().join("/");%> <span style="margin-left: 10px;"><i style="margin-right: 5px;" class="fa-solid fa-film"></i><%=bill.showtime.timeStart%></span></div>
                                                                 </div>
 
                                                                 <div class="row-detail">
@@ -157,14 +157,14 @@
                                                         
                                                             <div class="row-detail-main">
                                                                 <div>
-                                                                    <img class="img-order-list" src="<%= bill.photo%>">
+                                                                    <img class="img-order-list" src="<%= bill.film.photo%>">
                                                                 </div>
                                                                 <div class="row-detail-sub">
                                                                     <div class="name-ticket">
                                                                         <div class="up-side">
                                                                             <div class="name-side">
-                                                                                <div class="name-EN"><%= bill.film%></div>
-                                                                                <div class="name-order-list"><%= bill.subname%></div>
+                                                                                <div class="name-EN"><%= bill.film.nameEN %></div>
+                                                                                <div class="name-order-list"><%= bill.film.nameVN %></div>
                                                                             </div>
                                                                             <span class="ticket-used">
                                                                                 <% if(bill.check=="0"){ %>
@@ -194,12 +194,12 @@
                                                             <div class="card detail-purchase">
                                                                 <div class="row-detail">
                                                                     <div>Suất chiếu:</div>
-                                                                    <div><%=bill.date.split("-").reverse().join("/");%> <span style="margin-left: 10px;"><i style="margin-right: 5px;" class="fa-solid fa-film"></i><%=bill.timeStart%></span></div>
+                                                                    <div><%=bill.showtime.date.split("-").reverse().join("/");%> <span style="margin-left: 10px;"><i style="margin-right: 5px;" class="fa-solid fa-film"></i><%=bill.showtime.timeStart%></span></div>
                                                                 </div>
 
                                                                 <div class="row-detail">
                                                                     <div>Rạp:</div>
-                                                                    <div><%= bill.room%></div>
+                                                                    <div><%= bill.room %></div>
                                                                 </div>
 
                                                                 <div class="row-detail">
@@ -291,7 +291,7 @@
 </script>
 <script>
     $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
+      $("#myInput1").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#billun").find("> div").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)

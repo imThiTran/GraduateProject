@@ -28,45 +28,39 @@ router.post('/scan-bill', (req, res) => {
     var qrcode = req.body.qrcode;
     var time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     var date = new Date().toLocaleDateString('en-GB');
-    Bill.findById(qrcode, (err, bi) => {
-        if (bi) {
-            if (bi.checkin == 0) {
-                Showtime.findById(bi.ticket[0].idShowtime, (err, st) => {
-                    var dateSt = generateDate(st.date, st.timeStart);
+    Bill.findById(qrcode, (err, bill) => {
+        if (bill) {
+            if (bill.checkin == 0) {                
+                    var dateSt = generateDate(bill.showtime.date, bill.showtime.timeStart);
                     if ((dateSt.getTime() + 1800000) < (new Date()).getTime()) res.send('Suất chiếu này đã hết hạn');
-                    else {
-                        Film.findById(st.idFilm, (err, fi) => {
-                            Room.findById(st.idRoom, (err, ro) => {
-                                var tickets = '', snacks = '';
-                                var timeStartArr = st.timeStart.split(':');
-                                st.timeStart = st.timeStart + ((timeStartArr[0] < 12) ? (' AM') : (' PM'));
-                                bi.ticket.forEach(function (tk, index) {
-                                    if (index == bi.ticket.length - 1) tickets = tickets + tk.name;
-                                    else tickets = tickets + tk.name + ', '
-                                })
-                                if (bi.snack.length != 0) {
-                                    bi.snack.forEach(function (sn, index) {
-                                        if (index == bi.snack.length - 1) snacks = snacks + sn.quantity + ' x ' + sn.name;
-                                        else snacks = snacks + sn.quantity + ' x ' + sn.name + ', '
-                                    })
-                                }
-                                res.send({
-                                    id: bi._id,
-                                    timePrint: date + ' ' + time,
-                                    fullname: bi.fullname,
-                                    nameEN: fi.nameEN,
-                                    nameVN: fi.nameVN,
-                                    date: new Date(st.date).toLocaleDateString('en-GB'),
-                                    time: st.timeStart,
-                                    room: ro.name,
-                                    ticket: tickets,
-                                    snack: snacks,
-                                    total: bi.total
-                                });
-                            })
+                    else {                        
+                        var tickets = '', snacks = '';
+                        var timeStartArr = bill.showtime.timeStart.split(':');
+                        bill.showtime.timeStart = bill.showtime.timeStart + ((timeStartArr[0] < 12) ? (' AM') : (' PM'));
+                        bill.ticket.forEach(function (tk, index) {
+                            if (index == bill.ticket.length - 1) tickets = tickets + tk.name;
+                            else tickets = tickets + tk.name + ', '
                         })
-                    }
-                })
+                        if (bill.snack.length != 0) {
+                            bill.snack.forEach(function (sn, index) {
+                                if (index == bill.snack.length - 1) snacks = snacks + sn.quantity + ' x ' + sn.name;
+                                else snacks = snacks + sn.quantity + ' x ' + sn.name + ', '
+                            })
+                        }
+                        res.send({
+                            id: bill._id,
+                            timePrint: date + ' ' + time,
+                            fullname: bill.fullname,
+                            nameEN: bill.film.nameEN,
+                            nameVN: bill.film.nameVN,
+                            date: new Date(bill.showtime.date).toLocaleDateString('en-GB'),
+                            time: bill.showtime.timeStart,
+                            room: bill.room,
+                            ticket: tickets,
+                            snack: snacks,
+                            total: bill.total
+                        });                            
+                    }                
             }
             else {
                 res.send('Bill đã được sử dụng')
@@ -82,45 +76,39 @@ router.post('/code-backup',(req,res)=>{
     var qrcode = req.body.qrcode;
     var time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     var date = new Date().toLocaleDateString('en-GB');
-    Bill.findOne({code:qrcode}, (err, bi) => {
-        if (bi) {
-            if (bi.checkin == 0) {
-                Showtime.findById(bi.ticket[0].idShowtime, (err, st) => {
-                    var dateSt = generateDate(st.date, st.timeStart);
+    Bill.findOne({code:qrcode}, (err, bill) => {
+        if (bill) {
+            if (bill.checkin == 0) {                
+                    var dateSt = generateDate(bill.showtime.date, bill.showtime.timeStart);
                     if ((dateSt.getTime() + 1800000) < (new Date()).getTime()) res.send('Suất chiếu này đã hết hạn');
-                    else {
-                        Film.findById(st.idFilm, (err, fi) => {
-                            Room.findById(st.idRoom, (err, ro) => {
-                                var tickets = '', snacks = '';
-                                var timeStartArr = st.timeStart.split(':');
-                                st.timeStart = st.timeStart + ((timeStartArr[0] < 12) ? (' AM') : (' PM'));
-                                bi.ticket.forEach(function (tk, index) {
-                                    if (index == bi.ticket.length - 1) tickets = tickets + tk.name;
-                                    else tickets = tickets + tk.name + ', '
-                                })
-                                if (bi.snack.length != 0) {
-                                    bi.snack.forEach(function (sn, index) {
-                                        if (index == bi.snack.length - 1) snacks = snacks + sn.quantity + ' x ' + sn.name;
-                                        else snacks = snacks + sn.quantity + ' x ' + sn.name + ', '
-                                    })
-                                }
-                                res.send({
-                                    id: bi._id,
-                                    timePrint: date + ' ' + time,
-                                    fullname: bi.fullname,
-                                    nameEN: fi.nameEN,
-                                    nameVN: fi.nameVN,
-                                    date: new Date(st.date).toLocaleDateString('en-GB'),
-                                    time: st.timeStart,
-                                    room: ro.name,
-                                    ticket: tickets,
-                                    snack: snacks,
-                                    total: bi.total
-                                });
-                            })
+                    else {                        
+                        var tickets = '', snacks = '';
+                        var timeStartArr = bill.showtime.timeStart.split(':');
+                        bill.showtime.timeStart = bill.showtime.timeStart + ((timeStartArr[0] < 12) ? (' AM') : (' PM'));
+                        bill.ticket.forEach(function (tk, index) {
+                            if (index == bill.ticket.length - 1) tickets = tickets + tk.name;
+                            else tickets = tickets + tk.name + ', '
                         })
-                    }
-                })
+                        if (bill.snack.length != 0) {
+                            bill.snack.forEach(function (sn, index) {
+                                if (index == bill.snack.length - 1) snacks = snacks + sn.quantity + ' x ' + sn.name;
+                                else snacks = snacks + sn.quantity + ' x ' + sn.name + ', '
+                            })
+                        }
+                        res.send({
+                            id: bill._id,
+                            timePrint: date + ' ' + time,
+                            fullname: bill.fullname,
+                            nameEN: bill.film.nameEN,
+                            nameVN: bill.film.nameVN,
+                            date: new Date(bill.showtime.date).toLocaleDateString('en-GB'),
+                            time: bill.showtime.timeStart,
+                            room: bill.room,
+                            ticket: tickets,
+                            snack: snacks,
+                            total: bill.total
+                        });                            
+                    }                
             }
             else {
                 res.send('Bill đã được sử dụng')

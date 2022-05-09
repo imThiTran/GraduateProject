@@ -22,17 +22,17 @@
                     <div class="bill-text" style="display: flex;">
                         <div class="name-bill" style="width: 100px;">Tên phim: </div>
                         <div>
-                            <div><%= film.nameEN %></div>
-                            <div><%= film.nameVN %></div>
+                            <div><%= bill.film.nameEN %></div>
+                            <div><%= bill.film.nameVN %></div>
                         </div>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill" style="width: 100px;">Suất chiếu </div>
-                        <span style="font-weight: 600;"><%= st.date %> <%= st.timeStart %></span>
+                        <span style="font-weight: 600;"><%= bill.showtime.date %> <%= bill.showtime.timeStart %></span>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill" style="width: 100px;">Rạp: </div>
-                        <span style="font-weight: 600;"><%= room.name %></span>
+                        <span style="font-weight: 600;"><%= bill.room %></span>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill" style="width: 100px;">Ghế: </div>                        
@@ -53,6 +53,10 @@
                             <% }); %>
                             <span><%= snacksarr.join(', ') %></span>
                         </span>
+                    </div>
+                    <div class="bill-text">
+                        <div class="name-bill" style="width: 100px;">Code: </div>
+                        <span style="font-weight: 600;"><%= bill.code %></span>
                     </div>
                 </div>
                 <div class="note-bill">*Vui lòng đến rạp trước 15 phút để làm thủ tục soát vé</div>

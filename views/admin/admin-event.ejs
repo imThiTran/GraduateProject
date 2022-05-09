@@ -113,6 +113,14 @@
                         </tr>
                     </thead>
                     <tbody id="bodyAdd">
+                        <tr class="no-show">
+                            <td colspan="5">
+                                <div style="zoom: 70%;margin-top: 20px;">
+                                    <h1>Không tìm thấy phim.</h1>
+                                    <img src="/img/movie.gif" alt="">
+                                </div>
+                            </td>                               
+                        </tr>  
                         <%events.forEach(function(event){%> 
                             <tr class="<%= event.slug%>">
                                 <th scope="row" style="width: 15%">
@@ -241,15 +249,21 @@
             document.getElementsByClassName("inputkhuyenmai")[0].style.display = "none";
         }        
     }
-    
+    /*  */
 </script>
-<script>
+<script>    
+    $('.no-show').hide();
     $(document).ready(function(){
       $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#bodyAdd tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });        
+        });
+        if($("#bodyAdd tr:visible").length===0){
+            $('.no-show').show();
+        }else{
+            $('.no-show').hide();
+        }
       });
     });
 </script>

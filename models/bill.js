@@ -54,6 +54,15 @@ var BillSchema = mongoose.Schema({
        required:true,
        default: makecode(6),
        index: {unique:true}
+   },
+   film:{
+       type:Object
+   },
+   showtime:{
+       type:Object
+   },
+   room:{
+       type:String
    }
 })
 
