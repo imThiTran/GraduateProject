@@ -14,7 +14,7 @@ function cleanText(text){
 router.get('/',(req,res)=>{
     Event.find({}, function(err,events){
         res.render('admin/admin-event',{
-            events:events
+            events:events.reverse()
         })
     })    
 })

@@ -14,6 +14,7 @@ function cleanText(text) {
 router.get('/', (req, res) => {
     Category.find({}, (err, cats) => {
         Film.find({}, (err, films) => {
+            films=films.reverse()
             films.forEach((film) => {
                 let cate=[] 
                 for(var i=0;i<film.idCat.length;i++){

@@ -259,7 +259,7 @@ $("#formAddFilm").submit(function(e){
             '',        
             'success'
           )
-          $('#bodyAdd').append(tr)
+          $('#bodyAdd').prepend(tr)
           modalAddFilm.style.display = "none"         
           var editform = $('#formAddFilm')
           editform.find('.imgavt').attr('src', '../img/no_img.webp');

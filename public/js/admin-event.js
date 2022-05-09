@@ -173,7 +173,7 @@ $("#formAddEvent").submit(function(e){
             '',        
             'success'
           ).then((value) => {
-            $('#bodyAdd').append(tr)
+            $('#bodyAdd').prepend(tr)
             modalAddEvent.style.display = "none"; 
             document.getElementsByClassName("inputkhuyenmai")[0].style.display = "none";
             var addform = $('#modalAddEvent')
