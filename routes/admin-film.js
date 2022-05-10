@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Film = require('../models/film');
+var Showtime= require('../models/showtime')
+var Ticket = require('../models/ticket')
 var cloudinary = require('cloudinary').v2;
 var Category = require('../models/category');
 var fs = require('fs');
@@ -152,13 +154,22 @@ router.post('/add-film', (req, res) => {
 
 router.get('/delete/:slug', (req, res) => {
     var { slug } = req.params
-    Film.findOneAndRemove({slug:slug}, (err, film) => {
-        if (err) throw err;
-        res.send({
-            msg: "Xóa thành công",
-            slug: slug
-        })
-    })
+    Film.findOne({slug:slug}, (err,fi)=>{
+        Showtime.find({ idFilm: fi._id }, (err, st) => {
+            var idShowtimes = (st.map(s => s._id.toString()));
+            Ticket.deleteMany({ idShowtime: { $in: idShowtimes } }, (err) => {
+                Showtime.deleteMany({ idFilm: fi._id }, () => {
+                    Film.findOneAndRemove({slug:slug}, (err, film) => {
+                        if (err) throw err;
+                        res.send({
+                            msg: "Xóa thành công",
+                            slug: slug
+                        })
+                    })
+                });
+            });
+        })       
+    })    
 })
 
 router.post('/edit', (req, res) => {    
