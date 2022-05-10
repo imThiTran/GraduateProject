@@ -473,7 +473,7 @@ router.post('/load-edit', (req, res) => {
                 if (roFe._id == st.idRoom) { typeRoom = roFe.type; return false }
             });
             ro = ro.filter(roFt => (roFt.type == typeRoom));
-            Film.findOne({ id: st.idFilm }, (err, fi) => {
+            Film.findOne({ _id: st.idFilm }, (err, fi) => {
                 var hour = st.timeStart.split(':')[0];
                 var minute = st.timeStart.split(':')[1];
                 res.send({
