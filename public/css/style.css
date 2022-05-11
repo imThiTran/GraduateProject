@@ -2264,6 +2264,7 @@ button.primaryContained:hover {
     padding: 10px 20px;
     flex: 1;
     border-radius: 10px;
+    flex: 1.6;
 }
 .btn-snack-order{
     justify-content: space-around;
@@ -2930,18 +2931,23 @@ button.primaryContained:hover {
 .bill{
     background: antiquewhite;
     padding: 50px;
-    max-width: 700px;
-    display: flex;
+    max-width: 500px;
     width: 100%;
-    align-items: center;
+}
+.bill-check{
+    background: antiquewhite;
+    padding: 50px;
+    width: 700px;
 }
 .bill-container{
     padding: 50px 220px;
+    display: flex;
+    justify-content: center;
+
 }
-.bill-section h2{
+.h2-success{
     font-family: 'Saira Semi Condensed', sans-serif;
     font-weight: 800;
-    margin-bottom: 30px;
 }
 .bill-section{
     flex: 6;
@@ -2953,6 +2959,7 @@ button.primaryContained:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 10px;
 }
 .showtime-bill-qr{
     padding: 20px;
@@ -2981,7 +2988,7 @@ button.primaryContained:hover {
 }
 .bill-text{
     display: flex;
-    align-items: center;
+    align-items: flex-start
 }
 .snack-name{
     font-style: italic;

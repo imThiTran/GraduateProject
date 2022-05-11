@@ -4,9 +4,9 @@
 
     <div class="container bill-container">
     <form method="post" action="/payment">        
-        <div class="bill">
+        <div class="bill-check">
             <div class="bill-section">
-                <h2>Thông tin đặt hàng</h2>
+                <h2 class="h2-success">Thông tin đặt hàng</h2>
                 <div class="bill-text check-text">
                     <div class="name-bill">Tên khách hàng: </div>
                    <input class="check-input" type="text" value="<%= user.fullname %>" name="fullname">
@@ -61,8 +61,16 @@
                         </div>
                     </div>
                     <div class="bill-text">
-                        <div class="name-bill">Tổng tiền: </div> 
-                        <span class="total"><%= (totalticket+totalsn).toLocaleString('vi', {style : 'currency', currency : 'VND'}); %></span>
+                        <div class="name-bill">Tổng: </div> 
+                        <span class="total"></span>
+                    </div>
+                    <div class="bill-text">
+                        <div class="name-bill">Khuyến mãi: </div> 
+                        <span class="total"></span>
+                    </div>
+                    <div class="bill-text">
+                        <div class="name-bill" style="font-size:20px"><b>Tổng tiền: </b></div> 
+                        <span class="total" style="font-size:20px; font-weight: 600;"><%= (totalticket+totalsn).toLocaleString('vi', {style : 'currency', currency : 'VND'}); %></span>
                     </div>
                     <div class="note-bill-check">*Vui lòng kiểm tra lại thông tin đặt hàng của quý khách</div>
                 </div>

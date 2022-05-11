@@ -4,8 +4,15 @@
 
     <div class="container bill-container">
         <div class="bill">
+            <h2 class="h2-success">Đặt hàng thành công</h2>
+            <div class="bill-code">
+                <div qrvalue="<%= bill._id %>" id="qrcode"></div>
+                <div class="bill-text">
+                    <div class="name-bill" style="width: 60px;">Code: </div>
+                    <span style="font-weight: 600;"><%= bill.code %></span>
+                </div>
+            </div>
             <div class="bill-section">
-                <h2>Đặt hàng thành công</h2>
                 <div class="bill-text">
                     <div class="name-bill">Tên khách hàng: </div>
                     <span><%= bill.fullname %></span>
@@ -54,16 +61,11 @@
                             <span><%= snacksarr.join(', ') %></span>
                         </span>
                     </div>
-                    <div class="bill-text">
-                        <div class="name-bill" style="width: 100px;">Code: </div>
-                        <span style="font-weight: 600;"><%= bill.code %></span>
-                    </div>
                 </div>
+                <div class="note-bill">*Vé đã được gửi về mail, xin quý khách vui lòng kiểm tra</div>
                 <div class="note-bill">*Vui lòng đến rạp trước 15 phút để làm thủ tục soát vé</div>
             </div>
-            <div class="bill-code">
-                <div qrvalue="<%= bill._id %>" id="qrcode"></div>
-            </div>
+            
         </div>
     </div>
 

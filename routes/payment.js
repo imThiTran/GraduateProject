@@ -152,7 +152,7 @@ router.post('/', (request, response) => {
                 bill.save(function (err, bill) {
                     if(err){
                         response.render('auth/auth-notify',{
-                            mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ...',
+                            mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
                         })
                     }else{
                         if(voucher){
@@ -223,7 +223,7 @@ router.post('/', (request, response) => {
             })
         } else {
             res.render('auth/auth-notify',{
-                mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ...',
+                mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
             })
         }
     })
