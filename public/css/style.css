@@ -2948,6 +2948,7 @@ button.primaryContained:hover {
 .h2-success{
     font-family: 'Saira Semi Condensed', sans-serif;
     font-weight: 800;
+    text-align: center;
 }
 .bill-section{
     flex: 6;
