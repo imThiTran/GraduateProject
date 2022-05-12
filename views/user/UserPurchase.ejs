@@ -47,11 +47,15 @@
                                                     <button class="btn btn-buy btnSearchTime btn-search-ticket" type="button"><i class="fa fa-search"></i></button>
                                                 </div>
                                             </form>
-
+                                            <div class="no-show-buy" style="zoom: 70%;margin-top: 20px;">
+                                                <h1>Không có vé nào phù hợp</h1>
+                                                <img src="/img/movie.gif" alt="">
+                                            </div>     
                                             <div class="purchase-order" id="billun"> 
-                                            <%if (billunuse.length!=0){%>     
+                                            <%if (billunuse.length!=0){%>
+                                                
                                                 <%billunuse.forEach(function(bill){%> 
-                                                    <div class="purchase-film">
+                                                    <div class="purchase-film ticketBuyed">
                                                         <a class="ticket" data-bs-toggle="collapse" href="#collapseExample<%=bill._id%>" 
                                                         role="button" aria-expanded="false" aria-controls="collapseExample">
                                                         
@@ -137,8 +141,8 @@
                                                     </div>
                                                 <%})%>
                                             <%} else {%>
-                                                <div class="no-show" style="zoom: 70%;margin-top: 20px;">
-                                                    <h1>Không có lịch sử vé phù hợp yêu cầu</h1>
+                                                <div class="no-show ticketBuyed" style="zoom: 70%;margin-top: 20px;">
+                                                    <h1>Chưa có vé nào được đặt</h1>
                                                     <img src="/img/movie.gif" alt="">
                                                 </div>
                                             <%}%>
@@ -152,15 +156,18 @@
 
                                             <form action="" class="form-search">
                                                 <div class="search-user" >
-                                                    <input type="text" id="myInput1" class="form-control input-idticket" placeholder="Tìm kiếm" name="name">
+                                                    <input type="text" id="myInput2" class="form-control input-idticket" placeholder="Tìm kiếm" name="name">
                                                     <button class="btn btn-buy btnSearchTime btn-search-ticket" type="button"><i class="fa fa-search"></i></button>
                                                 </div>
                                             </form>
-                                            
+                                            <div class="no-show-use" style="zoom: 70%;margin-top: 20px;">
+                                                <h1>Không có vé nào phù hợp</h1>
+                                                <img src="/img/movie.gif" alt="">
+                                            </div>    
                                             <div class="purchase-order" id="billuse">
                                             <%if (billused.length!=0){%>
                                                 <%billused.forEach(function(bill){%> 
-                                                    <div class="purchase-film">
+                                                    <div class="purchase-film ticketUsed">
                                                         <a class="ticket" data-bs-toggle="collapse" href="#collapseExample<%=bill._id%>" 
                                                         role="button" aria-expanded="false" aria-controls="collapseExample">
                                                         
@@ -252,8 +259,8 @@
                                                     </div>
                                                 <%})%>
                                             <%} else {%>
-                                                <div class="no-show" style="zoom: 70%;margin-top: 20px;">
-                                                    <h1>Không có lịch sử vé phù hợp yêu cầu</h1>
+                                                <div class="no-show ticketUsed" style="zoom: 70%;margin-top: 20px;">
+                                                    <h1>Chưa có vé nào được sử dụng</h1>
                                                     <img src="/img/movie.gif" alt="">
                                                 </div>
                                             <%}%>
@@ -300,14 +307,40 @@
 </script>
 <script>
     $(document).ready(function(){
+        $('.no-show-buy').hide();
+        $('.no-show-use').hide();
       $("#myInput1").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#billun").find("> div").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
+        // $("#billuse").find("> div").filter(function() {
+        //   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        // });
+        if($("#billun").find("> div:visible").length===0){
+            $('.no-show-buy').show();
+            $('.ticketBuyed').hide();
+        }else{
+            $('.no-show-buy').hide();
+            $('.ticketBuyed').show();
+        }
+      });
+      
+      $("#myInput2").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
         $("#billuse").find("> div").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
+        // $("#billuse").find("> div").filter(function() {
+        //   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        // });
+        if($("#billuse").find("> div:visible").length===0){
+            $('.no-show-use').show();
+            $('.ticketUsed').hide();
+        }else{
+            $('.no-show-use').hide();
+            $('.ticketUsed').show();
+        }
       });
     });
 </script>
