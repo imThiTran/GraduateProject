@@ -25,11 +25,6 @@ Category.find({}, function(err,categories){
     cats=categories
 })
 
-var films=[]
-Film.find({}, function(err,fis){
-    films=fis
-})
-
 function generateDate(date, time) {
     var newDay = new Date(date);
     var timeArr = time.split(':');
@@ -37,7 +32,8 @@ function generateDate(date, time) {
     return newDay;
 };
 
-router.get('/info', (req, res) => {
+router.get('/info', async (req, res) => {
+    var films=await Film.find({});
     if(req.session.user){
         User.findOne({email:req.session.user}, (err,us) => {
             if (err) return console.log(err);
@@ -59,7 +55,8 @@ router.get('/info', (req, res) => {
     }  
 })
 
-router.get('/change-info', (req,res) => {
+router.get('/change-info',async (req,res) => {
+    var films=await Film.find({});
     if(req.session.user){
         User.findOne({email:req.session.user}, (err,us) => {
             if (err) return console.log(err);
@@ -201,7 +198,8 @@ router.post('/edit-comment',async (req,res)=>{
     }
 })
 
-router.get('/purchase', (req,res)=>{
+router.get('/purchase', async (req,res)=>{
+    var films=await Film.find({});
     User.findOne({email:req.session.user}, (err,us) => {
         Bill.find({$and:[{payment:'1'},{user:us.email}]}, (err,bills) => {         
             if (err) console.log(err);

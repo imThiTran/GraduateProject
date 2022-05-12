@@ -223,7 +223,7 @@ function handleDelete(th) {
   var idSnack = th.getAttribute('id');
   var trContain = th.closest('.trClosest');
   Swal.fire({
-    icon: 'question',
+    icon: 'warning',
     title: 'Bạn có chắc chắn muốn xóa ?',
     text: 'Món này sẽ bị xóa và không thể khôi phục',
     showCancelButton: true

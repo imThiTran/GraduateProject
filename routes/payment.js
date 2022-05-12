@@ -27,10 +27,6 @@ var cats = []
 Category.find({}, function (err, categories) {
     cats = categories
 })
-var films = []
-Film.find({}, function (err, fis) {
-    films = fis
-})
 
 function makecode(length) {
     var result           = '';
@@ -264,7 +260,8 @@ router.post('/', (request, response) => {
 })
 
 
-router.get('/confirm', (req, res) => {
+router.get('/confirm',async (req, res) => {
+    var films=await Film.find({});
     var query = req.query;
     var signature = req.query.signature;
     var rawSignaturenew = "accessKey=" + accessKey

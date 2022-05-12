@@ -80,7 +80,7 @@ $('.decentralize').each(function () {
         var lastRole = $this.data('lastValue');
         var actor = $this.val();
         Swal.fire({
-            icon: 'question',
+            icon: 'warning',
             title: 'Bạn có chắc chắn điều này ?',
             text: 'Người này sẽ bị thay đổi quyền hạn sử dụng hệ thống',
             showCancelButton: true

@@ -246,7 +246,7 @@ $('.saveDeleteDate').click(function () {
     var containerDate = $(this).closest('.trClosest');
     var lengthDate = containerDate.find('.dateShowTime');
     Swal.fire({
-        icon: 'question',
+        icon: 'warning',
         title: 'Bạn có chắc chắn muốn xóa ?',
         text: 'Tất cả suất chiếu của phim này vào ngày này sẽ bị xóa',
         showCancelButton: true
@@ -286,7 +286,7 @@ $('.saveDelete').click(function () {
     var id = $(this).closest('#modalEditShowTime').find('.idHidden').val();
     var buttonShowtime = $(`#${id}`);
     Swal.fire({
-        icon: 'question',
+        icon: 'warning',
         title: 'Bạn có chắc chắn muốn xóa ?',
         text: 'Suất chiếu này sẽ mất và không thể khôi phục',
         showCancelButton: true

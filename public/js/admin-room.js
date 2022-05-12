@@ -145,7 +145,7 @@ function handleDelete(element) {
   var idRoom = element.getAttribute('id');
   var thisRow = element.closest('.contain-row')
   Swal.fire({
-    icon: 'question',
+    icon: 'warning',
     title: 'Bạn có chắc chắn muốn xóa ?',
     text: 'Tất cả các suất chiếu của phòng này sẽ bị xóa',
     showCancelButton: true
@@ -182,7 +182,7 @@ function handleBlock(t, e) {
   var idRoom = t.getAttribute('id');
   if (!check) {
     Swal.fire({
-      icon: 'question',
+      icon: 'warning',
       title: 'Bạn có chắc chắn muốn đóng?',
       text: 'Tất cả các suất chiếu của phòng này sẽ bị đóng',
       showCancelButton: true

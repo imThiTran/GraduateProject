@@ -10,15 +10,28 @@ const Room = require('../models/room');
 var Snack = require('../models/snack')
 
 var cats = []
-var films= []
 Category.find({}, function (err, categories) {
     cats = categories
 })
-Film.find({}, function (err, fis) {
-    films = fis
-})
+function roundNearest5(num) {
+    return Math.ceil(num / 5) * 5;
+}
 
-router.get('/', (req, res) => {
+function convertTimeEnd(timeEnd){
+    var Arr=timeEnd.split(':');
+    var hour=parseInt(Arr[0]);
+    var minute=parseInt(Arr[1]);
+    if (minute<30){
+        minute=(60-(30-minute));
+        hour=hour-1;
+    } else {
+        minute=minute-30;
+    }
+    return ((hour<10)?('0'+hour):hour)+':'+((minute<10)?('0'+minute):minute)
+}
+
+router.get('/',async (req, res) => {
+    var films=await Film.find({});
     var idSt = req.query.idShowtime;
     Showtime.findOne({ _id: idSt }, (err, st) => {
         Film.findOne({ _id: st.idFilm }, (err, fi) => {
@@ -47,6 +60,7 @@ router.get('/', (req, res) => {
                                 date: st.date,
                                 room: ro,
                                 timeStart: st.timeStart,
+                                timeEnd:convertTimeEnd(st.timeEnd),
                                 countAvailable: countAvailable,
                                 countAll: tks.length,
                                 a: allRows,
@@ -137,8 +151,8 @@ router.post('/reload', (req, res) => {
 
 
 
-router.post('/ticket', (req, res) => {
-   
+router.post('/ticket',async (req, res) => {
+    var films=await Film.find({});
     Snack.find({}, function (err, snacklist) {
         var{ticket,idSt} =req.body    
         var body = req.body    
@@ -220,7 +234,8 @@ router.post('/ticket', (req, res) => {
     })         
 })
 
-router.post('/snack', (req, res) => {
+router.post('/snack',async (req, res) => {
+    var films=await Film.find({});
     var{ticket,idSt} = req.body
     Snack.find({block:{'$ne':1}},async function(err,snacks){
         Ticket.find({"_id": {"$in" : ticket}}, function(err, tk){                 

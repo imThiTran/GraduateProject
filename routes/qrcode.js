@@ -8,13 +8,10 @@ var Category = require('../models/category');
 var Room = require('../models/room');
 const User = require('../models/user');
 var cats = []
-var films=[]
 Category.find({}, function (err, categories) {
     cats = categories
 })
-Film.find({}, function (err, fis) {
-    films = fis
-})
+
 
 
 function generateDate(date, time) {
@@ -120,7 +117,8 @@ router.post('/code-backup',(req,res)=>{
     })
 })
 
-router.get('/scan-qrcode', (req, res) => {
+router.get('/scan-qrcode',async (req, res) => {
+    var films=await Film.find({});
     User.findOne({ email: req.session.user }, (err, us) => {
         if (us.actor == 'staff') {
             res.render('qrcode/scanQR', {

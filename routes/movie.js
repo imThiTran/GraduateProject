@@ -6,19 +6,16 @@ var Film = require('../models/film');
 var Showtime = require('../models/showtime');
 var User = require('../models/user');
 var cats = []
-var films=[]
 Category.find({}, function (err, categories) {
     cats = categories
-})
-Film.find({}, function (err, fis) {
-    films = fis
 })
 
 function roundHalf(num) {
     return Math.round(num * 2) / 2;
 }
 
-router.get('/:slug', (req, res) => {
+router.get('/:slug',async (req, res) => {
+    var films=await Film.find({});
     var { slug } = req.params;
     var today = (new Date()).toLocaleDateString('en-CA');
     Film.findOne({ slug: slug }, function (err, film) {

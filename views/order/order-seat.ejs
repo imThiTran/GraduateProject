@@ -16,11 +16,11 @@
                                     <div class="book-info">MEGAS ĐÀ NẴNG | PHÒNG <%=room.name%> | Số ghế: <span
                                                 class="countAvailable"><%=countAvailable%></span>/<%=countAll%>
                                     </div>
-                                    <div class="book-info">PHIM: <%=nameEN%> - <%=nameVN%>
+                                    <div class="book-info">PHIM: <%=nameEN%><%if (nameVN!=''){%> - <%=nameVN%><%}%>
                                     </div>
                                     <div class="book-info-sub">
                                         <%=(new Date(date)).toLocaleDateString('en-GB')%>
-                                            <%=timeStart%>
+                                            <%=timeStart%> - <%=timeEnd%>
                                     </div>
                                 </td>
                             </tr>
