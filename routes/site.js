@@ -175,7 +175,7 @@ router.get('/search-film',async (req, res) => {
   var avgRates = [];
   var fi=await Film.find({});
   Category.find({}, function (err, cats) {
-    Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }] }, function (err, films) {
+    Film.find({ $or: [{ nameEN: { $regex: name, $options: "$i" } }, { nameVN: { $regex: name, $options: "$i" } }],status:{$ne:'Đã chiếu xong'} }, function (err, films) {
       films.forEach((film) => {
         var sumRate = 0;
         var avgRate;

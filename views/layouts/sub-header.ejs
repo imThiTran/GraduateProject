@@ -76,20 +76,22 @@
                     <div class="containSearch">
                         <ul id="myTable" class="dropdown-menu">
                         <%filmArrs.forEach(function(film){%>
-                            <li><a class="dropdown-item" href="/movie/<%=film.slug%>">
-                                <div class="search-option">
-                                    <div class="img-option">
-                                        <img class="img-search" src="<%=film.photo%>" alt="phim1">
-                                    </div>
-                                    <div class="title-option">
-                                        <div class="rating-flex">
-                                            <h5><%=film.nameEN%></h5>
-                                            <img src="/img/cs<%=film.ageLimit%>.png" alt="">
+                            <%if (film.status!='Đã chiếu xong'){%>
+                                <li><a class="dropdown-item" href="/movie/<%=film.slug%>">
+                                    <div class="search-option">
+                                        <div class="img-option">
+                                            <img class="img-search" src="<%=film.photo%>" alt="phim1">
                                         </div>
-                                        <h6><%=film.nameVN%></h6>
+                                        <div class="title-option">
+                                            <div class="rating-flex">
+                                                <h5><%=film.nameEN%></h5>
+                                                <img src="/img/cs<%=film.ageLimit%>.png" alt="">
+                                            </div>
+                                            <h6><%=film.nameVN%></h6>
+                                        </div>
                                     </div>
-                                </div>
-                            </a></li>
+                                </a></li>
+                            <%}%>
                         <%})%>
                     </ul>
                     </div>

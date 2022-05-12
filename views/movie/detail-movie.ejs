@@ -168,9 +168,15 @@
                             margin-left: 45px;">
                                 Sắp khởi chiếu
                             </button>
-                        <%} else {%>
+                        <%} else if (film.status=='Đang khởi chiếu')  {%>
                             <button id="btn-buy" type="button" class="btn btn-buy" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Mua vé
+                            </button>
+                        <%} else {%>
+                            <button disabled id="btn-buy" type="button" class="btn btn-buy" 
+                            data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 158px;
+                            margin-left: 45px;">
+                                Đã ngưng chiếu
                             </button>
                         <%}%>
                         
