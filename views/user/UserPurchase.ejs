@@ -36,17 +36,18 @@
                                 </li>
                             </ul>
 
-                            <form action="" class="form-search">
-                                <div class="search-user" >
-                                    <input type="text" id="myInput1" class="form-control input-idticket" placeholder="Tìm kiếm" name="name">
-                                    <button class="btn btn-buy btnSearchTime btn-search-ticket" type="button"><i class="fa fa-search"></i></button>
-                                </div>
-                            </form>
-
                             <div class="tab-content">
                                 <div class="tab-pane active" id="option1" role="tabpanel">
                                     <form action="" method="get">
                                         <div class="order-common">
+
+                                            <form action="" class="form-search">
+                                                <div class="search-user" >
+                                                    <input type="text" id="myInput1" class="form-control input-idticket" placeholder="Tìm kiếm" name="name">
+                                                    <button class="btn btn-buy btnSearchTime btn-search-ticket" type="button"><i class="fa fa-search"></i></button>
+                                                </div>
+                                            </form>
+
                                             <div class="purchase-order" id="billun"> 
                                             <%if (billunuse.length!=0){%>     
                                                 <%billunuse.forEach(function(bill){%> 
@@ -148,6 +149,14 @@
                                 <div class="tab-pane" id="option2" role="tabpanel">
                                     <form action="" method="get">
                                         <div class="order-common">
+
+                                            <form action="" class="form-search">
+                                                <div class="search-user" >
+                                                    <input type="text" id="myInput1" class="form-control input-idticket" placeholder="Tìm kiếm" name="name">
+                                                    <button class="btn btn-buy btnSearchTime btn-search-ticket" type="button"><i class="fa fa-search"></i></button>
+                                                </div>
+                                            </form>
+                                            
                                             <div class="purchase-order" id="billuse">
                                             <%if (billused.length!=0){%>
                                                 <%billused.forEach(function(bill){%> 

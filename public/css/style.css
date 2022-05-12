@@ -240,7 +240,37 @@ nav.sticky {
     .event-btn{
         zoom: 80%;
     }
-
+    .col-4{
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        padding: 0px !important;
+    }
+    .col-8{
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        padding: 0px !important;
+    }
+    .userInfo-col{
+        zoom: 50%;
+        min-height: 0px !important;
+    }
+    .userInfo-background{
+        min-height: 0px !important;
+        margin: 30px 0px !important;
+    }
+    .input-idticket{
+        zoom: 68%;
+        margin-right: 10px;
+    }
+    .user-login{
+        font-size: 13px !important; 
+    }
+    .userInfo-menulist{
+        width: 30% !important;
+    }
+    .userInfo-menu{
+        padding: 50px 0 0 0 !important;
+    }
 }
 @media (max-width: 400px) {
     nav.sticky {
@@ -1305,8 +1335,7 @@ a:hover {
 .search-user{
     display: flex;
     justify-content: flex-end;
-    width: 50%;
-    margin: 10px 0px;
+    margin: 20px 0px;
 }
 .form-search{
     display: flex;
@@ -1320,6 +1349,7 @@ a:hover {
 .input-idticket{
     font-size: 15px;
     height: 36px;
+    width: 40%;
 }
 /* login */
 .login-section {
