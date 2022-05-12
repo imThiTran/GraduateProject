@@ -90,7 +90,7 @@ var checkBlockShowtime = require('./middelwares/checkBlockShowtime');
 var checkCustomer =require('./middelwares/checkCustomer.middleware')
 
 app.use('/auth',checkOpenBlock,checkBlockShowtime,auth);
-app.use('/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCustomer,checkCurrentBlock,user);
+app.use('/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,user);
 app.use('/movie',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,movie);
 app.use('/order',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,order);
 app.use('/',checkOpenBlock,checkBlockShowtime,checkUser,checkCurrentBlock,site);

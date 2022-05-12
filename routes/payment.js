@@ -40,6 +40,7 @@ function makecode(length) {
 }
 
 router.post('/', (request, response) => {    
+    Film.find({}, function(err,films){    
     Snack.find({}, function (err, snacklist) {
         var { ticket, fullname, phone, code,url } = request.body
         var redirectUrl = url + "/payment/confirm";
@@ -256,7 +257,8 @@ router.post('/', (request, response) => {
                 })
             }
         })
-    })    
+    })  
+})  
 })
 
 
