@@ -188,7 +188,7 @@
             <div class="event-section">
                 <div class="container">
                     <h1 class="title-event">SỰ KIỆN</h1>
-                    <div class="featured-carousel owl-carousel owl-time">
+                    <div class="featured-carousel owl-carousel">
                         <%events.forEach(function(event){%>
                             <div class="item">
                                 <div class="work">
@@ -230,9 +230,6 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
-    <!-- <script src="js/owl.carousel.js"></script> 
-        <link rel="stylesheet" href="css/owl.carousel.css">
-        <link rel="stylesheet" href="css/owl.theme.css"> -->
 
 
 
@@ -260,6 +257,23 @@
                 },
                 1200: {
                     items: 7
+                }
+            }
+        })
+    </script>
+    <script>
+        $('.owl-stage').owlCarousel({
+            loop: false,
+            margin: 0,
+            nav: false,
+            dots: false,
+            autoplay: true,
+            responsive: {
+                500: {
+                    items: 1
+                },
+                1200: {
+                    items: 3
                 }
             }
         })

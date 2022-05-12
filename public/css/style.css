@@ -86,7 +86,7 @@ nav.sticky {
 @media (max-width: 520px) {
     .btn-overtime {
         font-size: 11px;
-        padding: 3px 5px;
+        padding: 5px 20px !important;
     }
 
     .time-btn {
@@ -105,14 +105,143 @@ nav.sticky {
         font-size: 15px !important;
     }
 
+    .flex-time-movie{
+        margin-left: 10px !important;
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+    .grid-cate{
+        grid-template-columns: auto auto !important;
+    }
+    .index-dropdown:hover .drop-menu{
+        width: 390px !important;
+        font-size: 15px !important;
+    }
+    .movie-time{
+        margin: 5px !important;
+    }
+    .coming-side{
+        display: grid !important;
+        grid-template-columns: auto auto !important;
+    }
+    .coming-movie{
+        width: 175px !important;
+        margin-right: 50px !important;
+    }
+    .rating-movie{
+        flex-direction: column;
+    }
+    .side-poster{
+        margin-top: 15px;
+    }
+    .star-point{
+        zoom: 70%;
+    }
+    .detail-side{
+        flex-direction: column;
+        align-items: center;
+    }
+    .detail-img{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn-buy{
+        margin-left: 0px !important;
+        margin-bottom: 20px;
+        zoom: 70%;
+    }
+    .detail-text{
+        zoom: 70%;
+        margin-left: 0px !important;
+    }
+    .modal-open{
+        padding-right: 0px !important;
+    }
+    .model-muave{
+        zoom: 70%;
+        padding-top: 500px !important;
+    }
+    .trailer-detail{
+        zoom: 50%;
+    }
+    .container-comment{
+        zoom: 60%;
+    }
+    .user-comt{
+        flex: 2 !important;
+    }
+    .footer-index{
+        zoom: 70%;
+    }
+    .comment-section{
+        padding-bottom: 50px !important;
+    }
+    .category-span{
+        display: none;
+    }
+    .category-star{
+        margin-left: 25px;
+        margin-top: 0px !important;
+    }
+    .category-side{
+        margin-bottom: 20px;
+    }
+    .movie-side{
+        display: grid !important;
+        grid-template-columns: auto auto !important;
+    }
+    .flex-cate{
+        zoom: 75%;
+    }
+    .movie-side .coming-movie-cate:nth-child(2){
+        margin-right: 0px !important;
+    }
+    .no-show{
+        zoom: 80%;
+        margin-left: 0px !important;
+    }
+    .event-section{
+        zoom: 90%;
+    }
+    .code-place{
+        width: 100% !important;
+    }
+    .detail-movies{
+        zoom: 50%;
+    }
+    .container-combo{
+        zoom: 40%;  
+    }
+    .bill-container{
+        zoom: 50%;
+    }
+    .price-ticket-img{
+        zoom: 50%;
+    }
+    .gia-price{
+        zoom: 51%;
+    }
+    .event-body{
+        flex-direction: column;
+    }
+    .sukien-text{
+        zoom: 60%;
+    }
+    .event-title h4{
+        zoom: 50%;
+    }   
+    .h6-other{
+        zoom: 80%;
+    }
+    .event-about-text h6{
+        zoom: 60%;
+    }
+    .event-btn{
+        zoom: 80%;
+    }
+
 }
-
-/* .flex-time img{
-        width: 50%;
-        height: 50%;
-    } */
-
-
 @media (max-width: 400px) {
     nav.sticky {
         position: static;
@@ -517,7 +646,7 @@ a:hover {
 }
 
 .flex-time img {
-    width: 100%;
+    width: 250px;
     height: 300px;
 }
 
@@ -1475,7 +1604,7 @@ a:hover {
 }
 
 .poster-movie {
-    width: 250px !important;
+    width: 250px;
     height: 300px;
     object-fit: cover;
     object-position: 50% 20%;
@@ -3573,7 +3702,7 @@ button.primaryContained:hover {
   }
   .price-ticket-img{
     text-align: center;
-    margin-top: 30px;
+    margin: 30px 0;
     position: relative;
   }
   .price-ticket-img img{
@@ -3596,6 +3725,37 @@ button.primaryContained:hover {
 .dam-price-couple, .dpm-price-couple, .wam-price-couple, .wpm-price-couple{
     position: absolute;
     right: 334px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Saira Semi Condensed', sans-serif;
+}
+.codeBackup{
+    margin: 10px;
+    width: 50%;
+}
+.btn-code{
+    background: rgb(253, 200, 91);
+    box-shadow: rgb(51 51 51) 2px 3px 3px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.code-extra{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+}
+.code-place{
+    width: 500px;
+    background: #eeeeee;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid;
+}
+.code-place h6{
     font-weight: 600;
     color: #333;
     font-family: 'Saira Semi Condensed', sans-serif;
