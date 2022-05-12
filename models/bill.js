@@ -1,14 +1,4 @@
 var mongoose = require('mongoose')
-function makecode(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';   
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * 
- charactersLength));
-   }
-   return result;
-}
 var BillSchema = mongoose.Schema({
     timebooking: {
         type: Date,
@@ -51,8 +41,7 @@ var BillSchema = mongoose.Schema({
    },
    code:{
        type:String,
-       required:true,
-       default: makecode(6),
+       required:true,       
        index: {unique:true}
    },
    film:{

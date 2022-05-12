@@ -10,16 +10,6 @@ function daysInMonth(month, year){
     return new Date(year,month,0).getDate();
 }
 
-var sts=[]
-Showtime.find({}, function(err,showtimes){
-    sts=showtimes
-})
-
-var films=[]
-Film.find({"status": {"$in" : ['Đang khởi chiếu','Đã chiếu xong']}}, function(err,fis){
-    films=fis
-})
-
 router.get('/day',(req,res)=> {
     var date = new Date()
     var month = date.getMonth()+1
@@ -107,40 +97,43 @@ router.get('/month',(req,res)=> {
 })
 
 router.get('/film',(req,res)=> {
-    var datafilm = new Array(films.length)
-    var datafilmfull = new Array(films.length)
-    var tk = new Array(films.length)
-    var listnamefilm=[]
-    Bill.find({payment:'1'}, function(err,bills){        
-        for(let i=0;i<datafilm.length;i++){   
-            datafilm[i] =0
-            datafilmfull[i]=0
-            tk[i]=0
-            bills.forEach(bill => {
-                sts.forEach(st => {
-                    if(bill.ticket[0].idShowtime==st._id&&st.idFilm==films[i]._id){
-                        datafilm[i]+=parseInt(bill.total)                 
-                        datafilmfull[i]+=parseInt(bill.totalbill)
-                                                  
-                    }                          
-                })
-            })
-            sts.forEach(st => {
-                if(st.idFilm==films[i]._id){
-                    tk[i]++
+    Film.find({"status": {"$in" : ['Đang khởi chiếu','Đã chiếu xong']}}, function(err,films){
+        Showtime.find({}, function(err,sts){
+            var datafilm = new Array(films.length)
+            var datafilmfull = new Array(films.length)
+            var tk = new Array(films.length)
+            var listnamefilm=[]
+            Bill.find({payment:'1'}, function(err,bills){        
+                for(let i=0;i<datafilm.length;i++){   
+                    datafilm[i] =0
+                    datafilmfull[i]=0
+                    tk[i]=0
+                    bills.forEach(bill => {
+                        sts.forEach(st => {
+                            if(bill.ticket[0].idShowtime==st._id&&st.idFilm==films[i]._id){
+                                datafilm[i]+=parseInt(bill.total)                 
+                                datafilmfull[i]+=parseInt(bill.totalbill)
+                                                        
+                            }                          
+                        })
+                    })
+                    sts.forEach(st => {
+                        if(st.idFilm==films[i]._id){
+                            tk[i]++
+                        }
+                    })
+                    listnamefilm.push(films[i].nameEN)
                 }
+                res.render('admin/admin-statistical-film',{
+                    datafilm:datafilm,
+                    datafilmfull:datafilmfull,
+                    tk:tk,
+                    films:films,
+                    listnamefilm:listnamefilm
+                })    
             })
-            listnamefilm.push(films[i].nameEN)
-        }
-        res.render('admin/admin-statistical-film',{
-            datafilm:datafilm,
-            datafilmfull:datafilmfull,
-            tk:tk,
-            films:films,
-            listnamefilm:listnamefilm
-        })    
-    })
-   
+        }) 
+    }) 
 })
 
 router.post('/day',(req,res) =>{

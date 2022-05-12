@@ -23,10 +23,6 @@ var ipnUrl = "https://callback.url/notify";
 var requestType = "captureWallet"
 var extraData = "";
 
-var snacklist = []
-Snack.find({}, function (err, snacks) {
-    snacklist = snacks
-})
 var cats = []
 Category.find({}, function (err, categories) {
     cats = categories
@@ -35,220 +31,236 @@ var films = []
 Film.find({}, function (err, fis) {
     films = fis
 })
-router.post('/', (request, response) => {
-    var { ticket, fullname, phone, code,url } = request.body
-    var redirectUrl = url + "/payment/confirm";
-    code=code.toUpperCase()
-    var body = request.body    
-    var today = Date.now() 
-    var snacks=[]
-    for (key in body ) {
-        if(key!="ticket" && key!="idst"){
-            if(body[key]!='0'){
-                let snack={id:key,value:body[key]}
-                snacks.push(snack)
+
+function makecode(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';   
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * 
+ charactersLength));
+   }
+   return result;
+}
+
+router.post('/', (request, response) => {    
+    Snack.find({}, function (err, snacklist) {
+        var { ticket, fullname, phone, code,url } = request.body
+        var redirectUrl = url + "/payment/confirm";
+        code=code.toUpperCase()
+        var body = request.body    
+        var today = Date.now() 
+        var snacks=[]
+        for (key in body ) {
+            if(key!="ticket" && key!="idst"){
+                if(body[key]!='0'){
+                    let snack={id:key,value:body[key]}
+                    snacks.push(snack)
+                }
             }
         }
-    }
-    var snackarr=[]
-    snacks.forEach(snack => {
-        snacklist.forEach(sn => {
-            if(snack.id==sn._id){
-                let item={
-                    id:snack.id,
-                    name:sn.name,
-                    price:sn.price,
-                    quantity:snack.value
-                }
-                snackarr.push(item)
-            }
-        })
-    })
-    var check = true
-    Ticket.find({ "_id": { "$in": ticket } }, function (err, tk) {
-        tk.forEach(ticketcheck => {
-            if (ticketcheck.available == '0') {
-                check = false
-            }
-        })
+        var snackarr=[]
         snacks.forEach(snack => {
             snacklist.forEach(sn => {
-                if(snack.id==sn._id && sn.block==1){
-                    check = false         
-                }   
+                if(snack.id==sn._id){
+                    let item={
+                        id:snack.id,
+                        name:sn.name,
+                        price:sn.price,
+                        quantity:snack.value
+                    }
+                    snackarr.push(item)
+                }
             })
         })
-        if (check) {
-            var totalticket = 0
-            var totalsn=0
-            if (ticket == "string") {
-                totalticket = tk.price
-                snackarr.forEach(item => {
-                    totalsn+=item.price*item.quantity
+        var check = true
+        Ticket.find({ "_id": { "$in": ticket } }, function (err, tk) {
+            tk.forEach(ticketcheck => {
+                if (ticketcheck.available == '0') {
+                    check = false
+                }
+            })
+            snacks.forEach(snack => {
+                snacklist.forEach(sn => {
+                    if(snack.id==sn._id && sn.block==1){
+                        check = false         
+                    }   
                 })
-            } else {
-                tk.forEach(ticket => {
-                    totalticket += ticket.price
-                })
-                snackarr.forEach(item => {
-                    totalsn+=item.price*item.quantity
-                })
-            }
-            Voucher.findOne({code:code},function(err,voucher){
-        Showtime.findById(tk[0].idShowtime, function(err,st){
-            Film.findById(st.idFilm, function(err,film){
-                Room.findById(st.idRoom,function(err,room){
-                    var filmelm={
-                        nameEN:film.nameEN,
-                        nameVN:film.nameVN,
-                        photo:film.photo,
-                        slug:film.slug
-                    }
-                    var stelm={
-                        date:st.date,
-                        timeStart:st.timeStart
-                    }
-                    var roomelm=room.name
-                var bi;
-                var checkvoucher=true;
-                if(voucher){
-                    voucher.user.forEach(user => {
-                        if(user==request.session.user){
-                            checkvoucher=false
-                        }
+            })            
+            if (check) {
+                var totalticket = 0
+                var totalsn=0
+                if (ticket == "string") {
+                    totalticket = tk.price
+                    snackarr.forEach(item => {
+                        totalsn+=item.price*item.quantity
                     })
-                    if(voucher.datefrom > today || voucher.dateto < today){
-                        checkvoucher=false
-                    }
-                }else{
-                    checkvoucher=false
-                }          
-                if(checkvoucher){                    
-                    bi = new Bill({
-                        ticket: tk,
-                        total: totalticket*(100-voucher.value)/100+totalsn,
-                        user: request.session.user,
-                        fullname: fullname,
-                        phone: phone,
-                        snack:snackarr,
-                        totalbill:totalticket+totalsn,
-                        discount:voucher.value,
-                        film:filmelm,
-                        showtime:stelm,
-                        room:roomelm
+                } else {
+                    tk.forEach(ticket => {
+                        totalticket += ticket.price
                     })
-                    voucher.user.push(request.session.user)
-                }else{
-                    bi = new Bill({
-                        ticket: tk,
-                        total: totalticket+totalsn,
-                        user: request.session.user,
-                        fullname: fullname,
-                        phone: phone,
-                        snack:snackarr,
-                        totalbill:totalticket+totalsn,
-                        film:filmelm,
-                        showtime:stelm,
-                        room:roomelm
+                    snackarr.forEach(item => {
+                        totalsn+=item.price*item.quantity
                     })
                 }
-                bi.save(function (err, bill) {
-                    if(err){
-                        response.render('auth/auth-notify',{
-                            mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
-                        })
-                    }else{
-                        if(voucher){
-                            voucher.save(function(err,vc){
-                            })
+                Voucher.findOne({code:code},function(err,voucher){
+            Showtime.findById(tk[0].idShowtime, function(err,st){
+                Film.findById(st.idFilm, function(err,film){
+                    Room.findById(st.idRoom,function(err,room){
+                        var filmelm={
+                            nameEN:film.nameEN,
+                            nameVN:film.nameVN,
+                            photo:film.photo,
+                            slug:film.slug
                         }
-                        User.findOne({email : bill.user},function(err,us){                            
-                            if(us.actor=="staff"){
-                                Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
-                                    if (err) throw err;
-                                })
-                                bill.payment='1'
-                                bill.save(function (err, bil) {
-                                    var time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-                                    var date = new Date().toLocaleDateString('en-GB');
-                                    response.render('qrcode/staffbill', {
-                                        bill:bil,
-                                        timePrint: date + ' ' + time,
-                                        cats: cats,
-                                        filmArrs:films
-                                    })
-                                })
-                            }else{
-                                var orderId = bill._id;
-                                var amount = bill.total;
-                                requestId = partnerCode + new Date().getTime();
-                                var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType
-                                var signature = crypto.createHmac('sha256', secretkey)
-                                    .update(rawSignature)
-                                    .digest('hex');
-                                const requestBody = JSON.stringify({
-                                    partnerCode: partnerCode,
-                                    accessKey: accessKey,
-                                    requestId: requestId,
-                                    amount: amount,
-                                    orderId: orderId,
-                                    orderInfo: orderInfo,
-                                    redirectUrl: redirectUrl,
-                                    ipnUrl: ipnUrl,
-                                    extraData: extraData,
-                                    requestType: requestType,
-                                    signature: signature,
-                                    lang: 'en'
-                                });
-                                //Create the HTTPS objects
-                                const https = require('https');
-                                const options = {
-                                    hostname: 'test-payment.momo.vn',
-                                    port: 443,
-                                    path: '/v2/gateway/api/create',
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Content-Length': Buffer.byteLength(requestBody)
-                                    }
-                                }
-                                const req = https.request(options, res => {
-                                    res.setEncoding('utf8');
-                                    res.on('data', (body) => {
-                                        if (JSON.parse(body).payUrl) {
-                                            Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
-                                                if (err) throw err;
-                                            })
-                                            response.redirect(JSON.parse(body).payUrl);
-                                        } else {
-                                            response.status(404).render('error', {
-                                                mes: 'Page Not Found'
-                                            });
-                                        }
-                                    });
-                                    res.on('end', () => {
-                
-                                    });
-                                })
-                                req.on('error', (e) => {
-                                    console.log(`problem with request: ${e.message}`);
-                                });
-                                req.write(requestBody);
-                                req.end(); 
+                        var stelm={
+                            date:st.date,
+                            timeStart:st.timeStart
+                        }
+                        var roomelm=room.name
+                    var bi;
+                    var checkvoucher=true;
+                    if(voucher){
+                        voucher.user.forEach(user => {
+                            if(user==request.session.user){
+                                checkvoucher=false
                             }
-                        })                    
-                    }                                  
+                        })
+                        if(voucher.datefrom > today || voucher.dateto < today){
+                            checkvoucher=false
+                        }
+                    }else{
+                        checkvoucher=false
+                    }          
+                    if(checkvoucher){                    
+                        bi = new Bill({
+                            ticket: tk,
+                            total: totalticket*(100-voucher.value)/100+totalsn,
+                            user: request.session.user,
+                            fullname: fullname,
+                            phone: phone,
+                            snack:snackarr,
+                            totalbill:totalticket+totalsn,
+                            discount:voucher.value,
+                            film:filmelm,
+                            showtime:stelm,
+                            room:roomelm,
+                            code:makecode(6)
+                        })
+                        voucher.user.push(request.session.user)
+                    }else{
+                        bi = new Bill({
+                            ticket: tk,
+                            total: totalticket+totalsn,
+                            user: request.session.user,
+                            fullname: fullname,
+                            phone: phone,
+                            snack:snackarr,
+                            totalbill:totalticket+totalsn,
+                            film:filmelm,
+                            showtime:stelm,
+                            room:roomelm,                            
+                            code:makecode(6)
+                        })
+                    }
+                    bi.save(function (err, bill) {                        
+                        if(err){                            
+                            response.render('auth/auth-notify',{
+                                mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
+                            })
+                        }else{
+                            if(voucher){
+                                voucher.save(function(err,vc){
+                                })
+                            }
+                            User.findOne({email : bill.user},function(err,us){                            
+                                if(us.actor=="staff"){
+                                    Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
+                                        if (err) throw err;
+                                    })
+                                    bill.payment='1'
+                                    bill.save(function (err, bil) {
+                                        var time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+                                        var date = new Date().toLocaleDateString('en-GB');
+                                        response.render('qrcode/staffbill', {
+                                            bill:bil,
+                                            timePrint: date + ' ' + time,
+                                            cats: cats,
+                                            filmArrs:films
+                                        })
+                                    })
+                                }else{
+                                    var orderId = bill._id;
+                                    var amount = bill.total;
+                                    requestId = partnerCode + new Date().getTime();
+                                    var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType
+                                    var signature = crypto.createHmac('sha256', secretkey)
+                                        .update(rawSignature)
+                                        .digest('hex');
+                                    const requestBody = JSON.stringify({
+                                        partnerCode: partnerCode,
+                                        accessKey: accessKey,
+                                        requestId: requestId,
+                                        amount: amount,
+                                        orderId: orderId,
+                                        orderInfo: orderInfo,
+                                        redirectUrl: redirectUrl,
+                                        ipnUrl: ipnUrl,
+                                        extraData: extraData,
+                                        requestType: requestType,
+                                        signature: signature,
+                                        lang: 'en'
+                                    });
+                                    //Create the HTTPS objects
+                                    const https = require('https');
+                                    const options = {
+                                        hostname: 'test-payment.momo.vn',
+                                        port: 443,
+                                        path: '/v2/gateway/api/create',
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Content-Length': Buffer.byteLength(requestBody)
+                                        }
+                                    }
+                                    const req = https.request(options, res => {
+                                        res.setEncoding('utf8');
+                                        res.on('data', (body) => {
+                                            if (JSON.parse(body).payUrl) {
+                                                Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
+                                                    if (err) throw err;
+                                                })
+                                                response.redirect(JSON.parse(body).payUrl);
+                                            } else {
+                                                response.status(404).render('error', {
+                                                    mes: 'Page Not Found'
+                                                });
+                                            }
+                                        });
+                                        res.on('end', () => {
+                    
+                                        });
+                                    })
+                                    req.on('error', (e) => {
+                                        console.log(`problem with request: ${e.message}`);
+                                    });
+                                    req.write(requestBody);
+                                    req.end(); 
+                                }
+                            })                    
+                        }                                  
+                    })
+                    })
                 })
+            })  
                 })
-            })
-        })  
-            })
-        } else {
-            response.render('auth/auth-notify',{
-                mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
-            })
-        }
-    })
+            } else {                                
+                response.render('auth/auth-notify',{
+                    mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
+                })
+            }
+        })
+    })    
 })
 
 

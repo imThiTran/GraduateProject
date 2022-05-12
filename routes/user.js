@@ -24,19 +24,10 @@ var cats=[]
 Category.find({}, function(err,categories){
     cats=categories
 })
-var sts=[]
-Showtime.find({}, function(err,showtimes){
-    sts=showtimes
-})
 
 var films=[]
 Film.find({}, function(err,fis){
     films=fis
-})
-
-var rooms=[]
-Room.find({}, function(err,rs){
-    rooms=rs
 })
 
 function generateDate(date, time) {

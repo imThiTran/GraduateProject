@@ -135,89 +135,89 @@ router.post('/reload', (req, res) => {
     })
 })
 
-var snacklist = []
-Snack.find({}, function (err, snacks) {
-    snacklist = snacks
-})
+
 
 router.post('/ticket', (req, res) => {
-    var{ticket,idSt} =req.body    
-    var body = req.body    
-    var snacks=[]
-    for (key in body ) {
-        if(key!="ticket" && key!="idst"){
-            if(body[key]!='0'){
-                let snack={id:key,value:body[key]}
-                snacks.push(snack)
+   
+    Snack.find({}, function (err, snacklist) {
+        var{ticket,idSt} =req.body    
+        var body = req.body    
+        var snacks=[]
+        for (key in body ) {
+            if(key!="ticket" && key!="idst"){
+                if(body[key]!='0'){
+                    let snack={id:key,value:body[key]}
+                    snacks.push(snack)
+                }
             }
         }
-    }
-    var snackarr=[]
-    snacks.forEach(snack => {
-        snacklist.forEach(sn => {
-            if(snack.id==sn._id){
-                let item={
-                    id:snack.id,
-                    name:sn.name,
-                    price:sn.price,
-                    quantity:snack.value
-                }
-                snackarr.push(item)
-            }
-        })
-    })
-    User.findOne({email : req.session.user},function(err,us){        
-        Showtime.findById(idSt, function(err,st){
-            Film.findById(st.idFilm, function(err,film){
-                Room.findById(st.idRoom,function(err,room){
-                    if (err) return console.log(err);
-                    if(ticket=='string'){
-                        Ticket.findById(ticket, function(err,tk){
-                            let total=0
-                            snackarr.forEach(item => {
-                                total+=item.price*item.quantity
-                            })
-                            res.render('payment/detail-check',{
-                                st:st,
-                                tk:tk,
-                                film:film,
-                                room:room,
-                                user:us,
-                                snack:snackarr,
-                                cats:cats,
-                                totalticket:tk[0].price,
-                                totalsn:total,
-                                filmArrs:films
-                            })
-                        })
-                    }else{
-                        Ticket.find({"_id": {"$in" : ticket}}, function(err, tk){
-                            var totaltk=0
-                            tk.forEach(ticket => {
-                                totaltk+=ticket.price
-                            })
-                            var totalsn=0
-                            snackarr.forEach(item => {
-                                totalsn+=item.price*item.quantity
-                            })    
-                            res.render('payment/detail-check',{
-                                st:st,
-                                tk:tk,                                
-                                film:film,
-                                room:room,
-                                user:us,
-                                snack:snackarr,
-                                cats:cats,
-                                totalticket:totaltk,
-                                totalsn:totalsn,
-                                filmArrs:films
-                            })
-                        })
+        var snackarr=[]
+        snacks.forEach(snack => {
+            snacklist.forEach(sn => {
+                if(snack.id==sn._id){
+                    let item={
+                        id:snack.id,
+                        name:sn.name,
+                        price:sn.price,
+                        quantity:snack.value
                     }
-                })
-            })        
+                    snackarr.push(item)
+                }
+            })
         })
-    })    
+        User.findOne({email : req.session.user},function(err,us){        
+            Showtime.findById(idSt, function(err,st){
+                Film.findById(st.idFilm, function(err,film){
+                    Room.findById(st.idRoom,function(err,room){
+                        if (err) return console.log(err);
+                        if(ticket=='string'){
+                            Ticket.findById(ticket, function(err,tk){
+                                let total=0
+                                snackarr.forEach(item => {
+                                    total+=item.price*item.quantity
+                                })
+                                res.render('payment/detail-check',{
+                                    st:st,
+                                    tk:tk,
+                                    film:film,
+                                    room:room,
+                                    user:us,
+                                    snack:snackarr,
+                                    cats:cats,
+                                    totalticket:tk[0].price,
+                                    totalsn:total,
+                                    filmArrs:films
+                                })
+                            })
+                        }else{
+                            Ticket.find({"_id": {"$in" : ticket}}, function(err, tk){
+                                var totaltk=0
+                                tk.forEach(ticket => {
+                                    totaltk+=ticket.price
+                                })
+                                var totalsn=0
+                                snackarr.forEach(item => {
+                                    totalsn+=item.price*item.quantity
+                                })    
+                                res.render('payment/detail-check',{
+                                    st:st,
+                                    tk:tk,                                
+                                    film:film,
+                                    room:room,
+                                    user:us,
+                                    snack:snackarr,
+                                    cats:cats,
+                                    totalticket:totaltk,
+                                    totalsn:totalsn,
+                                    filmArrs:films
+                                })
+                            })
+                        }
+                    })
+                })        
+            })
+        }) 
+    })         
 })
 
 router.post('/snack', (req, res) => {

@@ -2,8 +2,7 @@
 <%- include ('../layouts/header') %>
 
     <body>
-        <%- include ('../layouts/sub-header') %>
-
+        <%- include ('../layouts/sub-header') %>        
         <div class="container-bill">
             <div class="qr-bill">
                 <div class="qr-info">
@@ -59,7 +58,7 @@
                             </div>
                             <div class="bill-text">
                                 <div class="name-bill name-qr" style="flex:3">Tổng tiền: </div> 
-                                <span style="flex:5"><%= bill.total %> VNĐ</span>
+                                <span style="flex:5"><%= parseInt(bill.total).toLocaleString('de-DE') %> VNĐ</span>
                             </div>
                         </div>
                         <div class="print-section">
@@ -76,6 +75,7 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
+        
 function checkInBill(th) {
     var idBill = $('.idBill').text();
     Swal.fire({
