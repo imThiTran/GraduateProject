@@ -62,11 +62,11 @@
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Tổng: </div> 
-                        <span class="total"></span>
+                        <span class="totalbill"><%= (totalticket+totalsn).toLocaleString('vi', {style : 'currency', currency : 'VND'}); %></span>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill">Khuyến mãi: </div> 
-                        <span class="total"></span>
+                        <span class="dc"><%=(0).toLocaleString('vi', {style : 'currency', currency : 'VND'})%></span>
                     </div>
                     <div class="bill-text">
                         <div class="name-bill" style="font-size:20px"><b>Tổng tiền: </b></div> 
@@ -124,8 +124,10 @@
                         $('.alertcode').html('Đã áp dụng mã.');
                         var totalticket=$('.totalticket').val()*(100-result.value)/100
                         $('.total').html((totalticket+parseInt($('.totalsn').val())).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
+                        $('.dc').html((parseInt($('.totalticket').val()*(result.value)/100)).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
                     }else{
                         $('.alertcode').html('Mã không hợp lệ hoặc đã sử dụng.');
+                        $('.dc').html((0).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
                         $('.total').html((parseInt($('.totalticket').val())+parseInt($('.totalsn').val())).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
                     }                                    
                 }

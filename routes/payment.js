@@ -9,8 +9,11 @@ var Room = require('../models/room');
 var Snack = require('../models/snack')
 var Category = require('../models/category');
 var Voucher = require('../models/voucher')
+var User = require('../models/user');
+
 var transporter = require('../config/nodemailer')
 var QRCode = require('qrcode')
+//config of MOMO
 var partnerCode = process.env.partnerCode
 var accessKey = process.env.accessKey
 var secretkey = process.env.secretkey
@@ -72,7 +75,7 @@ router.post('/', (request, response) => {
             snacklist.forEach(sn => {
                 if(snack.id==sn._id && sn.block==1){
                     check = false         
-                }
+                }   
             })
         })
         if (check) {
@@ -106,7 +109,7 @@ router.post('/', (request, response) => {
                         timeStart:st.timeStart
                     }
                     var roomelm=room.name
-                var bill;
+                var bi;
                 var checkvoucher=true;
                 if(voucher){
                     voucher.user.forEach(user => {
@@ -121,7 +124,7 @@ router.post('/', (request, response) => {
                     checkvoucher=false
                 }          
                 if(checkvoucher){                    
-                    bill = new Bill({
+                    bi = new Bill({
                         ticket: tk,
                         total: totalticket*(100-voucher.value)/100+totalsn,
                         user: request.session.user,
@@ -136,7 +139,7 @@ router.post('/', (request, response) => {
                     })
                     voucher.user.push(request.session.user)
                 }else{
-                    bill = new Bill({
+                    bi = new Bill({
                         ticket: tk,
                         total: totalticket+totalsn,
                         user: request.session.user,
@@ -149,7 +152,7 @@ router.post('/', (request, response) => {
                         room:roomelm
                     })
                 }
-                bill.save(function (err, bill) {
+                bi.save(function (err, bill) {
                     if(err){
                         response.render('auth/auth-notify',{
                             mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
@@ -158,63 +161,82 @@ router.post('/', (request, response) => {
                         if(voucher){
                             voucher.save(function(err,vc){
                             })
-                        }                    
-                        var orderId = bill._id;
-                        var amount = bill.total;
-                        requestId = partnerCode + new Date().getTime();
-                        var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType
-                        var signature = crypto.createHmac('sha256', secretkey)
-                            .update(rawSignature)
-                            .digest('hex');
-                        const requestBody = JSON.stringify({
-                            partnerCode: partnerCode,
-                            accessKey: accessKey,
-                            requestId: requestId,
-                            amount: amount,
-                            orderId: orderId,
-                            orderInfo: orderInfo,
-                            redirectUrl: redirectUrl,
-                            ipnUrl: ipnUrl,
-                            extraData: extraData,
-                            requestType: requestType,
-                            signature: signature,
-                            lang: 'en'
-                        });
-                        //Create the HTTPS objects
-                        const https = require('https');
-                        const options = {
-                            hostname: 'test-payment.momo.vn',
-                            port: 443,
-                            path: '/v2/gateway/api/create',
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Content-Length': Buffer.byteLength(requestBody)
-                            }
                         }
-                        const req = https.request(options, res => {
-                            res.setEncoding('utf8');
-                            res.on('data', (body) => {
-                                if (JSON.parse(body).payUrl) {
-                                    Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
-                                        if (err) throw err;
+                        User.findOne({email : bill.user},function(err,us){                            
+                            if(us.actor=="staff"){
+                                Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
+                                    if (err) throw err;
+                                })
+                                bill.payment='1'
+                                bill.save(function (err, bil) {
+                                    var time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+                                    var date = new Date().toLocaleDateString('en-GB');
+                                    response.render('qrcode/staffbill', {
+                                        bill:bil,
+                                        timePrint: date + ' ' + time,
+                                        cats: cats,
+                                        filmArrs:films
                                     })
-                                    response.redirect(JSON.parse(body).payUrl);
-                                } else {
-                                    response.status(404).render('error', {
-                                        mes: 'Page Not Found'
-                                    });
+                                })
+                            }else{
+                                var orderId = bill._id;
+                                var amount = bill.total;
+                                requestId = partnerCode + new Date().getTime();
+                                var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType
+                                var signature = crypto.createHmac('sha256', secretkey)
+                                    .update(rawSignature)
+                                    .digest('hex');
+                                const requestBody = JSON.stringify({
+                                    partnerCode: partnerCode,
+                                    accessKey: accessKey,
+                                    requestId: requestId,
+                                    amount: amount,
+                                    orderId: orderId,
+                                    orderInfo: orderInfo,
+                                    redirectUrl: redirectUrl,
+                                    ipnUrl: ipnUrl,
+                                    extraData: extraData,
+                                    requestType: requestType,
+                                    signature: signature,
+                                    lang: 'en'
+                                });
+                                //Create the HTTPS objects
+                                const https = require('https');
+                                const options = {
+                                    hostname: 'test-payment.momo.vn',
+                                    port: 443,
+                                    path: '/v2/gateway/api/create',
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Content-Length': Buffer.byteLength(requestBody)
+                                    }
                                 }
-                            });
-                            res.on('end', () => {
-        
-                            });
-                        })
-                        req.on('error', (e) => {
-                            console.log(`problem with request: ${e.message}`);
-                        });
-                        req.write(requestBody);
-                        req.end();                         
+                                const req = https.request(options, res => {
+                                    res.setEncoding('utf8');
+                                    res.on('data', (body) => {
+                                        if (JSON.parse(body).payUrl) {
+                                            Ticket.updateMany({ "_id": { "$in": ticket } }, { $set: { available: '0' } }, function (err, tk) {
+                                                if (err) throw err;
+                                            })
+                                            response.redirect(JSON.parse(body).payUrl);
+                                        } else {
+                                            response.status(404).render('error', {
+                                                mes: 'Page Not Found'
+                                            });
+                                        }
+                                    });
+                                    res.on('end', () => {
+                
+                                    });
+                                })
+                                req.on('error', (e) => {
+                                    console.log(`problem with request: ${e.message}`);
+                                });
+                                req.write(requestBody);
+                                req.end(); 
+                            }
+                        })                    
                     }                                  
                 })
                 })
@@ -222,7 +244,7 @@ router.post('/', (request, response) => {
         })  
             })
         } else {
-            res.render('auth/auth-notify',{
+            response.render('auth/auth-notify',{
                 mes:'Đã xãy ra lỗi, đang điều hướng về trang chủ',
             })
         }

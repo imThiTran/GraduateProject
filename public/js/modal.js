@@ -241,7 +241,7 @@ $("#formAddFilm").submit(function(e){
                 <div class="namevnedit">${data.filmAdd.nameVN}</div>
               </td>
               <td class="directorsedit">${data.filmAdd.directors}</td>
-              <td class="premiereedit">${data.filmAdd.premiere}</td>
+              <td class="premiereedit">${new Date( data.filmAdd.premiere).toLocaleDateString('en-GB')}</td>
               <td class="categories">${data.filmAdd.cat}</td>                                
               <td>
                 <div class="statusedit">${data.filmAdd.status}</div>
@@ -353,7 +353,7 @@ $("#formEditFilm").submit(function(e){
           $(`.${data.oldslug}`).find('.nameenedit').html(data.filmEdit.nameEN)          
           $(`.${data.oldslug}`).find('.namevnedit').html(data.filmEdit.nameVN)
           $(`.${data.oldslug}`).find('.directorsedit').html(data.filmEdit.directors)
-          $(`.${data.oldslug}`).find('.premiereedit').html(data.filmEdit.premiere)
+          $(`.${data.oldslug}`).find('.premiereedit').html(new Date( data.filmEdit.premiere).toLocaleDateString('en-GB'))
           $(`.${data.oldslug}`).find('.categories').html(data.filmEdit.cat)
           $(`.${data.oldslug}`).find('.statusedit').html(data.filmEdit.status)
           $(`.${data.oldslug}`).find('.btnEditFilm').val(data.filmEdit.slug)
