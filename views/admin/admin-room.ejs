@@ -8,8 +8,8 @@
             flex-wrap: wrap;">
                 <div class="h5-detail">Quản lý phòng chiếu</div>
                 <form action="/admin/room/search-room" method="get" class="purchase-search search-admin" style="width: 40%; padding-left: 0 !important">
-                    <input type="text" id="myInput" class="form-control" placeholder="Tìm kiếm theo tên phòng" name="nameRoom">
-                    <button class="submitsearch btn btn-buy btnSearchTime" type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" id="myInput" class="form-control" placeholder="Tìm kiếm " name="nameRoom">
+                    <!-- <button class="submitsearch btn btn-buy btnSearchTime" type="submit"><i class="fa fa-search"></i></button> -->
                 </form>
             </div>
             <span class="line-detail"></span>
@@ -67,7 +67,11 @@
                         </div>
                     </form>
                     <%if (rooms.length!=0){%>
-                        <thead>
+                        <div class="no-show">
+                            <h1>Không có phòng chiếu nào phù hợp</h1>
+                            <img src="/img/movie.gif" alt="">
+                        </div>
+                        <thead class="headerTable">
                             <tr>
                                 <th scope="col">STT</th>
                                 <th scope="col">Tên phòng chiếu</th>
@@ -110,7 +114,7 @@
                         </tbody>
                     <%} else {%>
                         <div class="no-show">
-                            <h1>Không có phòng chiếu nào</h1>
+                            <h1>Không có phòng chiếu nào phù hợp</h1>
                             <img src="/img/movie.gif" alt="">
                         </div>
                     <%}%>
@@ -181,11 +185,19 @@
 </body>
 <script>
     $(document).ready(function(){
+        $('.no-show').hide();
     $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#myTable tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
+        if($("#myTable tr:visible").length===0){
+            $('.no-show').show();
+            $('.headerTable').hide();
+        }else{
+            $('.no-show').hide();
+            $('.headerTable').show();
+        }
     });
     });
 </script>

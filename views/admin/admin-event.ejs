@@ -20,12 +20,16 @@
                 <div class="h5-detail">Quản lý sự kiện</div>
                 <form action="" method="get" class="purchase-search search-admin" style="width: 40%; padding-left: 0 !important">
                     <input id="myInput" type="text" class="form-control" placeholder="Tìm kiếm" name="name">
-                    <button class="submitsearch btn btn-buy btnSearchTime" type="button"><i class="fa fa-search"></i></button>
+                    <!-- <button class="submitsearch btn btn-buy btnSearchTime" type="button"><i class="fa fa-search"></i></button> -->
                 </form>
             </div>
             <span class="line-detail"></span>            
                 <table class="table table-bordered" style="font-size: 15px;">
-                    <thead>
+                    <div class="no-show">
+                        <h1>Không có sự kiện nào phù hợp</h1>
+                        <img src="/img/movie.gif" alt="">
+                    </div>   
+                    <thead class="headerTable">
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Tiêu đề</th>
@@ -113,14 +117,14 @@
                         </tr>
                     </thead>
                     <tbody id="bodyAdd">
-                        <tr class="no-show">
+                        <!-- <tr class="no-show">
                             <td colspan="5">
                                 <div style="zoom: 70%;margin-top: 20px;">
                                     <h1>Không tìm thấy phim.</h1>
                                     <img src="/img/movie.gif" alt="">
                                 </div>
                             </td>                               
-                        </tr>  
+                        </tr>   -->
                         <%events.forEach(function(event){%> 
                             <tr class="<%= event.slug%>">
                                 <th scope="row" style="width: 15%">
@@ -252,8 +256,9 @@
     /*  */
 </script>
 <script>    
-    $('.no-show').hide();
+    
     $(document).ready(function(){
+        $('.no-show').hide();
       $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#bodyAdd tr").filter(function() {
@@ -261,8 +266,10 @@
         });
         if($("#bodyAdd tr:visible").length===0){
             $('.no-show').show();
+            $('.headerTable').hide();
         }else{
             $('.no-show').hide();
+            $('.headerTable').show();
         }
       });
     });

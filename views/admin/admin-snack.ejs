@@ -6,10 +6,21 @@
     <%- include('../layouts/admin-sub-header') %>
     <div class="wrapper-index">
         <div class="ad-movie">
-            <div class="h5-detail">Quản lý đồ ăn vặt</div>
+            <div style="display: flex; justify-content: space-between;
+            flex-wrap: wrap;">
+                <div class="h5-detail">Quản lý đồ ăn vặt</div>
+                <form action="/admin/room/search-room" method="get" class="purchase-search search-admin" style="width: 40%; padding-left: 0 !important">
+                    <input type="text" id="myInput" class="form-control" placeholder="Tìm kiếm" name="nameRoom">
+                    <!-- <button class="submitsearch btn btn-buy btnSearchTime" type="submit"><i class="fa fa-search"></i></button> -->
+                </form>
+            </div>
             <span class="line-detail"></span>
                 <table class="table table-striped  table-bordered" style="font-size: 15px;">
-                    <thead>
+                    <div class="no-show">
+                        <h1>Không có kết quả nào phù hợp</h1>
+                        <img src="/img/movie.gif" alt="">
+                    </div>
+                    <thead class="headerTable">
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Tên</th>
@@ -84,7 +95,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTable">
                         <%snacks.forEach(function(snack){%>
                             <tr class="trClosest">
                                 <th scope="row" style="width: 10%">
@@ -194,6 +205,24 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/admin-snack.js"></script>
 </body>
+<script>
+    $(document).ready(function(){
+        $('.no-show').hide();
+    $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+        if($("#myTable tr:visible").length===0){
+            $('.no-show').show();
+            $('.headerTable').hide();
+        }else{
+            $('.no-show').hide();
+            $('.headerTable').show();
+        }
+    });
+    });
+</script>
 <script>
     var imgPrv = document.querySelector('.imgAddPreview');
     var imgEditPrv = document.querySelector('.imgEditPreview');

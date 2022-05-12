@@ -9,12 +9,16 @@
                         <div class="h5-detail">Quản lý phim</div>
                         <form action="" method="get" class="purchase-search search-admin" style="width: 40%; padding-left: 0 !important">
                             <input type="text" class="form-control" placeholder="Tìm kiếm" name="name" id="myInput">
-                            <button class="submitsearch btn btn-buy btnSearchTime" type="button"><i class="fa fa-search"></i></button>
+                            <!-- <button class="submitsearch btn btn-buy btnSearchTime" type="button"><i class="fa fa-search"></i></button> -->
                         </form>
                     </div>
                     <span class="line-detail"></span>
                     <table class="table table-striped  table-bordered" style="font-size: 15px;">
-                        <thead>
+                        <div class="no-show">
+                            <h1>Không có phim nào phù hợp</h1>
+                            <img src="/img/movie.gif" alt="">
+                        </div>
+                        <thead class="headerTable">
                             <tr>
                                 <th scope="col"></th>
                                 <th scope="col">Tên phim</th>
@@ -488,11 +492,19 @@
     </script>
 <script>
     $(document).ready(function(){
+        $('.no-show').hide();
       $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#bodyAdd tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });        
+        });
+        if($("#bodyAdd tr:visible").length===0){
+            $('.no-show').show();
+            $('.headerTable').hide();
+        }else{
+            $('.no-show').hide();
+            $('.headerTable').show();
+        }
       });
     });
 </script>
