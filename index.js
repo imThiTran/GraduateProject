@@ -87,7 +87,6 @@ var checkAdmin = require('./middelwares/checkAdmin.middleware');
 var checkCurrentBlock = require('./middelwares/checkCurrentBlock.middleware');
 var checkOpenBlock = require('./middelwares/checkOpenBlock.middleware');
 var checkBlockShowtime = require('./middelwares/checkBlockShowtime');
-var checkCustomer =require('./middelwares/checkCustomer.middleware')
 
 app.use('/auth',checkOpenBlock,checkBlockShowtime,auth);
 app.use('/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCurrentBlock,user);

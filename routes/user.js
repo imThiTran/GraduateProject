@@ -14,6 +14,7 @@ const bill = require('../models/bill');
 const room = require('../models/room');
 var QRCode = require('qrcode')
 var transporter = require('../config/nodemailer')
+var checkCustomer= require('../middelwares/checkCustomer.middleware')
 
 //loai bo khoang trang trong chuoi
 function cleanText(text){
@@ -32,7 +33,7 @@ function generateDate(date, time) {
     return newDay;
 };
 
-router.get('/info', async (req, res) => {
+router.get('/info',checkCustomer, async (req, res) => {
     var films=await Film.find({});
     if(req.session.user){
         User.findOne({email:req.session.user}, (err,us) => {
@@ -55,7 +56,7 @@ router.get('/info', async (req, res) => {
     }  
 })
 
-router.get('/change-info',async (req,res) => {
+router.get('/change-info',checkCustomer,async (req,res) => {
     var films=await Film.find({});
     if(req.session.user){
         User.findOne({email:req.session.user}, (err,us) => {
@@ -73,7 +74,7 @@ router.get('/change-info',async (req,res) => {
     }  
 })
 
-router.post('/change-info', (req,res) =>{
+router.post('/change-info', checkCustomer,(req,res) =>{
     const {fullname,phone,birthday,gender,pimage} = req.body;
     var imageFile;
     if (req.files != null) imageFile=req.files.image;
