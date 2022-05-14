@@ -12,7 +12,7 @@ function cleanText(text){
 
 //get register
 router.get('/register', (req, res) => {
-    Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+    Film.aggregate([{ $match: {}},{ $sample: { size: 5 } }],function(err,filmslide){
         res.render('auth/register', {        
             email: '',
             fullname: '',
@@ -160,7 +160,7 @@ router.get('/login', (req, res) => {
     if (req.session.user){
         res.redirect('/');
     } else{
-        Film.aggregate([{ $match: {}},{ $sample: { size: 3 } }],function(err,filmslide){
+        Film.aggregate([{ $match: {}},{ $sample: { size: 5 } }],function(err,filmslide){
             res.render('auth/login',{
                 filmslide:filmslide
             });
