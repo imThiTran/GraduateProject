@@ -57,6 +57,9 @@ nav.sticky {
     .flex-cs-now{
         width: 100% !important;
     }
+    .userInfo-menulist{
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -64,7 +67,19 @@ nav.sticky {
         font-size: 13px;
         padding: 5px 10px;
     }
-
+    .userInfo-menu{
+        flex-direction: row !important;
+    }
+    .userInfo-menu h5{
+        margin-bottom: 0 !important;
+    }
+    .userInfo-menulist{
+        width: 25% !important;
+        margin-right: 10px !important;
+    }
+    .user-img{
+        margin: 10px !important;
+    }
     .text-footer,
     .footer-logo {
         flex-direction: column;
@@ -359,8 +374,7 @@ nav.sticky {
         padding-top: 30px;
     }
     .userInfo-right{
-        width: 100%;
-        margin: 40px 40px 0px !important;
+        margin: 40px 100px 40px 0px !important;
     }
     .userInfo-left{
         padding: 25px 40px 0 40px !important;
