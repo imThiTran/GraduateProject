@@ -72,13 +72,14 @@ nav.sticky {
     }
     .userInfo-menu h5{
         margin-bottom: 0 !important;
+        margin-left: 10px;
     }
     .userInfo-menulist{
         width: 25% !important;
         margin-right: 10px !important;
     }
     .user-img{
-        margin: 10px !important;
+        margin-left: 10px !important;
     }
     .text-footer,
     .footer-logo {
