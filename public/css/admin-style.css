@@ -168,7 +168,6 @@ a {
     }
 
     .l-navbar {
-        left: 0;
         padding: 1rem 1rem 0 0
     }
 
@@ -180,6 +179,28 @@ a {
         padding-left: calc(var(--nav-width) + 188px)
     }
 }
+@media (max-width: 1000px) {
+    .header{
+        zoom: 80%;
+    }
+    .body-pd{
+        padding-left: calc(var(--nav-width) + 15rem);
+    }
+
+}
+@media (max-width: 500px) {
+    .body-pd{
+        padding-left: calc(var(--nav-width) + 13rem);
+    }
+}
+@media screen and (min-width: 1000px) {
+    .l-navbar {
+        left: 0;
+        padding: 1rem 1rem 0 0;
+    }
+   
+}
+
 .dropdown1 {
     min-width: 100px;
     position: relative;

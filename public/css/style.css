@@ -35,6 +35,25 @@ nav.sticky {
         width: 150px !important;
         height: 200px !important;
     }
+    .ad-movie{
+        zoom: 70%;
+    }
+    .wrapper-index {
+        padding: 50px 0 0 0 !important;
+    }
+    .l-navbar{
+        left: -30%;
+    }
+    .ad-event{
+        zoom: 59% !important;
+    }
+    .modal-content{
+        width: 70% !important;
+        margin-top: 80px !important;
+    }
+    .modal-body-plus{
+        max-height: calc(145vh - 260px) !important;
+    }
 }
 
 @media (max-width: 800px) {
@@ -131,9 +150,9 @@ nav.sticky {
     .rating-movie{
         flex-direction: column;
     }
-    .side-poster{
+    /* .side-poster{
         margin-top: 15px;
-    }
+    } */
     .star-point{
         zoom: 70%;
     }
@@ -229,7 +248,8 @@ nav.sticky {
         flex-direction: column;
     }
     .sukien-text{
-        zoom: 60%;
+        zoom: 40%;
+        font-size: 22px !important;
     }
     .event-title h4{
         zoom: 50%;
@@ -238,10 +258,10 @@ nav.sticky {
         zoom: 80%;
     }
     .event-about-text h6{
-        zoom: 60%;
+        zoom: 70%;
     }
     .event-btn{
-        zoom: 80%;
+        zoom: 70%;
     }
     .col-4{
         max-width: 100% !important;
@@ -322,6 +342,35 @@ nav.sticky {
     }
     .gia-price > a:nth-child(2n){
         margin-right: 0px !important;
+    }
+    .detail-english{
+        zoom: 75%;
+    }
+    .flex-cs-detail {
+        margin-top: 20px !important;
+    }
+    .event-title {
+        padding-top: 20px !important;
+    }
+    .sukien-film{
+        padding-top: 30px;
+    }
+    .userInfo-right{
+        width: 100%;
+        margin: 40px 40px 0px !important;
+    }
+    .userInfo-left{
+        padding: 25px 40px 0 40px !important;
+    }
+    .wrapper-index {
+        padding: 50px 0 0 0 !important;
+    }
+    .ad-movie {
+        zoom: 30%;
+        min-height: 158pc !important;
+    }
+    .ad-event{
+        zoom: 30% !important;
     }
 }
 @media (max-width: 400px) {
@@ -561,9 +610,9 @@ a:hover {
     margin-right: 20px;
 }
 
-.img-option img {
+/* .img-option img {
     width: 100%;
-}
+} */
 
 .title-option h5 {
     font-weight: 600;
@@ -1081,7 +1130,7 @@ a:hover {
 
 .userInfo-details {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
 }
 
@@ -1147,6 +1196,7 @@ a:hover {
     width: 170px;
 }
 .img-search{
+    width: 50px;
     height: 70px;
     object-fit: cover;
     object-position: 50% 20%;
@@ -3846,4 +3896,7 @@ button.primaryContained:hover {
     font-weight: 600;
     color: #333;
     font-family: 'Saira Semi Condensed', sans-serif;
+}
+.save-edit{
+    height: 45px;
 }

@@ -42,6 +42,17 @@
                             <div class="tab-content">
                                 <div class="tab-pane active infor-change" id="change1" role="tabpanel">
                                     <form action="/user/change-info" method="post" class="userInfo-details" enctype="multipart/form-data">
+                                        <div class="userInfo-right">
+                                            <%if (us.photo!=""){%>
+                                            <img src="<%=us.photo%>" class="user-img user-img-preview" alt="Your avatar">
+                                            <%} else {%>
+                                            <img src="../img/no_img.webp" class="user-img user-img-preview" alt="Your avatar">
+                                            <%}%>
+                                            <input onchange="loadImg()" type="file" class="" name="image" id="imgUser"
+                                                accept="image/*" style="display: none;">
+                                            <label class="btn-img" id="" for="imgUser" style="margin-top: 40px; width: 100px;">Chọn ảnh</label>
+                                            <input type="hidden" name="pimage" value="<%=us.photodrop%>" id="">
+                                        </div>
                                         <div class="userInfo-left">
                                             <div class="info-element">
                                                 <label style="width: 120px;">Họ tên:</label>
@@ -63,22 +74,10 @@
                                                 <label style="width: 120px;">Ngày sinh:</label>
                                                 <input type="date" name="birthday" id="" value="<%=us.birthday%>">
                                             </div>
-                                            <div class="info-element"  style="text-align: center; margin-top: 4rem;">
+                                            <div class="info-element"  style="text-align: center; margin-top:15px">
                                                 <button type="submit" class="save-edit btn-save btn-common">Lưu thay đổi</button>
                                             </div>
                                         </div>
-                                        <div class="userInfo-right">
-                                            <%if (us.photo!=""){%>
-                                            <img src="<%=us.photo%>" class="user-img user-img-preview" alt="Your avatar">
-                                            <%} else {%>
-                                            <img src="../img/no_img.webp" class="user-img user-img-preview" alt="Your avatar">
-                                            <%}%>
-                                            <input onchange="loadImg()" type="file" class="" name="image" id="imgUser"
-                                                accept="image/*" style="display: none;">
-                                            <label class="btn-img" id="" for="imgUser" style="margin-top: 40px; width: 100px;">Chọn ảnh</label>
-                                            <input type="hidden" name="pimage" value="<%=us.photodrop%>" id="">
-                                        </div>
-                                       
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="change2" role="tabpanel">

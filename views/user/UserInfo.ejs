@@ -18,6 +18,14 @@
                             <div>Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
                         </div>
                             <form action="" method="get" class="userInfo-details">
+                                <div class="userInfo-right">
+                                    <%if (us.photo!=""){%>
+                                    <img src="<%=us.photo%>" class="user-img user-img-preview" alt="Your avatar">
+                                    <%} else {%>
+                                    <img src="../img/no_img.webp" class="user-img user-img-preview" alt="Your avatar">
+                                    <%}%> 
+
+                            </div>
                                 <div class="userInfo-left">
                                     <div class="info-element">
                                         <label style="width: 120px;">Họ tên:</label>
@@ -44,14 +52,7 @@
                                         <span><%= convertDate(us.birthday)%></span>
                                     </div>
                                 </div>
-                                <div class="userInfo-right">
-                                        <%if (us.photo!=""){%>
-                                        <img src="<%=us.photo%>" class="user-img user-img-preview" alt="Your avatar">
-                                        <%} else {%>
-                                        <img src="../img/no_img.webp" class="user-img user-img-preview" alt="Your avatar">
-                                        <%}%> 
-
-                                </div>
+                               
                             </form>
 
                     </div>
