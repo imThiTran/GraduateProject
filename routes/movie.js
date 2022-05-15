@@ -18,7 +18,7 @@ router.get('/:slug',async (req, res) => {
     var films=await Film.find({});
     var { slug } = req.params;
     var today = (new Date()).toLocaleDateString('en-CA');
-    Film.findOne({ slug: slug }, function (err, film) {
+    Film.findOne({ slug: slug}, function (err, film) {
         var checkRating = false; //check user rating one more time
         var sumRate = 0;
         if (film.ratings.length != 0) {
@@ -72,7 +72,7 @@ router.get('/category/:slug', (req, res) => {
     var fis = [];
     var avgRates=[];
     Category.findOne({ slug: slug }, function (err, cat) {
-        Film.find({}, function (err, films) {
+        Film.find({status:{$ne:'Đã chiếu xong'}}, function (err, films) {
             films.forEach((film) => {
                 if (film.idCat.includes(cat._id)) {
                     var sumRate = 0;
@@ -108,7 +108,7 @@ router.post('/search-rating/:title',(req,res)=>{
     var fis = [];
     var avgRates=[];
     Category.findOne({title: title }, function (err, cat) {
-        Film.find({}, function (err, films) {
+        Film.find({status:{$ne:'Đã chiếu xong'}}, function (err, films) {
             films.forEach((film) => {
                 if (film.idCat.includes(cat._id)) {
                     var sumRate = 0;
