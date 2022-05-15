@@ -255,6 +255,7 @@ nav.sticky {
     }
     .bill-container{
         zoom: 50%;
+        padding: 50px !important;
     }
     .price-ticket-img{
         zoom: 50%;
@@ -388,6 +389,12 @@ nav.sticky {
     }
     .ad-event{
         zoom: 30% !important;
+    }
+    .combo{
+        zoom: 93%;
+    }
+    .tamtinh{
+        flex: 1.8 !important;
     }
 }
 @media (max-width: 400px) {
