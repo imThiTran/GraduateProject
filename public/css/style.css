@@ -54,6 +54,9 @@ nav.sticky {
     .modal-body-plus{
         max-height: calc(145vh - 260px) !important;
     }
+    .flex-cs-now{
+        width: 100% !important;
+    }
 }
 
 @media (max-width: 800px) {
@@ -3899,4 +3902,8 @@ button.primaryContained:hover {
 }
 .save-edit{
     height: 45px;
+}
+.btn-themmoi{
+    float: right;
+    padding-bottom: 10px;
 }

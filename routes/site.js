@@ -94,7 +94,7 @@ router.get('/render/:time', async (req, res) => {
       hmtlSend = hmtlSend + `<div class="poster-movie-div">
               <div class="flex-title">
                   <a href="/movie/`+ film.slug + `">
-                      <div class="flex-cs">
+                      <div class="flex-cs-now">
                           <div class="english-title">
                               <div class="h6-poster">
                                   `+ film.nameEN + `
