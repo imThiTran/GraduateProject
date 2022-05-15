@@ -111,10 +111,10 @@ nav.sticky {
         grid-template-columns: auto auto;
     }
     .grid-cate{
-        grid-template-columns: auto auto !important;
+        grid-template-columns: 158px 165px !important;
     }
     .index-dropdown:hover .drop-menu{
-        width: 390px !important;
+        width: 345px !important;
         font-size: 15px !important;
     }
     .movie-time{
@@ -126,7 +126,7 @@ nav.sticky {
     }
     .coming-movie{
         width: 175px !important;
-        margin-right: 50px !important;
+        margin-right: 10px !important;
     }
     .rating-movie{
         flex-direction: column;
@@ -160,7 +160,7 @@ nav.sticky {
     }
     .model-muave{
         zoom: 70%;
-        padding-top: 500px !important;
+        padding-top: 300px !important;
     }
     .trailer-detail{
         zoom: 50%;
@@ -189,12 +189,15 @@ nav.sticky {
     }
     .movie-side{
         display: grid !important;
-        grid-template-columns: auto auto !important;
+        grid-template-columns: 180px 180px !important;
+    }
+    .flex-img-cate{
+        width: 170px !important;
     }
     .flex-cate{
         zoom: 75%;
     }
-    .movie-side .coming-movie-cate:nth-child(2){
+    .movie-side .coming-movie-cate:nth-child(2n){
         margin-right: 0px !important;
     }
     .no-show{
@@ -220,7 +223,7 @@ nav.sticky {
         zoom: 50%;
     }
     .gia-price{
-        zoom: 51%;
+        zoom: 47%;
     }
     .event-body{
         flex-direction: column;
@@ -270,6 +273,55 @@ nav.sticky {
     }
     .userInfo-menu{
         padding: 50px 0 0 0 !important;
+    }
+    .poster-slide{
+        height: 200px !important;
+    }
+    .index-con{
+        padding-top: 20px !important;
+    }
+    .nav-pills{
+        zoom: 67%;
+    }
+    .flex-cs{
+        width: 162px !important;
+    }
+    .side-poster{
+        line-height: 1.5 !important;
+        font-size: 14px !important;
+    }
+    .h5-poster{
+        font-size: 20px !important  ;
+    }
+    .dropdown-item{
+        padding: 5px 15px !important;
+    }
+    .index-nav-dark{
+        min-height: 145px !important;
+    }
+    .coming-movie-cate{
+        margin-right: 10px !important;
+    }
+    .cate-title{
+        width: 206px !important;
+    }
+    .sub2{
+        flex: 7 !important;
+    }
+    .daily-am, .daily-pm, .weekend-am, .weekend-pm {
+        left: 137px !important;
+    }
+    .dam-price-couple, .dpm-price-couple, .wam-price-couple, .wpm-price-couple{
+        right: 276px !important;
+    }
+    .dam-price-single, .dpm-price-single, .wam-price-single, .wpm-price-single{
+        left: 475px !important;
+    }
+    .gia-price > a:nth-child(3n){
+        margin-right: 20px !important;
+    }
+    .gia-price > a:nth-child(2n){
+        margin-right: 0px !important;
     }
 }
 @media (max-width: 400px) {
@@ -373,6 +425,9 @@ a:hover {
 
 .container-fluid {
     margin-top: -15px;
+}
+.index-con{
+    padding-top: 70px;
 }
 
 .index-sign-nav {
