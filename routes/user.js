@@ -278,8 +278,8 @@ router.get('/sendqr', (req,res) => {
                             <div style="font-family: 'Saira Semi Condensed', sans-serif;font-size: 16px;
                             line-height: 1.4;margin-top: 20px;color: #eee;">
                                 <div style="display: flex;color: #eee;">
-                                    <div style="width: 100px;">Tên phim: </div>
-                                    <div style="flex: 4;">${bill.film.nameEN}</div>
+                                    <div style="width: 160px;">Tên phim: </div>
+                                    <div style="width: 395px; margin-left: 13px;">${bill.film.nameEN}</div>
                                 </div>
                                 <div style="display: flex;color: #eee;">
                                     <div style="width: 100px;">Suất chiếu: </div>

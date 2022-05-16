@@ -56,6 +56,7 @@ nav.sticky {
     }
     .flex-cs-now{
         width: 100% !important;
+        zoom: 70%;
     }
     .userInfo-menulist{
         font-size: 14px;
@@ -140,7 +141,7 @@ nav.sticky {
 @media (max-width: 520px) {
     .btn-overtime {
         font-size: 11px;
-        padding: 5px 20px !important;
+        padding: 5px 15px !important;
     }
 
     .time-btn {
@@ -161,7 +162,7 @@ nav.sticky {
 
     .flex-time-movie{
         margin-left: 10px !important;
-        display: grid;
+        display: grid !important;
         grid-template-columns: auto auto;
     }
     .grid-cate{
@@ -1069,7 +1070,7 @@ a:hover {
 }
 
 .dropdown1:hover .drop-menu {
-    right: -10px;
+    right: 15px;
     display: block;
     position: absolute;
     list-style: none;
@@ -1385,6 +1386,7 @@ a:hover {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
+    margin-top: 5px;
 }
 .time-order span{
     font-style: italic;
@@ -2251,6 +2253,7 @@ button.primaryContained:hover {
 .name-comt{
     color: #eee;
     margin-top: 5px;
+    font-size: 13px;
 }
 .time-comt{
     margin-left: 50px;
