@@ -28,12 +28,15 @@ nav.sticky {
         position: static;
     }
     .coming-movie-cate{
-        width: 150px !important;
-        
+        width: 200px !important;
+        margin-right: 47px !important;
     }
     .poster-movie{
-        width: 150px !important;
-        height: 200px !important;
+        width: 200px !important;
+        height: 300px !important;
+    }
+    .movie-side .coming-movie-cate:nth-child(2n){
+        margin-right: 0px !important;
     }
     .ad-movie{
         zoom: 70%;
@@ -49,7 +52,7 @@ nav.sticky {
     }
     .modal-content{
         width: 70% !important;
-        margin-top: 80px !important;
+        margin-top: 15px !important;
     }
     .modal-body-plus{
         max-height: calc(145vh - 260px) !important;
@@ -76,6 +79,86 @@ nav.sticky {
     }
     .userInfo-menu{
         zoom: 65%;
+    }
+    .coming-movie{
+        width: 200px !important;
+        margin-right: 45px !important;
+    }
+    .coming-english{
+        width: 165px !important;
+    }
+    .coming-side .coming-movie:nth-child(3n){
+        margin-right: 0px !important;
+    }
+    .flex-img-cate{
+        width: 200px !important;
+    }
+    .flex-cate{
+        zoom: 80%;
+    }
+    .rating-movie{
+        flex-direction: column !important; 
+    }
+    .detail-text{
+        margin-left: 20px !important;
+    }
+    .sub2{
+        flex: 5 !important;
+    }
+    .detail-img{
+        text-align: center;
+    }
+    .btn-buy{
+        margin-left: 0px !important;
+    }
+    .model-muave{
+        padding-top: 0px !important;
+    }
+    .modal-dialog{
+        margin: 0.25rem auto !important;
+    }
+    .gia-price{
+        zoom: 90%;
+    }
+    .gia-price > a:nth-child(2n) {
+        margin-right: 0px !important;
+    }
+    .gia-price > a{
+        margin-right: 50px !important;
+    }
+    .sukien-text{
+        zoom: 90%;
+        padding: 0px !important;
+    }
+    .event-body{
+        flex-direction: column;
+    }
+    .event-about{
+        width: 355px;
+        margin-right: 70px;
+    }
+    .event-outside .event-about:nth-child(2n){
+        margin-right: 0px !important;
+    }
+    .event-outside{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .daily-am, .daily-pm, .weekend-am, .weekend-pm {
+        left: 137px !important;
+    }
+    .dam-price-single, .dpm-price-single, .wam-price-single, .wpm-price-single{
+        left: 477px !important;
+    }
+    .dam-price-couple, .dpm-price-couple, .wam-price-couple, .wpm-price-couple{
+        right: 276px !important;
+    }
+    .icon-side{
+        padding-right: 0px !important;
+    }
+    .order-common{
+        zoom: 58%;
     }
 }
 
@@ -215,7 +298,7 @@ nav.sticky {
     }
     .model-muave{
         zoom: 70%;
-        padding-top: 300px !important;
+        padding-top: 150px !important;
     }
     .trailer-detail{
         zoom: 50%;
@@ -424,6 +507,18 @@ nav.sticky {
     .formEdit{
         zoom: 100%;
     }
+    .poster-movie{
+        width: 150px !important;
+        height: 200px !important;
+    }
+    .modal-content{
+        width: 70% !important;
+        margin-top: 80px !important;
+    }
+    .order-common{
+        zoom: 85%;
+    }
+   
 }
 @media (max-width: 400px) {
     nav.sticky {

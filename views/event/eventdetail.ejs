@@ -27,19 +27,22 @@
             <!-- PHẦN HIỂN THỊ CÁC SỰ KIỆN KHÁC ĐANG MỞ ĐỂ NGƯỜI DÙNG THAM KHẢO -->
             <div class="sukien-film">
                 <h6 class="h6-other">SỰ KIỆN KHÁC</h6>
+                <div class="event-outside">
                 <% events.forEach( function(event){ %>
-                    <div class="event-about">
-                        <a href="/event/<%= event.slug %>">
-                            <div class="event-about-text">
-                                <div class="span-event"></div>
-                                <h6><%= event.title %></h6>
-                            </div>
-                            <div class="event-about-img">
-                                <img src="<%= event.photo %>">
-                            </div>
-                        </a>
-                    </div>
+                        <div class="event-about">
+                            <a href="/event/<%= event.slug %>">
+                                <div class="event-about-text">
+                                    <div class="span-event"></div>
+                                    <h6><%= event.title %></h6>
+                                </div>
+                                <div class="event-about-img">
+                                    <img src="<%= event.photo %>">
+                                </div>
+                            </a>
+                        </div>
+                    
                 <% }); %>
+            </div>
                 <div class="event-btn">
                     <a href="/event">
                         <button class="btn-viewmore">
