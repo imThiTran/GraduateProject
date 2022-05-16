@@ -49,8 +49,7 @@ router.post('/add-film', (req, res) => {
     var { nameEN, nameVN, directors, cast, premiere, time, detail, trailer, idCat, ageLimit, status, imgAdd } = req.body;
     var idTrailer = trailer.split('/');
     trailer = idTrailer[idTrailer.length - 1];
-    var slug = (cleanText(nameEN).replace(/\s/g, '-')).toLowerCase();
-    slug=slug.replace('/','-')
+    var slug = (cleanText(nameEN).replaceAll(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '-')).toLowerCase();
     Film.findOne({slug:slug}, function(err,film){
         if(film){
             res.send({
@@ -163,7 +162,7 @@ router.get('/delete/:slug', (req, res) => {
                         if (err) throw err;
                         res.send({
                             msg: "Xóa thành công",
-                            slug: slug
+                            slug: film.slug
                         })
                     })
                 });
@@ -180,7 +179,7 @@ router.post('/edit', (req, res) => {
         idCat=idCat.split(',')
     }    
     trailer = idTrailer[idTrailer.length - 1];
-    var slug = (cleanText(nameEN).replaceAll(' ', '-')).toLowerCase();
+    var slug = (cleanText(nameEN).replaceAll(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '-')).toLowerCase();
     var photoFile, backgroundFile; 
     if (req.files != null) {
         if (typeof req.files.photo != "undefined") photoFile = req.files.photo;

@@ -276,6 +276,7 @@ $("#formAddFilm").submit(function(e){
           editform.find("input[name=ageLimit][value=" + 18 + "]").prop('checked', true);
           editform.find('.detail').val('');
           editform.find('.trailer').val('');
+          $('.sladdnew').remove()
           editform.find('.selectadd').val('62469bbeb004812168c21722');
           editform.find('.status').val('Đang khởi chiếu');              
         }else{          
@@ -297,7 +298,7 @@ $("#formAddFilm").submit(function(e){
 $('#btnAddCT').on('click', () => {
     var htmlObj = $('#form-addCT');
     htmlObj.append(`
-<div class="lc-category">
+<div class="lc-category sladdnew">
     `+ $('.sladd').html() + `
     <div class="">
         <button type="button" class="btnDelSC"> <i class="fa fa-times close-ct" aria-hidden="true"></i></button>
