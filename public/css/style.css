@@ -3894,13 +3894,15 @@ button.primaryContained:hover {
 .sat-drop{
     padding: 10px 0px;
     border: none;
-    color: #333333ab ;
-    margin-left: 45px;
+    color: #949494 ;
     font-size: 17px;
 }
+.sat-drop i{
+    margin-right: 30px;
+}
 .sat-drop:hover{
-    color: #333333ab  !important;
-    border-bottom: 1px solid #333333ab ;
+    color: #eeeeee  !important;
+    border-bottom: 1px solid #eeeeee ;
     padding: 5px;
     font-size: 17px;
 }
@@ -3908,9 +3910,8 @@ button.primaryContained:hover {
     border-radius: 0px;
     padding: 5px;
     margin-bottom: 5px;
-    background: #eee;
     margin-top: -25px;
-    margin-left: 27px;
+    margin-left: 23px;
 }
 .body-sat{
     margin-top: -25px;
