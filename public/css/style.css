@@ -60,6 +60,22 @@ nav.sticky {
     .userInfo-menulist{
         font-size: 14px;
     }
+    .userInfo-right{
+        margin: 40px 0px 0px 0px !important;
+    }
+    .userInfo-details {
+        flex-direction: column !important;
+        justify-content: center;
+    }
+    .userEdit ul{
+        margin: 10px !important;
+    }
+    .formEdit{
+        zoom: 84%;
+    }
+    .userInfo-menu{
+        zoom: 65%;
+    }
 }
 
 @media (max-width: 800px) {
@@ -67,9 +83,9 @@ nav.sticky {
         font-size: 13px;
         padding: 5px 10px;
     }
-    .userInfo-menu{
+    /* .userInfo-menu{
         flex-direction: row !important;
-    }
+    } */
     .userInfo-menu h5{
         margin-bottom: 0 !important;
         margin-left: 10px;
@@ -312,7 +328,7 @@ nav.sticky {
         width: 30% !important;
     }
     .userInfo-menu{
-        padding: 50px 0 0 0 !important;
+        padding: 30px 0 0 0 !important;
     }
     .poster-slide{
         height: 200px !important;
@@ -376,7 +392,7 @@ nav.sticky {
         padding-top: 30px;
     }
     .userInfo-right{
-        margin: 40px 100px 40px 0px !important;
+        margin: 40px 0px 0px 0px !important;
     }
     .userInfo-left{
         padding: 25px 40px 0 40px !important;
@@ -396,6 +412,16 @@ nav.sticky {
     }
     .tamtinh{
         flex: 1.8 !important;
+    }
+    .userInfo-details {
+        flex-direction: column !important;
+        justify-content: center;
+    }
+    .userInfo-menu{
+        zoom: 100%;
+    }
+    .formEdit{
+        zoom: 100%;
     }
 }
 @media (max-width: 400px) {
@@ -1112,7 +1138,7 @@ a:hover {
     border-radius: 5px;
     height: 100%;
     min-height: 550px;
-    color: #eee
+    color: #eee;
 }
 
 .userInfo-menu {
@@ -1124,6 +1150,7 @@ a:hover {
     line-height: 2;
     height: 100%;
     padding-top: 50px;
+    
 }
 .userInfo-menu h5{
     margin-bottom: 30px;
