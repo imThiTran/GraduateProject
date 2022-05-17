@@ -19,10 +19,10 @@
                     data-target=".bd-example-modal-lg"><i class="fa fa-plus" aria-hidden="true"></i>
                     Thêm mới</button>
                 </div>
-                <table class="table table-striped  table-bordered" style="font-size: 15px;">
+                <table class="table table-striped table-bordered table-room " style="font-size: 15px;">
                     <!-- Add room -->
                     <form class="formAdd" action="" method="">
-                        <div id="modalAddRoom" class="modal">
+                        <div id="modalAddRoom" class="modal modal-add-st">
                             <div class="modal-content modal-room">
                                 <div class="modal-header">
                                     <h4 class="modal-title">Thêm phòng chiếu</h4>
@@ -76,10 +76,10 @@
                             <h1>Không có phòng chiếu nào phù hợp</h1>
                             <img src="/img/movie.gif" alt="">
                         </div>
-                        <thead class="headerTable">
+                        <thead class="headerTable header-room">
                             <tr>
                                 <th scope="col">STT</th>
-                                <th scope="col">Tên phòng chiếu</th>
+                                <th scope="col" class="nameTh">Tên phòng chiếu</th>
                                 <th scope="col">Số ghế</th>
                                 <th scope="col">Tình trạng</th>
                                 <th scope="col" style="width: 11%;">
@@ -123,7 +123,7 @@
                     
                       <!-- Edit room -->
                       <form action="" method="">
-                        <div id="modalEditRoom" class="modal">
+                        <div id="modalEditRoom" class="modal modal-add-st">
                             <div class="modal-content modal-room">
                                 <div class="modal-header">
                                     <h4 class="modal-title"> <i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa thông tin phòng chiếu</h4>

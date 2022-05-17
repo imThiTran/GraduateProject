@@ -72,6 +72,7 @@ nav.sticky {
         justify-content: center;
     }
     .userEdit ul{
+        zoom: 90%;
         margin: 10px !important;
     }
     .formEdit{
@@ -85,7 +86,7 @@ nav.sticky {
         margin-right: 45px !important;
     }
     .coming-english{
-        width: 165px !important;
+        width: 188px !important;
     }
     .coming-side .coming-movie:nth-child(3n){
         margin-right: 0px !important;
@@ -144,6 +145,7 @@ nav.sticky {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: space-between;
     }
     .daily-am, .daily-pm, .weekend-am, .weekend-pm {
         left: 137px !important;
@@ -160,6 +162,9 @@ nav.sticky {
     .order-common{
         zoom: 58%;
     }
+    .combo{
+        zoom: 85%;
+    }
 }
 
 @media (max-width: 800px) {
@@ -171,7 +176,7 @@ nav.sticky {
         flex-direction: row !important;
     } */
     .userInfo-menu h5{
-        margin-bottom: 0 !important;
+        margin-bottom: 10px !important;
         margin-left: 10px;
     }
     .userInfo-menulist{
@@ -259,12 +264,11 @@ nav.sticky {
         margin: 5px !important;
     }
     .coming-side{
-        display: grid !important;
-        grid-template-columns: auto auto !important;
+        justify-content: space-between !important;
     }
     .coming-movie{
-        width: 175px !important;
-        margin-right: 10px !important;
+        width: 170px !important;
+        margin-right: 11px !important;
     }
     .rating-movie{
         flex-direction: column;
@@ -326,8 +330,7 @@ nav.sticky {
         margin-bottom: 20px;
     }
     .movie-side{
-        display: grid !important;
-        grid-template-columns: 180px 180px !important;
+        justify-content: space-between !important;
     }
     .flex-img-cate{
         width: 170px !important;
@@ -394,8 +397,9 @@ nav.sticky {
         padding: 0px !important;
     }
     .userInfo-col{
-        zoom: 50%;
+        zoom: 90%;
         min-height: 0px !important;
+        margin: 20px 10px -30px 10px !important;
     }
     .userInfo-background{
         min-height: 0px !important;
@@ -409,7 +413,7 @@ nav.sticky {
         font-size: 13px !important; 
     }
     .userInfo-menulist{
-        width: 30% !important;
+        width: 50% !important;
     }
     .userInfo-menu{
         padding: 30px 0 0 0 !important;
@@ -428,7 +432,6 @@ nav.sticky {
     }
     .side-poster{
         line-height: 1.5 !important;
-        font-size: 14px !important;
     }
     .h5-poster{
         font-size: 20px !important  ;
@@ -449,16 +452,13 @@ nav.sticky {
         flex: 7 !important;
     }
     .daily-am, .daily-pm, .weekend-am, .weekend-pm {
-        left: 137px !important;
+        left: 160px !important;
     }
     .dam-price-couple, .dpm-price-couple, .wam-price-couple, .wpm-price-couple{
-        right: 276px !important;
+        right: 293px !important;
     }
     .dam-price-single, .dpm-price-single, .wam-price-single, .wpm-price-single{
-        left: 475px !important;
-    }
-    .gia-price > a:nth-child(3n){
-        margin-right: 20px !important;
+        left: 490px !important;
     }
     .gia-price > a:nth-child(2n){
         margin-right: 0px !important;
@@ -479,7 +479,7 @@ nav.sticky {
         margin: 40px 0px 0px 0px !important;
     }
     .userInfo-left{
-        padding: 25px 40px 0 40px !important;
+        padding: 25px 10px 0 10px !important
     }
     .wrapper-index {
         padding: 50px 0 0 0 !important;
@@ -493,6 +493,7 @@ nav.sticky {
     }
     .combo{
         zoom: 93%;
+        justify-content: space-between !important;
     }
     .tamtinh{
         flex: 1.8 !important;
@@ -505,20 +506,105 @@ nav.sticky {
         zoom: 100%;
     }
     .formEdit{
+        margin: 0 0 0 20px !important;
         zoom: 100%;
     }
     .poster-movie{
-        width: 150px !important;
+        width: 170px !important;
         height: 200px !important;
     }
     .modal-content{
-        width: 70% !important;
+        width: 100% !important;
         margin-top: 80px !important;
+    }
+    .modal-content-film{
+        width: 100% !important;
     }
     .order-common{
         zoom: 85%;
     }
-   
+    .coming-side .coming-movie:nth-child(2n){
+        margin-right: 0px !important;
+    }
+    .coming-movie-cate{
+        width: 175px !important;
+    }
+    .event-about-img img{
+        width: 100% !important;
+        min-width: 360px !important;
+    }
+    .event-about{
+        width: 360px !important;
+    }
+    .purchase-order{
+        zoom: 90%;
+        margin: 0px !important;
+    }
+   .poster-admin-film{
+       width: 150px !important;
+   }
+   .table-room{
+    zoom: 200% !important;
+}
+   .table-bordered{
+       zoom: 150%;
+   }
+   .col-dir{
+       display: none !important;
+   }
+
+   .header-room th{
+    font-size: 15px;
+   }
+   .header-room .nameTh{
+       width: 30%;
+   }
+   .col-none{
+       display: block !important;
+       margin-left: 0px !important;
+       padding-left: 0px !important;
+       margin-right: 0px !important;
+       padding-right: 0px !important;
+   }
+   .userPosition-select{
+    zoom: 90%;
+    width: 150px !important;
+   }
+   .active-user{
+    flex-direction: column;
+   }
+   .table th, .table td {
+       padding: 0.5rem !important;
+   }
+   .mail-table{
+       width: 10% !important;
+   }
+   .mail-name{
+    width: 160px !important;
+    overflow-wrap: break-word;
+   }
+   .modal-right{
+    max-width: 530px !important;
+   }
+   .edit-content{
+       zoom: 150%;
+   }
+   .modal-add-st{
+       zoom: 190%;
+   }
+   .btn-themmoi{
+    margin-top: 20px;
+    zoom: 150%;
+   }
+   .content-event {
+    height: 850px !important;
+   }
+   .event-edit-up{
+    zoom: 150%;
+   }
+   .modal-add-snack{
+    zoom: 130%;
+}
 }
 @media (max-width: 400px) {
     nav.sticky {
@@ -1446,6 +1532,7 @@ a:hover {
     justify-content: space-between;
 }
 .btn-qr{
+    margin-left: 10px;
     margin-top: 0px !important;
     height: 40px;
     padding: 5px 10px !important;
@@ -4054,4 +4141,7 @@ button.primaryContained:hover {
 .btn-themmoi{
     float: right;
     padding-bottom: 10px;
+}
+.col-none{
+    display: none;
 }

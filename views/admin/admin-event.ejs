@@ -34,7 +34,7 @@
                             <th scope="col"></th>
                             <th scope="col">Tiêu đề</th>
                             <th scope="col" style="width: 9%;">Ngày tạo</th>
-                            <th scope="col">Nội dung</th>
+                            <th scope="col" class="col-dir">Nội dung</th>
                             <th scope="col" style="width: 1%;">
                                 <div class="btn-admin">
                                     <button type="button" id="btnAddEvent" class="btn-common btn-buy btn-add-room"
@@ -134,7 +134,7 @@
                                     <%=event.title%>
                                 </td>
                                 <td><%=event.time.toJSON().slice(0,10).split('-').reverse().join('/')%></td>
-                                <td class="event-des contentshow"><%-event.content%></td>
+                                <td class="event-des contentshow col-dir"><%-event.content%></td>
                                 <td>
                                     <div class="btn-mode">
                                         <button type="button" onclick="editEvent(this);" class="btnEditEvent" value="<%= event.slug %>"><i class="fa fa-pencil-square-o"
@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="modal-body-plus modal-body-event">
                                         <input type="hidden" class="pimg" name="pimg">
-                                        <div class="event-up">
+                                        <div class="event-up event-edit-up">
                                             <div class="modal-left">
                                                 <input type="hidden" class="imgsrc">
                                                 <div class="col-5 img-add img-event">

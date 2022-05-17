@@ -19,16 +19,16 @@
                             <h1>Không có người dùng nào phù hợp</h1>
                             <img src="/img/movie.gif" alt="">
                         </div>   
-                        <thead class="headerTable">
+                        <thead class="headerTable header-room">
                             <tr>
                                 <th scope="col">STT</th>
-                                <th scope="col">Gmail</th>
+                                <th scope="col" class="mail-table">Gmail</th>
                                 <th scope="col">Tên người dùng</th>
                                 <th scope="col">Số điện thoại</th>
                                 <th scope="col">Giới tính</th>
                                 <th scope="col">Ngày sinh</th>
                                 <th scope="col">Vai trò</th>
-                                <th scope="col">Khóa tài khoản</th>
+                                <th scope="col" class="col-dir">Khóa tài khoản</th>
                                 </th>
                             </tr>
                         </thead>
@@ -39,8 +39,8 @@
                                     <th scope="row" style="width: 5%">
                                         <%=i++%>
                                     </th>
-                                    <td style="width: 20%;">
-                                        <div><%=user.email%></div>
+                                    <td class="mail-table">
+                                        <div class="mail-name"><%=user.email%></div>
                                     </td>
                                     <td><%=user.fullname%></td>
                                     <td><%=user.phone%></td>
@@ -58,8 +58,35 @@
                                             <option class="option" <%if (user.actor=='guest'){%> selected <%}%> value="guest">Khách hàng</option>
                                             <option class="option" <%if (user.actor=='admin'){%> selected <%}%> value="admin">Admin</option>
                                         </select>
+                                        <div class="container col-none">
+                                            <div class="active-user" style="    display: flex;">
+                                                <div class=" form-switch">
+                                                    <input idUser="<%=user._id%>" class="form-check-input block-switch" 
+                                                    <%if (user.block.type!=0){%>checked<%}%> type="checkbox" role="switch"
+                                                        id="flexSwitchCheckChecked" >
+                                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                                </div>
+                                                <select class="userPosition-select selectTime sl-active " name="" idUser="<%=user._id%>">
+                                                    <option  <% if(user.block.type==-1){%> selected <%}%> value="-1">Đến khi mở chặn</option>
+                                                    <option  <% if(user.block.type==1){%> selected <%}%> value="1">1 ngày</option>
+                                                    <option  <% if(user.block.type==3){%> selected <%}%> value="3">3 ngày</option>
+                                                    <option  <% if(user.block.type==7){%> selected <%}%> value="7">7 ngày</option>
+                                                    <option  <% if(user.block.type==30){%> selected <%}%> value="30">30 ngày</option>
+                                                    <option  <% if(user.block.type==90){%> selected <%}%> value="90">90 ngày</option>
+                                                </select>
+                                            </div>
+                                            <%if (user.block.type!=0 && user.block.type!=-1){%>
+                                                <%var time=user.block.dateto.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false }) ;%>
+                                                <%var date=user.block.dateto.toLocaleDateString('en-GB'); %>
+                                                <div class="span-error">Bị chặn đến <%=date%> <%=time%></div>
+                                            <%} else if (user.block.type==-1) {%>
+                                                <div class="span-error">Bị chặn đến khi mở lại</div>
+                                            <%} else {%>
+                                                <div class="span-error"></div>
+                                            <%}%>
+                                        </div>
                                     </td>
-                                    <td class="container" style="width: 16%;">
+                                    <td class="container col-dir" style="width: 16%;">
                                         <div class="active-user" style="    display: flex;">
                                             <div class=" form-switch">
                                                 <input idUser="<%=user._id%>" class="form-check-input block-switch" 

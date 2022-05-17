@@ -22,7 +22,7 @@
                             <tr>
                                 <th scope="col"></th>
                                 <th scope="col">Tên phim</th>
-                                <th scope="col" style="width: 10%;">Đạo diễn</th>
+                                <th scope="col" class="col-dir" style="width: 10%;">Đạo diễn</th>
                                 <th scope="col" style="width: 12%;">Khởi chiếu</th>
                                 <th scope="col">Thể loại</th>
                                 <th scope="col" style="width: 11%;">Tình trạng</th>
@@ -35,7 +35,7 @@
                                         <form action="/admin/film/add-film" method="post" enctype="multipart/form-data"
                                             id="formAddFilm">
                                             <div id="modalAddFilm" class="modal">
-                                                <div class="modal-content">
+                                                <div class="modal-content modal-content-film">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Thêm phim</h4>
                                                         <button type="button" class="close-footer close"
@@ -226,7 +226,7 @@
                                             <%=film.nameVN%>
                                         </div>
                                     </td>
-                                    <td class="directorsedit">
+                                    <td class="directorsedit col-dir">
                                         <%= film.directors %>
                                     </td>
                                     <td class="premiereedit">
@@ -256,7 +256,7 @@
                                     <form action="/admin/film/edit" method="post" enctype="multipart/form-data" id="formEditFilm"
                                         class="formeditfilm">
                                         <div id="modalEditFilm" class="modal modal-edit-film">
-                                            <div class="modal-content">
+                                            <div class="modal-content modal-content-film edit-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Chỉnh sửa thông tin phim</h4>
                                                     <button type="button" class="close-footer close"
