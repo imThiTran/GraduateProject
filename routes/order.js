@@ -21,11 +21,15 @@ function convertTimeEnd(timeEnd){
     var Arr=timeEnd.split(':');
     var hour=parseInt(Arr[0]);
     var minute=parseInt(Arr[1]);
+    if (hour>24) {
+        hour=hour-24;
+    }
     if (minute<30){
-        minute=(60-(30-minute));
-        hour=hour-1;
+        minute=roundNearest5((60-(30-minute)));
+        if (minute==60)  minute=0; 
+        else hour=hour-1;
     } else {
-        minute=minute-30;
+        minute=roundNearest5(minute-30);
     }
     return ((hour<10)?('0'+hour):hour)+':'+((minute<10)?('0'+minute):minute)
 }
