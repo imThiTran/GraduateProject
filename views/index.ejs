@@ -208,7 +208,7 @@
 
     <%if (user.actor=='admin' || user.actor=='staff'){%>
     <%}else {%>
-        <div class="zalo-chat-widget" data-oaid="2358533098341838834" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="" data-height=""></div>
+        <%- include ('./layouts/chat') %>
     <%}%>
     <!-- <a href="/qrcode/scan-qrcode">
         <div class="qr-body">
@@ -224,7 +224,7 @@
 
 
 
-<script src="https://sp.zalo.me/plugins/sdk.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/popper.js"></script>
     <script src="/js/bootstrap.min.js"></script>
