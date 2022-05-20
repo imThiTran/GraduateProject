@@ -319,27 +319,27 @@
         // });
         if($("#billun").find("> div:visible").length===0){
             $('.no-show-buy').show();
-            $('.ticketBuyed').hide();
+            // $('.ticketBuyed').hide();
         }else{
             $('.no-show-buy').hide();
-            $('.ticketBuyed').show();
+            // $('.ticketBuyed').show();
         }
       });
       
       $("#myInput2").on("keyup", function() {
         var value = $(this).val().toLowerCase();
-        $("#billuse").find("> div").filter(function() {
+        $("#billuse").find(".ticketUsed").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
         // $("#billuse").find("> div").filter(function() {
         //   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         // });
-        if($("#billuse").find("> div:visible").length===0){
+        if($("#billuse").find(".ticketUsed:visible").length===0){
             $('.no-show-use').show();
-            $('.ticketUsed').hide();
+            // $('.ticketUsed').hide();
         }else{
             $('.no-show-use').hide();
-            $('.ticketUsed').show();
+            // $('.ticketUsed').show();
         }
       });
     });
