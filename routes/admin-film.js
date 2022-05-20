@@ -50,6 +50,7 @@ router.post('/add-film', (req, res) => {
     var idTrailer = trailer.split('/');
     trailer = idTrailer[idTrailer.length - 1];
     var slug = (cleanText(nameEN).replaceAll(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '-')).toLowerCase();
+    slug=slug.replace(' ','-')    
     Film.findOne({slug:slug}, function(err,film){
         if(film){
             res.send({
@@ -180,6 +181,7 @@ router.post('/edit', (req, res) => {
     }    
     trailer = idTrailer[idTrailer.length - 1];
     var slug = (cleanText(nameEN).replaceAll(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '-')).toLowerCase();
+    slug=slug.replace(' ','-')   
     var photoFile, backgroundFile; 
     if (req.files != null) {
         if (typeof req.files.photo != "undefined") photoFile = req.files.photo;
