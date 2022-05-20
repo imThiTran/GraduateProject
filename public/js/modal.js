@@ -13,7 +13,8 @@ $('.close-footer').on('click', function () {
   modalAddFilm.style.display = "none";
   modalEditFilm.style.display = "none";
 });
-function editFilm(e){       
+function editFilm(e){  
+  $('.body-loading').css('display','block');          
   $.ajax({
     url: "/admin/film/" + e.value,
     method: "GET",
@@ -65,7 +66,8 @@ function editFilm(e){
       editform.find('.status').val(result.film.status);
       editform.find('.avtimg').val(result.film.photoDrop);
       editform.find('.bgimg').val(result.film.backgroundDrop);
-      editform.find('.idfilm').val(result.film._id);        
+      editform.find('.idfilm').val(result.film._id);  
+      $('.body-loading').css('display','none');            
       modalEditFilm.style.display = "block";
     }
   })    

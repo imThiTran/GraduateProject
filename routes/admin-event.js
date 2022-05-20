@@ -25,8 +25,8 @@ router.post('/add',(req,res)=>{
     code=code.toUpperCase()    
     datefrom+=" 00:00:00" 
     dateto+=" 23:59:59"
-    var slug = (cleanText(title).replace(/\s/g, '-')).toLowerCase();
-    slug=slug.replace('/','-')    
+    var slug = (cleanText(title).replaceAll(/\s/g, '-')).toLowerCase();
+    slug=slug.replaceAll('/','-')    
     var photoFile;
     if (req.files != null) photoFile=req.files.photo;
     else photoFile="";
@@ -131,7 +131,7 @@ router.post('/edit/:id', (req, res) => {
     var oldslug=''
     var { id } = req.params   
     var slug = (cleanText(title).replaceAll(' ', '-')).toLowerCase();
-    slug=slug.replace('/','-')
+    slug=slug.replaceAll('/','-')
     var photoFile; 
     if (req.files != null) {
         if (typeof req.files.photo != "undefined") photoFile = req.files.photo;
