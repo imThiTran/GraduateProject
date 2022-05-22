@@ -1,5 +1,6 @@
 modalAddRoom = document.getElementById("modalAddRoom");
 modalEditRoom = document.getElementById("modalEditRoom");
+modalSeat = document.getElementById("modalSeat");
 
 $('#btnAddRoom').on('click', function () {
   modalAddRoom.style.display = "block";
@@ -228,3 +229,10 @@ function handleBlock(t, e) {
   }
 
 }
+//CLOSE SEAT
+$('#btn-close-seat').on('click', function () {
+  modalSeat.style.display = "block";
+});
+$('.close-seat').on('click', function () {
+  modalSeat.style.display = "none";
+});

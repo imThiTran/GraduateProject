@@ -1,206 +1,254 @@
 <%- include ('../layouts/header')%>
 
-<body>
-    <%- include ('../layouts/admin-sub-header')%>
-    <div class="wrapper-index">
-        <div class="ad-movie">
-            <div style="display: flex; justify-content: space-between;
+    <body>
+        <%- include ('../layouts/admin-sub-header')%>
+            <div class="wrapper-index">
+                <div class="ad-movie">
+                    <div style="display: flex; justify-content: space-between;
             flex-wrap: wrap;">
-                <div class="h5-detail">Quản lý phòng chiếu</div>
-                <form action="/admin/room/search-room" method="get" class="purchase-search search-admin" style="width: 40%; padding-left: 0 !important">
-                    <input type="text" id="myInput" class="form-control" placeholder="Tìm kiếm " name="nameRoom">
-                    <!-- <button class="submitsearch btn btn-buy btnSearchTime" type="submit"><i class="fa fa-search"></i></button> -->
-                </form>
-            </div>
-            <span class="line-detail"></span>
-            <form action="">
-                <div class="btn-themmoi">
-                    <button type="button" id="btnAddRoom" class="btn-common btn-buy btn-add-room" data-toggle="modal"
-                    data-target=".bd-example-modal-lg"><i class="fa fa-plus" aria-hidden="true"></i>
-                    Thêm mới</button>
-                </div>
-                <table class="table table-striped table-bordered table-room " style="font-size: 15px;">
-                    <!-- Add room -->
-                    <form class="formAdd" action="" method="">
-                        <div id="modalAddRoom" class="modal modal-add-st">
-                            <div class="modal-content modal-room">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Thêm phòng chiếu</h4>
-                                    <button type="button" class="close-room close"
-                                        data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body-plus">
-                                    <div class="wrapModal">
-                                        <div class="rowShowTime">
-                                            <div class="rowST">
-                                                <label style="width: 150px;" for="">Tên phòng chiếu</label>
-                                                <div class="form-user">
-                                                    <input id=""
-                                                        class="date-lc dateAdd form-select nameRoom "
-                                                        style="background-image: none;" type="text"
-                                                        style="width:100%">
-                                                        <span class="span-error-add"></span>
+                        <div class="h5-detail">Quản lý phòng chiếu</div>
+                        <form action="/admin/room/search-room" method="get" class="purchase-search search-admin"
+                            style="width: 40%; padding-left: 0 !important">
+                            <input type="text" id="myInput" class="form-control" placeholder="Tìm kiếm "
+                                name="nameRoom">
+                            <!-- <button class="submitsearch btn btn-buy btnSearchTime" type="submit"><i class="fa fa-search"></i></button> -->
+                        </form>
+                    </div>
+                    <span class="line-detail"></span>
+                    <form action="">
+                        <div class="btn-themmoi">
+                            <button type="button" id="btnAddRoom" class="btn-common btn-buy btn-add-room"
+                                data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus"
+                                    aria-hidden="true"></i>
+                                Thêm mới</button>
+                        </div>
+                        <table class="table table-striped table-bordered table-room " style="font-size: 15px;">
+                            <!-- Add room -->
+                            <form class="formAdd" action="" method="">
+                                <div id="modalAddRoom" class="modal modal-add-st">
+                                    <div class="modal-content modal-room">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Thêm phòng chiếu</h4>
+                                            <button type="button" class="close-room close"
+                                                data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body-plus">
+                                            <div class="wrapModal">
+                                                <div class="rowShowTime">
+                                                    <div class="rowST">
+                                                        <label style="width: 150px;" for="">Tên phòng chiếu</label>
+                                                        <div class="form-user">
+                                                            <input id="" class="date-lc dateAdd form-select nameRoom "
+                                                                style="background-image: none;" type="text"
+                                                                style="width:100%">
+                                                            <span class="span-error-add"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rowShowTime">
+                                                    <label style="width: 150px;" for="">Số ghế</label>
+                                                    <div class="rowST">
+                                                        <select id="" class="form-select typeRoom">
+                                                            <option value="114">
+                                                                114
+                                                            </option>
+                                                            <option value="85">
+                                                                85
+                                                            </option>
+                                                        </select>
+                                                        <span class="span-error"></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="rowShowTime">
-                                            <label style="width: 150px;" for="">Số ghế</label>
-                                            <div class="rowST">
-                                                <select id="" class="form-select typeRoom">
-                                                    <option value="114">
-                                                        114
-                                                    </option>
-                                                    <option value="85">
-                                                        85
-                                                    </option>
-                                                </select>
-                                                <span class="span-error"></span>
+                                        <div class="modal-footer footer-add">
+                                            <p class="alertAdd"></p>
+                                            <div class="footer-add-btn">
+                                                <button type="button"
+                                                    class="btn btn-secondary close-CL close-room">Đóng</button>
+                                                <button type="button" class="btn-common close-AC saveAdd">Thêm</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer footer-add">
-                                    <p class="alertAdd"></p>
-                                    <div class="footer-add-btn">
-                                        <button type="button"
-                                        class="btn btn-secondary close-CL close-room">Đóng</button>
-                                        <button type="button" class="btn-common close-AC saveAdd">Thêm</button>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </form>
-                    <%if (rooms.length!=0){%>
-                        <div class="no-show">
-                            <h1>Không có phòng chiếu nào phù hợp</h1>
-                            <img src="/img/movie.gif" alt="">
-                        </div>
-                        <thead class="headerTable header-room">
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col" class="nameTh">Tên phòng chiếu</th>
-                                <th scope="col">Số ghế</th>
-                                <th scope="col">Tình trạng</th>
-                                <th scope="col" style="width: 11%;">
-                                   
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="myTable">
-                            <%var i=1%>
-                            <%rooms.forEach(function(room){%>
-                                <tr class="contain-row">
-                                    <th scope="row" class="count" style="width: 1%">
-                                        <%=i++%>
-                                    </th>
-                                    <td class="nameRoomTable" style="width: 20%;">
-                                        <%=room.name%>
-                                    </td>
-                                    <td><%=room.type%></td>
-                                    <td>
-                                        <div class="form-check form-switch" style="padding-left: 2.5rem;">
-                                            <input onclick="handleBlock(this,event);" <%if (room.block==0){%> checked <%}%> class="swclosed form-check-input" id="<%=room._id%>" type="checkbox" role="switch" />
-                                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="btn-mode">
-                                            <button type="button" id="<%=room._id%>" onclick="loadEdit(this);" id="btnEditRoom"><i class="btnEditRoom fa fa-pencil-square-o"
-                                                    aria-hidden="true"></i></button>
-                                            <button type="button"><i id="<%=room._id%>" onclick="handleDelete(this);" class="btnDeleteRoom fa fa-times" aria-hidden="true"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <%})%>
-                        </tbody>
-                    <%} else {%>
-                        <div class="no-show">
-                            <h1>Không có phòng chiếu nào phù hợp</h1>
-                            <img src="/img/movie.gif" alt="">
-                        </div>
-                    <%}%>
-                    
-                      <!-- Edit room -->
-                      <form action="" method="">
-                        <div id="modalEditRoom" class="modal modal-add-st">
-                            <div class="modal-content modal-room">
-                                <div class="modal-header">
-                                    <h4 class="modal-title"> <i class="fa fa-pencil" aria-hidden="true"></i> Chỉnh sửa thông tin phòng chiếu</h4>
-                                    <button type="button" class="close-room close"
-                                        data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body-plus">
-                                    <div class="wrapModal">
-                                        <div class="rowShowTime">
-                                            <div class="rowST">
-                                                <label style="width: 150px;" for="">Tên phòng chiếu</label>
-                                                <div class="form-user">
-                                                    <input name="name" id=""
-                                                        value="CINEMA 1"
-                                                        class="date-lc nameEdit form-select"
-                                                        style="background-image: none;" type="text"
-                                                        style="width:100%">
-                                                        <span class="span-error-edit"></span>
-                                                </div>
-                                                <input type="hidden" class="idHidden" name="" id="">
-                                            </div>
-                                        </div>
-                                        <div class="rowShowTime">
-                                            <label style="width: 150px;" for="">Số ghế</label>
-                                            <div class="rowST">
-                                                <select disabled name="" id="" class="form-select typeEdit">
-                                                    Chọn số ghế
-                                                    <option value="114">
-                                                        114
-                                                    </option>
-                                                    <option value="85">
-                                                        85
-                                                    </option>
-                                                </select>
-                                                <span class="span-error"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer footer-add">
-                                    <p class="alertEdit"></p>
-                                    <div class="footer-add-btn">
-                                        <button type="button"
-                                        class="btn btn-secondary close-CL close-room">Đóng</button>
-                                        <button type="button" class="btn-common close-AC saveEdit">Xác nhận</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </table>
 
-            </form>
-        </div>
-    </div>
-    <script src="/js/validate-thitran.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/admin-room.js"></script>
-    
-</body>
-<script>
-    $(document).ready(function(){
-        $('.no-show').hide();
-    $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-        if($("#myTable tr:visible").length===0){
-            $('.no-show').show();
-            $('.headerTable').hide();
-        }else{
+                                    </div>
+                                </div>
+                            </form>
+                            <%if (rooms.length!=0){%>
+                                <div class="no-show">
+                                    <h1>Không có phòng chiếu nào phù hợp</h1>
+                                    <img src="/img/movie.gif" alt="">
+                                </div>
+                                <thead class="headerTable header-room">
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col" class="nameTh">Tên phòng chiếu</th>
+                                        <th scope="col">Số ghế</th>
+                                        <th scope="col">Tình trạng</th>
+                                        <th scope="col" style="width: 11%;">
+
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myTable">
+                                    <%var i=1%>
+                                        <%rooms.forEach(function(room){%>
+                                            <tr class="contain-row">
+                                                <th scope="row" class="count" style="width: 1%">
+                                                    <%=i++%>
+                                                </th>
+                                                <td class="nameRoomTable" style="width: 20%;">
+                                                    <%=room.name%>
+                                                </td>
+                                                <td>
+                                                    <%=room.type%>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-switch" style="padding-left: 2.5rem;">
+                                                        <input onclick="handleBlock(this,event);" <%if
+                                                            (room.block==0){%> checked <%}%> class="swclosed
+                                                            form-check-input" id="<%=room._id%>" type="checkbox"
+                                                                role="switch" />
+                                                                <label class="form-check-label"
+                                                                    for="flexSwitchCheckChecked"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-mode">
+                                                        <button type="button" id="<%=room._id%>"
+                                                            onclick="loadEdit(this);" id="btnEditRoom"><i
+                                                                class="btnEditRoom fa fa-pencil-square-o"
+                                                                aria-hidden="true"></i></button>
+                                                        <button type="button"><i id="<%=room._id%>"
+                                                                onclick="handleDelete(this);"
+                                                                class="btnDeleteRoom fa fa-times"
+                                                                aria-hidden="true"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <%})%>
+                                </tbody>
+                                <%} else {%>
+                                    <div class="no-show">
+                                        <h1>Không có phòng chiếu nào phù hợp</h1>
+                                        <img src="/img/movie.gif" alt="">
+                                    </div>
+                                    <%}%>
+
+                                        <!-- Edit room -->
+                                        <form action="" method="">
+                                            <div id="modalEditRoom" class="modal modal-add-st">
+                                                <div class="modal-content modal-room">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title"> <i class="fa fa-pencil"
+                                                                aria-hidden="true"></i> Chỉnh sửa thông tin phòng chiếu
+                                                        </h4>
+                                                        <button type="button" class="close-room close"
+                                                            data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body-plus">
+                                                        <div class="wrapModal">
+                                                            <div class="rowShowTime">
+                                                                <div class="rowST">
+                                                                    <label style="width: 150px;" for="">Tên phòng
+                                                                        chiếu</label>
+                                                                    <div class="form-user">
+                                                                        <input name="name" id="" value="CINEMA 1"
+                                                                            class="date-lc nameEdit form-select"
+                                                                            style="background-image: none;" type="text"
+                                                                            style="width:100%">
+                                                                        <span class="span-error-edit"></span>
+                                                                    </div>
+                                                                    <input type="hidden" class="idHidden" name="" id="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="rowShowTime">
+                                                                <label style="width: 150px;" for="">Số ghế</label>
+                                                                <div class="rowST">
+                                                                    <select disabled name="" id=""
+                                                                        class="form-select typeEdit">
+                                                                        Chọn số ghế
+                                                                        <option value="114">
+                                                                            114
+                                                                        </option>
+                                                                        <option value="85">
+                                                                            85
+                                                                        </option>
+                                                                    </select>
+                                                                    <span class="span-error"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="rowShowTime">
+                                                                <button class="saveDelete del1 btn-common"
+                                                                    id="btn-close-seat" type="button">Đóng ghế</button>
+                                                                <div id="modalSeat" class="modal modal-add-st">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title"> <i
+                                                                                    class="fa fa-pencil"
+                                                                                    aria-hidden="true"></i> Chỉnh sửa
+                                                                                ghế</h4>
+                                                                            <button type="button"
+                                                                                class="close-seat close"
+                                                                                data-dismiss="modal">&times;</button>
+                                                                        </div>
+                                                                        <div class="modal-body-plus">
+                                                                            ABC
+                                                                        </div>
+                                                                        <div class="modal-footer footer-add">
+                                                                            <p class="alertEdit"></p>
+                                                                            <div class="footer-add-btn">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary close-CL close-seat">Đóng</button>
+                                                                                <button type="button"
+                                                                                    class="btn-common close-AC close-seat">Xác
+                                                                                    nhận</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer footer-add">
+                                                        <p class="alertEdit"></p>
+                                                        <div class="footer-add-btn">
+                                                            <button type="button"
+                                                                class="btn btn-secondary close-CL close-room">Đóng</button>
+                                                            <button type="button"
+                                                                class="btn-common close-AC saveEdit">Xác nhận</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+            <script src="/js/validate-thitran.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="/js/bootstrap.min.js"></script>
+            <script src="/js/admin-room.js"></script>
+
+    </body>
+    <script>
+        $(document).ready(function () {
             $('.no-show').hide();
-            $('.headerTable').show();
-        }
-    });
-    });
-</script>
-</html>
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                if ($("#myTable tr:visible").length === 0) {
+                    $('.no-show').show();
+                    $('.headerTable').hide();
+                } else {
+                    $('.no-show').hide();
+                    $('.headerTable').show();
+                }
+            });
+        });
+    </script>
+
+    </html>
