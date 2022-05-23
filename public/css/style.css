@@ -4145,3 +4145,43 @@ button.primaryContained:hover {
 .col-none{
     display: none;
 }
+.btn-closeseat{
+    height: 38px;
+    margin-left: 20px;
+    font-size: 15px;
+}
+.modal-seat-body{
+    flex-direction: column; 
+    padding: 20px 30px;
+    max-height: calc(100vh - 165px);
+}
+.modal-closeseat{
+    padding-top: 0px !important;
+}
+.modal-seat-body .btn-check:checked+.btn-primary{
+    background: #fdbc3b !important;
+    margin-right: 5px !important;
+    width:40px !important;
+    padding: 5px !important;
+}
+.modal-seat-body .btn-seat{
+    background: #333 !important;
+    margin-right: 5px !important;
+    width:40px !important;
+    padding: 5px !important;
+}
+.modal-seat-body .btn-check:checked+.btn-couple{
+    background: indianred !important;
+    margin-right: 5px !important;
+    width:100px !important;
+    padding: 5px !important;
+}
+.modal-seat-body .btn-couple{
+    background: #333 !important;
+    margin-right: 5px !important;
+    width:100px !important;
+    padding: 5px !important;
+}
+.seat-small {
+    padding: 0px 50px;
+}
