@@ -13,6 +13,10 @@ var RoomSchema = mongoose.Schema({
         type: Number,
         default:0
     },
+    seatBlock:{
+        type:Array,
+        default:[]
+    }
 })
 
 var Room = module.exports = mongoose.model('rooms',RoomSchema);

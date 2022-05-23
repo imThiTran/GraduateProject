@@ -194,41 +194,53 @@
                                                                         </div>
                                                                         <div class="modal-body-plus modal-seat-body">
                                                                            <!-- bảng ghế phòng lớn -->
-                                                                                    <div class="td-order">
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a1" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a1">A1</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a2" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a2">A2</label>
-                                                                
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a2" checked autocomplete="off" disabled>
+                                                                           <%var nameSeat=""%>
+                                                                           <%for (var i=1;i<=10;i++){%>
+                                                                            <div class="td-order">
+                                                                            <%if (i==1) {%><%nameSeat="A"%><%}%>
+                                                                            <%if (i==2) {%><%nameSeat="B"%><%}%>
+                                                                            <%if (i==3) {%><%nameSeat="C"%><%}%>
+                                                                            <%if (i==4) {%><%nameSeat="D"%><%}%>
+                                                                            <%if (i==5) {%><%nameSeat="E"%><%}%>
+                                                                            <%if (i==6) {%><%nameSeat="F"%><%}%>
+                                                                            <%if (i==7) {%><%nameSeat="G"%><%}%>
+                                                                            <%if (i==8) {%><%nameSeat="H"%><%}%>
+                                                                            <%if (i==9) {%><%nameSeat="J"%><%}%>
+                                                                            <%if (i==10) {%><%nameSeat="K"%><%}%>
+                                                                            <%if(nameSeat=="K"){%>
+                                                                                <%for(var j=1;j<=6;j++){%>
+                                                                                    <%if (j==1 || j==5){%>
+                                                                                        <input type="checkbox" class="btn-check couple" id="btn-check-<%=nameSeat%><%=j%>"  autocomplete="off">
+                                                                                        <label class="btn btn-primary btn-couple btn-seat" for="btn-check-<%=nameSeat%><%=j%>"><%=nameSeat%><%=j%></label>
+                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
                                                                                         <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>
-                                                                
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a3" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a3">A3</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a4" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a4">A4</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a5" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a5">A5</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a6" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a6">A6</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a7" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a7">A7</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a8" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a8">A8</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a9" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a9">A9</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a10" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a10">A10</label>
-                                                                
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a2" checked autocomplete="off" disabled>
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>
-                                                                
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a11" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a11">A11</label>
-                                                                                        <input type="checkbox" class="btn-check" id="btn-check-a12" checked autocomplete="off">
-                                                                                        <label class="btn btn-primary btn-seat" for="btn-check-a12">A12</label>
-                                                                                    </div>
-                                                                                    <div class="td-order">
+                                                                                    <%} else {%>
+                                                                                        <input type="checkbox" class="btn-check couple" id="btn-check-<%=nameSeat%><%=j%>"  autocomplete="off">
+                                                                                        <label class="btn btn-primary btn-couple btn-seat" for="btn-check-<%=nameSeat%><%=j%>"><%=nameSeat%><%=j%></label>
+                                                                                    <%}%>
+                                                                                <%}%>
+                                                                            <%} else {%>
+                                                                                <%for(var j=1;j<=12;j++){%>
+                                                                                    <%if(j==2||j==10){%>
+                                                                                    <input type="checkbox" class="btn-check" id="btn-check-<%=nameSeat%><%=j%>"  autocomplete="off">
+                                                                                    <label class="btn btn-primary btn-seat" for="btn-check-<%=nameSeat%><%=j%>"><%=nameSeat%><%=j%></label>
+                                                                                    <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
+                                                                                    <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>
+                                                                                    <%}else {%>
+                                                                                    <input type="checkbox" class="btn-check" id="btn-check-<%=nameSeat%><%=j%>"  autocomplete="off">
+                                                                                    <label class="btn btn-primary btn-seat" for="btn-check-<%=nameSeat%><%=j%>"><%=nameSeat%><%=j%></label>
+                                                                                    <%}%>
+                                                                                    
+                                                                                <%}%>
+                                                                            <%}%>
+                                                                            
+                                                                                
+                                                                            
+                                                                            </div>
+                                                                           <%}%>
+                                                                                    
+                                                                                        
+                                                                                    <!-- <div class="td-order">
                                                                                         <input type="checkbox" class="btn-check" id="btn-check-b1" checked autocomplete="off">
                                                                                         <label class="btn btn-primary btn-seat" for="btn-check-b1">B1</label>
                                                                                         <input type="checkbox" class="btn-check" id="btn-check-b2" checked autocomplete="off">
@@ -518,7 +530,7 @@
                                                                                         <input type="checkbox" class="btn-check couple" id="btn-check-k6" checked autocomplete="off">
                                                                                         <label class="btn btn-primary btn-couple btn-seat" for="btn-check-k6">K6</label>
                                                                 
-                                                                                    </div>
+                                                                                    </div> -->
 
                                                                                     <!-- form phòng nhỏ -->
                                                                                 <!-- <div class="seat-small">

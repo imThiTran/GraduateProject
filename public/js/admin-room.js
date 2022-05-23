@@ -231,7 +231,9 @@ function handleBlock(t, e) {
 }
 //CLOSE SEAT
 $('#btn-close-seat').on('click', function () {
+  var seats=$('.btn-check');
   modalSeat.style.display = "block";
+  console.log(seats);
 });
 $('.close-seat').on('click', function () {
   modalSeat.style.display = "none";
