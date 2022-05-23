@@ -852,19 +852,25 @@ a:hover {
 /* .img-option img {
     width: 100%;
 } */
+.title-option{
+    max-width: 270px;
+}
 
 .title-option h5 {
     font-weight: 600;
-    line-height: .7;
+    line-height: 1;
     font-size: 18px;
+    white-space: pre-wrap;
 }
 
 .title-option h6 {
     font-size: 16px;
+    white-space: pre-wrap;
 }
 
 .rating-flex {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .rating-flex img {
