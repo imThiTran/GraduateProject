@@ -86,7 +86,7 @@ nav.sticky {
         margin-right: 45px !important;
     }
     .coming-english{
-        width: 188px !important;
+        width: 150px !important;
     }
     .coming-side .coming-movie:nth-child(3n){
         margin-right: 0px !important;
@@ -267,7 +267,7 @@ nav.sticky {
         justify-content: space-between !important;
     }
     .coming-movie{
-        width: 170px !important;
+        width: 150px !important;
         margin-right: 11px !important;
     }
     .rating-movie{
@@ -366,6 +366,10 @@ nav.sticky {
     }
     .gia-price{
         zoom: 47%;
+        justify-content: space-between !important;
+    }
+    .sukien-img img {
+        width: 340px !important;
     }
     .event-body{
         flex-direction: column;
@@ -399,7 +403,7 @@ nav.sticky {
     .userInfo-col{
         zoom: 90%;
         min-height: 0px !important;
-        margin: 20px 10px -30px 10px !important;
+        margin: 20px 10px 10px 10px !important;
     }
     .userInfo-background{
         min-height: 0px !important;
@@ -510,7 +514,7 @@ nav.sticky {
         zoom: 100%;
     }
     .poster-movie{
-        width: 170px !important;
+        width: 150px !important;
         height: 200px !important;
     }
     .modal-content{
@@ -527,11 +531,10 @@ nav.sticky {
         margin-right: 0px !important;
     }
     .coming-movie-cate{
-        width: 175px !important;
+        width: 150px !important;
     }
     .event-about-img img{
-        width: 100% !important;
-        min-width: 360px !important;
+        min-width: 340px !important;
     }
     .event-about{
         width: 360px !important;
@@ -604,7 +607,10 @@ nav.sticky {
    }
    .modal-add-snack{
     zoom: 130%;
-}
+    }
+    .modal-closeseat{
+        zoom: 100%;
+    }
 }
 @media (max-width: 400px) {
     nav.sticky {
@@ -4159,29 +4165,32 @@ button.primaryContained:hover {
     padding-top: 0px !important;
 }
 .modal-seat-body .btn-check:checked+.btn-primary{
-    background: #fdbc3b !important;
+    background: #333!important;
+    color: #eee !important;
     margin-right: 5px !important;
     width:40px !important;
     padding: 5px !important;
 }
 .modal-seat-body .btn-seat{
-    background: #333 !important;
+    background: #fdbc3b !important;
     margin-right: 5px !important;
     width:40px !important;
     padding: 5px !important;
 }
 .modal-seat-body .btn-check:checked+.btn-couple{
-    background: indianred !important;
+    background: #333 !important;
+    color: #eee !important;
     margin-right: 5px !important;
     width:100px !important;
     padding: 5px !important;
 }
 .modal-seat-body .btn-couple{
-    background: #333 !important;
+    background: indianred !important;
     margin-right: 5px !important;
     width:100px !important;
     padding: 5px !important;
 }
 .seat-small {
     padding: 0px 50px;
+    display: none;
 }
