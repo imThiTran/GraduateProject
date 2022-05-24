@@ -4200,3 +4200,6 @@ button.primaryContained:hover {
     padding: 0px 50px;
     display: none;
 }
+.seat-big{
+    display:block;
+}
