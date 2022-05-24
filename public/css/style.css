@@ -4198,5 +4198,8 @@ button.primaryContained:hover {
 }
 .seat-small {
     padding: 0px 50px;
-    display: block;
+    display: none;
+}
+.seat-big{
+    display:block;
 }

@@ -118,4 +118,16 @@ router.post('/view-close-seat/:id',(req,res)=>{
     })
 })
 
+router.post('/save-close-seat/:id',(req,res)=>{
+    var idRoom=req.params.id;
+    var roomCloseds=req.body.roomCloseds;
+    Room.findById(idRoom, (err, ro) => {
+        ro.seatBlock=roomCloseds;
+        ro.save(function(err){
+            if (err) console.log(err);
+            res.send('success');
+        })
+    })
+})
+
 module.exports = router;

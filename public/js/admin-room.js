@@ -231,13 +231,72 @@ function handleBlock(t, e) {
 
 }
 //CLOSE SEAT
+var typeRoom=0;
+var seats=$('.btn-check');
 $('#btn-close-seat').on('click', function () {
-  var seats=$('.btn-check');
   var idRoom=$(this).attr('idRoom');
-  modalSeat.style.display = "block";
   $('.seat-small').css('display','block');
-  
+  $.ajax({
+    url: "/admin/room/view-close-seat/" + idRoom,
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(),
+    success: function (result) {
+      typeRoom=result.type;
+      modalSeat.style.display = "block";
+      seats.each(function(){
+        if ($(this).val()!="" && result.seatBlock.indexOf($(this).val())!=-1) $(this).prop('checked',true); 
+      })
+      if (typeRoom==114){
+        $('.seat-big').css('display','block');
+        $('.seat-small').css('display','none');
+      } else {
+        $('.seat-small').css('display','block');
+        $('.seat-big').css('display','none');
+      }
+    }
+  })
 });
+
 $('.close-seat').on('click', function () {
   modalSeat.style.display = "none";
+  seats.each(function(){
+    $(this).prop('checked',false);
+  })
 });
+
+$('.save-close-seat').click(function(){
+  var idRoom=$("#btn-close-seat").attr('idRoom');
+  var roomClosedElemnts=[];
+  if (typeRoom==114){
+    roomClosedElemnts=$('.input-big:checked');
+  } else {
+    roomClosedElemnts=$('.input-small:checked');
+  }
+  var roomCloseds=[];
+  roomClosedElemnts.each(function(){
+    roomCloseds.push($(this).val());
+  })
+  $.ajax({
+    url: "/admin/room/save-close-seat/" + idRoom,
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({roomCloseds:roomCloseds}),
+    success: function (result) {
+      if (result=='success'){
+        seats.each(function(){
+          $(this).prop('checked',false);
+        })
+        modalSeat.style.display = "none";
+        Swal.fire({
+          icon: 'success',
+          title: 'Thực hiện thành công',
+          showConfirmButton: false,
+          timer: 1000
+        })
+      }
+      
+    }
+  })
+
+})

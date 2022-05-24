@@ -99,9 +99,9 @@ app.use('/qrcode',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkCu
 app.use('/admin/film',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminFilm);
 app.use('/admin/showtime',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminShowtime);
 app.use('/admin/user',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminUser);
-app.use('/admin/room',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminRoom);
+app.use('/admin/room',adminRoom);
 app.use('/admin/event',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminEvent);
-app.use('/admin/snack',adminSnack);
+app.use('/admin/snack',checkOpenBlock,checkBlockShowtime,checkLogin,checkUser,checkAdmin,checkCurrentBlock,adminSnack);
 app.use('/admin/statistical',checkLogin,checkUser,checkAdmin,adminStatistical);
 
 app.use((req, res, next) => {
