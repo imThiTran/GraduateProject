@@ -4198,5 +4198,5 @@ button.primaryContained:hover {
 }
 .seat-small {
     padding: 0px 50px;
-    display: none;
+    display: block;
 }

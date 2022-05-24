@@ -111,4 +111,11 @@ router.post('/edit-room', (req, res) => {
     })
 })
 
+router.post('/view-close-seat/:id',(req,res)=>{
+    var idRoom=req.params.id;
+    Room.findById(idRoom, (err, ro) => {
+        res.send(ro);
+    })
+})
+
 module.exports = router;

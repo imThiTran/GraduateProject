@@ -84,6 +84,7 @@ var nameEdit;
 //load edit
 function loadEdit(th) {
   var idRoom = th.getAttribute('id');
+  $('.btn-closeseat').attr('idRoom',idRoom);
   nameEdit = th.closest('.contain-row').querySelector('.nameRoomTable');
   $.ajax({
     url: "/admin/room/load-edit/" + idRoom,
@@ -232,8 +233,10 @@ function handleBlock(t, e) {
 //CLOSE SEAT
 $('#btn-close-seat').on('click', function () {
   var seats=$('.btn-check');
+  var idRoom=$(this).attr('idRoom');
   modalSeat.style.display = "block";
-  console.log(seats);
+  $('.seat-small').css('display','block');
+  
 });
 $('.close-seat').on('click', function () {
   modalSeat.style.display = "none";
