@@ -86,4 +86,7 @@
     </script>
 
 </body>
-<%- include ('../layouts/chat') %>
+<%if (user.actor=='admin' || user.actor=='staff'){%>
+    <%}else {%>
+        <%- include ('../layouts/chat') %>
+    <%}%>

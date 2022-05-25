@@ -276,6 +276,10 @@
 
         </div>
     </section>
+    <%if (user.actor=='admin' || user.actor=='staff'){%>
+        <%}else {%>
+            <%- include ('../layouts/chat') %>
+        <%}%>
 </body>
 <%- include ('../layouts/footer') %>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
