@@ -2,22 +2,31 @@ var Room = require('../models/room')
 var Ticket = require('../models/ticket')
 var Showtime=require('../models/showtime')
 
-function checPayment(){
-    setInterval(function () {
+function checkCloseSeat(){
+     setInterval(function () {
         //checkpayment
-        Bill.find({payment:'0'}, function(err,bills){              
-            bills.forEach((bill)=>{
-                //Check booking time quá 10p
-                if((date-bill.timebooking)>600000){
-                    Ticket.updateMany({"_id": {"$in" : bill.ticket}},{$set: {available:'1'}},function(err,tk){
-                        if (err) throw err; 
+        Room.find({},(err,ro)=>{
+            var roHasSeatClose=ro.filter(r=>r.seatBlock.length>0);
+            Showtime.find({},(err,st)=>{
+                var ShowtimeClose=[];
+                roHasSeatClose.forEach(function(ro){
+                    st.forEach(function(stFe){
+                        if (stFe.idRoom==ro._id.toString()) ShowtimeClose.push({
+                            idSt:stFe._id.toString(),
+                            seatBlock:ro.seatBlock
+                        })
                     })
-                    Bill.findByIdAndRemove(bill._id, (err) => {
-                        if (err) throw err;                        
-                    })                    
-                }                    
+                    ShowtimeClose.forEach(function(ShowtimeCloseFe){
+                        Ticket.updateMany({ idShowtime: ShowtimeCloseFe.idSt, name: { $in: ShowtimeCloseFe.seatBlock } },
+                    {
+                        $set: { available:-1  }
+                    }, function (err, result) {
+                        if (err) throw err;
+                    })       
+                    })
+                })
             })
         })
-    }, 2000);
+     }, 2000);
 }
-module.exports = checPayment();
+module.exports = checkCloseSeat();

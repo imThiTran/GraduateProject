@@ -107,22 +107,22 @@ router.post('/reload', (req, res) => {
                     for (var j = 0; j < a[i].length; j++) {
                         if (i != 9) {
                             if (j == 1 || j == 9) {
-                                htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" type="checkbox" price="${a[i][j].price}" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off"` + ((a[i][j].available == 0) ? `disabled` : ``) + ` >
+                                htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" type="checkbox" price="${a[i][j].price}" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off"` + ((a[i][j].available == 0 ||a[i][j].available == -1) ? `disabled` : ``) + ` >
                                             <label class="btn btn-primary btn-seat" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>
                                             <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
                                             <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>`;
                             } else {
-                                htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                                htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0 ||a[i][j].available == -1) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-seat" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>`;
                             }
                         } else {
                             if (j == 0 || j == 4) {
-                                htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                                htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0 ||a[i][j].available == -1) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-couple btn-seat" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>
                                             <input type="checkbox" class="btn-check" id="btn-check-a2"  autocomplete="off" disabled>
                                             <label class="btn btn-primary btn-seat" for="btn-check-a2" style="opacity: 0;"></label>`;
                             } else {
-                                htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                                htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0 ||a[i][j].available == -1) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-couple btn-seat" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>`
                             }
                         }
@@ -135,10 +135,10 @@ router.post('/reload', (req, res) => {
                     htmlSend = htmlSend + `<td class="td-order td-order-small">`;
                     for (var j = 0; j < a[i].length; j++) {
                         if (i != 8) {
-                            htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                            htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0 ||a[i][j].available == -1) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-seat btn-seat-small" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>`;
                         } else {
-                            htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0) ? `disabled` : ``) + `>
+                            htmlSend = htmlSend + `<input onclick="orderSeatHandle(this)" price="${a[i][j].price}" type="checkbox" name="ticket" value="` + a[i][j]._id + `" class="btn-check couple" id="btn-check-` + a[i][j].name + `"  autocomplete="off" ` + ((a[i][j].available == 0 ||a[i][j].available == -1) ? `disabled` : ``) + `>
                                             <label class="btn btn-primary btn-couple btn-seat btn-seat-small" for="btn-check-`+ a[i][j].name + `">` + a[i][j].name + `</label>`
                         }
                     }

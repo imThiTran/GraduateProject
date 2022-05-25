@@ -64,6 +64,10 @@ var checkPayment = require('./fcServer/checkPayment')
 checkPayment
 var resetVoucher = require('./fcServer/resetVoucher')
 resetVoucher
+var checkCloseSeat= require('./fcServer/checkCloseSeat');
+checkCloseSeat
+var checkOpenSeat= require('./fcServer/checkOpenSeat');
+checkOpenSeat
 
 var auth = require('./routes/auth');
 var user = require('./routes/user');
