@@ -81,10 +81,17 @@
                         <span class="alertcode"></span>                      
                     </div>
                     <div class="bill-text check-text">
-                        <div style="display: inline-block; margin-right: 20px;">Phương thức thanh toán </div>                        
-                        <select class="select-pay" name="payment">
-                            <option value="1">Thanh toán bằng Momo</option>
-                        </select>
+                        <div style="display: inline-block; margin-right: 20px;">Phương thức thanh toán </div>
+                        <%if (user.actor=='staff'){%>
+                            <select class="select-pay" name="payment">
+                                <option value="1">Thanh toán trực tiếp</option>
+                            </select>
+                        <%} else{%>
+                            <select class="select-pay" name="payment">
+                                <option value="1">Thanh toán bằng Momo</option>
+                            </select>
+                        <%}%>                     
+                        
                     </div>
                     <div class="btn-order-section" style="padding-top: 0px;">                        
                         <button type="button" class="btn btn-buy btn-back" onclick="history.back()">
