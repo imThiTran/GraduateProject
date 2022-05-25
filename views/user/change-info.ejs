@@ -114,6 +114,10 @@
 
         </div>
     </section>
+    <%if (user.actor=='admin' || user.actor=='staff'){%>
+        <%}else {%>
+            <%- include ('../layouts/chat') %>
+        <%}%>
 </body>
 <%- include('../layouts/footer') %>
 <script src="/js/validate-pass.js"></script>

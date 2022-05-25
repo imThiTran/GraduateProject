@@ -165,7 +165,10 @@
 
 
     </body>
-    <%- include ('../layouts/chat') %>
+    <%if (user.actor=='admin' || user.actor=='staff'){%>
+        <%}else {%>
+            <%- include ('../layouts/chat') %>
+        <%}%>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         var checked = [];
